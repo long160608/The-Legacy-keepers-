@@ -1,0 +1,78 @@
+{
+  "project": "The Legacy Keepers",
+  "version": "2.0.0",
+  "objects": [
+    {
+      "name": "Historical Pin",
+      "slug": "historical_pin",
+      "fields": [
+        { "slug": "name", "name": "Tên địa danh / Sự kiện", "type": "short_text" },
+        { 
+          "slug": "pin_type", 
+          "name": "Loại nội dung Pin", 
+          "type": "single_choice",
+          "options": [
+            { "slug": "landmark", "value": "Địa danh & Di tích", "icon": "🏛️" },
+            { "slug": "story", "value": "Câu chuyện & Mảnh ký ức", "icon": "📖" },
+            { "slug": "living_history", "value": "Nhân chứng Lịch sử / Thước phim Ký ức", "icon": "🎙️" },
+            { "slug": "battlefield", "value": "Trận đánh & Chiến dịch", "icon": "⚔️" },
+            { "slug": "culture", "value": "Văn hóa & Di sản Phi vật thể", "icon": "🎨" }
+          ]
+        },
+        {
+          "slug": "rarity",
+          "name": "Độ hiếm & Tầm phủ Radar",
+          "type": "single_choice",
+          "options": [
+            { "slug": "common", "value": "Thường (Radar: 1-2km, Check-in: 150m)" },
+            { "slug": "uncommon", "value": "Hiếm (Radar: 5-8km, Check-in: 80m)" },
+            { "slug": "legendary", "value": "Huyền thoại (Radar: 15-30km, Check-in: 30m)" },
+            { "slug": "event", "value": "Sự kiện giới hạn (Limited Event)" }
+          ]
+        },
+        { "slug": "latitude", "name": "Vĩ độ (GPS Lat)", "type": "decimal" },
+        { "slug": "longitude", "name": "Kinh độ (GPS Lng)", "type": "decimal" },
+        { "slug": "interaction_radius", "name": "Bán kính Check-in (m)", "type": "numeric" },
+        { "slug": "discovery_radius", "name": "Tầm phủ Radar (m)", "type": "numeric" },
+        { "slug": "audio_video_url", "name": "Link Audio / Video Ký ức", "type": "url" },
+        { "slug": "source_reference", "name": "Nguồn tư liệu kiểm chứng", "type": "short_text" },
+        { "slug": "description", "name": "Tóm tắt tư liệu lịch sử", "type": "long_text" }
+      ]
+    },
+    {
+      "name": "Historical Figure",
+      "slug": "historical_figure",
+      "fields": [
+        { "slug": "name", "name": "Tên Danh nhân", "type": "short_text" },
+        { "slug": "role_title", "name": "Tước vị / Vai trò", "type": "short_text" },
+        { "slug": "dynasty", "name": "Thời đại / Triều đại", "type": "short_text" },
+        { "slug": "avatar_url", "name": "Ảnh chân dung", "type": "url" },
+        { "slug": "biography", "name": "Tiểu sử cơ bản", "type": "long_text" }
+      ]
+    },
+    {
+      "name": "Figure Story",
+      "slug": "figure_story",
+      "fields": [
+        { "slug": "name", "name": "Tiêu đề Giai thoại", "type": "short_text" },
+        { "slug": "historical_figure", "name": "Thuộc Nhân vật", "type": "lookup_normal" },
+        { "slug": "required_pin", "name": "Pin cần đến Check-in", "type": "lookup_normal" },
+        { "slug": "is_locked", "name": "Đang bị khóa", "type": "boolean" },
+        { "slug": "unlock_instruction", "name": "Chỉ dẫn mở khóa", "type": "short_text" },
+        { "slug": "content", "name": "Nội dung chi tiết giai thoại", "type": "long_text" }
+      ]
+    },
+    {
+      "name": "Badge",
+      "slug": "badge",
+      "fields": [
+        { "slug": "name", "name": "Tên Huy hiệu", "type": "short_text" },
+        { "slug": "category", "name": "Bộ sưu tập", "type": "single_choice" },
+        { "slug": "tier", "name": "Phẩm cấp (Tier)", "type": "single_choice" },
+        { "slug": "criteria", "name": "Điều kiện đạt được", "type": "long_text" },
+        { "slug": "is_unlocked", "name": "Đã mở khóa", "type": "boolean" },
+        { "slug": "unlocked_date", "name": "Ngày nhận", "type": "date" }
+      ]
+    }
+  ]
+}

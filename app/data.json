@@ -1,0 +1,218 @@
+{
+  "pins": [
+    {
+      "id": "pin-thanglong",
+      "name": "Hoàng thành Thăng Long",
+      "category": "landmark",
+      "rarity": "legendary",
+      "lat": 21.0345600,
+      "lng": 105.8407400,
+      "discovery_radius": 25000,
+      "interaction_radius": 50,
+      "icon": "🏛️",
+      "image_url": "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=800&q=80",
+      "desc": "Di tích quốc gia đặc biệt, nơi phát hiệu ứng hào quang Aura Pulse toàn vùng. Trung tâm quyền lực suốt hơn 13 thế kỷ từ thời Tiền Thăng Long đến triều Lý, Trần, Lê.",
+      "hasLivingHistory": false
+    },
+    {
+      "id": "pin-bachdang",
+      "name": "Khu di tích Chiến thắng Bạch Đằng",
+      "category": "battlefield",
+      "rarity": "legendary",
+      "lat": 20.9168000,
+      "lng": 106.6667000,
+      "discovery_radius": 25000,
+      "interaction_radius": 100,
+      "icon": "⚔️",
+      "image_url": "https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=800&q=80",
+      "desc": "Chiến trường xưa với 3 lần đánh bại quân xâm lược phương Bắc bằng kế sách cắm cọc hiểm yếu dưới lòng sông của Ngô Quyền, Lê Hoàn và Trần Hưng Đạo.",
+      "hasLivingHistory": true
+    },
+    {
+      "id": "pin-ham-bietdong",
+      "name": "Căn hầm bí mật chứa vũ khí Biệt động Sài Gòn",
+      "category": "living_history",
+      "rarity": "uncommon",
+      "lat": 10.7769000,
+      "lng": 106.6953000,
+      "discovery_radius": 6000,
+      "interaction_radius": 80,
+      "icon": "🎙️",
+      "image_url": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
+      "desc": "Nơi cất giấu gần 2 tấn súng đạn, chất nổ của lực lượng Biệt động Sài Gòn ngay giữa lòng đô thành phục vụ cuộc Tổng tiến công Tết Mậu Thân 1968.",
+      "hasLivingHistory": true
+    },
+    {
+      "id": "pin-ben-nharong",
+      "name": "Bến Nhà Rồng - Bảo tàng Hồ Chí Minh",
+      "category": "landmark",
+      "rarity": "legendary",
+      "lat": 10.7684000,
+      "lng": 106.7068000,
+      "discovery_radius": 20000,
+      "interaction_radius": 50,
+      "icon": "🏛️",
+      "image_url": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=800&q=80",
+      "desc": "Nơi người thanh niên yêu nước Nguyễn Tất Thành ra đi tìm đường cứu nước vào ngày 5/6/1911 trên con tàu Amiral Latouche-Tréville.",
+      "hasLivingHistory": true
+    },
+    {
+      "id": "pin-dongda",
+      "name": "Công viên Văn hóa Đống Đa",
+      "category": "battlefield",
+      "rarity": "uncommon",
+      "lat": 21.0152000,
+      "lng": 105.8239000,
+      "discovery_radius": 7000,
+      "interaction_radius": 80,
+      "icon": "⚔️",
+      "image_url": "",
+      "desc": "Địa danh ghi dấu chiến công vang dội của Hoàng đế Quang Trung đại phá 29 vạn quân Mãn Thanh mùa xuân năm Kỷ Dậu 1789.",
+      "hasLivingHistory": false
+    },
+    {
+      "id": "pin-hatmon",
+      "name": "Đền thờ Hai Bà Trưng (Hát Môn)",
+      "category": "landmark",
+      "rarity": "legendary",
+      "lat": 21.1354000,
+      "lng": 105.5786000,
+      "discovery_radius": 15000,
+      "interaction_radius": 60,
+      "icon": "🏛️",
+      "image_url": "",
+      "desc": "Nơi Hai Bà Trưng tế cờ khởi nghĩa và đọc 4 lời thề cứu nước son sắt trước khi xuất quân trừng trị giặc Tô Định.",
+      "hasLivingHistory": false
+    }
+  ],
+
+  "figures": [
+    {
+      "id": "fig-tranquoctuan",
+      "name": "Hưng Đạo Đại Vương - Trần Quốc Tuấn",
+      "role": "Quốc công Tiết chế (Tổng tư lệnh quân đội)",
+      "dynasty": "Nhà Trần",
+      "years": "1228 – 1300",
+      "avatar": "⚔️",
+      "image_url": "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=800&q=80",
+      "background_image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80",
+      "quote": "Nếu bệ hạ muốn hàng, xin hãy chém đầu thần trước rồi hãy hàng!",
+      "bio": "Anh hùng dân tộc, thiên tài quân sự kiệt xuất ba lần chỉ huy quân dân Đại Việt đánh tan quân Nguyên Mông hung hãn, tác giả của bản 'Hịch Tướng Sĩ' truyền đời non sông.",
+      "related_pins": ["pin-bachdang", "pin-thanglong"]
+    },
+    {
+      "id": "fig-quangtrung",
+      "name": "Quang Trung - Nguyễn Huệ",
+      "role": "Hoàng đế bách chiến bách thắng",
+      "dynasty": "Nhà Tây Sơn",
+      "years": "1753 – 1792",
+      "avatar": "👑",
+      "image_url": "",
+      "background_image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
+      "quote": "Đánh cho để dài tóc, đánh cho để đen răng, đánh cho nó chích luân bất phản, phiến giáp bất hoàn!",
+      "bio": "Người anh hùng áo vải cờ đào kiệt xuất, đánh tan 5 vạn quân Xiêm rạch Gầm Xoài Mút và thần tốc vượt hơn 600km quét sạch 29 vạn quân Mãn Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+      "related_pins": ["pin-dongda"]
+    },
+    {
+      "id": "fig-haibatrung",
+      "name": "Hai Bà Trưng (Trưng Trắc & Trưng Nhị)",
+      "role": "Nữ vương phất cờ độc lập",
+      "dynasty": "Nhà Trưng",
+      "years": "Năm 40 – 43 SCN",
+      "avatar": "🛡️",
+      "image_url": "",
+      "background_image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
+      "quote": "Một xin rửa sạch nước thù / Hai xin đem lại nghiệp xưa họ Hùng!",
+      "bio": "Hai nữ anh hùng dân tộc đầu tiên phất cờ khởi nghĩa, thu phục 65 thành trì, đánh đuổi thái thú Tô Định, giành lại độc lập tự chủ cho non sông sau hơn 200 năm Bắc thuộc.",
+      "related_pins": ["pin-hatmon"]
+    }
+  ],
+
+  "stories": [
+    {
+      "id": "story-camcoc",
+      "name": "Kế sách cắm cọc sông Bạch Đằng",
+      "figure_id": "fig-tranquoctuan",
+      "required_pin_id": "pin-bachdang",
+      "is_locked": false,
+      "background_image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "content": "Năm 1288, trước thế giặc Nguyên Mông hung hãn rút lui bằng đường thủy, Trần Quốc Tuấn đã lợi dụng con nước thủy triều hiểm yếu của sông Bạch Đằng.\n\nÔng cho đẵn gỗ lim, vót nhọn bịt sắt rồi cắm xuống lòng sông. Nhân lúc nước triều dâng che khuất bãi cọc, quân ta nhử thuyền giặc vào sâu. Khi nước triều rút mạnh, thuyền địch mắc cạn vào cọc nhọn vỡ toác hàng loạt, toàn bộ hạm đội giặc bị tiêu diệt vang dội non sông."
+    },
+    {
+      "id": "story-dienhong",
+      "name": "Hội nghị Diên Hồng & Lời thề Sát Thát",
+      "figure_id": "fig-tranquoctuan",
+      "required_pin_id": "pin-thanglong",
+      "is_locked": true,
+      "background_image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+      "content": "Tại thềm điện Diên Hồng, vua Trần mở tiệc hỏi ý kiến muôn dân: 'Nên hòa hay nên đánh?'. Muôn người cùng muôn miệng reo hò rung chuyển kinh thành: 'ĐÁNH!'.\n\nCác tướng sĩ đồng lòng thích hai chữ 'Sát Thát' vào cánh tay, thề quyết tử cho Tổ quốc quyết sinh."
+    },
+    {
+      "id": "story-hanhquan-thantoc",
+      "name": "Cuộc hành quân thần tốc mùa xuân Kỷ Dậu",
+      "figure_id": "fig-quangtrung",
+      "required_pin_id": "pin-dongda",
+      "is_locked": true,
+      "background_image": "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=800&q=80",
+      "content": "Từ Phú Xuân ra Thăng Long dài hơn 600km, vua Quang Trung tổ chức đội hình 3 người một cáng, 2 người khiêng 1 người ngủ luân phiên ngày đêm không nghỉ.\n\nĐoàn quân thần tốc vừa đi vừa tuyển thêm tân binh, tạo nên cuộc hành quân kỳ tích vô tiền khoáng hậu khiến tướng giặc Tôn Sĩ Nghị không kịp trở tay."
+    },
+    {
+      "id": "story-ngochoi-dongda",
+      "name": "Trận đại thắng Ngọc Hồi - Đống Đa",
+      "figure_id": "fig-quangtrung",
+      "required_pin_id": "pin-dongda",
+      "is_locked": true,
+      "background_image": "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?auto=format&fit=crop&w=800&q=80",
+      "content": "Rạng sáng mùng 5 Tết Kỷ Dậu, vua Quang Trung cho quân lấy thuyền nan bọc rơm ướt khiêng đi trước che đạn lửa của giặc, áp sát đồn Ngọc Hồi phá tan tuyến phòng thủ kiên cố nhất của địch."
+    },
+    {
+      "id": "story-loithe-songhat",
+      "name": "Lời thề trên sông Hát",
+      "figure_id": "fig-haibatrung",
+      "required_pin_id": "pin-hatmon",
+      "is_locked": true,
+      "background_image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+      "content": "Trước giờ xuất trận tại cửa sông Hát, Trưng Trắc dõng dạc tuyên thệ 4 câu thề:\n\n'Một xin rửa sạch nước thù\nHai xin đem lại nghiệp xưa họ Hùng\nBa kẻo oan ức lòng chồng\nBốn xin vẹn vẹn sở công lênh này.'"
+    }
+  ],
+
+  "badges": [
+    {
+      "id": "badge-bachdang",
+      "name": "Kỵ Sĩ Sông Bạch Đằng",
+      "tier": "gold",
+      "icon": "🎖️",
+      "category": "Người chinh phục lịch sử",
+      "criteria": "Check-in thành công tại Di tích Bạch Đằng và mở khóa kế sách cắm cọc.",
+      "is_unlocked": true,
+      "unlocked_date": "05/11/2026"
+    },
+    {
+      "id": "badge-thanglong",
+      "name": "Hào Khí Thăng Long",
+      "tier": "gold",
+      "icon": "🏛️",
+      "category": "Người chinh phục lịch sử",
+      "criteria": "Ghé thăm Hoàng thành Thăng Long và khám phá hội nghị Diên Hồng.",
+      "is_unlocked": false
+    },
+    {
+      "id": "badge-bacho",
+      "name": "Dấu Chân Bác Hồ",
+      "tier": "silver",
+      "icon": "🐾",
+      "category": "Khám phá Việt Nam",
+      "criteria": "Check-in Bến Nhà Rồng và lắng nghe tư liệu hành trình cứu nước 1911.",
+      "is_unlocked": false
+    },
+    {
+      "id": "badge-saigon",
+      "name": "Trái Tim Sài Gòn",
+      "tier": "bronze",
+      "icon": "🎙️",
+      "category": "Khám phá Việt Nam",
+      "criteria": "Check-in tại Căn hầm bí mật Biệt động Sài Gòn và nghe lời kể nhân chứng.",
+      "is_unlocked": false
+    }
+  ]
+}

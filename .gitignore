@@ -1,0 +1,12 @@
+# Credentials and local environment
+.env
+.env.local
+*.env
+
+# Python / Node caches
+__pycache__/
+*.py[cod]
+node_modules/
+dist/
+.DS_Store
+Thumbs.db

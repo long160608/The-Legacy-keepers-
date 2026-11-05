@@ -1,0 +1,150 @@
+{
+  "objects": [
+    {
+      "name": "Historical Pin",
+      "plural_name": "Historical Pins",
+      "slug": "historical_pin",
+      "description": "Ghim di tích và sự kiện lịch sử trên bản đồ",
+      "name_field": {
+        "name": "Pin name",
+        "type": "short_text"
+      },
+      "fields": [
+        {
+          "name": "Pin Type",
+          "slug": "pin_type",
+          "type": "single_choice",
+          "required": 1,
+          "options": [
+            { "slug": "historical_relic", "value": "Di tích lịch sử", "sort": 1 },
+            { "slug": "battle", "value": "Trận chiến hào hùng", "sort": 2 },
+            { "slug": "historical_figure", "value": "Nhân vật lịch sử", "sort": 3 },
+            { "slug": "story", "value": "Giai thoại / Câu chuyện", "sort": 4 }
+          ]
+        },
+        {
+          "name": "Rarity",
+          "slug": "rarity",
+          "type": "single_choice",
+          "required": 1,
+          "options": [
+            { "slug": "common", "value": "Thường (Common)", "sort": 1 },
+            { "slug": "rare", "value": "Hiếm (Rare)", "sort": 2 },
+            { "slug": "epic", "value": "Siêu hiếm (Epic)", "sort": 3 },
+            { "slug": "limited", "value": "Giới hạn (Limited)", "sort": 4 }
+          ]
+        },
+        {
+          "name": "Latitude",
+          "slug": "latitude",
+          "type": "decimal",
+          "precision": 7
+        },
+        {
+          "name": "Longitude",
+          "slug": "longitude",
+          "type": "decimal",
+          "precision": 7
+        },
+        {
+          "name": "Interaction Radius (m)",
+          "slug": "interaction_radius",
+          "type": "numeric",
+          "default_value": "50"
+        },
+        {
+          "name": "Description",
+          "slug": "description",
+          "type": "long_text"
+        }
+      ]
+    },
+    {
+      "name": "Historical Figure",
+      "plural_name": "Historical Figures",
+      "slug": "historical_figure",
+      "description": "Nhân vật lịch sử",
+      "name_field": {
+        "name": "Figure Name",
+        "type": "short_text"
+      },
+      "fields": [
+        {
+          "name": "Era / Dynasty",
+          "slug": "dynasty",
+          "type": "short_text"
+        },
+        {
+          "name": "Summary Biography",
+          "slug": "biography",
+          "type": "long_text"
+        }
+      ]
+    },
+    {
+      "name": "Figure Story",
+      "plural_name": "Figure Stories",
+      "slug": "figure_story",
+      "description": "Câu chuyện xoay quanh nhân vật lịch sử",
+      "name_field": {
+        "name": "Story Title",
+        "type": "short_text"
+      },
+      "fields": [
+        {
+          "name": "Historical Figure",
+          "slug": "historical_figure",
+          "type": "lookup_normal",
+          "target_object": "historical_figure",
+          "required": 1
+        },
+        {
+          "name": "Required Pin",
+          "slug": "required_pin",
+          "type": "lookup_normal",
+          "target_object": "historical_pin",
+          "required": 0
+        },
+        {
+          "name": "Is Locked",
+          "slug": "is_locked",
+          "type": "boolean",
+          "default_value": "1"
+        },
+        {
+          "name": "Story Content",
+          "slug": "content",
+          "type": "long_text",
+          "required": 1
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "plural_name": "Badges",
+      "slug": "badge",
+      "description": "Huy hiệu người chơi",
+      "name_field": {
+        "name": "Badge Name",
+        "type": "short_text"
+      },
+      "fields": [
+        {
+          "name": "Tier",
+          "slug": "tier",
+          "type": "single_choice",
+          "options": [
+            { "slug": "bronze", "value": "Đồng (Bronze)", "sort": 1 },
+            { "slug": "silver", "value": "Bạc (Silver)", "sort": 2 },
+            { "slug": "gold", "value": "Vàng (Gold)", "sort": 3 }
+          ]
+        },
+        {
+          "name": "Unlock Criteria",
+          "slug": "criteria",
+          "type": "long_text"
+        }
+      ]
+    }
+  ]
+}

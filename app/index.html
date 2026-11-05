@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Legacy Keepers - Bản đồ Di sản & Khám phá Lịch sử</title>
+  <!-- Local Leaflet fallback + CDN -->
+  <link rel="stylesheet" href="vendor/leaflet.css" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">📜</div>
+      <div class="brand-title">
+        <h1>The Legacy Keepers</h1>
+        <p>Hành trình Di sản Việt Nam</p>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li class="nav-item active" data-tab="tab-map">
+        <span>🧭</span> Radar Lịch sử
+      </li>
+      <li class="nav-item" data-tab="tab-figures">
+        <span>⚔️</span> Danh nhân Lịch sử
+      </li>
+      <li class="nav-item" data-tab="tab-badges">
+        <span>🏅</span> Hệ thống Huy hiệu
+      </li>
+      <li class="nav-item" data-tab="tab-profile">
+        <span>👤</span> Hồ sơ Nhà thám hiểm
+      </li>
+      <!-- CỔNG INPUT NHẬP DỮ LIỆU BẰNG TAY -->
+      <li class="nav-item highlight-nav" data-tab="tab-input-portal">
+        <span>✍️</span> <b>Cổng Nhập Liệu & CMS</b>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="sync-status-indicator">
+        <div class="status-dot"></div>
+        <span>Cogover Sync: Sẵn sàng</span>
+      </div>
+      <span style="font-size: 0.8rem; color: var(--text-muted);">v2.0</span>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT PANELS ==================== -->
+  <main class="main-content">
+    
+    <!-- TAB 1: RADAR MAP SCREEN -->
+    <section id="tab-map" class="tab-pane active">
+      <div id="map-view">
+        <!-- Bộ lọc Pin -->
+        <div class="map-filter-bar">
+          <button class="filter-btn active" data-filter="all">Tất cả Pin (<span id="count-all">0</span>)</button>
+          <button class="filter-btn" data-filter="landmark">🏛️ Di tích</button>
+          <button class="filter-btn" data-filter="battlefield">⚔️ Trận đánh</button>
+          <button class="filter-btn" data-filter="living_history">🎙️ Nhân chứng sống</button>
+          <button class="filter-btn" data-filter="story">📖 Mảnh ký ức</button>
+        </div>
+
+        <!-- Đình làng Cổ tích -->
+        <div class="decor-pagoda">
+          <span>⛩️</span> Đình làng Cổ tích (Điểm tựa Tinh thần)
+        </div>
+
+        <!-- Bản đồ Leaflet -->
+        <div id="map"></div>
+
+        <!-- GPS Navigator & Walk Simulator Control -->
+        <div class="map-bottom-controls">
+          <div class="gps-badge">
+            <div class="pulse-led"></div>
+            <span>Vị trí Radar: <b id="gps-coords-display">21.0285, 105.8542</b></span>
+          </div>
+          <button class="filter-btn" id="btn-real-gps" onclick="toggleRealGPS()" style="padding:4px 12px; font-size:0.8rem;">📍 Dùng GPS Thực</button>
+          <button class="filter-btn" id="btn-walk-sim" onclick="simulateWalk()" style="padding:4px 12px; font-size:0.8rem;">🚶 Đi tuần tra tới gần Pin</button>
+        </div>
+
+        <!-- Floating Quick Input Button on Map Screen -->
+        <button class="fab-quick-input" onclick="openQuickInputModal()">
+          <span>✍️</span> Thêm Địa Danh Mới
+        </button>
+      </div>
+    </section>
+
+    <!-- TAB 2: FIGURES & STORIES SCREEN (SPLIT VIEW: MỤC 1 BÊN - NỘI DUNG 1 BÊN) -->
+    <section id="tab-figures" class="tab-pane">
+      <div class="content-wrapper" style="max-width:1320px;">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Danh Nhân Lịch Sử & Hồ Sơ Di Sản</h2>
+            <p class="section-desc">Khám phá chân dung các bậc anh hùng hào kiệt và mở khóa kho tàng giai thoại oanh liệt gắn liền với non sông.</p>
+          </div>
+          <button class="btn-primary" onclick="switchToInputTab('subtab-figures')">+ Thêm Danh nhân mới</button>
+        </div>
+
+        <!-- TWO COLUMN SPLIT VIEW CONTAINER -->
+        <div class="figures-split-container">
+          <!-- LEFT COLUMN: MỤC DANH SÁCH DANH NHÂN -->
+          <div class="figures-sidebar">
+            <div class="figures-sidebar-header">
+              <input type="text" id="figures-search-input" class="form-input" placeholder="🔍 Tìm danh nhân, triều đại..." oninput="handleFigureSearch(this.value)">
+              <div class="figures-filter-chips" id="figures-filter-chips">
+                <span class="filter-chip active" onclick="filterFiguresByDynasty('all', this)">Tất cả</span>
+                <!-- Dynasty chips populated dynamically -->
+              </div>
+            </div>
+
+            <!-- List of figures -->
+            <div class="figures-list-wrap" id="figures-list-nav">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: NỘI DUNG CHI TIẾT HỒ SƠ DANH NHÂN -->
+          <div class="figures-detail-pane" id="figures-detail-content">
+            <!-- Dynamically populated rich dossier of selected figure -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: BADGES SCREEN -->
+    <section id="tab-badges" class="tab-pane">
+      <div class="content-wrapper">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Bộ Sưu Tập Huy Hiệu Di Sản</h2>
+            <p class="section-desc">Khám phá các di tích, giải mã câu chuyện và tham gia sự kiện để sưu tầm huy hiệu ánh kim danh giá.</p>
+          </div>
+          <button class="btn-primary" onclick="switchToInputTab('subtab-badges')">+ Thêm Huy hiệu mới</button>
+        </div>
+
+        <!-- Lưới huy hiệu -->
+        <div class="grid-cards" id="badges-grid">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: PORTFOLIO SCREEN -->
+    <section id="tab-profile" class="tab-pane">
+      <div class="content-wrapper">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Hồ Sơ Nhà Thám Hiểm</h2>
+            <p class="section-desc">Theo dõi tiến trình chu du non sông và mở khóa di sản lịch sử dân tộc.</p>
+          </div>
+        </div>
+
+        <!-- Banner Hồ sơ -->
+        <div class="profile-banner">
+          <div class="profile-avatar-large">🧙‍♂️</div>
+          <div style="flex:1;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 style="font-size:1.6rem; color:var(--primary-dark);" id="profile-display-name">Người Giữ Gìn Di Sản #001</h3>
+              <span class="badge-tag badge-gold" id="profile-level-badge">CẤP 2 • KỴ SĨ DI SẢN</span>
+            </div>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:2px;">@heritage_seeker • Khu vực: Thăng Long / Nam Bộ</p>
+            <p style="font-style:italic; color:var(--text-secondary); margin-top:8px;">"Dân ta phải biết sử ta, cho tường gốc tích nước nhà Việt Nam."</p>
+            
+            <!-- EXP Bar -->
+            <div style="margin-top:14px;">
+              <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--text-muted); margin-bottom:4px;">
+                <span>Điểm kinh nghiệm khám phá</span>
+                <span id="profile-exp-text">250 / 500 EXP</span>
+              </div>
+              <div style="height:10px; background:var(--neutral-200); border-radius:5px; overflow:hidden;">
+                <div id="profile-exp-bar" style="height:100%; width:50%; background:linear-gradient(90deg, var(--accent-camel), var(--accent-yellow));"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid 4 Chỉ số -->
+        <div class="profile-stats-grid">
+          <div class="stat-box">
+            <div class="stat-val" id="stat-pins-scanned">0</div>
+            <div class="stat-label">Địa danh đã check-in</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="stat-stories-unlocked">0</div>
+            <div class="stat-label">Giai thoại đã mở khóa</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="stat-badges-owned">0</div>
+            <div class="stat-label">Huy hiệu sở hữu</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="stat-km-traveled">12.5</div>
+            <div class="stat-label">Km đã thám hiểm</div>
+          </div>
+        </div>
+
+        <!-- Nhật ký hành trình -->
+        <h3 style="color:var(--primary-dark); margin-bottom:14px;">Nhật Ký Hành Trình Gần Đây</h3>
+        <div class="card" style="padding:16px;">
+          <ul id="activity-log-list" style="list-style:none; display:flex; flex-direction:column; gap:10px; font-size:0.9rem;">
+            <!-- Log items populated via JS -->
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TAB 5: CỔNG NHẬP LIỆU THỦ CÔNG (DATA INPUT PORTAL / CMS)
+         ========================================================================== -->
+    <section id="tab-input-portal" class="tab-pane">
+      <div class="content-wrapper">
+        <div class="input-portal-container">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Cổng Nhập Liệu Thủ Công (Game CMS)</h2>
+              <p class="section-desc">Bạn có thể tự tay tạo mới Ghim bản đồ, Danh nhân, Giai thoại lịch sử hoặc Huy hiệu. Dữ liệu sẽ lưu ngay vào ứng dụng và đồng bộ lên Cogover!</p>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <button class="btn-secondary" onclick="reloadFromDataJSON(true)" title="Đọc dữ liệu mới nhất từ file app/data.json trên máy">🔄 Nạp từ file data.json</button>
+              <label class="btn-secondary" style="cursor:pointer; margin-bottom:0;" title="Nhập dữ liệu từ file .json trong máy tính">
+                📤 Chọn file JSON
+                <input type="file" id="json-file-input" accept=".json" onchange="importJSONFile(event)" style="display:none;">
+              </label>
+              <button class="btn-secondary" onclick="exportDataJSON()" title="Tải toàn bộ dữ liệu hiện tại về máy dạng JSON">📥 Tải sao lưu JSON</button>
+            </div>
+          </div>
+
+          <!-- Sub Tabs Navigation -->
+          <div class="sub-tabs">
+            <button class="sub-tab-btn active" data-subtab="subtab-pins">📍 1. Ghim Địa danh (Pin)</button>
+            <button class="sub-tab-btn" data-subtab="subtab-figures">⚔️ 2. Danh nhân Lịch sử</button>
+            <button class="sub-tab-btn" data-subtab="subtab-stories">📖 3. Giai thoại Cốt truyện</button>
+            <button class="sub-tab-btn" data-subtab="subtab-badges">🏅 4. Huy hiệu Di sản</button>
+            <button class="sub-tab-btn" data-subtab="subtab-manage">🗂️ 5. Quản Lý & Xóa Dữ Liệu Test</button>
+          </div>
+
+          <!-- FORM 1: NHẬP GHIM ĐỊA DANH (PIN) -->
+          <div id="subtab-pins" class="form-panel active">
+            <form id="form-new-pin" onsubmit="handleCreatePin(event)">
+              <div class="form-grid">
+                <div class="form-group form-grid-full">
+                  <label>Tên Địa danh / Chiến trường / Điểm di tích <span class="req">*</span></label>
+                  <input type="text" class="form-input" id="pin-input-name" placeholder="Ví dụ: Đền Hùng, Ngã ba Đồng Lộc, Cố đô Hoa Lư..." required>
+                </div>
+
+                <div class="form-group">
+                  <label>Loại nội dung Pin <span class="req">*</span></label>
+                  <select class="form-select" id="pin-input-type" required>
+                    <option value="landmark">🏛️ Địa danh & Di tích (Công trình kiến trúc, danh thắng)</option>
+                    <option value="battlefield">⚔️ Trận đánh & Chiến dịch (Chiến trường xưa, tuyến đường lịch sử)</option>
+                    <option value="living_history">🎙️ Nhân chứng sống / Ký ức (Ghi âm cựu chiến binh, tư liệu sống)</option>
+                    <option value="story">📖 Mảnh ký ức & Sự kiện (Căn hầm, bia tưởng niệm)</option>
+                    <option value="culture">🎨 Văn hóa & Làng nghề truyền thống</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Độ hiếm & Tầm phủ Radar <span class="req">*</span></label>
+                  <select class="form-select" id="pin-input-rarity" required>
+                    <option value="common">Thường (Common) - Radar quét 1-2km, Check-in 150m</option>
+                    <option value="uncommon">Hiếm (Uncommon) - Radar quét 5-8km, Check-in 80m</option>
+                    <option value="legendary">Huyền thoại (Legendary) - Radar quét 15-30km, Check-in 30m</option>
+                    <option value="event">Sự kiện mùa (Limited Event) - Toàn quốc</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Vĩ độ (Latitude) <span class="req">*</span></label>
+                  <input type="number" step="any" class="form-input" id="pin-input-lat" placeholder="21.0345600" required>
+                  <span class="form-hint">Mẹo: Bạn có thể click chuột trực tiếp lên Radar Bản đồ để tự điền tọa độ!</span>
+                </div>
+
+                <div class="form-group">
+                  <label>Kinh độ (Longitude) <span class="req">*</span></label>
+                  <input type="number" step="any" class="form-input" id="pin-input-lng" placeholder="105.8407400" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Tầm quét Radar (mét)</label>
+                  <input type="number" class="form-input" id="pin-input-discovery-radius" value="2000">
+                </div>
+
+                <div class="form-group">
+                  <label>Bán kính Check-in thực địa (mét)</label>
+                  <input type="number" class="form-input" id="pin-input-interaction-radius" value="100">
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Hình ảnh Địa danh / Di tích</label>
+                  <div style="display:flex; gap:8px;">
+                    <input type="text" class="form-input" id="pin-input-image" placeholder="Dán link online (https://...) hoặc nhập đường dẫn file (media/images/anh.jpg)..." style="flex:1;">
+                    <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file ảnh từ máy tính của bạn">
+                      📁 Chọn ảnh từ máy
+                      <input type="file" id="pin-file-image-picker" accept="image/*" onchange="handleImageFilePicker(event)" style="display:none;">
+                    </label>
+                  </div>
+                  <div id="pin-image-preview-box" style="margin-top:8px; display:none; align-items:center; gap:12px; background:var(--neutral-100); padding:8px 12px; border-radius:6px;">
+                    <img id="pin-image-preview-thumb" src="" style="height:60px; width:90px; border-radius:4px; border:1px solid var(--neutral-300); object-fit:cover;">
+                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;">✓ Đã nạp ảnh thành công</div>
+                  </div>
+                  <span class="form-hint">Hỗ trợ: Link web, tải ảnh từ máy tính (tự lưu vào <code>app/media/images/</code> hoặc Base64 offline).</span>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Đường dẫn Audio / Video / Lời kể nhân chứng</label>
+                  <div style="display:flex; gap:8px;">
+                    <input type="text" class="form-input" id="pin-input-media" placeholder="Dán link YouTube (https://youtube.com/...) hoặc file video (media/videos/clip.mp4)..." style="flex:1;">
+                    <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file video/audio từ máy tính của bạn">
+                      📁 Chọn video/audio
+                      <input type="file" id="pin-file-media-picker" accept="video/*,audio/*" onchange="handleMediaFilePicker(event)" style="display:none;">
+                    </label>
+                  </div>
+                  <span class="form-hint">Hỗ trợ: Link YouTube, file video <code>.mp4</code>/<code>.webm</code> hoặc audio <code>.mp3</code> trong thư mục <code>app/media/videos/</code>.</span>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Tóm tắt tư liệu lịch sử & Nguồn kiểm chứng</label>
+                  <textarea class="form-textarea" id="pin-input-desc" rows="4" placeholder="Ý nghĩa lịch sử, bối cảnh hình thành, giá trị văn hóa..."></textarea>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <button type="reset" class="btn-secondary">Làm mới</button>
+                <button type="submit" class="btn-primary">💾 Lưu Ghim Bản Đồ & Đồng Bộ</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- FORM 2: NHẬP DANH NHÂN LỊCH SỬ & NỘI DUNG LIÊN QUAN -->
+          <div id="subtab-figures" class="form-panel">
+            <form id="form-new-figure" onsubmit="handleCreateFigure(event)">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Tên Danh nhân / Anh hùng <span class="req">*</span></label>
+                  <input type="text" class="form-input" id="fig-input-name" placeholder="Ví dụ: Lý Thường Kiệt, Võ Nguyên Giáp..." required>
+                </div>
+
+                <div class="form-group">
+                  <label>Tước vị / Vai trò</label>
+                  <input type="text" class="form-input" id="fig-input-role" placeholder="Ví dụ: Đại tướng, Thái úy, Nữ tướng...">
+                </div>
+
+                <div class="form-group">
+                  <label>Thời đại / Triều đại</label>
+                  <input type="text" class="form-input" id="fig-input-dynasty" placeholder="Ví dụ: Nhà Lý, Nhà Trần, Nhà Tây Sơn...">
+                </div>
+
+                <div class="form-group">
+                  <label>Niên đại (Năm sinh – Năm mất)</label>
+                  <input type="text" class="form-input" id="fig-input-years" placeholder="Ví dụ: 1228 – 1300 hoặc Thế kỷ 11">
+                </div>
+
+                <div class="form-group">
+                  <label>Biểu tượng Avatar</label>
+                  <select class="form-select" id="fig-input-avatar">
+                    <option value="⚔️">⚔️ Kiếm sĩ / Tướng lĩnh</option>
+                    <option value="👑">👑 Hoàng đế / Vương giả</option>
+                    <option value="🛡️">🛡️ Hộ quốc anh hùng</option>
+                    <option value="🏹">🏹 Chiến binh khởi nghĩa</option>
+                    <option value="🦅">🦅 Chim lạc trống đồng</option>
+                    <option value="📜">📜 Hiền sĩ / Danh nho</option>
+                  </select>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Hình ảnh / Chân dung Danh nhân</label>
+                  <div style="display:flex; gap:8px;">
+                    <input type="text" class="form-input" id="fig-input-image" placeholder="Dán link ảnh online (https://...) hoặc file cục bộ (media/images/portrait.jpg)..." style="flex:1;">
+                    <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file ảnh từ máy tính">
+                      📁 Chọn ảnh từ máy
+                      <input type="file" id="fig-file-image-picker" accept="image/*" onchange="handleFigureImagePicker(event)" style="display:none;">
+                    </label>
+                  </div>
+                  <div id="fig-image-preview-box" style="margin-top:8px; display:none; align-items:center; gap:12px; background:var(--neutral-100); padding:8px 12px; border-radius:6px;">
+                    <img id="fig-image-preview-thumb" src="" style="height:60px; width:60px; border-radius:50%; border:2px solid var(--accent-gold); object-fit:cover;">
+                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;">✓ Đã nạp chân dung thành công</div>
+                  </div>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Ảnh Nền / Bối cảnh Lịch sử Danh nhân (Hero Backdrop Cover)</label>
+                  <div style="display:flex; gap:8px;">
+                    <input type="text" class="form-input" id="fig-input-bg" placeholder="Dán link ảnh online (https://...) hoặc file bối cảnh lịch sử / chiến trường..." style="flex:1;">
+                    <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file ảnh nền từ máy tính">
+                      📁 Chọn ảnh nền
+                      <input type="file" id="fig-file-bg-picker" accept="image/*" onchange="handleFigureBgPicker(event)" style="display:none;">
+                    </label>
+                  </div>
+                  <div id="fig-bg-preview-box" style="margin-top:8px; display:none; align-items:center; gap:12px; background:var(--neutral-100); padding:8px 12px; border-radius:6px;">
+                    <img id="fig-bg-preview-thumb" src="" style="height:60px; width:100px; border-radius:4px; border:2px solid var(--accent-gold); object-fit:cover;">
+                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;">✓ Đã nạp ảnh nền bối cảnh thành công</div>
+                  </div>
+                  <span class="form-hint">Ảnh nền sẽ phủ ở đầu trang hồ sơ nhân vật với hiệu ứng mờ hào hùng, tôn vinh khí phách lịch sử.</span>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Câu nói bất hủ / Danh ngôn lịch sử</label>
+                  <input type="text" class="form-input" id="fig-input-quote" placeholder="Ví dụ: 'Nếu bệ hạ muốn hàng xin hãy chém đầu thần trước rồi hãy hàng!'">
+                  <span class="form-hint">Trích dẫn khí phách anh hùng hoặc lời hịch truyền đời nổi tiếng của nhân vật.</span>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Địa danh & Chiến trường gắn liền (Nội dung liên quan)</label>
+                  <select class="form-select" id="fig-input-pins">
+                    <option value="">-- Chọn Địa danh di tích gắn liền (nếu có) --</option>
+                    <!-- Populated from existing pins -->
+                  </select>
+                  <span class="form-hint">Chọn địa danh tiêu biểu nơi danh nhân đã lập nên chiến công oanh liệt.</span>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Tiểu sử & Cuộc đời hào kiệt <span class="req">*</span></label>
+                  <textarea class="form-textarea" id="fig-input-bio" rows="4" placeholder="Công lao nổi bật, chiến công tiêu biểu, sự nghiệp rực rỡ..." required></textarea>
+                </div>
+
+                <!-- KHỐI THÊM NỘI DUNG LIÊN QUAN: DANH SÁCH GIAI THOẠI MỞ KHÓA (KHÔNG GIỚI HẠN) -->
+                <div class="form-group form-grid-full" style="background:#FFFDF8; border:1px solid var(--accent-gold); border-radius:var(--radius-sm); padding:18px; margin-top:8px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+                    <div>
+                      <strong style="color:var(--primary-dark); font-size:1.02rem; display:flex; align-items:center; gap:8px;">
+                        📖 Kho Giai Thoại & Cốt Truyện Mở Khóa Của Danh Nhân
+                      </strong>
+                      <p style="font-size:0.83rem; color:var(--text-muted); margin-top:3px;">
+                        Bạn có thể thêm <b>1 hoặc NHIỀU giai thoại</b> (không giới hạn số lượng). Mỗi giai thoại có thể gắn với một địa danh di tích khác nhau để người chơi chu du mở khóa!
+                      </p>
+                    </div>
+                    <button type="button" class="btn-secondary" style="font-size:0.84rem; padding:6px 14px; font-weight:600; cursor:pointer;" onclick="addFigureStoryRow()">
+                      + Thêm Giai Thoại Nữa
+                    </button>
+                  </div>
+
+                  <!-- Dynamic list of story rows -->
+                  <div id="fig-stories-list-container" style="display:flex; flex-direction:column; gap:14px;">
+                    <!-- Appended dynamically via JS -->
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="btn-row">
+                <button type="reset" class="btn-secondary">Làm mới</button>
+                <button type="submit" class="btn-primary">💾 Lưu Danh Nhân & Toàn Bộ Giai Thoại</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- FORM 3: NHẬP GIAI THOẠI CỐT TRUYỆN -->
+          <div id="subtab-stories" class="form-panel">
+            <form id="form-new-story" onsubmit="handleCreateStory(event)">
+              <div class="form-grid">
+                <div class="form-group form-grid-full">
+                  <label>Tiêu đề Giai thoại / Sự kiện <span class="req">*</span></label>
+                  <input type="text" class="form-input" id="story-input-name" placeholder="Ví dụ: Bài thơ thần Nam Quốc Sơn Hà, Lời hịch cứu nước..." required>
+                </div>
+
+                <div class="form-group">
+                  <label>Thuộc Danh nhân nào? <span class="req">*</span></label>
+                  <select class="form-select" id="story-input-figure" required>
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Địa danh (Pin) yêu cầu đến Check-in để mở khóa <span class="req">*</span></label>
+                  <select class="form-select" id="story-input-pin" required>
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Ảnh Nền / Tranh minh họa Giai thoại (Story Cover)</label>
+                  <div style="display:flex; gap:8px;">
+                    <input type="text" class="form-input" id="story-input-bg" placeholder="Dán link ảnh online (https://...) hoặc file minh họa giai thoại..." style="flex:1;">
+                    <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file ảnh từ máy tính">
+                      📁 Chọn ảnh nền
+                      <input type="file" id="story-file-bg-picker" accept="image/*" onchange="handleStoryBgPicker(event)" style="display:none;">
+                    </label>
+                  </div>
+                  <div id="story-bg-preview-box" style="margin-top:8px; display:none; align-items:center; gap:12px; background:var(--neutral-100); padding:8px 12px; border-radius:6px;">
+                    <img id="story-bg-preview-thumb" src="" style="height:60px; width:100px; border-radius:4px; border:2px solid var(--accent-gold); object-fit:cover;">
+                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;">✓ Đã nạp tranh minh họa giai thoại</div>
+                  </div>
+                  <span class="form-hint">Hình ảnh sẽ xuất hiện trên thẻ giai thoại và đầu cửa sổ đọc truyện khi mở khóa.</span>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Nội dung chi tiết cốt truyện</label>
+                  <textarea class="form-textarea" id="story-input-content" rows="5" placeholder="Toàn văn câu chuyện, mưu kế lịch sử, diễn biến sự kiện..." required></textarea>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:0.88rem; color:var(--text-primary);">
+                    <input type="checkbox" id="story-checkbox-continue" checked>
+                    <span>Tiếp tục ở lại đây để thêm tiếp các giai thoại khác sau khi lưu</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <button type="reset" class="btn-secondary">Làm mới</button>
+                <button type="submit" class="btn-primary">💾 Lưu Giai Thoại Khóa</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- FORM 4: NHẬP HUY HIỆU DI SẢN -->
+          <div id="subtab-badges" class="form-panel">
+            <form id="form-new-badge" onsubmit="handleCreateBadge(event)">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Tên Huy hiệu <span class="req">*</span></label>
+                  <input type="text" class="form-input" id="badge-input-name" placeholder="Ví dụ: Đại Phá Quân Thanh, Tiếng Vang Sông Cầu..." required>
+                </div>
+
+                <div class="form-group">
+                  <label>Phẩm cấp (Tier) <span class="req">*</span></label>
+                  <select class="form-select" id="badge-input-tier" required>
+                    <option value="gold">Vàng (Gold Tier) - Rực rỡ ánh kim</option>
+                    <option value="silver">Bạc (Silver Tier) - Thanh nhã</option>
+                    <option value="bronze">Đồng (Bronze Tier) - Cổ điển</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Icon hiển thị</label>
+                  <select class="form-select" id="badge-input-icon">
+                    <option value="🎖️">🎖️ Huân chương danh dự</option>
+                    <option value="🐾">🐾 Dấu chân di sản</option>
+                    <option value="🏛️">🏛️ Vương miện di tích</option>
+                    <option value="⚔️">⚔️ Kiếm lệnh hào hùng</option>
+                    <option value="🦅">🦅 Chim lạc trống đồng</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Bộ sưu tập (Category)</label>
+                  <input type="text" class="form-input" id="badge-input-cat" placeholder="Ví dụ: Người chinh phục lịch sử, Khám phá Việt Nam...">
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label>Điều kiện mở khóa</label>
+                  <textarea class="form-textarea" id="badge-input-criteria" rows="3" placeholder="Ví dụ: Ghé thăm Bến Bạch Đằng và hoàn thành bài học về kế sách cắm cọc." required></textarea>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <button type="reset" class="btn-secondary">Làm mới</button>
+                <button type="submit" class="btn-primary">💾 Lưu Huy Hiệu</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- SUBTAB 5: QUẢN LÝ & XÓA DỮ LIỆU TEST -->
+          <div id="subtab-manage" class="form-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:14px; padding:18px; background:#fff5f5; border:1px solid #feb2b2; border-radius:var(--radius-sm);">
+              <div>
+                <strong style="color:#c53030; font-size:1.1rem; display:flex; align-items:center; gap:6px;">⚠️ Dọn dẹp dữ liệu thử nghiệm (Reset gốc)</strong>
+                <p style="font-size:0.88rem; color:#742a2a; margin-top:4px;">Khôi phục lại toàn bộ dữ liệu chuẩn ban đầu của game. Mọi Ghim, Danh nhân, Giai thoại hoặc Huy hiệu bạn đã thêm test sẽ được xóa sạch!</p>
+              </div>
+              <button class="btn-primary" style="background:#e53e3e; border-color:#c53030; color:#fff;" onclick="resetToInitialData()">🔄 Khôi phục Dữ liệu Gốc</button>
+            </div>
+
+            <!-- 1. Danh sách Ghim hiện có -->
+            <div style="margin-bottom:28px;">
+              <h3 style="color:var(--primary-dark); font-size:1.15rem; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                <span>📍 1. Danh sách Ghim Địa danh (<span id="manage-pin-count">0</span>)</span>
+                <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">Bấm nút 🗑️ để xóa từng ghim test</span>
+              </h3>
+              <div id="manage-pins-table-wrap" style="overflow-x:auto;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <!-- 2. Danh sách Danh nhân hiện có -->
+            <div style="margin-bottom:28px;">
+              <h3 style="color:var(--primary-dark); font-size:1.15rem; margin-bottom:12px;">
+                <span>⚔️ 2. Danh sách Danh nhân Lịch sử (<span id="manage-figure-count">0</span>)</span>
+              </h3>
+              <div id="manage-figures-table-wrap" style="overflow-x:auto;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <!-- 3. Danh sách Giai thoại hiện có -->
+            <div style="margin-bottom:28px;">
+              <h3 style="color:var(--primary-dark); font-size:1.15rem; margin-bottom:12px;">
+                <span>📖 3. Danh sách Giai thoại Lịch sử (<span id="manage-story-count">0</span>)</span>
+              </h3>
+              <div id="manage-stories-table-wrap" style="overflow-x:auto;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <!-- 4. Danh sách Huy hiệu hiện có -->
+            <div style="margin-bottom:28px;">
+              <h3 style="color:var(--primary-dark); font-size:1.15rem; margin-bottom:12px;">
+                <span>🏅 4. Danh sách Huy hiệu Di sản (<span id="manage-badge-count">0</span>)</span>
+              </h3>
+              <div id="manage-badges-table-wrap" style="overflow-x:auto;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== LOCATION POPUP MODAL ==================== -->
+  <div class="modal-overlay" id="location-modal">
+    <div class="modal-box">
+      <!-- Dynamic Themed Hero Header -->
+      <div class="modal-header-hero" id="modal-hero-header">
+        <div class="modal-header-top">
+          <div class="modal-pin-category-tag" id="modal-category-tag">🏛️ ĐỊA DANH DI TÍCH</div>
+          <button class="modal-close-btn" onclick="closeModal()">✕</button>
+        </div>
+        <h3 class="modal-title-text" id="modal-title">Hoàng thành Thăng Long</h3>
+      </div>
+
+      <div class="modal-body">
+        <!-- Pin Image Banner (if available) -->
+        <img id="modal-pin-image" class="modal-pin-banner-image" src="" alt="Hình ảnh tư liệu di tích" style="display:none;" />
+
+        <!-- Info Strip: Rarity & Live Distance -->
+        <div class="modal-info-strip">
+          <span class="badge-tag" id="modal-rarity">Huyền thoại (Legendary)</span>
+          <div class="modal-distance-pill">
+            <span>📡</span>
+            <span id="modal-distance">Cách bạn: 1.2 km</span>
+          </div>
+        </div>
+        
+        <!-- Story/Description Box -->
+        <div class="modal-desc-box" id="modal-desc">
+          <!-- Populated via JS -->
+        </div>
+
+        <!-- Living history media player box -->
+        <div id="modal-living-history" style="display:none; margin-bottom:18px; padding:14px; background:var(--bg-card-sub); border-radius:var(--radius-sm); border-left:4px solid var(--primary);">
+          <strong style="color:var(--primary-dark);" id="modal-media-header-title">🎙️ Thước phim Ký ức / Lời kể Nhân chứng:</strong>
+          <p id="modal-media-header-desc" style="font-size:0.85rem; color:var(--text-muted); margin:4px 0 10px 0;">Tư liệu sống ghi lại trực tiếp tại không gian sự kiện lịch sử này.</p>
+          <div id="modal-media-player-box">
+            <button class="btn-secondary" style="width:100%; padding:8px; font-size:0.85rem;" onclick="simulatePlayAudio()">▶️ Lắng nghe tư liệu ký ức (30s)</button>
+          </div>
+        </div>
+
+        <div style="background:var(--neutral-100); padding:10px 14px; border-radius:var(--radius-sm); font-size:0.82rem; color:var(--text-muted); margin-bottom:18px; display:flex; justify-content:space-between;">
+          <span>Phạm vi Check-in cho phép:</span>
+          <b id="modal-checkin-radius" style="color:var(--primary-dark);">50m</b>
+        </div>
+
+        <!-- Action Button -->
+        <button class="btn-checkin-action ready" id="btn-modal-checkin" onclick="performCheckIn()">
+          <span>🚩</span>
+          <span id="btn-checkin-label">Check-in Khám Phá & Mở Khóa Giai Thoại</span>
+        </button>
+
+        <!-- Manage / Delete Pin Footer -->
+        <div style="margin-top:14px; padding-top:10px; border-top:1px dashed var(--neutral-300); display:flex; justify-content:space-between; align-items:center;">
+          <span id="modal-pin-id-text" style="font-size:0.75rem; color:var(--text-muted); font-family:monospace;">ID: pin-xxx</span>
+          <button class="btn-secondary" style="color:#c0392b; border-color:#e74c3c; font-size:0.8rem; padding:4px 12px; cursor:pointer;" onclick="deleteSelectedPin()">🗑️ Xóa Ghim Này</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STORY VIEWER MODAL ==================== -->
+  <div class="modal-overlay" id="story-modal">
+    <div class="modal-box" style="max-width:620px;">
+      <div class="modal-header">
+        <h3 id="story-modal-title">Giai thoại Lịch sử</h3>
+        <button class="modal-close-btn" onclick="closeStoryModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="story-modal-cover" class="story-modal-cover" style="display:none;">
+          <div class="story-modal-cover-caption" id="story-modal-cover-caption"></div>
+        </div>
+        <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;" id="story-modal-meta">Nhân vật: Trần Hưng Đạo</div>
+        <div id="story-modal-content" style="line-height:1.8; color:var(--text-primary); font-size:0.95rem; white-space:pre-line;"></div>
+        <div style="margin-top:20px; display:flex; justify-content:flex-end;">
+          <button class="btn-primary" onclick="closeStoryModal()">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== UNLOCK CELEBRATION MODAL ==================== -->
+  <div class="unlock-celebration-overlay" id="celebration-modal">
+    <div class="unlock-celebration-card">
+      <div class="celebration-burst-rays"></div>
+      <div class="celebration-content">
+        <div class="celebration-icon-huge" id="celebration-icon">🏆</div>
+        <h2 class="celebration-title">KHÁM PHÁ THÀNH CÔNG!</h2>
+        <div class="celebration-pin-name" id="celebration-pin-name">Khu di tích Chiến thắng Bạch Đằng</div>
+        
+        <div class="celebration-rewards-list">
+          <div class="reward-row">
+            <span class="icon">🌟</span>
+            <span>Kinh nghiệm thám hiểm: <b>+100 EXP</b></span>
+          </div>
+          <div class="reward-row" id="celebration-story-row" style="display:none;">
+            <span class="icon">📖</span>
+            <span id="celebration-story-text">Mở khóa giai thoại mới!</span>
+          </div>
+          <div class="reward-row" id="celebration-badge-row" style="display:none;">
+            <span class="icon">🎖️</span>
+            <span id="celebration-badge-text">Nhận Huy hiệu Di sản mới!</span>
+          </div>
+        </div>
+
+        <button class="btn-celebration-continue" onclick="closeCelebrationModal()">Tiếp Tục Hành Trình</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUICK ADD STORY MODAL ==================== -->
+  <div class="modal-overlay" id="quick-story-modal">
+    <div class="modal-box" style="max-width:580px;">
+      <div class="modal-header">
+        <h3 id="quick-story-modal-title">📖 Thêm Giai Thoại Mới</h3>
+        <button class="modal-close-btn" onclick="closeQuickStoryModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-quick-story" onsubmit="handleQuickStorySubmit(event)">
+          <input type="hidden" id="quick-story-figure-id" value="">
+          <div style="background:var(--bg-card-sub); padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:16px; border-left:4px solid var(--accent-gold);">
+            <span style="font-size:0.82rem; color:var(--text-muted);">Giai thoại gắn liền với danh nhân:</span>
+            <div id="quick-story-figure-name" style="font-weight:700; color:var(--primary-dark); font-size:1.05rem;">Trần Quốc Tuấn</div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:14px;">
+            <label>Tiêu đề Giai thoại / Sự kiện hào hùng <span class="req">*</span></label>
+            <input type="text" class="form-input" id="quick-story-title" placeholder="Ví dụ: Lời hịch tướng sĩ, Hội nghị Bình Than..." required>
+          </div>
+
+          <div class="form-group" style="margin-bottom:14px;">
+            <label>Địa danh (Pin) yêu cầu đến Check-in để mở khóa <span class="req">*</span></label>
+            <select class="form-select" id="quick-story-pin" required>
+              <!-- Populated from appState.pins -->
+            </select>
+            <span class="form-hint">Người chơi sẽ phải đi tuần tra thực địa tới mốc này để mở khóa đọc câu chuyện.</span>
+          </div>
+
+          <div class="form-group" style="margin-bottom:14px;">
+            <label>Ảnh Nền / Tranh minh họa Giai thoại (Tùy chọn)</label>
+            <div style="display:flex; gap:8px;">
+              <input type="text" class="form-input" id="quick-story-bg" placeholder="Dán link ảnh (https://...) hoặc file minh họa..." style="flex:1;">
+              <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:8px 12px;" title="Chọn file từ máy">
+                📁 Chọn ảnh
+                <input type="file" id="quick-story-file-picker" accept="image/*" onchange="handleQuickStoryBgPicker(event)" style="display:none;">
+              </label>
+            </div>
+            <div id="quick-story-bg-preview-box" style="margin-top:6px; display:none; align-items:center; gap:10px; background:var(--neutral-100); padding:6px 10px; border-radius:6px;">
+              <img id="quick-story-bg-preview-thumb" src="" style="height:48px; width:80px; border-radius:4px; border:2px solid var(--accent-gold); object-fit:cover;">
+              <div style="font-size:0.8rem; color:#27ae60; font-weight:600;">✓ Đã nạp tranh minh họa</div>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Nội dung toàn văn câu chuyện <span class="req">*</span></label>
+            <textarea class="form-textarea" id="quick-story-content" rows="5" placeholder="Bối cảnh lịch sử, diễn biến sự kiện, mưu lược quân sự..." required></textarea>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:0.85rem; color:var(--text-primary);">
+              <input type="checkbox" id="quick-story-keep-open">
+              <span>Tiếp tục thêm giai thoại khác cho nhân vật này sau khi lưu</span>
+            </label>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:10px;">
+            <button type="button" class="btn-secondary" onclick="closeQuickStoryModal()">Hủy</button>
+            <button type="submit" class="btn-primary">💾 Lưu Giai Thoại Ngay</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts (Local Leaflet for instant offline loading) -->
+  <script src="vendor/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
