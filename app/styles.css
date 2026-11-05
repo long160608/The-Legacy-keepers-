@@ -1003,6 +1003,64 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
+.figure-hero-backdrop .figure-quote-box {
+  background: rgba(255, 253, 248, 0.92);
+  border-left: 4px solid var(--accent-gold);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+}
+
+.hero-backdrop-actions {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+
+.btn-hero-bg-action {
+  background: rgba(30, 15, 5, 0.72);
+  color: #FFFDF8;
+  border: 1px solid rgba(253, 219, 155, 0.7);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.btn-hero-bg-action:hover {
+  background: rgba(84, 51, 27, 0.95);
+  border-color: var(--accent-gold);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.btn-hero-bg-action-remove {
+  background: rgba(180, 40, 40, 0.75);
+  color: #FFFDF8;
+  border: 1px solid rgba(255, 200, 200, 0.5);
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.btn-hero-bg-action-remove:hover {
+  background: rgba(220, 30, 30, 0.95);
+  transform: translateY(-1px);
+}
+
 .figure-detail-hero {
   display: flex;
   align-items: flex-start;

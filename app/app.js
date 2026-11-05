@@ -254,6 +254,23 @@ function loadState() {
   if (saved) {
     try {
       appState = JSON.parse(saved);
+      // Auto-migrate: Backfill background images from INITIAL_DATA if missing in cache
+      (appState.figures || []).forEach(f => {
+        if (!f.background_image) {
+          const initFig = INITIAL_DATA.figures.find(initF => initF.id === f.id);
+          if (initFig && initFig.background_image) {
+            f.background_image = initFig.background_image;
+          }
+        }
+      });
+      (appState.stories || []).forEach(s => {
+        if (!s.background_image) {
+          const initStory = INITIAL_DATA.stories.find(initS => initS.id === s.id);
+          if (initStory && initStory.background_image) {
+            s.background_image = initStory.background_image;
+          }
+        }
+      });
     } catch (e) {
       console.warn("Could not parse saved state, resetting to initial.");
       appState = JSON.parse(JSON.stringify(INITIAL_DATA));
@@ -1143,6 +1160,15 @@ function renderFigureDetailPane(figId) {
     const hasHeroBg = fig.background_image && fig.background_image.trim().length > 0;
     const heroHeaderMarkup = hasHeroBg ? `
       <div class="figure-hero-backdrop" style="background-image: url('${fig.background_image.trim()}');">
+        <div class="hero-backdrop-actions">
+          <label class="btn-hero-bg-action" title="Bấm để chọn ảnh nền bối cảnh mới từ máy tính">
+            📷 Đổi ảnh nền
+            <input type="file" accept="image/*" onchange="changeFigureBackgroundDirect(event, '${fig.id}')" style="display:none;">
+          </label>
+          <button type="button" class="btn-hero-bg-action-remove" title="Xóa ảnh nền này" onclick="removeFigureBackgroundDirect('${fig.id}')">
+            ✕ Xóa nền
+          </button>
+        </div>
         <div class="figure-hero-backdrop-content">
           <div class="figure-detail-avatar-box">
             ${avatarMarkup}
@@ -1159,7 +1185,13 @@ function renderFigureDetailPane(figId) {
         </div>
       </div>
     ` : `
-      <div class="figure-detail-hero">
+      <div class="figure-detail-hero" style="position:relative;">
+        <div class="hero-backdrop-actions" style="top:0; right:0;">
+          <label class="btn-hero-bg-action" style="background:var(--bg-secondary); color:var(--primary-dark); border-color:var(--accent-gold);" title="Bấm để thêm ảnh nền bối cảnh hào hùng cho danh nhân này">
+            🖼️ + Thêm ảnh nền bối cảnh
+            <input type="file" accept="image/*" onchange="changeFigureBackgroundDirect(event, '${fig.id}')" style="display:none;">
+          </label>
+        </div>
         <div class="figure-detail-avatar-box">
           ${avatarMarkup}
         </div>
@@ -1216,6 +1248,53 @@ function renderFigureDetailPane(figId) {
 function selectFigure(id) {
   selectedFigureId = id;
   renderFiguresSplitView();
+}
+
+async function changeFigureBackgroundDirect(event, figId) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const fig = appState.figures.find(f => f.id === figId);
+  if (!fig) return;
+
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    const base64 = e.target.result;
+    let finalUrl = base64;
+
+    try {
+      const res = await fetch("/api/upload_file", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: file.name, base64: base64 })
+      });
+      if (res.ok) {
+        const json = await res.json();
+        if (json.url) {
+          finalUrl = json.url;
+        }
+      }
+    } catch (err) {}
+
+    fig.background_image = finalUrl;
+    saveState();
+    saveToServerDataJSON();
+    renderFigureDetailPane(figId);
+    showToast(`✓ Đã cập nhật ảnh nền bối cảnh cho "${fig.name}"!`);
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeFigureBackgroundDirect(figId) {
+  const fig = appState.figures.find(f => f.id === figId);
+  if (!fig) return;
+  if (!confirm(`Bạn có chắc muốn xóa ảnh nền bối cảnh của "${fig.name}"?`)) return;
+
+  fig.background_image = "";
+  saveState();
+  saveToServerDataJSON();
+  renderFigureDetailPane(figId);
+  showToast(`✓ Đã xóa ảnh nền bối cảnh của "${fig.name}".`);
 }
 
 function handleFigureSearch(query) {
