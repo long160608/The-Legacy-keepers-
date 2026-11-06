@@ -365,11 +365,12 @@ body {
   color: var(--primary) !important;
 }
 
-/* Map filter bar on top - starts at left: 62px so it NEVER overlaps zoom control! */
+/* Map filter bar on top - cleanly centered horizontally so it NEVER collides with left zoom control! */
 .map-filter-bar {
   position: absolute;
   top: 14px;
-  left: 62px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
   display: flex;
   gap: 8px;
@@ -379,6 +380,7 @@ body {
   border: 1px solid var(--neutral-200);
   box-shadow: var(--shadow-md);
   backdrop-filter: blur(4px);
+  max-width: calc(100% - 150px);
 }
 
 .filter-btn {
@@ -547,137 +549,205 @@ body {
    - Event (Sự kiện): Đỏ son lễ hội & ánh vàng rực cháy (Festive Ember Glow)
    ========================================================================== */
 
-.concentric-pin-container {
+/* ==========================================================================
+   TRUE GEOGRAPHIC LEAFLET CIRCLES (SCALED PROPORTIONALLY IN METERS)
+   ========================================================================== */
+.geo-pin-discovery-circle {
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.geo-pin-discovery-circle.radar-active-zone {
+  stroke-dasharray: 4, 6;
+  animation: discovery-zone-breathe 4s infinite ease-in-out;
+}
+
+@keyframes discovery-zone-breathe {
+  0%, 100% { stroke-opacity: 0.55; fill-opacity: 0.08; }
+  50% { stroke-opacity: 0.9; fill-opacity: 0.16; }
+}
+
+.geo-pin-checkin-circle {
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.geo-pin-checkin-circle:hover {
+  stroke-width: 3.5;
+  fill-opacity: 0.45;
+}
+
+.geo-pin-checkin-circle.in-range-pulse {
+  animation: checkin-perimeter-pulse 2s infinite ease-in-out;
+}
+
+@keyframes checkin-perimeter-pulse {
+  0%, 100% { stroke-width: 2.5; stroke-opacity: 0.85; fill-opacity: 0.32; }
+  50% { stroke-width: 4.5; stroke-opacity: 1; fill-opacity: 0.5; }
+}
+
+/* ==========================================================================
+   HERITAGE SEAL PIN MARKER (COMPACT 36PX, TRUE-TO-SCALE)
+   ========================================================================== */
+.heritage-pin-container {
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 36px;
+  height: 36px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
-/* Three Concentric Ripples Expanding from Center */
-.pin-ripple-circle {
+.heritage-pin-geodesic-wave {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
 }
 
-.pin-ripple-1 {
-  width: 46px;
-  height: 46px;
-  animation: concentric-expand 2.5s infinite cubic-bezier(0.15, 0.45, 0.35, 1);
-  animation-delay: 0s;
+.heritage-pin-container.within-radar .heritage-pin-geodesic-wave,
+.heritage-pin-container.checkin-ready .heritage-pin-geodesic-wave {
+  animation: geodesic-radar-ping 2.6s infinite cubic-bezier(0.1, 0.45, 0.35, 1);
 }
 
-.pin-ripple-2 {
-  width: 46px;
-  height: 46px;
-  animation: concentric-expand 2.5s infinite cubic-bezier(0.15, 0.45, 0.35, 1);
-  animation-delay: 0.8s;
+@keyframes geodesic-radar-ping {
+  0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.9; }
+  60% { opacity: 0.35; }
+  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
 }
 
-.pin-ripple-3 {
-  width: 46px;
-  height: 46px;
-  animation: concentric-expand 2.5s infinite cubic-bezier(0.15, 0.45, 0.35, 1);
-  animation-delay: 1.6s;
-}
-
-@keyframes concentric-expand {
-  0% {
-    transform: translate(-50%, -50%) scale(0.3);
-    opacity: 0.95;
-  }
-  50% {
-    opacity: 0.45;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1.7);
-    opacity: 0;
-  }
-}
-
-/* Pin Core Badge Base */
-.pin-core-badge {
+.heritage-pin-seal {
   position: relative;
-  z-index: 5;
-  width: 42px;
-  height: 42px;
+  z-index: 10;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: #FFFDF8;
+  border: 2px solid var(--primary-dark);
+  box-shadow: 0 3px 8px rgba(84, 51, 27, 0.28);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.concentric-pin-container:hover .pin-core-badge {
-  transform: scale(1.2);
+.heritage-pin-container:hover .heritage-pin-seal {
+  transform: scale(1.18);
+  box-shadow: 0 6px 16px rgba(84, 51, 27, 0.38);
 }
 
-/* --- 1. COMMON RARITY (Thường) --- */
-.pin-rarity-common .pin-ripple-circle {
+.heritage-pin-emoji {
+  font-size: 1.15rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Floating Site Name Caption Badge */
+.heritage-pin-caption {
+  position: absolute;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9;
+  background: rgba(254, 250, 244, 0.96);
+  border: 1px solid var(--neutral-300);
+  border-radius: 12px;
+  padding: 2px 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(84, 51, 27, 0.16);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Responsive Zoom-level Pin Adaptation */
+.map-zoom-low .heritage-pin-caption {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) scale(0.7);
+}
+
+.map-zoom-high .heritage-pin-caption {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+}
+
+/* Rarity specific badge colors */
+.heritage-pin-container.pin-rarity-common .heritage-pin-seal {
+  border-color: #CEA884;
+  background: linear-gradient(135deg, #FFFDF8 0%, #E8DED0 100%);
+}
+.heritage-pin-container.pin-rarity-common .heritage-pin-geodesic-wave {
   border: 2px solid #CEA884;
 }
-.pin-rarity-common .pin-core-badge {
-  background: linear-gradient(135deg, #674B35 0%, #54331B 100%);
-  color: #fff;
-  border: 2.5px solid #E8DED0;
-  box-shadow: 0 4px 10px rgba(84, 51, 27, 0.3);
-}
 
-/* --- 2. UNCOMMON RARITY (Hiếm) - Bạc Lam & Ngọc Bích --- */
-.pin-rarity-uncommon .pin-ripple-circle {
+.heritage-pin-container.pin-rarity-uncommon .heritage-pin-seal {
+  border-color: #5B92A8;
+  background: linear-gradient(135deg, #F0F8FA 0%, #C1D1D7 100%);
+  box-shadow: 0 0 10px rgba(91, 146, 168, 0.5);
+}
+.heritage-pin-container.pin-rarity-uncommon .heritage-pin-geodesic-wave {
   border: 2.5px solid #5B92A8;
-  background: radial-gradient(circle, rgba(193, 209, 215, 0.25) 0%, transparent 70%);
-}
-.pin-rarity-uncommon .pin-core-badge {
-  background: linear-gradient(135deg, #2D586B 0%, #1D3B47 100%);
-  color: #fff;
-  border: 2.5px solid #A8D1E2;
-  box-shadow: 0 0 14px rgba(91, 146, 168, 0.65), 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
-/* --- 3. LEGENDARY RARITY (Huyền thoại) - Ánh Kim Hoàng Gia --- */
-.pin-rarity-legendary .pin-ripple-circle {
-  border: 3px solid #FBD071;
-  background: radial-gradient(circle, rgba(253, 219, 155, 0.38) 0%, transparent 75%);
+.heritage-pin-container.pin-rarity-legendary .heritage-pin-seal {
+  border-color: #FBD071;
+  background: linear-gradient(135deg, #FFF8E7 0%, #FDDB9B 100%);
+  box-shadow: 0 0 12px rgba(251, 208, 113, 0.8), 0 2px 6px rgba(84, 51, 27, 0.4);
 }
-.pin-rarity-legendary .pin-core-badge {
-  background: radial-gradient(circle, #8F572E 0%, #4D260C 100%);
-  color: #FFF9EE;
-  border: 3px solid #FDDB9B;
-  box-shadow: 0 0 20px rgba(251, 208, 113, 0.85), 0 0 8px #FFA800, 0 4px 14px rgba(0,0,0,0.5);
-  animation: legendary-glow 2s infinite alternate ease-in-out;
+.heritage-pin-container.pin-rarity-legendary .heritage-pin-geodesic-wave {
+  border: 2.5px solid #FFA800;
 }
 
-@keyframes legendary-glow {
-  0% { box-shadow: 0 0 12px rgba(251, 208, 113, 0.6), 0 4px 12px rgba(0,0,0,0.4); }
-  100% { box-shadow: 0 0 24px rgba(253, 219, 155, 1), 0 0 12px #FBD071, 0 6px 16px rgba(84, 51, 27, 0.6); }
+.heritage-pin-container.pin-rarity-event .heritage-pin-seal {
+  border-color: #E74C3C;
+  background: linear-gradient(135deg, #FFF5F5 0%, #F5B7B1 100%);
+  box-shadow: 0 0 12px rgba(231, 76, 60, 0.8);
+}
+.heritage-pin-container.pin-rarity-event .heritage-pin-geodesic-wave {
+  border: 2.5px solid #E74C3C;
 }
 
-/* --- 4. EVENT RARITY (Sự kiện mùa) - Đỏ Son Lễ Hội & Vàng Rực --- */
-.pin-rarity-event .pin-ripple-circle {
-  border: 3px solid #E74C3C;
-  background: radial-gradient(circle, rgba(231, 76, 60, 0.3) 0%, transparent 75%);
+/* Check-in ready pulse */
+.heritage-pin-container.checkin-ready .heritage-pin-seal {
+  border-color: #2E7D32 !important;
+  box-shadow: 0 0 14px rgba(46, 125, 50, 0.85), 0 2px 8px rgba(0,0,0,0.3) !important;
+  animation: ready-seal-bounce 1.5s infinite ease-in-out;
 }
-.pin-rarity-event .pin-core-badge {
-  background: linear-gradient(135deg, #C0392B 0%, #7B1113 100%);
-  color: #FFF;
-  border: 3px solid #FBD071;
-  box-shadow: 0 0 20px rgba(231, 76, 60, 0.8), 0 0 8px #FBD071;
-  animation: event-glow 1.8s infinite alternate ease-in-out;
+@keyframes ready-seal-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.14); }
 }
 
-@keyframes event-glow {
-  0% { transform: scale(1); box-shadow: 0 0 12px rgba(231, 76, 60, 0.6); }
-  100% { transform: scale(1.08); box-shadow: 0 0 24px rgba(231, 76, 60, 0.95), 0 0 10px #FBD071; }
+/* Backward compatibility aliases */
+.concentric-pin-container {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.pin-core-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ==========================================================================

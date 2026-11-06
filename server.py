@@ -5,11 +5,14 @@ import json
 import os
 import base64
 import time
+import subprocess
+import shutil
 from pathlib import Path
 
 PORT = 8080
 PROJECT_DIR = Path(__file__).resolve().parent
 APP_DIR = PROJECT_DIR / "app"
+BACKUP_DIR = PROJECT_DIR / "_backups"
 
 # Load .env
 env_file = PROJECT_DIR / ".env"
@@ -28,6 +31,26 @@ COGOVER_API_KEY = env_vars.get("COGOVER_API_KEY", "")
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(APP_DIR), **kwargs)
+
+    def do_GET(self):
+        # API to list all local snapshots on disk
+        if self.path == "/api/list_snapshots":
+            snapshots_file = BACKUP_DIR / "snapshots_index.json"
+            data = []
+            if snapshots_file.exists():
+                try:
+                    with open(snapshots_file, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                except Exception:
+                    data = []
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+            return
+
+        super().do_GET()
 
     def do_POST(self):
         # 1. API Proxy endpoint to Cogover to bypass CORS
@@ -79,7 +102,63 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
 
-        # 3. Local media uploader (saves uploaded images/videos to app/media)
+        # 3. Create full project snapshot on disk
+        elif self.path == "/api/create_snapshot":
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length)
+            note = ""
+            if body:
+                try:
+                    note = json.loads(body.decode("utf-8")).get("note", "")
+                except Exception:
+                    pass
+            try:
+                script_path = PROJECT_DIR / "scripts" / "make_snapshot.js"
+                res = subprocess.run(["node", str(script_path), note], cwd=str(PROJECT_DIR), capture_output=True, text=True, encoding="utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(b'{"status": "success", "message": "Snapshot created"}')
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+
+        # 4. Restore from snapshot folder on disk
+        elif self.path == "/api/restore_snapshot":
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length)
+            folder_name = ""
+            if body:
+                try:
+                    folder_name = json.loads(body.decode("utf-8")).get("folder_name", "")
+                except Exception:
+                    pass
+            try:
+                if not folder_name:
+                    # Restore latest
+                    script_path = PROJECT_DIR / "scripts" / "restore_snapshot.js"
+                    subprocess.run(["node", str(script_path)], cwd=str(PROJECT_DIR), check=True)
+                else:
+                    backup_source = BACKUP_DIR / folder_name / "app" / "data.json"
+                    if backup_source.exists():
+                        shutil.copy2(backup_source, APP_DIR / "data.json")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(b'{"status": "success", "message": "Restored snapshot successfully"}')
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+
+        # 5. Local media uploader (saves uploaded images/videos to app/media)
         elif self.path == "/api/upload_file":
             content_length = int(self.headers.get("Content-Length", 0))
             body = self.rfile.read(content_length)

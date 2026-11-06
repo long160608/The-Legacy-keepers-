@@ -296,6 +296,7 @@
               <p class="section-desc" data-i18n="cms_desc">Bạn có thể tự tay tạo mới Ghim bản đồ, Danh nhân, Giai thoại lịch sử hoặc Huy hiệu. Dữ liệu sẽ lưu ngay vào ứng dụng và đồng bộ lên Cogover!</p>
             </div>
             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <button class="btn-primary" onclick="triggerQuickSave()" data-i18n="cms_btn_quick_save" style="font-weight:600; display:flex; align-items:center; gap:6px;" title="Tạo ngay một bản checkpoint lưu an toàn toàn bộ dự án">💾 Tạo Bản Save Ngay</button>
               <button class="btn-secondary" onclick="reloadFromDataJSON(true)" data-i18n="reload_data_btn" title="Đọc dữ liệu mới nhất từ file app/data.json trên máy">🔄 Nạp từ file data.json</button>
               <label class="btn-secondary" style="cursor:pointer; margin-bottom:0;" title="Nhập dữ liệu từ file .json trong máy tính">
                 <span data-i18n="import_json_btn">📤 Chọn file JSON</span>
@@ -315,6 +316,7 @@
             <button class="sub-tab-btn" data-subtab="subtab-stories" data-i18n="cms_subtab_stories">📖 3. Giai Thoại Cốt Truyện</button>
             <button class="sub-tab-btn" data-subtab="subtab-badges" data-i18n="cms_subtab_badges">🏅 4. Huy Hiệu Di Sản</button>
             <button class="sub-tab-btn" data-subtab="subtab-manage" data-i18n="cms_subtab_manage">🗂️ 5. Quản Lý & Xóa Dữ Liệu Test</button>
+            <button class="sub-tab-btn" data-subtab="subtab-backups" data-i18n="cms_tab_backups">💾 6. Điểm Phục Hồi & Bản Save</button>
           </div>
 
           <!-- FORM 1: NHẬP GHIM ĐỊA DANH (PIN) -->
@@ -794,6 +796,64 @@
               </h3>
               <div id="manage-badges-table-wrap" style="overflow-x:auto;">
                 <!-- Populated via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 6: QUẢN LÝ ĐIỂM PHỤC HỒI & BẢN SAVE DỰ ÁN -->
+          <div id="subtab-backups" class="form-panel">
+            <div style="background:#FFFDF8; border:1.5px solid var(--accent-gold); border-radius:var(--radius-sm); padding:20px; margin-bottom:24px; box-shadow:var(--shadow-sm);">
+              <h3 style="color:var(--primary-dark); font-size:1.25rem; margin-bottom:8px; display:flex; align-items:center; gap:8px;" data-i18n="snap_title">
+                💾 Quản Lý Điểm Phục Hồi & Bản Save Dự Án
+              </h3>
+              <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:16px;" data-i18n="snap_desc">
+                Tạo các điểm lưu trữ an toàn trước khi chỉnh sửa. Bạn có thể khôi phục lại bất kỳ lúc nào nếu xảy ra sự cố.
+              </p>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <input type="text" id="snapshot-note-input" class="form-input" style="flex:1; min-width:280px;" data-i18n-placeholder="snap_input_ph" placeholder="Nhập ghi chú cho bản save (ví dụ: Bản chuẩn trước khi sửa pin...)">
+                <button type="button" class="btn-primary" onclick="createAppSnapshot()" data-i18n="snap_btn_create" style="display:flex; align-items:center; gap:6px;">
+                  💾 Tạo Điểm Phục Hồi Mới
+                </button>
+              </div>
+            </div>
+
+            <!-- Table of Snapshots -->
+            <div style="margin-bottom:32px;">
+              <h4 style="color:var(--primary-dark); font-size:1.1rem; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                <span>📋 Danh Sách Các Bản Save Đã Lưu (<span id="snapshot-count-badge">0</span>)</span>
+                <button type="button" class="btn-secondary" style="font-size:0.8rem; padding:4px 10px;" onclick="renderSnapshotsList()">🔄 Làm Mới</button>
+              </h4>
+              <div id="snapshots-table-wrap" style="overflow-x:auto;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <!-- Guide Box on Protecting Source Code -->
+            <div style="background:#F6F8FA; border:1px solid #D0D7DE; border-radius:var(--radius-sm); padding:20px;">
+              <h4 style="color:#24292F; font-size:1.05rem; margin-bottom:12px; display:flex; align-items:center; gap:8px;" data-i18n="snap_git_guide_title">
+                🛡️ Hướng Dẫn Tạo Bản Save Mã Nguồn (Tránh Lỗi Phá Hỏng Dự Án)
+              </h4>
+              <div style="font-size:0.88rem; color:#424A53; line-height:1.65; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+                <div style="background:#fff; border:1px solid #e1e4e8; border-radius:8px; padding:14px;">
+                  <strong style="color:var(--primary-dark); display:block; margin-bottom:6px;">1. Nút Save 1 Chạm Trực Tiếp (In-App)</strong>
+                  Nhập ghi chú ở trên và bấm <b>"Tạo Điểm Phục Hồi Mới"</b>. Toàn bộ cơ sở dữ liệu Pin, Danh nhân, Giai thoại sẽ được đóng băng và lưu cả trên trình duyệt lẫn thư mục <code>_backups/</code> trên máy tính. Bấm <b>"Khôi phục"</b> bất cứ lúc nào!
+                </div>
+                <div style="background:#fff; border:1px solid #e1e4e8; border-radius:8px; padding:14px;">
+                  <strong style="color:var(--primary-dark); display:block; margin-bottom:6px;">2. File Batch 1 Click (An Toàn Nhất)</strong>
+                  Trong thư mục gốc dự án, nhấp đúp file:
+                  <ul style="margin:4px 0 0 18px; padding:0;">
+                    <li><code>tao_ban_save.bat</code>: Tự động sao lưu toàn bộ code và data vào thư mục <code>_backups/</code>.</li>
+                    <li><code>khoi_phuc_ban_save.bat</code>: Khôi phục lại bản gần nhất khi gặp sự cố.</li>
+                  </ul>
+                </div>
+                <div style="background:#fff; border:1px solid #e1e4e8; border-radius:8px; padding:14px;">
+                  <strong style="color:var(--primary-dark); display:block; margin-bottom:6px;">3. Git Checkpoint (Dành cho Lập trình viên)</strong>
+                  Mở Terminal / PowerShell và gõ:
+                  <code style="display:block; background:#f1f3f5; padding:6px 8px; border-radius:4px; margin-top:6px; font-size:0.8rem; font-family:monospace;">
+                    git commit -am "checkpoint: ban luu tru truoc khi sua"<br>
+                    git tag v1.0-checkpoint
+                  </code>
+                </div>
               </div>
             </div>
           </div>

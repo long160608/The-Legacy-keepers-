@@ -445,7 +445,26 @@ const TRANSLATIONS = {
     role_btn_edit_pin: "✏️ Sửa Ghim",
     role_denied_toast: "🔒 Thao tác bị chặn: Bạn cần quyền Quản Trị Viên (Admin) để thêm, sửa hoặc xóa ghim!",
     role_readonly_status: "🔒 Chỉ xem",
-    role_user_readonly_hint: "🔒 Chế độ Người Dùng: Chỉ xem & Check-in địa danh"
+    role_user_readonly_hint: "🔒 Chế độ Người Dùng: Chỉ xem & Check-in địa danh",
+    // Snapshots & Checkpoints System
+    cms_tab_backups: "💾 Điểm Phục Hồi & Bản Save",
+    cms_btn_quick_save: "💾 Tạo Bản Save Ngay",
+    snap_title: "Quản Lý Điểm Phục Hồi & Bản Save Dự Án",
+    snap_desc: "Tạo các điểm lưu trữ an toàn trước khi chỉnh sửa. Bạn có thể khôi phục lại bất kỳ lúc nào nếu xảy ra sự cố.",
+    snap_input_ph: "Nhập ghi chú cho bản save (ví dụ: Bản chuẩn trước khi sửa pin...)",
+    snap_btn_create: "💾 Tạo Điểm Phục Hồi Mới",
+    snap_tbl_time: "Thời gian tạo",
+    snap_tbl_name: "Ghi chú bản save",
+    snap_tbl_data: "Dữ liệu lưu trữ",
+    snap_tbl_action: "Thao tác",
+    snap_btn_restore: "⏪ Khôi phục",
+    snap_btn_download: "📥 Tải JSON",
+    snap_confirm_restore: "Bạn có chắc chắn muốn khôi phục lại bản save này? Dữ liệu hiện tại sẽ được thay thế bằng dữ liệu của bản save đã chọn.",
+    snap_confirm_delete: "Bạn có chắc muốn xóa bản save này?",
+    snap_toast_created: "💾 Đã tạo điểm phục hồi thành công!",
+    snap_toast_restored: "✓ Đã khôi phục dự án về bản save thành công!",
+    snap_empty: "Chưa có bản save nào. Hãy bấm 'Tạo Điểm Phục Hồi Mới' để lưu lại trạng thái dự án hiện tại!",
+    snap_git_guide_title: "🛡️ Hướng Dẫn Tạo Bản Save Mã Nguồn (Tránh Lỗi Phá Hỏng Dự Án)"
   },
   en: {
     brand_title: "The Legacy Keepers",
@@ -881,7 +900,26 @@ const TRANSLATIONS = {
     role_btn_edit_pin: "✏️ Edit Pin",
     role_denied_toast: "🔒 Access Denied: Administrator (Admin) privileges required for this action!",
     role_readonly_status: "🔒 Read-only",
-    role_user_readonly_hint: "🔒 User Mode: Explore & Check-in only"
+    role_user_readonly_hint: "🔒 User Mode: Explore & Check-in only",
+    // Snapshots & Checkpoints System
+    cms_tab_backups: "💾 Snapshots & Backups",
+    cms_btn_quick_save: "💾 Create Save Point",
+    snap_title: "Project Checkpoints & Backup Snapshots",
+    snap_desc: "Create safe checkpoints before modifying data. You can restore any previous save point at any time.",
+    snap_input_ph: "Enter note for this save (e.g. Stable checkpoint before editing...)",
+    snap_btn_create: "💾 Create New Checkpoint",
+    snap_tbl_time: "Timestamp",
+    snap_tbl_name: "Save Note",
+    snap_tbl_data: "Stored Data",
+    snap_tbl_action: "Actions",
+    snap_btn_restore: "⏪ Restore",
+    snap_btn_download: "📥 Download JSON",
+    snap_confirm_restore: "Are you sure you want to restore this checkpoint? Current data will be replaced by the selected snapshot.",
+    snap_confirm_delete: "Are you sure you want to delete this snapshot?",
+    snap_toast_created: "💾 Checkpoint created successfully!",
+    snap_toast_restored: "✓ Project restored to selected checkpoint successfully!",
+    snap_empty: "No snapshots saved yet. Click 'Create New Checkpoint' to save current project state!",
+    snap_git_guide_title: "🛡️ Source Code Backup Guide (Prevent Breaking Project)"
   }
 };
 
@@ -1986,6 +2024,9 @@ function initInputSubTabs() {
       if (targetSubtab === "subtab-badges") {
         initBadgeConditionRows();
       }
+      if (targetSubtab === "subtab-backups") {
+        renderSnapshotsList();
+      }
     });
   });
 }
@@ -2208,18 +2249,38 @@ function initLeafletMap() {
   }
 
   // Ensure map container has dimensions before init
+  // maxZoom: 20 so zooming in NEVER blanks out!
   map = L.map('map', {
     zoomControl: true,
-    minZoom: 5,
-    maxZoom: 18
+    minZoom: 4,
+    maxZoom: 20
   }).setView(userCoords, 14);
 
-  // Clean Minimalist Map Style (Similar to Pokémon GO / Apple Maps Clean Vector)
-  // Soft, clear roads, green parks and clean blue water without messy labels
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-    attribution: '&copy; Esri &mdash; The Legacy Keepers Clean Radar',
-    maxZoom: 17
+  // CartoDB Voyager Tile Layer: Crisp, light cream aesthetic, high-resolution up to zoom 20
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap contributors',
+    subdomains: 'abcd',
+    maxNativeZoom: 19,
+    maxZoom: 20
   }).addTo(map);
+
+  // Dynamic zoom class handling for responsive pin labels and viewports
+  const updateZoomClass = () => {
+    if (!map) return;
+    const currentZoom = map.getZoom();
+    const mapContainer = map.getContainer();
+    if (mapContainer) {
+      if (currentZoom < 13) {
+        mapContainer.classList.add('map-zoom-low');
+        mapContainer.classList.remove('map-zoom-high');
+      } else {
+        mapContainer.classList.remove('map-zoom-low');
+        mapContainer.classList.add('map-zoom-high');
+      }
+    }
+  };
+  map.on('zoomend', updateZoomClass);
+  updateZoomClass();
 
   // Force map to compute exact container size
   setTimeout(() => {
@@ -2356,7 +2417,7 @@ function updatePlayerRadarMarker() {
 let activePinCircles = [];
 
 /**
- * Hiển thị các Pin với vòng tròn đúng tỷ lệ mét theo độ hiếm và radar pulse
+ * Hiển thị các Pin với vòng tròn địa lý chuẩn tỷ lệ mét (L.circle) và Huy hiệu Di sản (Heritage Seal)
  */
 function renderPinsOnMap(filter = "all") {
   if (!map) return;
@@ -2378,51 +2439,65 @@ function renderPinsOnMap(filter = "all") {
     // Khoảng cách thực tế từ người chơi đến Pin
     const distToPin = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
 
-    // Kiểm tra tầm phủ sóng Radar (Discovery Radius)
+    // Kiểm tra tầm phủ sóng Radar (Discovery Radius) và Check-in (Interaction Radius)
     const isWithinRadarReach = distToPin <= discoveryRadius;
+    const isWithinCheckinReach = distToPin <= interactionRadius;
 
-    // VÒNG TRÒN CHECK-IN CHUẨN TỶ LỆ MÉT (Vẽ khi người chơi nằm trong tầm radar phủ sóng)
-    if (isWithinRadarReach) {
-      const interactionCircle = L.circle([pin.lat, pin.lng], {
-        radius: interactionRadius,
-        color: spec.color,
-        fillColor: spec.fillColor,
-        fillOpacity: 0.18,
-        weight: 1.5,
-        dashArray: '4, 4'
-      }).addTo(map);
-      activePinCircles.push(interactionCircle);
-    }
+    // 1. VÒNG TẦM PHỦ SÓNG RADAR (DISCOVERY RADIUS) - CHUẨN TỶ LỆ MÉT THỰC TẾ
+    // Bán kính từ 1.500m đến 25.000m tùy cài đặt và độ hiếm
+    const discoveryCircle = L.circle([pin.lat, pin.lng], {
+      radius: discoveryRadius,
+      color: spec.color,
+      weight: isWithinRadarReach ? 1.5 : 1,
+      dashArray: '6, 8',
+      fillColor: spec.fillColor,
+      fillOpacity: isWithinRadarReach ? 0.08 : 0.025,
+      className: `geo-pin-discovery-circle ${isWithinRadarReach ? 'radar-active-zone' : ''}`,
+      interactive: false
+    }).addTo(map);
+    activePinCircles.push(discoveryCircle);
 
-    // Marker Pin: Luôn hiển thị các di tích lịch sử trên bản đồ để khám phá và tra cứu
+    // 2. VÒNG CHECK-IN TƯƠNG TÁC (INTERACTION RADIUS) - CHUẨN TỶ LỆ MÉT THỰC TẾ
+    // Bán kính từ 40m đến 150m. Khi zoom in/out, vòng này co giãn CHÍNH XÁC theo thước đo bản đồ!
+    const interactionCircle = L.circle([pin.lat, pin.lng], {
+      radius: interactionRadius,
+      color: isWithinCheckinReach ? '#2E7D32' : spec.color,
+      weight: isWithinCheckinReach ? 2.5 : 1.8,
+      dashArray: isWithinCheckinReach ? 'none' : '4, 4',
+      fillColor: isWithinCheckinReach ? '#A5D6A7' : spec.fillColor,
+      fillOpacity: isWithinCheckinReach ? 0.38 : 0.2,
+      className: `geo-pin-checkin-circle ${isWithinCheckinReach ? 'in-range-pulse' : ''}`,
+      interactive: true
+    }).addTo(map);
+    interactionCircle.on("click", () => openLocationModal(pin));
+    activePinCircles.push(interactionCircle);
+
+    // 3. MARKER PIN: HUY HIỆU DI SẢN (HERITAGE SEAL BADGE)
+    // Thiết kế tinh tế 36px, không bị phóng đại quá khổ khi zoom out
     const rarityClass = `pin-rarity-${pin.rarity || 'common'}`;
-    const pulseClass = isWithinRadarReach ? 'within-radar' : 'distant-landmark';
+    const pulseClass = isWithinCheckinReach ? 'checkin-ready' : (isWithinRadarReach ? 'within-radar' : 'distant-landmark');
     const pinName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
-    const concentricIcon = L.divIcon({
-      className: 'concentric-pin-leaflet-icon',
+
+    const heritageIcon = L.divIcon({
+      className: 'heritage-pin-leaflet-icon',
       html: `
-        <div class="concentric-pin-container ${rarityClass} ${pulseClass}">
-          ${isWithinRadarReach ? `
-            <!-- 3 Vòng tròn đồng tâm từ tâm tỏa ra theo màu Aura khi radar bắt trúng -->
-            <div class="pin-ripple-circle pin-ripple-1"></div>
-            <div class="pin-ripple-circle pin-ripple-2"></div>
-            <div class="pin-ripple-circle pin-ripple-3"></div>
-          ` : ''}
-          <!-- Tâm Pin -->
-          <div class="pin-core-badge" title="${pinName}">
-            ${pin.icon || '🏛️'}
+        <div class="heritage-pin-container ${rarityClass} ${pulseClass}">
+          <div class="heritage-pin-geodesic-wave"></div>
+          <div class="heritage-pin-seal" title="${pinName}">
+            <span class="heritage-pin-emoji">${pin.icon || '🏛️'}</span>
           </div>
+          <div class="heritage-pin-caption">${pinName}</div>
         </div>
       `,
-      iconSize: [72, 72],
-      iconAnchor: [36, 36]
+      iconSize: [36, 36],
+      iconAnchor: [18, 18]
     });
 
-    const m = L.marker([pin.lat, pin.lng], { icon: concentricIcon }).addTo(map);
+    const m = L.marker([pin.lat, pin.lng], { icon: heritageIcon, zIndexOffset: isWithinRadarReach ? 200 : 50 }).addTo(map);
     const distLabel = distToPin >= 1000 ? `${(distToPin / 1000).toFixed(1)} km` : `${distToPin} m`;
     m.bindTooltip(`<b>${pin.icon || '📍'} ${pinName}</b><br><span style="font-size:0.75rem; color:var(--text-muted);">${currentLang === 'en' ? 'Distance: ' : 'Cách bạn: '}${distLabel}</span>`, {
       direction: 'top',
-      offset: [0, -18]
+      offset: [0, -20]
     });
     m.on("click", () => openLocationModal(pin));
     activePinMarkers.push(m);
@@ -5523,4 +5598,269 @@ async function handleMediaFilePicker(event) {
     showToast(`✓ Đã đặt đường dẫn media/videos/${file.name}`);
   };
   reader.readAsDataURL(file);
+}
+
+// ==========================================================================
+// PROJECT CHECKPOINTS & BACKUP SNAPSHOTS SYSTEM
+// ==========================================================================
+const LOCAL_SNAPSHOTS_KEY = "legacy_keepers_local_snapshots";
+
+function escapeHTML(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+  }[tag] || tag));
+}
+
+function getLocalSnapshots() {
+  try {
+    return JSON.parse(localStorage.getItem(LOCAL_SNAPSHOTS_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveLocalSnapshots(list) {
+  try {
+    localStorage.setItem(LOCAL_SNAPSHOTS_KEY, JSON.stringify(list));
+  } catch (e) {
+    console.warn("Storage quota exceeded or unavailable:", e);
+  }
+}
+
+async function renderSnapshotsList() {
+  const container = document.getElementById("snapshots-table-wrap");
+  const countBadge = document.getElementById("snapshot-count-badge");
+  if (!container) return;
+
+  container.innerHTML = `<div style="padding:24px; text-align:center; color:var(--text-muted);"><div class="spinner" style="margin:0 auto 10px; width:28px; height:28px; border:3px solid var(--neutral-300); border-top-color:var(--primary); border-radius:50%; animation:spin 1s linear infinite;"></div>Đang tải danh sách bản save...</div>`;
+
+  let serverList = [];
+  try {
+    const res = await fetch("/api/list_snapshots");
+    if (res.ok) {
+      serverList = await res.json();
+    }
+  } catch (e) {
+    // offline fallback
+  }
+
+  const localList = getLocalSnapshots();
+
+  // Merge server and local snapshots by id or timestamp
+  const mapSnap = new Map();
+  serverList.forEach(s => mapSnap.set(s.id || s.timestamp, { ...s, source: 'server' }));
+  localList.forEach(s => {
+    const key = s.id || s.timestamp;
+    if (!mapSnap.has(key)) {
+      mapSnap.set(key, { ...s, source: 'local' });
+    }
+  });
+
+  const combinedList = Array.from(mapSnap.values()).sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+
+  if (countBadge) countBadge.innerText = combinedList.length;
+
+  if (combinedList.length === 0) {
+    container.innerHTML = `
+      <div style="padding:36px 16px; text-align:center; color:var(--text-muted); background:#fff; border:1px dashed var(--neutral-300); border-radius:8px;">
+        <div style="font-size:2.2rem; margin-bottom:8px;">💾</div>
+        <p style="font-weight:600; font-size:1rem; color:var(--primary-dark); margin-bottom:4px;">${t('snap_empty')}</p>
+        <span style="font-size:0.84rem;">Hãy nhập ghi chú và bấm <b>Tạo Điểm Phục Hồi Mới</b> để tạo bản checkpoint an toàn!</span>
+      </div>
+    `;
+    return;
+  }
+
+  let html = `
+    <table class="cms-table" style="width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; box-shadow:var(--shadow-xs); border:1px solid var(--neutral-200);">
+      <thead>
+        <tr style="background:var(--neutral-100); text-align:left; font-size:0.85rem; color:var(--primary-dark); border-bottom:1.5px solid var(--neutral-300);">
+          <th style="padding:12px 14px; width:180px;">${t('snap_tbl_time')}</th>
+          <th style="padding:12px 14px;">${t('snap_tbl_name')}</th>
+          <th style="padding:12px 14px; width:240px;">${t('snap_tbl_data')}</th>
+          <th style="padding:12px 14px; width:190px; text-align:center;">${t('snap_tbl_action')}</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  combinedList.forEach(snap => {
+    const dateObj = new Date(snap.timestamp);
+    const formattedDate = !isNaN(dateObj.getTime()) ? dateObj.toLocaleString(currentLang === 'vi' ? 'vi-VN' : 'en-US') : snap.timestamp;
+    const counts = snap.counts || {
+      pins: snap.data?.pins?.length || (snap.folder_name ? '✓' : 0),
+      figures: snap.data?.figures?.length || (snap.folder_name ? '✓' : 0),
+      stories: snap.data?.stories?.length || (snap.folder_name ? '✓' : 0),
+      badges: snap.data?.badges?.length || (snap.folder_name ? '✓' : 0)
+    };
+
+    html += `
+      <tr style="border-bottom:1px solid var(--neutral-200); font-size:0.86rem;">
+        <td style="padding:12px 14px; color:var(--text-muted); font-size:0.82rem; font-family:monospace;">
+          <b>${formattedDate}</b>
+          <div style="margin-top:3px;"><span style="font-size:0.7rem; padding:2px 6px; border-radius:4px; font-weight:600; background:${snap.source === 'server' ? '#E8F5E9' : '#FFF9C4'}; color:${snap.source === 'server' ? '#2E7D32' : '#F57F17'};">${snap.source === 'server' ? '📁 Ổ Đĩa (_backups)' : '🌐 Bộ Nhớ Web'}</span></div>
+        </td>
+        <td style="padding:12px 14px;">
+          <strong style="color:var(--primary-dark); font-size:0.94rem;">${escapeHTML(snap.note || 'Bản Snapshot')}</strong>
+          <div style="font-size:0.76rem; color:var(--text-muted); margin-top:3px; font-family:monospace;">Mã: ${escapeHTML(snap.id || snap.folder_name)}</div>
+        </td>
+        <td style="padding:12px 14px;">
+          <div style="display:flex; gap:6px; flex-wrap:wrap; font-size:0.75rem;">
+            <span style="background:#f4eee7; padding:3px 6px; border-radius:4px; font-weight:500;">📍 ${counts.pins} Pin</span>
+            <span style="background:#f4eee7; padding:3px 6px; border-radius:4px; font-weight:500;">👑 ${counts.figures} Nhân vật</span>
+            <span style="background:#f4eee7; padding:3px 6px; border-radius:4px; font-weight:500;">📖 ${counts.stories} Truyện</span>
+            <span style="background:#f4eee7; padding:3px 6px; border-radius:4px; font-weight:500;">🏅 ${counts.badges} Huy hiệu</span>
+          </div>
+        </td>
+        <td style="padding:12px 14px; text-align:center;">
+          <div style="display:flex; gap:6px; justify-content:center;">
+            <button type="button" class="btn-primary" style="padding:5px 10px; font-size:0.8rem; background:#388E3C; border-color:#2E7D32;" onclick="restoreAppSnapshot('${snap.id}')" title="${t('snap_btn_restore')}">
+              ${t('snap_btn_restore')}
+            </button>
+            <button type="button" class="btn-secondary" style="padding:5px 8px; font-size:0.8rem;" onclick="downloadSnapshotJSON('${snap.id}')" title="${t('snap_btn_download')}">
+              📥
+            </button>
+            <button type="button" class="btn-secondary" style="padding:5px 8px; font-size:0.8rem; color:#d32f2f;" onclick="deleteAppSnapshot('${snap.id}')" title="Xóa bản save">
+              🗑️
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  });
+
+  html += `</tbody></table>`;
+  container.innerHTML = html;
+}
+
+async function createAppSnapshot(customNote = "") {
+  const noteInput = document.getElementById("snapshot-note-input");
+  const note = customNote || (noteInput ? noteInput.value.trim() : "") || `Bản checkpoint ${new Date().toLocaleTimeString('vi-VN')}`;
+
+  const snapshotId = `snapshot_${Date.now()}`;
+  const snapshotData = {
+    id: snapshotId,
+    timestamp: new Date().toISOString(),
+    note: note,
+    counts: {
+      pins: appState.pins.length,
+      figures: appState.figures.length,
+      stories: appState.stories.length,
+      badges: appState.badges.length
+    },
+    data: {
+      pins: JSON.parse(JSON.stringify(appState.pins)),
+      figures: JSON.parse(JSON.stringify(appState.figures)),
+      stories: JSON.parse(JSON.stringify(appState.stories)),
+      badges: JSON.parse(JSON.stringify(appState.badges)),
+      userProfile: typeof userProfile !== 'undefined' ? JSON.parse(JSON.stringify(userProfile)) : null
+    }
+  };
+
+  // 1. Save to localStorage
+  const localList = getLocalSnapshots();
+  localList.unshift(snapshotData);
+  if (localList.length > 25) localList.pop(); // Keep top 25
+  saveLocalSnapshots(localList);
+
+  // 2. Send to backend server to create disk snapshot in _backups/
+  try {
+    await fetch("/api/create_snapshot", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ note: note, id: snapshotId })
+    });
+  } catch (e) {
+    console.warn("Server save error:", e);
+  }
+
+  if (noteInput) noteInput.value = "";
+  showToast(t('snap_toast_created'));
+  renderSnapshotsList();
+}
+
+function triggerQuickSave() {
+  const defaultNote = `Lưu nhanh trước chỉnh sửa (${new Date().toLocaleTimeString('vi-VN')})`;
+  createAppSnapshot(defaultNote);
+}
+
+async function restoreAppSnapshot(snapshotId) {
+  if (!confirm(t('snap_confirm_restore'))) return;
+
+  // Find snapshot in local or server
+  let snap = getLocalSnapshots().find(s => s.id === snapshotId);
+
+  if (!snap) {
+    try {
+      const res = await fetch("/api/list_snapshots");
+      if (res.ok) {
+        const list = await res.json();
+        snap = list.find(s => s.id === snapshotId);
+      }
+    } catch (e) {}
+  }
+
+  if (snap && snap.data) {
+    if (snap.data.pins) appState.pins = JSON.parse(JSON.stringify(snap.data.pins));
+    if (snap.data.figures) appState.figures = JSON.parse(JSON.stringify(snap.data.figures));
+    if (snap.data.stories) appState.stories = JSON.parse(JSON.stringify(snap.data.stories));
+    if (snap.data.badges) appState.badges = JSON.parse(JSON.stringify(snap.data.badges));
+    if (snap.data.userProfile && typeof userProfile !== 'undefined') {
+      userProfile = JSON.parse(JSON.stringify(snap.data.userProfile));
+      localStorage.setItem("legacy_keepers_profile", JSON.stringify(userProfile));
+    }
+
+    saveState();
+    if (typeof saveToServerDataJSON === 'function') {
+      saveToServerDataJSON();
+    }
+  }
+
+  // Also call backend to restore data.json from backup folder if server available
+  try {
+    await fetch("/api/restore_snapshot", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: snapshotId, folder_name: snap?.folder_name || "" })
+    });
+  } catch (e) {}
+
+  refreshAllViews();
+  renderSnapshotsList();
+  showToast(t('snap_toast_restored'));
+}
+
+function downloadSnapshotJSON(snapshotId) {
+  const snap = getLocalSnapshots().find(s => s.id === snapshotId);
+  const dataToDownload = snap?.data || {
+    pins: appState.pins,
+    figures: appState.figures,
+    stories: appState.stories,
+    badges: appState.badges,
+    userProfile: typeof userProfile !== 'undefined' ? userProfile : null
+  };
+
+  const jsonStr = JSON.stringify(dataToDownload, null, 2);
+  const blob = new Blob([jsonStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `legacy_keepers_${snapshotId || 'checkpoint'}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function deleteAppSnapshot(snapshotId) {
+  if (!confirm(t('snap_confirm_delete'))) return;
+  const list = getLocalSnapshots().filter(s => s.id !== snapshotId);
+  saveLocalSnapshots(list);
+  renderSnapshotsList();
+  showToast("Đã xóa bản save khỏi bộ nhớ web!");
 }
