@@ -405,7 +405,25 @@ const TRANSLATIONS = {
     mob_nav_figures: "Nhân vật",
     mob_nav_badges: "Huy hiệu",
     mob_nav_profile: "Hồ sơ",
-    mob_nav_cms: "Nhập liệu"
+    mob_nav_cms: "Nhập liệu",
+    stat_hint_view: "Bấm xem chi tiết ➜",
+    stat_modal_pins_title: "Địa danh đã check-in",
+    stat_modal_pins_desc: "Danh sách các địa danh, di tích lịch sử và chiến trường bạn đã ghé thăm và quét radar thực địa.",
+    stat_modal_stories_title: "Kho giai thoại đã mở khóa",
+    stat_modal_stories_desc: "Kho tàng ký ức và điển tích oanh liệt bạn đã giải mã thành công qua các chuyến tuần tra.",
+    stat_modal_badges_title: "Huy hiệu sở hữu",
+    stat_modal_badges_desc: "Hệ thống huân chương và danh hiệu vinh danh hành trình gìn giữ di sản của bạn.",
+    stat_modal_km_title: "Quãng đường & Hành trình thám hiểm",
+    stat_modal_km_desc: "Tổng hợp cự ly tuần tra thực địa, cấp độ thám hiểm và tiến độ nhận danh hiệu viễn chinh.",
+    stat_btn_view_radar: "🧭 Xem trên Radar",
+    stat_btn_read_story: "📖 Đọc Giai Thoại",
+    stat_btn_view_badge: "🏅 Xem Chi Tiết",
+    stat_modal_empty_pins: "Chưa có địa danh nào được check-in. Hãy tuần tra thực địa và quét radar để khám phá!",
+    stat_modal_empty_stories: "Chưa có giai thoại nào được mở khóa. Hãy check-in các địa danh yêu cầu để giải mã!",
+    stat_modal_empty_badges: "Chưa có huy hiệu nào được mở khóa. Hãy hoàn thành các mục tiêu khám phá để thu thập!",
+    stat_tag_checked_in: "✓ Đã Check-in",
+    stat_tag_unlocked: "🔓 Đã mở khóa",
+    stat_tag_earned: "🏅 Đã đạt"
   },
   en: {
     brand_title: "The Legacy Keepers",
@@ -801,7 +819,25 @@ const TRANSLATIONS = {
     mob_nav_figures: "Figures",
     mob_nav_badges: "Badges",
     mob_nav_profile: "Profile",
-    mob_nav_cms: "CMS Portal"
+    mob_nav_cms: "CMS Portal",
+    stat_hint_view: "Click to view details ➜",
+    stat_modal_pins_title: "Checked-in Heritage Locations",
+    stat_modal_pins_desc: "List of historical landmarks, battlefields, and sites you have personally visited and scanned.",
+    stat_modal_stories_title: "Unlocked Heritage Stories",
+    stat_modal_stories_desc: "Precious historical records and hero feats you have decoded through field exploration.",
+    stat_modal_badges_title: "Earned Heritage Badges",
+    stat_modal_badges_desc: "Medals and honors recognizing your journey preserving national heritage.",
+    stat_modal_km_title: "Exploration Distance & Journey",
+    stat_modal_km_desc: "Summary of your field patrol distance, explorer level progress, and expedition milestones.",
+    stat_btn_view_radar: "🧭 View on Radar",
+    stat_btn_read_story: "📖 Read Story",
+    stat_btn_view_badge: "🏅 View Details",
+    stat_modal_empty_pins: "No locations checked in yet. Patrol the field and scan radar to discover heritage sites!",
+    stat_modal_empty_stories: "No stories unlocked yet. Check in at required landmarks to decode historical stories!",
+    stat_modal_empty_badges: "No badges earned yet. Complete exploration criteria to collect badges!",
+    stat_tag_checked_in: "✓ Checked-in",
+    stat_tag_unlocked: "🔓 Unlocked",
+    stat_tag_earned: "🏅 Earned"
   }
 };
 
@@ -886,6 +922,11 @@ function setLanguage(lang) {
   // If story viewer modal is open, re-render it in the new language
   if (selectedStoryIdForModal && document.getElementById("story-modal") && document.getElementById("story-modal").classList.contains("active")) {
     openStoryModal(selectedStoryIdForModal);
+  }
+
+  // If profile stat modal is open, re-render it in the new language
+  if (currentProfileStatType && document.getElementById("profile-stat-modal") && document.getElementById("profile-stat-modal").classList.contains("active")) {
+    openProfileStatModal(currentProfileStatType);
   }
 
   // Re-render views
@@ -3391,6 +3432,324 @@ function renderProfileStats() {
   logList.innerHTML = (p.logs || []).map(item => `
     <li style="padding:6px 0; border-bottom:1px dashed var(--neutral-200);">${item}</li>
   `).join("");
+}
+
+// ==========================================================================
+// PROFILE STAT CARDS INTERACTION (MODAL DETAILS)
+// ==========================================================================
+let currentProfileStatType = null;
+
+function getPinCategoryIcon(cat) {
+  switch (cat) {
+    case 'battlefield': return '⚔️';
+    case 'living_history': return '🎙️';
+    case 'story': return '📖';
+    case 'culture': return '🎨';
+    case 'landmark':
+    default:
+      return '🏛️';
+  }
+}
+
+function getPinCategoryLabel(cat) {
+  switch (cat) {
+    case 'battlefield': return currentLang === 'en' ? 'Battlefield' : 'Trận đánh';
+    case 'living_history': return currentLang === 'en' ? 'Living Witness' : 'Nhân chứng sống';
+    case 'story': return currentLang === 'en' ? 'Memory Site' : 'Mảnh ký ức';
+    case 'culture': return currentLang === 'en' ? 'Traditional Culture' : 'Văn hóa & Làng nghề';
+    case 'landmark':
+    default:
+      return currentLang === 'en' ? 'Landmark / Monument' : 'Địa danh di tích';
+  }
+}
+
+function getBadgeTierLabel(tier) {
+  switch (tier) {
+    case 'gold': return currentLang === 'en' ? '🥇 Gold' : '🥇 Vàng';
+    case 'silver': return currentLang === 'en' ? '🥈 Silver' : '🥈 Bạc';
+    case 'diamond': return currentLang === 'en' ? '💎 Platinum' : '💎 Bạch kim';
+    case 'bronze':
+    default:
+      return currentLang === 'en' ? '🥉 Bronze' : '🥉 Đồng';
+  }
+}
+
+function openProfileStatModal(statType) {
+  currentProfileStatType = statType;
+  const modal = document.getElementById("profile-stat-modal");
+  const tagEl = document.getElementById("profile-stat-modal-tag");
+  const titleEl = document.getElementById("profile-stat-modal-title");
+  const descEl = document.getElementById("profile-stat-modal-desc");
+  const listEl = document.getElementById("profile-stat-modal-list");
+
+  if (!modal || !listEl) return;
+
+  if (statType === 'pins') {
+    // 1. Địa danh đã check-in
+    const checkedPinIds = (appState.profile && appState.profile.checked_in_pins) || [];
+    const visitedPins = (appState.pins || []).filter(p => checkedPinIds.includes(p.id) || p.isVisited);
+
+    if (tagEl) tagEl.innerText = currentLang === 'en' ? '🏛️ CHECKED-IN LOCATIONS' : '🏛️ ĐỊA DANH ĐÃ CHECK-IN';
+    if (titleEl) titleEl.innerText = `${t('stat_modal_pins_title')} (${visitedPins.length})`;
+    if (descEl) descEl.innerText = t('stat_modal_pins_desc');
+
+    if (visitedPins.length === 0) {
+      listEl.innerHTML = `
+        <div style="text-align:center; padding:36px 16px;">
+          <div style="font-size:2.8rem; margin-bottom:10px;">🗺️</div>
+          <strong style="color:var(--primary-dark); font-size:1.05rem;">${t('stat_modal_empty_pins')}</strong>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:8px;">
+            ${currentLang === 'en' ? 'Patrol the map and walk near pins to check-in and unlock history!' : 'Hãy bật Radar và di chuyển tới gần các mốc di tích để check-in và mở khóa lịch sử!'}
+          </p>
+          <button class="btn-primary" style="margin-top:14px;" onclick="closeProfileStatModal(); switchTab('tab-map');">
+            🧭 ${t('nav_map')}
+          </button>
+        </div>
+      `;
+    } else {
+      listEl.innerHTML = visitedPins.map(pin => {
+        const pinName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
+        const pinDesc = currentLang === 'en' ? (pin.desc_en || pin.desc) : pin.desc;
+        const catIcon = getPinCategoryIcon(pin.category);
+        const catLabel = getPinCategoryLabel(pin.category);
+        const rarityLabel = currentLang === 'en' ? (pin.rarity || 'Common') : (pin.rarity === 'Legendary' ? 'Huyền thoại' : (pin.rarity === 'Rare' ? 'Quý hiếm' : 'Phổ thông'));
+        
+        return `
+          <div class="profile-stat-item-card">
+            <div class="stat-item-badge-col">
+              <div class="stat-item-avatar">
+                ${pin.image ? `<img src="${pin.image}" alt="${pinName}" onerror="this.outerHTML='${catIcon}'">` : catIcon}
+              </div>
+            </div>
+            <div class="stat-item-info-col">
+              <div class="stat-item-title-row">
+                <strong class="stat-item-name">${pinName}</strong>
+                <span class="badge-tag" style="background:rgba(39, 174, 96, 0.15); color:#27ae60; border-color:#27ae60; font-size:0.75rem;">${t('stat_tag_checked_in')}</span>
+              </div>
+              <div class="stat-item-meta">
+                <span>${catIcon} ${catLabel}</span> • <span>⭐ ${rarityLabel}</span>
+                ${pin.address ? `• <span>📍 ${pin.address}</span>` : `• <span>📍 [${pin.lat.toFixed(4)}, ${pin.lng.toFixed(4)}]</span>`}
+              </div>
+              <p class="stat-item-desc">${pinDesc || ''}</p>
+            </div>
+            <div class="stat-item-action-col">
+              <button class="btn-primary" style="padding:6px 14px; font-size:0.8rem; white-space:nowrap;" onclick="viewPinFromProfile('${pin.id}')">
+                ${t('stat_btn_view_radar')}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+  } else if (statType === 'stories') {
+    // 2. Giai thoại đã mở khóa
+    const unlockedStories = (appState.stories || []).filter(s => !s.is_locked);
+
+    if (tagEl) tagEl.innerText = currentLang === 'en' ? '📖 UNLOCKED STORIES' : '📖 GIAI THOẠI ĐÃ MỞ KHÓA';
+    if (titleEl) titleEl.innerText = `${t('stat_modal_stories_title')} (${unlockedStories.length})`;
+    if (descEl) descEl.innerText = t('stat_modal_stories_desc');
+
+    if (unlockedStories.length === 0) {
+      listEl.innerHTML = `
+        <div style="text-align:center; padding:36px 16px;">
+          <div style="font-size:2.8rem; margin-bottom:10px;">📜</div>
+          <strong style="color:var(--primary-dark); font-size:1.05rem;">${t('stat_modal_empty_stories')}</strong>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:8px;">
+            ${currentLang === 'en' ? 'Each checked-in landmark unlocks heroic narratives and secret chronicles.' : 'Mỗi địa danh ghé thăm sẽ mở khóa những câu chuyện hào hùng về các bậc danh nhân hào kiệt.'}
+          </p>
+          <button class="btn-primary" style="margin-top:14px;" onclick="closeProfileStatModal(); switchTab('tab-map');">
+            🧭 ${t('nav_map')}
+          </button>
+        </div>
+      `;
+    } else {
+      listEl.innerHTML = unlockedStories.map(story => {
+        const sTitle = currentLang === 'en' ? (story.title_en || story.title) : story.title;
+        const sContent = currentLang === 'en' ? (story.content_en || story.content) : story.content;
+        const sExcerpt = sContent ? (sContent.slice(0, 110) + '...') : '';
+        const fig = (appState.figures || []).find(f => f.id === story.figure_id);
+        const figName = fig ? (currentLang === 'en' ? (fig.name_en || fig.name) : fig.name) : (currentLang === 'en' ? 'Historical Figure' : 'Danh nhân Lịch sử');
+        const figAvatar = fig ? (fig.avatar || '⚔️') : '📖';
+        const pin = (appState.pins || []).find(p => p.id === story.pin_id);
+        const pinName = pin ? (currentLang === 'en' ? (pin.name_en || pin.name) : pin.name) : '';
+
+        return `
+          <div class="profile-stat-item-card">
+            <div class="stat-item-badge-col">
+              <div class="stat-item-avatar">${figAvatar}</div>
+            </div>
+            <div class="stat-item-info-col">
+              <div class="stat-item-title-row">
+                <strong class="stat-item-name">${sTitle}</strong>
+                <span class="badge-tag" style="background:rgba(243, 156, 18, 0.15); color:#d35400; border-color:#e67e22; font-size:0.75rem;">${t('stat_tag_unlocked')}</span>
+              </div>
+              <div class="stat-item-meta">
+                <span>⚔️ ${figName}</span>
+                ${pinName ? `• <span>🏛️ ${pinName}</span>` : ''}
+              </div>
+              <p class="stat-item-desc">${sExcerpt}</p>
+            </div>
+            <div class="stat-item-action-col">
+              <button class="btn-primary" style="padding:6px 14px; font-size:0.8rem; white-space:nowrap;" onclick="readStoryFromProfile('${story.id}')">
+                ${t('stat_btn_read_story')}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+  } else if (statType === 'badges') {
+    // 3. Huy hiệu sở hữu
+    const unlockedBadges = (appState.badges || []).filter(b => b.is_unlocked);
+
+    if (tagEl) tagEl.innerText = currentLang === 'en' ? '🏅 EARNED BADGES' : '🏅 HUY HIỆU SỞ HỮU';
+    if (titleEl) titleEl.innerText = `${t('stat_modal_badges_title')} (${unlockedBadges.length})`;
+    if (descEl) descEl.innerText = t('stat_modal_badges_desc');
+
+    if (unlockedBadges.length === 0) {
+      listEl.innerHTML = `
+        <div style="text-align:center; padding:36px 16px;">
+          <div style="font-size:2.8rem; margin-bottom:10px;">🏅</div>
+          <strong style="color:var(--primary-dark); font-size:1.05rem;">${t('stat_modal_empty_badges')}</strong>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:8px;">
+            ${currentLang === 'en' ? 'Visit landmarks and decode historical figures to collect medals!' : 'Ghé thăm các địa danh và khám phá danh nhân để nhận các huân chương di sản ánh kim!'}
+          </p>
+          <button class="btn-primary" style="margin-top:14px;" onclick="closeProfileStatModal(); switchTab('tab-badges');">
+            🏅 ${t('nav_badges')}
+          </button>
+        </div>
+      `;
+    } else {
+      listEl.innerHTML = unlockedBadges.map(b => {
+        const bName = currentLang === 'en' ? (b.name_en || b.name) : b.name;
+        const bLore = currentLang === 'en' ? (b.lore_en || b.lore || b.desc_en || b.desc) : (b.lore || b.desc);
+        const bTier = getBadgeTierLabel(b.tier);
+        const bCategory = currentLang === 'en' ? (b.category_en || b.category) : b.category;
+
+        return `
+          <div class="profile-stat-item-card">
+            <div class="stat-item-badge-col">
+              <div class="stat-item-avatar" style="font-size:2rem; background:rgba(253, 219, 155, 0.25);">${b.icon || '🏅'}</div>
+            </div>
+            <div class="stat-item-info-col">
+              <div class="stat-item-title-row">
+                <strong class="stat-item-name">${bName}</strong>
+                <span class="badge-tag" style="background:rgba(212, 175, 55, 0.2); color:#8a6d1c; border-color:var(--accent-gold); font-size:0.75rem;">${bTier}</span>
+              </div>
+              <div class="stat-item-meta">
+                <span>📁 ${bCategory || 'Di sản'}</span>
+                ${b.unlocked_date ? `• <span>📅 ${b.unlocked_date}</span>` : ''}
+              </div>
+              <p class="stat-item-desc">${bLore || ''}</p>
+            </div>
+            <div class="stat-item-action-col">
+              <button class="btn-primary" style="padding:6px 14px; font-size:0.8rem; white-space:nowrap;" onclick="viewBadgeFromProfile('${b.id}')">
+                ${t('stat_btn_view_badge')}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+  } else if (statType === 'km') {
+    // 4. Km đã thám hiểm & Hành trình
+    const p = appState.profile;
+    const km = p.km_traveled || 12.5;
+    const checkedCount = (p.checked_in_pins && p.checked_in_pins.length) || 3;
+    const storyCount = (appState.stories || []).filter(s => !s.is_locked).length;
+    const badgeCount = (appState.badges || []).filter(b => b.is_unlocked).length;
+    const levelTitle = currentLang === 'en' ? 'HERITAGE KNIGHT' : 'KỴ SĨ DI SẢN';
+    const nextMilestoneKm = 20;
+    const remainingKm = Math.max(0, (nextMilestoneKm - km)).toFixed(1);
+    const progressPct = Math.min(100, Math.round((km / nextMilestoneKm) * 100));
+
+    if (tagEl) tagEl.innerText = currentLang === 'en' ? '🚶 EXPEDITION SUMMARY' : '🚶 HÀNH TRÌNH ĐIỀN DÃ';
+    if (titleEl) titleEl.innerText = `${km} KM • ${t('stat_modal_km_title')}`;
+    if (descEl) descEl.innerText = t('stat_modal_km_desc');
+
+    listEl.innerHTML = `
+      <div style="background: linear-gradient(135deg, rgba(84, 51, 27, 0.06) 0%, rgba(253, 219, 155, 0.2) 100%); border: 1.5px solid var(--accent-gold); border-radius: var(--radius-md); padding: 18px; text-align: center; margin-bottom: 6px;">
+        <div style="font-size: 2.4rem; font-weight: 800; color: var(--primary-dark); line-height: 1;">
+          ${km} <span style="font-size: 1.2rem; font-weight: 600; color: var(--text-secondary);">KM</span>
+        </div>
+        <div style="margin-top: 6px; font-weight: 700; color: var(--primary); font-size: 0.95rem;">
+          ${currentLang === 'en' ? `Level ${p.level} • ${levelTitle}` : `Cấp ${p.level} • ${levelTitle}`}
+        </div>
+        <div style="margin-top: 14px; background: #fff; border: 1px solid var(--neutral-300); border-radius: 8px; padding: 12px;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary);">
+            <span>${currentLang === 'en' ? 'Next Milestone: Senior Expedition Master (20 km)' : 'Mục tiêu danh hiệu: Bậc Thầy Viễn Chinh (20 km)'}</span>
+            <span>${progressPct}%</span>
+          </div>
+          <div style="height: 10px; background: var(--neutral-200); border-radius: 5px; overflow: hidden;">
+            <div style="height: 100%; width: ${progressPct}%; background: linear-gradient(90deg, var(--accent-camel), var(--accent-yellow));"></div>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; text-align: left;">
+            ${currentLang === 'en' ? `Need ${remainingKm} more km of field patrol to unlock next milestone.` : `Còn ${remainingKm} km tuần tra nữa để mở khóa danh hiệu kế tiếp.`}
+          </div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 6px;">
+        <div style="background: var(--bg-card); border: 1px solid var(--neutral-200); border-radius: var(--radius-sm); padding: 12px; text-align: center;">
+          <div style="font-size: 1.3rem; font-weight: 700; color: var(--primary-dark);">${checkedCount}</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">🏛️ ${currentLang === 'en' ? 'Locations' : 'Địa danh'}</div>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--neutral-200); border-radius: var(--radius-sm); padding: 12px; text-align: center;">
+          <div style="font-size: 1.3rem; font-weight: 700; color: var(--primary-dark);">${storyCount}</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">📖 ${currentLang === 'en' ? 'Stories' : 'Giai thoại'}</div>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--neutral-200); border-radius: var(--radius-sm); padding: 12px; text-align: center;">
+          <div style="font-size: 1.3rem; font-weight: 700; color: var(--primary-dark);">${badgeCount}</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">🏅 ${currentLang === 'en' ? 'Badges' : 'Huy hiệu'}</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; display: flex; justify-content: center;">
+        <button class="btn-primary" style="padding: 10px 22px; font-size: 0.9rem;" onclick="closeProfileStatModal(); switchTab('tab-map');">
+          🚶 ${currentLang === 'en' ? 'Patrol on Radar Map Now' : 'Tuần Tra Bản Đồ Radar Ngay'}
+        </button>
+      </div>
+    `;
+  }
+
+  modal.classList.add("active");
+}
+
+function closeProfileStatModal() {
+  const modal = document.getElementById("profile-stat-modal");
+  if (modal) {
+    modal.classList.remove("active");
+  }
+  currentProfileStatType = null;
+}
+
+function viewPinFromProfile(pinId) {
+  closeProfileStatModal();
+  const pin = (appState.pins || []).find(p => p.id === pinId);
+  if (!pin) return;
+  switchTab("tab-map");
+  if (map) {
+    setTimeout(() => {
+      map.invalidateSize();
+      map.flyTo([pin.lat, pin.lng], 16, { duration: 1.2 });
+      setTimeout(() => {
+        openLocationModal(pin);
+      }, 700);
+    }, 200);
+  }
+}
+
+function readStoryFromProfile(storyId) {
+  closeProfileStatModal();
+  openStoryModal(storyId);
+}
+
+function viewBadgeFromProfile(badgeId) {
+  closeProfileStatModal();
+  openBadgeDetailsModal(badgeId);
 }
 
 function populateDropdownSelectors() {

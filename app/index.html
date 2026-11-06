@@ -235,23 +235,27 @@
           </div>
         </div>
 
-        <!-- Grid 4 Chỉ số -->
+        <!-- Grid 4 Chỉ số (Tương tác bấm mở chi tiết từng mục) -->
         <div class="profile-stats-grid">
-          <div class="stat-box">
+          <div class="stat-box" onclick="openProfileStatModal('pins')" title="Bấm để xem danh sách địa danh đã check-in">
             <div class="stat-val" id="stat-pins-scanned">0</div>
             <div class="stat-label" data-i18n="stat_pins">Địa danh đã check-in</div>
+            <span class="stat-hint-pill" data-i18n="stat_hint_view">Bấm xem danh sách ➜</span>
           </div>
-          <div class="stat-box">
+          <div class="stat-box" onclick="openProfileStatModal('stories')" title="Bấm để xem kho giai thoại đã mở khóa">
             <div class="stat-val" id="stat-stories-unlocked">0</div>
             <div class="stat-label" data-i18n="stat_stories">Giai thoại đã mở khóa</div>
+            <span class="stat-hint-pill" data-i18n="stat_hint_view">Bấm xem danh sách ➜</span>
           </div>
-          <div class="stat-box">
+          <div class="stat-box" onclick="openProfileStatModal('badges')" title="Bấm để xem bộ sưu tập huy hiệu sở hữu">
             <div class="stat-val" id="stat-badges-owned">0</div>
             <div class="stat-label" data-i18n="stat_badges">Huy hiệu sở hữu</div>
+            <span class="stat-hint-pill" data-i18n="stat_hint_view">Bấm xem danh sách ➜</span>
           </div>
-          <div class="stat-box">
+          <div class="stat-box" onclick="openProfileStatModal('km')" title="Bấm để xem chi tiết hành trình thám hiểm">
             <div class="stat-val" id="stat-km-traveled">12.5</div>
             <div class="stat-label" data-i18n="stat_km">Km đã thám hiểm</div>
+            <span class="stat-hint-pill" data-i18n="stat_hint_view">Bấm xem hành trình ➜</span>
           </div>
         </div>
 
@@ -1050,6 +1054,35 @@
             <button type="submit" class="btn-primary" data-i18n="quick_story_btn_save">💾 Lưu Giai Thoại Ngay</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PROFILE STAT DETAILS MODAL ==================== -->
+  <div class="modal-overlay" id="profile-stat-modal">
+    <div class="modal-box profile-stat-modal-box">
+      <!-- Dynamic Themed Hero Header -->
+      <div class="modal-header-hero" id="profile-stat-modal-hero" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);">
+        <div class="modal-header-top">
+          <div class="modal-pin-category-tag" id="profile-stat-modal-tag">📊 THỐNG KÊ CHI TIẾT</div>
+          <button class="modal-close-btn" onclick="closeProfileStatModal()">✕</button>
+        </div>
+        <h3 class="modal-title-text" id="profile-stat-modal-title">Địa danh đã check-in</h3>
+        <p style="color: rgba(255,255,255,0.88); font-size: 0.85rem; margin-top: 4px; line-height: 1.4;" id="profile-stat-modal-desc">
+          Danh sách các địa danh bạn đã trực tiếp ghé thăm và quét radar thực địa.
+        </p>
+      </div>
+
+      <!-- Modal Body (Dynamic List) -->
+      <div class="modal-body" style="padding: 16px 20px; max-height: 60vh; overflow-y: auto;">
+        <div id="profile-stat-modal-list" style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer" style="padding: 12px 20px; border-top: 1px solid var(--neutral-200); display: flex; justify-content: flex-end; gap: 10px; background: var(--bg-card-sub);">
+        <button type="button" class="btn-secondary" onclick="closeProfileStatModal()" data-i18n="quick_story_btn_cancel">Đóng</button>
       </div>
     </div>
   </div>
