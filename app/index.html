@@ -57,6 +57,9 @@
             <span class="mob-brand-name" data-i18n="brand_title">The Legacy Keepers</span>
           </div>
           <div class="mob-top-actions">
+            <button class="mob-role-pill" id="mob-role-btn" onclick="openRoleModal()" title="Bấm để đổi quyền Admin / User">
+              <span id="mob-role-icon">👤</span> <span id="mob-role-label">User</span>
+            </button>
             <div class="mob-lang-switch">
               <button class="mob-lang-btn active" id="mob-lang-vi" onclick="setLanguage('vi')">VI</button>
               <button class="mob-lang-btn" id="mob-lang-en" onclick="setLanguage('en')">EN</button>
@@ -78,6 +81,18 @@
     <div class="lang-switch-container">
       <button class="lang-btn active" id="btn-lang-vi" onclick="setLanguage('vi')">🇻🇳 Tiếng Việt</button>
       <button class="lang-btn" id="btn-lang-en" onclick="setLanguage('en')">🇬🇧 English</button>
+    </div>
+
+    <!-- System Role Switcher Badge (Admin / User) -->
+    <div class="role-selector-card" id="sidebar-role-card" onclick="openRoleModal()" title="Bấm để chuyển quyền Admin / User">
+      <div class="role-card-left">
+        <span class="role-card-icon" id="sidebar-role-icon">👤</span>
+        <div>
+          <div class="role-card-label" data-i18n="role_current_label">Vai trò hiện tại</div>
+          <div class="role-card-val" id="sidebar-role-name">Người Dùng</div>
+        </div>
+      </div>
+      <button class="role-card-btn" id="sidebar-role-btn">Đổi ➜</button>
     </div>
 
     <ul class="nav-links">
@@ -289,6 +304,9 @@
               <button class="btn-secondary" onclick="exportDataJSON()" data-i18n="cms_export_btn" title="Tải toàn bộ dữ liệu hiện tại về máy dạng JSON">📥 Tải sao lưu JSON</button>
             </div>
           </div>
+
+          <!-- Role Permission Alert Banner -->
+          <div class="role-permission-banner" id="cms-role-banner"></div>
 
           <!-- Sub Tabs Navigation -->
           <div class="sub-tabs">
@@ -860,10 +878,16 @@
           <span id="btn-checkin-label">Check-in Khám Phá & Mở Khóa Giai Thoại</span>
         </button>
 
-        <!-- Manage / Delete Pin Footer -->
-        <div style="margin-top:14px; padding-top:10px; border-top:1px dashed var(--neutral-300); display:flex; justify-content:space-between; align-items:center;">
+        <!-- Manage / Delete Pin Footer (Only for Admin) -->
+        <div id="modal-admin-actions" style="margin-top:14px; padding-top:10px; border-top:1px dashed var(--neutral-300); display:flex; justify-content:space-between; align-items:center;">
           <span id="modal-pin-id-text" style="font-size:0.75rem; color:var(--text-muted); font-family:monospace;">ID: pin-xxx</span>
-          <button class="btn-secondary" style="color:#c0392b; border-color:#e74c3c; font-size:0.8rem; padding:4px 12px; cursor:pointer;" onclick="deleteSelectedPin()" data-i18n="modal_btn_delete_pin">🗑️ Xóa Ghim Này</button>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="btn-secondary" style="color:var(--primary-dark); border-color:var(--accent-gold); font-size:0.8rem; padding:4px 10px; cursor:pointer;" onclick="editSelectedPinFromModal()" data-i18n="role_btn_edit_pin">✏️ Sửa Ghim</button>
+            <button type="button" class="btn-secondary" style="color:#c0392b; border-color:#e74c3c; font-size:0.8rem; padding:4px 10px; cursor:pointer;" onclick="deleteSelectedPin()" data-i18n="modal_btn_delete_pin">🗑️ Xóa Ghim Này</button>
+          </div>
+        </div>
+        <div id="modal-user-readonly-hint" style="margin-top:10px; padding:6px 10px; background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:6px; font-size:0.76rem; color:var(--text-muted); text-align:center; display:none;">
+          <span data-i18n="role_user_readonly_hint">🔒 Chế độ Người Dùng: Chỉ xem & Check-in địa danh</span>
         </div>
       </div>
     </div>
@@ -1100,5 +1124,81 @@
   <!-- Scripts (Local Leaflet for instant offline loading) -->
   <script src="vendor/leaflet.js"></script>
   <script src="app.js"></script>
+
+  <!-- ==================== ROLE SWITCHER MODAL ==================== -->
+  <div class="modal-overlay" id="role-modal">
+    <div class="modal-box" style="max-width:520px;">
+      <div class="modal-header">
+        <h3 id="role-modal-title" data-i18n="role_switch_title">🔐 Cấp Quyền & Vai Trò Hệ Thống</h3>
+        <button class="modal-close-btn" onclick="closeRoleModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 18px 20px;">
+        <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:14px; line-height:1.5;" id="role-modal-subtitle" data-i18n="role_switch_subtitle">
+          Hệ thống chia làm 2 cấp bậc phân quyền rõ ràng: Người Dùng (User) để khám phá và Quản Trị Viên (Admin) để quản lý dữ liệu di sản.
+        </p>
+
+        <!-- Current Role Banner -->
+        <div id="role-current-banner" style="margin-bottom:14px; padding:8px 12px; background:var(--neutral-100); border-radius:8px; font-size:0.84rem; display:flex; justify-content:space-between; align-items:center;">
+          <span data-i18n="role_current_label">Vai trò hiện tại:</span>
+          <strong id="role-current-name-display" style="color:var(--primary-dark);">Người Dùng (User)</strong>
+        </div>
+
+        <!-- 2 Choice Cards -->
+        <div class="role-cards-container">
+          <!-- Card User -->
+          <div class="role-choice-card" id="card-role-user">
+            <div class="role-card-header">
+              <span class="role-icon">👤</span>
+              <div>
+                <strong class="role-title">Người Dùng (User / Explorer)</strong>
+                <span class="role-status-badge" id="badge-status-user">Khách du lịch / Người khám phá</span>
+              </div>
+            </div>
+            <p class="role-desc" data-i18n="role_user_desc">Khám phá bản đồ, check-in và mở khóa giai thoại (Chỉ xem)</p>
+            <div class="role-privileges">
+              <span class="priv-tag ok">✓ Quét Radar & Check-in</span>
+              <span class="priv-tag ok">✓ Mở khóa Giai thoại</span>
+              <span class="priv-tag ok">✓ Thu thập Huy hiệu</span>
+              <span class="priv-tag lock">✕ Không thêm / sửa / xóa Pin</span>
+            </div>
+            <button type="button" class="btn-role-action" id="btn-activate-user" onclick="confirmSwitchToUser()" data-i18n="role_btn_switch_user">👤 Chuyển sang User</button>
+          </div>
+
+          <!-- Card Admin -->
+          <div class="role-choice-card" id="card-role-admin">
+            <div class="role-card-header">
+              <span class="role-icon">👑</span>
+              <div>
+                <strong class="role-title">Quản Trị Viên (Admin / Content)</strong>
+                <span class="role-status-badge badge-admin" id="badge-status-admin">Toàn quyền hệ thống</span>
+              </div>
+            </div>
+            <p class="role-desc" data-i18n="role_admin_desc">Toàn quyền thêm, chỉnh sửa và quản lý dữ liệu di sản</p>
+            <div class="role-privileges">
+              <span class="priv-tag ok">✓ Thêm Pin Địa danh mới</span>
+              <span class="priv-tag ok">✓ Chỉnh sửa Tọa độ & Nội dung</span>
+              <span class="priv-tag ok">✓ Xóa Pin khỏi hệ thống</span>
+              <span class="priv-tag ok">✓ Toàn quyền quản trị CMS</span>
+            </div>
+            
+            <!-- Admin Passcode Box -->
+            <div id="admin-passcode-box" style="margin-top:12px; padding:10px; background:#FFFDF8; border:1px dashed var(--accent-gold); border-radius:8px; display:none;">
+              <label style="font-size:0.78rem; font-weight:600; color:var(--text-secondary); margin-bottom:4px; display:block;" data-i18n="role_pass_ph">Nhập mật khẩu Admin (mặc định: admin):</label>
+              <div style="display:flex; gap:6px;">
+                <input type="password" id="admin-passcode-input" class="form-input" style="font-size:0.85rem; padding:6px 10px;" placeholder="admin" onkeydown="if(event.key==='Enter') verifyAndSwitchToAdmin()" />
+                <button type="button" class="btn-primary" style="padding:6px 14px; font-size:0.82rem; white-space:nowrap;" onclick="verifyAndSwitchToAdmin()" data-i18n="role_btn_verify">Xác nhận</button>
+              </div>
+              <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.74rem; color:var(--text-muted);">Mật khẩu: <code>admin</code></span>
+                <button type="button" class="btn-secondary" style="font-size:0.74rem; padding:3px 8px; border-color:var(--accent-gold); color:var(--primary-dark);" onclick="quickSwitchToAdminDemo()" data-i18n="role_btn_quick_demo">⚡ Bật Nhanh (Demo 1 chạm)</button>
+              </div>
+            </div>
+            <button type="button" class="btn-role-action" id="btn-activate-admin" onclick="showAdminPasscodeBox()" data-i18n="role_btn_switch_admin">👑 Đăng nhập Admin</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

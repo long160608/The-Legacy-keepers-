@@ -423,7 +423,29 @@ const TRANSLATIONS = {
     stat_modal_empty_badges: "Chưa có huy hiệu nào được mở khóa. Hãy hoàn thành các mục tiêu khám phá để thu thập!",
     stat_tag_checked_in: "✓ Đã Check-in",
     stat_tag_unlocked: "🔓 Đã mở khóa",
-    stat_tag_earned: "🏅 Đã đạt"
+    stat_tag_earned: "🏅 Đã đạt",
+    // Role & Permissions System
+    role_user: "Người Dùng",
+    role_admin: "Quản Trị Viên",
+    role_user_desc: "Khám phá bản đồ, check-in và mở khóa giai thoại (Chỉ xem)",
+    role_admin_desc: "Toàn quyền thêm, chỉnh sửa và quản lý dữ liệu di sản",
+    role_switch_title: "🔐 Cấp Quyền & Vai Trò Hệ Thống",
+    role_switch_subtitle: "Hệ thống chia làm 2 cấp bậc phân quyền rõ ràng: Người Dùng (User) để khám phá và Quản Trị Viên (Admin) để quản lý dữ liệu di sản.",
+    role_current_label: "Vai trò hiện tại",
+    role_btn_switch_admin: "👑 Đăng nhập Admin",
+    role_btn_switch_user: "👤 Chuyển sang User",
+    role_pass_ph: "Nhập mật khẩu Admin (mặc định: admin)",
+    role_btn_verify: "Xác nhận Admin",
+    role_btn_quick_demo: "⚡ Bật Nhanh (Demo 1 chạm)",
+    role_err_pass: "Mật khẩu Admin không chính xác! (Gợi ý: 'admin')",
+    role_toast_admin: "👑 Bạn đã chuyển sang quyền Quản Trị Viên (Admin)!",
+    role_toast_user: "👤 Bạn đã chuyển sang quyền Người Dùng (User)!",
+    role_user_readonly_banner: "🔒 Chế độ Người Dùng: Chỉ được xem và check-in, không thể thêm hoặc sửa đổi ghim địa danh.",
+    role_admin_banner: "👑 Chế độ Quản Trị Viên: Bạn có toàn quyền thêm, sửa, xóa ghim địa danh và quản trị CMS.",
+    role_btn_edit_pin: "✏️ Sửa Ghim",
+    role_denied_toast: "🔒 Thao tác bị chặn: Bạn cần quyền Quản Trị Viên (Admin) để thêm, sửa hoặc xóa ghim!",
+    role_readonly_status: "🔒 Chỉ xem",
+    role_user_readonly_hint: "🔒 Chế độ Người Dùng: Chỉ xem & Check-in địa danh"
   },
   en: {
     brand_title: "The Legacy Keepers",
@@ -837,7 +859,29 @@ const TRANSLATIONS = {
     stat_modal_empty_badges: "No badges earned yet. Complete exploration criteria to collect badges!",
     stat_tag_checked_in: "✓ Checked-in",
     stat_tag_unlocked: "🔓 Unlocked",
-    stat_tag_earned: "🏅 Earned"
+    stat_tag_earned: "🏅 Earned",
+    // Role & Permissions System
+    role_user: "User",
+    role_admin: "Administrator",
+    role_user_desc: "Explore radar, check in and unlock lore (Read-only)",
+    role_admin_desc: "Full privileges to add, edit, and manage heritage pins",
+    role_switch_title: "🔐 System Role & Permissions",
+    role_switch_subtitle: "The platform has two defined roles: User (Explorer) for field check-in and Administrator for managing heritage data.",
+    role_current_label: "Current Role",
+    role_btn_switch_admin: "👑 Log in as Admin",
+    role_btn_switch_user: "👤 Switch to User",
+    role_pass_ph: "Enter Admin passcode (default: admin)",
+    role_btn_verify: "Verify Admin",
+    role_btn_quick_demo: "⚡ Quick Demo (1-Click)",
+    role_err_pass: "Incorrect Admin passcode! (Hint: 'admin')",
+    role_toast_admin: "👑 Switched to Administrator (Admin) role!",
+    role_toast_user: "👤 Switched to Explorer (User) role!",
+    role_user_readonly_banner: "🔒 User Mode: Read-only access. Pin creation and editing are restricted to Admins.",
+    role_admin_banner: "👑 Admin Mode: Full access to create, edit, delete pins and manage CMS.",
+    role_btn_edit_pin: "✏️ Edit Pin",
+    role_denied_toast: "🔒 Access Denied: Administrator (Admin) privileges required for this action!",
+    role_readonly_status: "🔒 Read-only",
+    role_user_readonly_hint: "🔒 User Mode: Explore & Check-in only"
   }
 };
 
@@ -931,6 +975,7 @@ function setLanguage(lang) {
 
   // Re-render views
   refreshAllViews();
+  updateRoleUI();
 }
 
 function applyCMSTranslations() {
@@ -1744,6 +1789,10 @@ async function saveToServerDataJSON() {
 }
 
 // Player coordinates (Default: Hanoi Old Quarter center)
+// System Role & Permission System (Default: 'user')
+let currentUserRole = localStorage.getItem("legacy_keepers_user_role") || "user";
+let editingPinId = null;
+
 let userCoords = [21.0285, 105.8542];
 let map, playerRadarMarker, playerAccuracyCircle;
 let activePinMarkers = [];
@@ -1764,6 +1813,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFigureStoryRows();
   initBadgeConditionRows();
   setLanguage(currentLang);
+  updateRoleUI();
   refreshAllViews();
   initMobileSimulator();
 
@@ -1812,6 +1862,7 @@ function switchTab(targetTab) {
     renderProfileStats();
   }
   if (targetTab === "tab-input-portal") {
+    updateRoleUI();
     renderManageTables();
   }
 }
@@ -1942,6 +1993,213 @@ function initInputSubTabs() {
 // ==========================================================================
 // RADAR MAP ENGINE: 10M SWEEP + CONCENTRIC CIRCLE PINS
 // ==========================================================================
+
+// ==========================================================================
+// ROLE & PERMISSION ENGINE (ADMIN & USER)
+// ==========================================================================
+function getCurrentUserRole() {
+  return currentUserRole;
+}
+
+function updateRoleUI() {
+  const isAdm = currentUserRole === "admin";
+  const roleName = isAdm ? t("role_admin") : t("role_user");
+
+  // 1. Sidebar Card
+  const iconEl = document.getElementById("sidebar-role-icon");
+  const nameEl = document.getElementById("sidebar-role-name");
+  const cardEl = document.getElementById("sidebar-role-card");
+  if (iconEl) iconEl.innerText = isAdm ? "👑" : "👤";
+  if (nameEl) nameEl.innerText = roleName;
+  if (cardEl) {
+    cardEl.classList.toggle("role-admin", isAdm);
+    cardEl.classList.toggle("role-user", !isAdm);
+  }
+
+  // 2. Mobile Top Bar Pill
+  const mobIcon = document.getElementById("mob-role-icon");
+  const mobLabel = document.getElementById("mob-role-label");
+  if (mobIcon) mobIcon.innerText = isAdm ? "👑" : "👤";
+  if (mobLabel) mobLabel.innerText = isAdm ? "Admin" : "User";
+
+  // 3. Location Modal Admin Footer vs User Hint
+  const modalAdmin = document.getElementById("modal-admin-actions");
+  const modalUserHint = document.getElementById("modal-user-readonly-hint");
+  if (modalAdmin) modalAdmin.style.display = isAdm ? "flex" : "none";
+  if (modalUserHint) modalUserHint.style.display = isAdm ? "none" : "block";
+
+  // 4. CMS Role Banner
+  const cmsBanner = document.getElementById("cms-role-banner");
+  if (cmsBanner) {
+    if (isAdm) {
+      cmsBanner.innerHTML = `
+        <div class="role-banner-admin">
+          <div class="role-banner-icon">👑</div>
+          <div style="flex:1;">
+            <strong>${t("role_admin_banner")}</strong>
+            <p style="margin-top:2px; font-size:0.8rem; color:rgba(255,255,255,0.85);">${currentLang === 'en' ? 'Administrator privileges active: Full control over landmarks, coordinates & lore.' : 'Đang kích hoạt quyền Quản Trị Viên: Toàn quyền thêm, sửa, xóa tọa độ & dữ liệu.'}</p>
+          </div>
+          <button type="button" class="btn-secondary" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.4); padding:6px 12px; font-size:0.78rem; white-space:nowrap; cursor:pointer;" onclick="confirmSwitchToUser()">${t("role_btn_switch_user")}</button>
+        </div>
+      `;
+    } else {
+      cmsBanner.innerHTML = `
+        <div class="role-banner-user">
+          <div class="role-banner-icon">🔒</div>
+          <div style="flex:1;">
+            <strong>${t("role_user_readonly_banner")}</strong>
+            <p style="margin-top:2px; font-size:0.8rem; color:var(--text-secondary);">${currentLang === 'en' ? 'You are exploring in User mode. Pin modifications are locked.' : 'Bạn đang trải nghiệm ở chế độ Người Dùng. Chức năng sửa/thêm ghim bị khóa.'}</p>
+          </div>
+          <button type="button" class="btn-primary" style="padding:6px 14px; font-size:0.8rem; white-space:nowrap; cursor:pointer;" onclick="openRoleModal()">${t("role_btn_switch_admin")}</button>
+        </div>
+      `;
+    }
+  }
+
+  // 5. Disable / Enable Pin Form Inputs for Users
+  const pinForm = document.getElementById("form-new-pin");
+  if (pinForm) {
+    const inputs = pinForm.querySelectorAll("input, select, textarea, button[type='submit']");
+    inputs.forEach(el => {
+      if (!isAdm) {
+        el.disabled = true;
+        if (el.tagName === "BUTTON") {
+          el.innerText = `🔒 ${t("role_user_readonly_hint")}`;
+          el.style.opacity = "0.65";
+          el.style.cursor = "not-allowed";
+        }
+      } else {
+        el.disabled = false;
+        if (el.tagName === "BUTTON") {
+          el.innerText = editingPinId ? `💾 ${currentLang === 'en' ? 'Update Landmark Pin' : 'Cập Nhật Địa Danh Di Sản'}` : `💾 ${t("cms_btn_save_pin")}`;
+          el.style.opacity = "1";
+          el.style.cursor = "pointer";
+        }
+      }
+    });
+  }
+
+  // 6. Refresh tables if on CMS
+  const manageWrap = document.getElementById("manage-pins-table-wrap");
+  if (manageWrap && manageWrap.offsetParent !== null) {
+    renderManageTables();
+  }
+}
+
+function openRoleModal() {
+  const modal = document.getElementById("role-modal");
+  if (!modal) return;
+  modal.classList.add("active");
+
+  const isAdm = currentUserRole === "admin";
+  const userCard = document.getElementById("card-role-user");
+  const adminCard = document.getElementById("card-role-admin");
+  const currentNameDisplay = document.getElementById("role-current-name-display");
+  const passBox = document.getElementById("admin-passcode-box");
+  const passInput = document.getElementById("admin-passcode-input");
+
+  if (userCard) userCard.classList.toggle("active", !isAdm);
+  if (adminCard) adminCard.classList.toggle("active", isAdm);
+  if (currentNameDisplay) currentNameDisplay.innerText = isAdm ? t("role_admin") : t("role_user");
+  if (passBox) passBox.style.display = "none";
+  if (passInput) passInput.value = "";
+}
+
+function closeRoleModal() {
+  const modal = document.getElementById("role-modal");
+  if (modal) modal.classList.remove("active");
+}
+
+function showAdminPasscodeBox() {
+  if (currentUserRole === "admin") {
+    showToast(t("role_toast_admin"));
+    closeRoleModal();
+    return;
+  }
+  const passBox = document.getElementById("admin-passcode-box");
+  const passInput = document.getElementById("admin-passcode-input");
+  if (passBox) {
+    passBox.style.display = "block";
+    setTimeout(() => {
+      if (passInput) passInput.focus();
+    }, 50);
+  }
+}
+
+function confirmSwitchToUser() {
+  currentUserRole = "user";
+  localStorage.setItem("legacy_keepers_user_role", "user");
+  updateRoleUI();
+  closeRoleModal();
+  showToast(t("role_toast_user"));
+}
+
+function verifyAndSwitchToAdmin() {
+  const passInput = document.getElementById("admin-passcode-input");
+  const val = passInput ? passInput.value.trim().toLowerCase() : "";
+  if (val === "admin" || val === "123456" || val === "admin123") {
+    currentUserRole = "admin";
+    localStorage.setItem("legacy_keepers_user_role", "admin");
+    updateRoleUI();
+    closeRoleModal();
+    showToast(t("role_toast_admin"));
+  } else {
+    showToast(t("role_err_pass"));
+    if (passInput) passInput.select();
+  }
+}
+
+function quickSwitchToAdminDemo() {
+  currentUserRole = "admin";
+  localStorage.setItem("legacy_keepers_user_role", "admin");
+  updateRoleUI();
+  closeRoleModal();
+  showToast(t("role_toast_admin"));
+}
+
+function editSelectedPinFromModal() {
+  if (!selectedPinForModal) return;
+  const pinId = selectedPinForModal.id;
+  closeModal();
+  loadPinToForm(pinId);
+}
+
+function loadPinToForm(pinId) {
+  if (currentUserRole !== "admin") {
+    showToast(t("role_denied_toast"));
+    openRoleModal();
+    return;
+  }
+
+  const pin = appState.pins.find(p => p.id === pinId);
+  if (!pin) return;
+
+  editingPinId = pin.id;
+  switchToInputTab("subtab-pins");
+
+  setTimeout(() => {
+    if (document.getElementById("pin-input-name")) document.getElementById("pin-input-name").value = pin.name || "";
+    if (document.getElementById("pin-input-name-en")) document.getElementById("pin-input-name-en").value = pin.name_en || "";
+    if (document.getElementById("pin-input-type")) document.getElementById("pin-input-type").value = pin.category || "landmark";
+    if (document.getElementById("pin-input-rarity")) document.getElementById("pin-input-rarity").value = pin.rarity || "common";
+    if (document.getElementById("pin-input-lat")) document.getElementById("pin-input-lat").value = pin.lat || "";
+    if (document.getElementById("pin-input-lng")) document.getElementById("pin-input-lng").value = pin.lng || "";
+    if (document.getElementById("pin-input-discovery-radius")) document.getElementById("pin-input-discovery-radius").value = pin.discovery_radius || 2000;
+    if (document.getElementById("pin-input-interaction-radius")) document.getElementById("pin-input-interaction-radius").value = pin.interaction_radius || 100;
+    if (document.getElementById("pin-input-image")) document.getElementById("pin-input-image").value = pin.image_url || "";
+    if (document.getElementById("pin-input-desc")) document.getElementById("pin-input-desc").value = pin.desc || "";
+    if (document.getElementById("pin-input-desc-en")) document.getElementById("pin-input-desc-en").value = pin.desc_en || "";
+    if (document.getElementById("pin-input-media")) document.getElementById("pin-input-media").value = pin.media_url || "";
+
+    const submitBtn = document.querySelector("#form-new-pin button[type='submit']");
+    if (submitBtn) {
+      submitBtn.innerText = `💾 ${currentLang === 'en' ? 'Update Landmark Pin' : 'Cập Nhật Địa Danh Di Sản'}`;
+    }
+
+    showToast(`✏️ ${currentLang === 'en' ? `Editing: "${pin.name_en || pin.name}"` : `Đang chỉnh sửa: "${pin.name}"`}`);
+  }, 120);
+}
+
 function initLeafletMap() {
   const mapElement = document.getElementById('map');
   if (!mapElement) {
@@ -1971,13 +2229,18 @@ function initLeafletMap() {
   // Create Player Marker with 10m Sweep Animation
   updatePlayerRadarMarker();
 
-  // Allow clicking on map to set coordinates in Input Form
+  // Allow clicking on map to set coordinates in Input Form (Only for Admin)
   map.on("click", (e) => {
+    if (currentUserRole !== 'admin') return;
     const lat = e.latlng.lat.toFixed(7);
     const lng = e.latlng.lng.toFixed(7);
-    document.getElementById("pin-input-lat").value = lat;
-    document.getElementById("pin-input-lng").value = lng;
-    showToast(`📍 Đã lấy tọa độ từ bản đồ: ${lat}, ${lng}`);
+    const latEl = document.getElementById("pin-input-lat");
+    const lngEl = document.getElementById("pin-input-lng");
+    if (latEl && lngEl) {
+      latEl.value = lat;
+      lngEl.value = lng;
+      showToast(`📍 [Admin] ${currentLang === 'en' ? `Set coordinates from map: ${lat}, ${lng}` : `Đã lấy tọa độ từ bản đồ: ${lat}, ${lng}`}`);
+    }
   });
 
   // Map Filter Buttons
@@ -2306,6 +2569,12 @@ function openLocationModal(pin) {
       ? `Check-in (${distText} remaining)`
       : `${t('modal_btn_checkin_dist')}${distText})`;
   }
+
+  // Role visibility on location modal
+  const modalAdminEl = document.getElementById("modal-admin-actions");
+  const modalUserHintEl = document.getElementById("modal-user-readonly-hint");
+  if (modalAdminEl) modalAdminEl.style.display = currentUserRole === "admin" ? "flex" : "none";
+  if (modalUserHintEl) modalUserHintEl.style.display = currentUserRole === "admin" ? "none" : "block";
 
   document.getElementById("location-modal").classList.add("active");
 }
@@ -3856,6 +4125,11 @@ function openQuickInputModal() {
 
 function handleCreatePin(e) {
   e.preventDefault();
+  if (currentUserRole !== 'admin') {
+    showToast(t('role_denied_toast'));
+    openRoleModal();
+    return;
+  }
   const name = document.getElementById("pin-input-name").value.trim();
   const name_en = document.getElementById("pin-input-name-en") ? document.getElementById("pin-input-name-en").value.trim() : "";
   const category = document.getElementById("pin-input-type").value;
@@ -4851,6 +5125,11 @@ function showToast(message) {
 
 // 1. Delete currently selected pin from map modal
 function deleteSelectedPin() {
+  if (currentUserRole !== 'admin') {
+    showToast(t('role_denied_toast'));
+    openRoleModal();
+    return;
+  }
   if (!selectedPinForModal) return;
   const pin = selectedPinForModal;
   const pName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
@@ -4869,6 +5148,11 @@ function deleteSelectedPin() {
 
 // 2. Delete single items by ID
 function deletePinById(id) {
+  if (currentUserRole !== 'admin') {
+    showToast(t('role_denied_toast'));
+    openRoleModal();
+    return;
+  }
   const pin = appState.pins.find(p => p.id === id);
   if (!pin) return;
   const pName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
@@ -4975,7 +5259,10 @@ function renderManageTables() {
             <td style="font-family:monospace; font-size:0.8rem;">${Number(pin.lat).toFixed(4)}, ${Number(pin.lng).toFixed(4)}</td>
             <td style="font-size:0.8rem;">${t('manage_radius_scan')} ${pin.discovery_radius}m / ${t('manage_radius_reach')} ${pin.interaction_radius}m</td>
             <td style="text-align:right;">
-              <button class="btn-delete-row" onclick="deletePinById('${pin.id}')">${t('manage_tbl_delete')}</button>
+              ${currentUserRole === 'admin'
+                ? `<button type="button" class="btn-edit-row" onclick="loadPinToForm('${pin.id}')">✏️ ${t('role_btn_edit_pin')}</button><button type="button" class="btn-delete-row" onclick="deletePinById('${pin.id}')">${t('manage_tbl_delete')}</button>`
+                : `<span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">${t('role_readonly_status')}</span>`
+              }
             </td>
           </tr>
         `;
