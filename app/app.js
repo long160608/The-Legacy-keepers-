@@ -339,7 +339,61 @@ const TRANSLATIONS = {
     cms_pin_desc_vi_lbl: "Tóm tắt tư liệu lịch sử (Tiếng Việt)",
     cms_pin_desc_en_lbl: "Tóm tắt tư liệu lịch sử (English Summary)",
     cms_pin_desc_en_ph: "Historical background, significance, glorious feats in English...",
-    radar_quick_add_pin: "Thêm Địa Danh Mới"
+    radar_quick_add_pin: "Thêm Địa Danh Mới",
+    figures_search_ph: "🔍 Tìm danh nhân, triều đại...",
+    // Figure Form
+    cms_fig_name_vi_lbl: "Tên Danh nhân / Anh hùng (Tiếng Việt)",
+    cms_fig_name_en_lbl: "Tên Danh nhân / Anh hùng (English Name)",
+    cms_fig_name_en_ph: "Ví dụ: General Tran Hung Dao, Emperor Quang Trung...",
+    cms_fig_role_vi_lbl: "Tước vị / Vai trò (Tiếng Việt)",
+    cms_fig_role_en_lbl: "Tước vị / Vai trò (English Title)",
+    cms_fig_role_en_ph: "Ví dụ: Supreme Commander, Emperor, Revolutionary Queen...",
+    cms_fig_dynasty_vi_lbl: "Thời đại / Triều đại (Tiếng Việt)",
+    cms_fig_dynasty_en_lbl: "Thời đại / Triều đại (English Era)",
+    cms_fig_dynasty_en_ph: "Ví dụ: Tran Dynasty, Tay Son Dynasty...",
+    cms_fig_quote_vi_lbl: "Câu nói bất hủ / Danh ngôn lịch sử (Tiếng Việt)",
+    cms_fig_quote_en_lbl: "Câu nói bất hủ / Danh ngôn lịch sử (English Quote)",
+    cms_fig_quote_en_ph: "Ví dụ: 'If your Majesty wishes to surrender, please cut off my head first!'",
+    cms_fig_bio_vi_lbl: "Tiểu sử & Cuộc đời hào kiệt (Tiếng Việt)",
+    cms_fig_bio_en_lbl: "Tiểu sử & Cuộc đời hào kiệt (English Biography)",
+    cms_fig_bio_en_ph: "Glorious feats, strategic triumphs, lifelong devotion in English...",
+    // Dynamic Figure Story Rows
+    cms_fig_story_title_vi_lbl: "Tiêu đề Giai thoại (Tiếng Việt)",
+    cms_fig_story_title_en_lbl: "Tiêu đề Giai thoại (English Title)",
+    cms_fig_story_title_en_ph: "Ví dụ: The Wooden Stakes Strategy of Bach Dang River...",
+    cms_fig_story_content_vi_lbl: "Nội dung giai thoại (Tiếng Việt)",
+    cms_fig_story_content_en_lbl: "Nội dung giai thoại (English Narrative)",
+    cms_fig_story_content_en_ph: "Historical narrative, military strategy in English...",
+    // Subtab 3 Story Form
+    cms_story_title_vi_lbl: "Tiêu đề Giai thoại / Sự kiện (Tiếng Việt)",
+    cms_story_title_en_lbl: "Tiêu đề Giai thoại / Sự kiện (English Title)",
+    cms_story_title_en_ph: "Ví dụ: The Sacred Poem of Nhu Nguyet River, The Call to Arms...",
+    cms_story_content_vi_lbl: "Nội dung chi tiết cốt truyện (Tiếng Việt)",
+    cms_story_content_en_lbl: "Nội dung chi tiết cốt truyện (English Content)",
+    cms_story_content_en_ph: "Historical events, military strategy, hero feats in English...",
+    // Quick Story Modal
+    quick_story_title_vi_lbl: "Tiêu đề Giai thoại (Tiếng Việt)",
+    quick_story_title_en_lbl: "Tiêu đề Giai thoại (English Title)",
+    quick_story_title_en_ph: "Ví dụ: Proclamation to Officers, Binh Than Conference...",
+    quick_story_content_vi_lbl: "Nội dung toàn văn câu chuyện (Tiếng Việt)",
+    quick_story_content_en_lbl: "Nội dung toàn văn câu chuyện (English Narrative)",
+    quick_story_content_en_ph: "Historical events, military strategy, hero feats in English...",
+    // Subtab 4 Badges Form
+    cms_badge_name_vi_lbl: "Tên Huy hiệu (Tiếng Việt)",
+    cms_badge_name_en_lbl: "Tên Huy hiệu (English Name)",
+    cms_badge_name_en_ph: "Ví dụ: Knight of Bach Dang River, Spirit of Thang Long...",
+    cms_badge_cat_vi_lbl: "Bộ sưu tập (Tiếng Việt)",
+    cms_badge_cat_en_lbl: "Bộ sưu tập (English Category)",
+    cms_badge_cat_en_ph: "Ví dụ: Heroic Spirits, Living Witnesses, Vietnam Heritage...",
+    cms_badge_lore_vi_lbl: "Nội dung & Điển tích của Huy hiệu (Tiếng Việt)",
+    cms_badge_lore_en_lbl: "Nội dung & Điển tích của Huy hiệu (English Lore)",
+    cms_badge_lore_en_ph: "Historical background, significance and prestige of this badge in English...",
+    cms_badge_criteria_vi_lbl: "Tóm tắt yêu cầu (Tiếng Việt)",
+    cms_badge_criteria_en_lbl: "Tóm tắt yêu cầu (English Summary)",
+    cms_badge_criteria_en_ph: "Auto-generated in English or custom text...",
+    celebration_title: "KHÁM PHÁ THÀNH CÔNG!",
+    celebration_exp: "Kinh nghiệm thám hiểm: +100 EXP",
+    celebration_btn_continue: "Tiếp Tục Hành Trình"
   },
   en: {
     brand_title: "The Legacy Keepers",
@@ -669,7 +723,61 @@ const TRANSLATIONS = {
     cms_pin_desc_vi_lbl: "Historical Summary (Vietnamese)",
     cms_pin_desc_en_lbl: "Historical Summary (English)",
     cms_pin_desc_en_ph: "Historical background, significance, glorious feats in English...",
-    radar_quick_add_pin: "Add New Landmark"
+    radar_quick_add_pin: "Add New Landmark",
+    figures_search_ph: "🔍 Search heroes, dynasties...",
+    // Figure Form
+    cms_fig_name_vi_lbl: "Hero / Figure Name (Vietnamese)",
+    cms_fig_name_en_lbl: "Hero / Figure Name (English)",
+    cms_fig_name_en_ph: "e.g., General Tran Hung Dao, Emperor Quang Trung...",
+    cms_fig_role_vi_lbl: "Title / Role (Vietnamese)",
+    cms_fig_role_en_lbl: "Title / Role (English)",
+    cms_fig_role_en_ph: "e.g., Supreme Commander, Emperor, Revolutionary Queen...",
+    cms_fig_dynasty_vi_lbl: "Era / Dynasty (Vietnamese)",
+    cms_fig_dynasty_en_lbl: "Era / Dynasty (English)",
+    cms_fig_dynasty_en_ph: "e.g., Tran Dynasty, Tay Son Dynasty...",
+    cms_fig_quote_vi_lbl: "Historic Quote (Vietnamese)",
+    cms_fig_quote_en_lbl: "Historic Quote (English)",
+    cms_fig_quote_en_ph: "e.g., 'If your Majesty wishes to surrender, please cut off my head first!'",
+    cms_fig_bio_vi_lbl: "Heroic Biography (Vietnamese)",
+    cms_fig_bio_en_lbl: "Heroic Biography (English)",
+    cms_fig_bio_en_ph: "Glorious feats, strategic triumphs, lifelong devotion in English...",
+    // Dynamic Figure Story Rows
+    cms_fig_story_title_vi_lbl: "Tale Title (Vietnamese)",
+    cms_fig_story_title_en_lbl: "Tale Title (English)",
+    cms_fig_story_title_en_ph: "e.g., The Wooden Stakes Strategy of Bach Dang River...",
+    cms_fig_story_content_vi_lbl: "Story Narrative (Vietnamese)",
+    cms_fig_story_content_en_lbl: "Story Narrative (English)",
+    cms_fig_story_content_en_ph: "Historical narrative, military strategy in English...",
+    // Subtab 3 Story Form
+    cms_story_title_vi_lbl: "Tale / Event Title (Vietnamese)",
+    cms_story_title_en_lbl: "Tale / Event Title (English)",
+    cms_story_title_en_ph: "e.g., The Sacred Poem of Nhu Nguyet River, The Call to Arms...",
+    cms_story_content_vi_lbl: "Story Narrative (Vietnamese)",
+    cms_story_content_en_lbl: "Story Narrative (English)",
+    cms_story_content_en_ph: "Historical events, military strategy, hero feats in English...",
+    // Quick Story Modal
+    quick_story_title_vi_lbl: "Tale Title (Vietnamese)",
+    quick_story_title_en_lbl: "Tale Title (English)",
+    quick_story_title_en_ph: "e.g., Proclamation to Officers, Binh Than Conference...",
+    quick_story_content_vi_lbl: "Full Narrative (Vietnamese)",
+    quick_story_content_en_lbl: "Full Narrative (English)",
+    quick_story_content_en_ph: "Historical events, military strategy, hero feats in English...",
+    // Subtab 4 Badges Form
+    cms_badge_name_vi_lbl: "Badge Name (Vietnamese)",
+    cms_badge_name_en_lbl: "Badge Name (English)",
+    cms_badge_name_en_ph: "e.g., Knight of Bach Dang River, Spirit of Thang Long...",
+    cms_badge_cat_vi_lbl: "Category (Vietnamese)",
+    cms_badge_cat_en_lbl: "Category (English)",
+    cms_badge_cat_en_ph: "e.g., Heroic Spirits, Living Witnesses, Vietnam Heritage...",
+    cms_badge_lore_vi_lbl: "Lore & Significance (Vietnamese)",
+    cms_badge_lore_en_lbl: "Lore & Significance (English)",
+    cms_badge_lore_en_ph: "Historical background, significance and prestige of this badge in English...",
+    cms_badge_criteria_vi_lbl: "Requirement Summary (Vietnamese)",
+    cms_badge_criteria_en_lbl: "Requirement Summary (English)",
+    cms_badge_criteria_en_ph: "Auto-generated in English or custom text...",
+    celebration_title: "DISCOVERY SUCCESSFUL!",
+    celebration_exp: "Exploration Experience: +100 EXP",
+    celebration_btn_continue: "Continue Journey"
   }
 };
 
@@ -730,6 +838,16 @@ function setLanguage(lang) {
   // If location modal is open, re-render it in the new language
   if (selectedPinForModal && document.getElementById("location-modal") && document.getElementById("location-modal").classList.contains("active")) {
     openLocationModal(selectedPinForModal);
+  }
+
+  // If badge details modal is open, re-render it in the new language
+  if (selectedBadgeIdForModal && document.getElementById("badge-details-modal") && document.getElementById("badge-details-modal").classList.contains("active")) {
+    openBadgeDetailsModal(selectedBadgeIdForModal);
+  }
+
+  // If story viewer modal is open, re-render it in the new language
+  if (selectedStoryIdForModal && document.getElementById("story-modal") && document.getElementById("story-modal").classList.contains("active")) {
+    openStoryModal(selectedStoryIdForModal);
   }
 
   // Re-render views
@@ -813,10 +931,14 @@ function applyCMSTranslations() {
     if (label) label.innerText = `${t('cms_fig_story_label')} #${idx + 1}`;
     const delBtn = row.querySelector('.fig-story-btn-del');
     if (delBtn) delBtn.innerText = t('cms_fig_story_remove');
-    const titleLbl = row.querySelector('.fig-story-lbl-title');
-    if (titleLbl) titleLbl.innerHTML = `${t('cms_fig_story_title_lbl')} <span class="req">*</span>`;
+    const titleViLbl = row.querySelector('.fig-story-lbl-title-vi');
+    if (titleViLbl) titleViLbl.innerHTML = `${t('cms_fig_story_title_vi_lbl')} <span class="req">*</span>`;
     const titleInp = row.querySelector('.fig-story-input-title');
     if (titleInp) titleInp.placeholder = t('cms_fig_story_title_ph');
+    const titleEnLbl = row.querySelector('.fig-story-lbl-title-en');
+    if (titleEnLbl) titleEnLbl.innerText = t('cms_fig_story_title_en_lbl');
+    const titleEnInp = row.querySelector('.fig-story-input-title-en');
+    if (titleEnInp) titleEnInp.placeholder = t('cms_fig_story_title_en_ph');
     const pinLbl = row.querySelector('.fig-story-lbl-pin');
     if (pinLbl) pinLbl.innerText = t('cms_fig_story_pin_lbl');
     const pinHint = row.querySelector('.fig-story-hint-pin');
@@ -827,10 +949,14 @@ function applyCMSTranslations() {
     if (bgInp) bgInp.placeholder = t('cms_fig_story_bg_ph');
     const bgBtn = row.querySelector('.fig-story-btn-bg');
     if (bgBtn) bgBtn.innerText = t('cms_fig_story_bg_btn');
-    const contentLbl = row.querySelector('.fig-story-lbl-content');
-    if (contentLbl) contentLbl.innerText = t('cms_fig_story_content_lbl');
+    const contentViLbl = row.querySelector('.fig-story-lbl-content-vi');
+    if (contentViLbl) contentViLbl.innerText = t('cms_fig_story_content_vi_lbl');
     const contentInp = row.querySelector('.fig-story-input-content');
     if (contentInp) contentInp.placeholder = t('cms_fig_story_content_ph');
+    const contentEnLbl = row.querySelector('.fig-story-lbl-content-en');
+    if (contentEnLbl) contentEnLbl.innerText = t('cms_fig_story_content_en_lbl');
+    const contentEnInp = row.querySelector('.fig-story-input-content-en');
+    if (contentEnInp) contentEnInp.placeholder = t('cms_fig_story_content_en_ph');
   });
 
   // 5. Update dynamic Badge Condition rows in Form 4
@@ -1002,40 +1128,55 @@ const INITIAL_DATA = {
     {
       id: "fig-tranquoctuan",
       name: "Hưng Đạo Đại Vương - Trần Quốc Tuấn",
+      name_en: "Supreme Prince Tran Quoc Tuan (Tran Hung Dao)",
       role: "Quốc công Tiết chế (Tổng tư lệnh quân đội)",
+      role_en: "Supreme Commander of Dai Viet Forces",
       dynasty: "Nhà Trần",
+      dynasty_en: "Tran Dynasty",
       years: "1228 – 1300",
       avatar: "⚔️",
       image_url: "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=800&q=80",
       background_image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80",
       quote: "Nếu bệ hạ muốn hàng, xin hãy chém đầu thần trước rồi hãy hàng!",
+      quote_en: "If your Majesty wishes to surrender, please cut off my head first!",
       bio: "Anh hùng dân tộc, thiên tài quân sự kiệt xuất ba lần chỉ huy quân dân Đại Việt đánh tan quân Nguyên Mông hung hãn, tác giả của bản 'Hịch Tướng Sĩ' truyền đời non sông.",
+      bio_en: "Legendary national hero and military genius who led the Dai Viet army and people to defeat the fierce Mongol Yuan invasions three times, and authored the immortal martial proclamation 'Hich Tuong Si'.",
       related_pins: ["pin-bachdang", "pin-thanglong"]
     },
     {
       id: "fig-quangtrung",
       name: "Quang Trung - Nguyễn Huệ",
+      name_en: "Emperor Quang Trung (Nguyen Hue)",
       role: "Hoàng đế bách chiến bách thắng",
+      role_en: "Invincible Emperor & Commander",
       dynasty: "Nhà Tây Sơn",
+      dynasty_en: "Tay Son Dynasty",
       years: "1753 – 1792",
       avatar: "👑",
       image_url: "",
       background_image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
       quote: "Đánh cho để dài tóc, đánh cho để đen răng, đánh cho nó chích luân bất phản, phiến giáp bất hoàn!",
+      quote_en: "Fight to keep our long hair, fight to keep our black teeth, fight so that not a single enemy chariot returns, nor a piece of armor remains whole!",
       bio: "Người anh hùng áo vải cờ đào kiệt xuất, đánh tan 5 vạn quân Xiêm rạch Gầm Xoài Mút và thần tốc vượt hơn 600km quét sạch 29 vạn quân Mãn Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+      bio_en: "Brilliant peasant-turned-emperor who crushed 50,000 Siamese invaders at Rach Gam - Xoai Mut and executed an unprecedented 600km lightning march to route 290,000 Qing imperial troops in the Spring of 1789.",
       related_pins: ["pin-dongda"]
     },
     {
       id: "fig-haibatrung",
       name: "Hai Bà Trưng (Trưng Trắc & Trưng Nhị)",
+      name_en: "The Trung Sisters (Trung Trac & Trung Nhi)",
       role: "Nữ vương phất cờ độc lập",
+      role_en: "Revolutionary Queens of Independence",
       dynasty: "Nhà Trưng",
+      dynasty_en: "Trung Dynasty",
       years: "Năm 40 – 43 SCN",
       avatar: "🛡️",
       image_url: "",
       background_image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
       quote: "Một xin rửa sạch nước thù / Hai xin đem lại nghiệp xưa họ Hùng!",
+      quote_en: "First, avenge our country's grievance; Second, restore the ancient heritage of the Hung Kings!",
       bio: "Hai nữ anh hùng dân tộc đầu tiên phất cờ khởi nghĩa, thu phục 65 thành trì, đánh đuổi thái thú Tô Định, giành lại độc lập tự chủ cho non sông sau hơn 200 năm Bắc thuộc.",
+      bio_en: "The first female national heroes to raise the banner of rebellion, liberating 65 citadels and driving out the foreign governor To Dinh to reclaim national sovereignty after more than two centuries of northern domination.",
       related_pins: ["pin-hatmon"]
     }
   ],
@@ -1044,47 +1185,57 @@ const INITIAL_DATA = {
     {
       id: "story-camcoc",
       name: "Kế sách cắm cọc sông Bạch Đằng",
+      name_en: "The Sunken Wooden Stakes Strategy on Bach Dang River",
       figure_id: "fig-tranquoctuan",
       required_pin_id: "pin-bachdang",
       is_locked: false,
       background_image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      content: `Năm 1288, trước thế giặc Nguyên Mông hung hãn rút lui bằng đường thủy, Trần Quốc Tuấn đã lợi dụng con nước thủy triều hiểm yếu của sông Bạch Đằng.\n\nÔng cho đẵn gỗ lim, vót nhọn bịt sắt rồi cắm xuống lòng sông. Nhân lúc nước triều dâng che khuất bãi cọc, quân ta nhử thuyền giặc vào sâu. Khi nước triều rút mạnh, thuyền địch mắc cạn vào cọc nhọn vỡ toác hàng loạt, toàn bộ hạm đội giặc bị tiêu diệt vang dội non sông.`
+      content: `Năm 1288, trước thế giặc Nguyên Mông hung hãn rút lui bằng đường thủy, Trần Quốc Tuấn đã lợi dụng con nước thủy triều hiểm yếu của sông Bạch Đằng.\n\nÔng cho đẵn gỗ lim, vót nhọn bịt sắt rồi cắm xuống lòng sông. Nhân lúc nước triều dâng che khuất bãi cọc, quân ta nhử thuyền giặc vào sâu. Khi nước triều rút mạnh, thuyền địch mắc cạn vào cọc nhọn vỡ toác hàng loạt, toàn bộ hạm đội giặc bị tiêu diệt vang dội non sông.`,
+      content_en: `In 1288, faced with the retreating Mongol-Yuan navy, Tran Quoc Tuan masterminded an ambush along the Bach Dang River.\n\nHe had sharpened iron-capped ironwood stakes driven into the riverbed. At high tide, our light boats lured the enemy fleet past the submerged stakes. When the tide rapidly ebbed, the massive enemy warships were impaled and trapped upon the timber spikes, leading to the complete annihilation of the invading armada.`
     },
     {
       id: "story-dienhong",
       name: "Hội nghị Diên Hồng & Lời thề Sát Thát",
+      name_en: "The Dien Hong Conference & The Sat That Oath",
       figure_id: "fig-tranquoctuan",
       required_pin_id: "pin-thanglong",
       is_locked: true,
       background_image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
-      content: `Tại thềm điện Diên Hồng, vua Trần mở tiệc hỏi ý kiến muôn dân: 'Nên hòa hay nên đánh?'. Muôn người cùng muôn miệng reo hò rung chuyển kinh thành: 'ĐÁNH!'.\n\nCác tướng sĩ đồng lòng thích hai chữ 'Sát Thát' vào cánh tay, thề quyết tử cho Tổ quốc quyết sinh.`
+      content: `Tại thềm điện Diên Hồng, vua Trần mở tiệc hỏi ý kiến muôn dân: 'Nên hòa hay nên đánh?'. Muôn người cùng muôn miệng reo hò rung chuyển kinh thành: 'ĐÁNH!'.\n\nCác tướng sĩ đồng lòng thích hai chữ 'Sát Thát' vào cánh tay, thề quyết tử cho Tổ quốc quyết sinh.`,
+      content_en: `At the steps of Dien Hong Palace, the Tran Emperor convened elders from across the kingdom asking: 'Shall we make peace or shall we fight?'. With one voice, thousands shouted 'FIGHT!', shaking the citadel.\n\nThe commanders and warriors tattooed 'Sat That' (Slay the Invaders) onto their arms, swearing to fight to the death for the homeland.`
     },
     {
       id: "story-hanhquan-thantoc",
       name: "Cuộc hành quân thần tốc mùa xuân Kỷ Dậu",
+      name_en: "The Lightning March of Spring 1789",
       figure_id: "fig-quangtrung",
       required_pin_id: "pin-dongda",
       is_locked: true,
       background_image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=800&q=80",
-      content: `Từ Phú Xuân ra Thăng Long dài hơn 600km, vua Quang Trung tổ chức đội hình 3 người một cáng, 2 người khiêng 1 người ngủ luân phiên ngày đêm không nghỉ.\n\nĐoàn quân thần tốc vừa đi vừa tuyển thêm tân binh, tạo nên cuộc hành quân kỳ tích vô tiền khoáng hậu khiến tướng giặc Tôn Sĩ Nghị không kịp trở tay.`
+      content: `Từ Phú Xuân ra Thăng Long dài hơn 600km, vua Quang Trung tổ chức đội hình 3 người một cáng, 2 người khiêng 1 người ngủ luân phiên ngày đêm không nghỉ.\n\nĐoàn quân thần tốc vừa đi vừa tuyển thêm tân binh, tạo nên cuộc hành quân kỳ tích vô tiền khoáng hậu khiến tướng giặc Tôn Sĩ Nghị không kịp trở tay.`,
+      content_en: `Spanning over 600 kilometers from Phu Xuan to Thang Long, Emperor Quang Trung organized troops into three-man hammock teams, with two carrying while one rested in continuous day-and-night shifts.\n\nEnlisting recruits along the march, this unprecedented tactical feat caught Qing general Sun Shiyi completely off guard.`
     },
     {
       id: "story-ngochoi-dongda",
       name: "Trận đại thắng Ngọc Hồi - Đống Đa",
+      name_en: "The Great Victory of Ngoc Hoi - Dong Da",
       figure_id: "fig-quangtrung",
       required_pin_id: "pin-dongda",
       is_locked: true,
       background_image: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?auto=format&fit=crop&w=800&q=80",
-      content: `Rạng sáng mùng 5 Tết Kỷ Dậu, vua Quang Trung cho quân lấy thuyền nan bọc rơm ướt khiêng đi trước che đạn lửa của giặc, áp sát đồn Ngọc Hồi phá tan tuyến phòng thủ kiên cố nhất của địch.`
+      content: `Rạng sáng mùng 5 Tết Kỷ Dậu, vua Quang Trung cho quân lấy thuyền nan bọc rơm ướt khiêng đi trước che đạn lửa của giặc, áp sát đồn Ngọc Hồi phá tan tuyến phòng thủ kiên cố nhất của địch.`,
+      content_en: `At dawn on the 5th day of Tet 1789, Emperor Quang Trung spearheaded an assault using wood rafts shielded with wet straw to deflect flaming enemy cannons, breaching Ngoc Hoi fortress and dismantling the enemy's most fortified defensive line.`
     },
     {
       id: "story-loithe-songhat",
       name: "Lời thề trên sông Hát",
+      name_en: "The Sacred Oath on the Hat River",
       figure_id: "fig-haibatrung",
       required_pin_id: "pin-hatmon",
       is_locked: true,
       background_image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-      content: `Trước giờ xuất trận tại cửa sông Hát, Trưng Trắc dõng dạc tuyên thệ 4 câu thề:\n\n'Một xin rửa sạch nước thù\nHai xin đem lại nghiệp xưa họ Hùng\nBa kẻo oan ức lòng chồng\nBốn xin vẹn vẹn sở công lênh này.'`
+      content: `Trước giờ xuất trận tại cửa sông Hát, Trưng Trắc dõng dạc tuyên thệ 4 câu thề:\n\n'Một xin rửa sạch nước thù\nHai xin đem lại nghiệp xưa họ Hùng\nBa kẻo oan ức lòng chồng\nBốn xin vẹn vẹn sở công lênh này.'`,
+      content_en: `Prior to marching into battle at the mouth of the Hat River, Trung Trac proclaimed the four historic oaths:\n\n'First, cleanse our land of the enemy's stain,\nSecond, restore the Hung clan's ancestral reign,\nThird, avenge the wrongful death of my spouse,\nFourth, fulfill this vow that we hereby espouse.'`
     }
   ],
 
@@ -1092,19 +1243,23 @@ const INITIAL_DATA = {
     {
       id: "badge-bachdang",
       name: "Kỵ Sĩ Sông Bạch Đằng",
+      name_en: "Knight of Bach Dang River",
       tier: "gold",
       icon: "🎖️",
       category: "Người chinh phục lịch sử",
+      category_en: "Historical Conqueror",
       lore: "Vinh danh những bước chân tìm về dòng sông Bạch Đằng lịch sử – nơi ba lần ghi dấu chiến công hiển hách của cha ông, đánh tan quân Nam Hán và Nguyên Mông bằng kế sách cắm cọc tài tình.",
       lore_en: "Honors travelers to the historic Bach Dang River – where three naval victories crushed foreign invasions with brilliant submerged iron-tipped stake tactics.",
       criteria: "Check-in thành công tại Di tích Bạch Đằng và mở khóa kế sách cắm cọc.",
+      criteria_en: "Check in at Bach Dang Historic Site and unlock the timber stakes strategy.",
       conditions: [
         {
           id: "c-bachdang-1",
           type: "specific_pins",
           target_pins: ["pin-bachdang"],
           min_count: 1,
-          desc: "Check-in thực địa tại Khu di tích Bạch Đằng"
+          desc: "Check-in thực địa tại Khu di tích Bạch Đằng",
+          desc_en: "On-site check-in at Bach Dang Historic Relic"
         }
       ],
       is_unlocked: true,
@@ -1113,19 +1268,23 @@ const INITIAL_DATA = {
     {
       id: "badge-thanglong",
       name: "Hào Khí Thăng Long",
+      name_en: "Spirit of Thang Long",
       tier: "gold",
       icon: "🏛️",
       category: "Người chinh phục lịch sử",
+      category_en: "Historical Conqueror",
       lore: "Biểu trưng cho tinh thần bất khuất của kinh đô ngàn năm văn hiến, nơi từng vang vọng tiếng hô 'ĐÁNH!' đồng lòng muôn người như một trong Hội nghị Diên Hồng oanh liệt.",
       lore_en: "Symbolizes the indomitable spirit of Hanoi's thousand-year-old imperial citadel, where the iconic cry 'FIGHT!' united the people in the historic Dien Hong Conference.",
       criteria: "Ghé thăm Hoàng thành Thăng Long và khám phá hội nghị Diên Hồng.",
+      criteria_en: "Visit the Imperial Citadel of Thang Long and discover the Dien Hong Conference.",
       conditions: [
         {
           id: "c-thanglong-1",
           type: "specific_pins",
           target_pins: ["pin-thanglong"],
           min_count: 1,
-          desc: "Ghé thăm và check-in tại Hoàng thành Thăng Long"
+          desc: "Ghé thăm và check-in tại Hoàng thành Thăng Long",
+          desc_en: "Visit and check in at the Imperial Citadel of Thang Long"
         }
       ],
       is_unlocked: false
@@ -1133,19 +1292,23 @@ const INITIAL_DATA = {
     {
       id: "badge-bacho",
       name: "Dấu Chân Bác Hồ",
+      name_en: "Footsteps of Uncle Ho",
       tier: "silver",
       icon: "🐾",
       category: "Khám phá Việt Nam",
+      category_en: "Exploring Vietnam",
       lore: "Kỷ niệm ngày 5/6/1911 khi người thanh niên yêu nước Nguyễn Tất Thành rời Bến Nhà Rồng ra đi tìm đường cứu nước, mở ra con đường độc lập tự do cho non sông đất Việt.",
       lore_en: "Commemorates June 5, 1911, when young patriot Nguyen Tat Thanh departed Nha Rong Harbor on his legendary global quest for national independence.",
       criteria: "Check-in Bến Nhà Rồng và lắng nghe tư liệu hành trình cứu nước 1911.",
+      criteria_en: "Check in at Nha Rong Wharf and listen to the 1911 salvation journey recordings.",
       conditions: [
         {
           id: "c-bacho-1",
           type: "specific_pins",
           target_pins: ["pin-ben-nharong"],
           min_count: 1,
-          desc: "Check-in thực địa tại Bến Nhà Rồng"
+          desc: "Check-in thực địa tại Bến Nhà Rồng",
+          desc_en: "On-site check-in at Nha Rong Wharf"
         }
       ],
       is_unlocked: false
@@ -1153,19 +1316,23 @@ const INITIAL_DATA = {
     {
       id: "badge-saigon",
       name: "Trái Tim Sài Gòn",
+      name_en: "Heart of Saigon",
       tier: "bronze",
       icon: "🎙️",
       category: "Nhân chứng sống",
+      category_en: "Living Witnesses",
       lore: "Tôn vinh lòng quả cảm phi thường của lực lượng Biệt động Sài Gòn, những người đã mưu trí đào hầm cất giấu vũ khí ngay giữa lòng địch chuẩn bị cho cuộc Tổng tiến công Tết Mậu Thân 1968.",
       lore_en: "Honors the extraordinary valor of Saigon Rangers, who covertly built weapons bunkers in the heart of the city for the historic 1968 Tet Offensive.",
       criteria: "Check-in tại Căn hầm bí mật Biệt động Sài Gòn và nghe lời kể nhân chứng.",
+      criteria_en: "Check in at Saigon Commandos secret bunker and hear witness testimonies.",
       conditions: [
         {
           id: "c-saigon-1",
           type: "specific_pins",
           target_pins: ["pin-ham-bietdong"],
           min_count: 1,
-          desc: "Ghé thăm Căn hầm bí mật Biệt động Sài Gòn"
+          desc: "Ghé thăm Căn hầm bí mật Biệt động Sài Gòn",
+          desc_en: "Visit the Saigon Commandos secret weapons bunker"
         }
       ],
       is_unlocked: false
@@ -1173,18 +1340,22 @@ const INITIAL_DATA = {
     {
       id: "badge-anh-hung-hoi-ngo",
       name: "Hội Ngộ Hào Kiệt",
+      name_en: "Gathering of Heroes",
       tier: "silver",
       icon: "👑",
       category: "Hào Khí Danh Nhân",
+      category_en: "Heroic Spirits",
       lore: "Minh chứng cho người lữ khách đã giải mã và học hỏi tấm gương của 2 vị anh hùng dân tộc, tiếp nối khí phách quật cường của tiền nhân.",
       lore_en: "Awarded to explorers who have discovered and unlocked 2 legendary Vietnamese historical heroes.",
       criteria: "Khám phá và mở khóa 2 Danh nhân lịch sử hào kiệt bất kỳ.",
+      criteria_en: "Discover and unlock any 2 legendary historical figures.",
       conditions: [
         {
           id: "c-hoi-ngo-1",
           type: "figures_count",
           target_num: 2,
-          desc: "Mở khóa 2 Danh nhân lịch sử bất kỳ"
+          desc: "Mở khóa 2 Danh nhân lịch sử bất kỳ",
+          desc_en: "Unlock any 2 historical heroes"
         }
       ],
       is_unlocked: false
@@ -1192,19 +1363,23 @@ const INITIAL_DATA = {
     {
       id: "badge-su-thi-bach-nien",
       name: "Đại Nam Liệt Truyện",
+      name_en: "Chronicles of Dai Nam",
       tier: "gold",
       icon: "📜",
       category: "Hào Khí Danh Nhân",
+      category_en: "Heroic Spirits",
       lore: "Bản trường ca lịch sử sống động được khắc ghi khi người chơi thấu suốt trọn vẹn cả 3 vị đại anh hùng dân tộc: Hưng Đạo Đại Vương Trần Quốc Tuấn, Hoàng đế Quang Trung và Hai Bà Trưng.",
       lore_en: "An epic milestone achieved when discovering all 3 legendary national heroes: Tran Hung Dao, Emperor Quang Trung, and the Trung Sisters.",
       criteria: "Khám phá trọn vẹn 3 Danh nhân: Trần Hưng Đạo, Quang Trung và Hai Bà Trưng.",
+      criteria_en: "Discover all 3 heroes: Tran Hung Dao, Emperor Quang Trung, and the Trung Sisters.",
       conditions: [
         {
           id: "c-su-thi-1",
           type: "specific_figures",
           target_figures: ["fig-tranquoctuan", "fig-quangtrung", "fig-haibatrung"],
           min_count: 3,
-          desc: "Khám phá 3 Danh nhân: Trần Quốc Tuấn, Quang Trung và Hai Bà Trưng"
+          desc: "Khám phá 3 Danh nhân: Trần Quốc Tuấn, Quang Trung và Hai Bà Trưng",
+          desc_en: "Discover 3 Heroes: Tran Quoc Tuan, Quang Trung, and Hai Ba Trung"
         }
       ],
       is_unlocked: false
@@ -1212,18 +1387,22 @@ const INITIAL_DATA = {
     {
       id: "badge-nguoi-giu-lua",
       name: "Người Giữ Lửa Lịch Sử",
+      name_en: "Keeper of History's Flame",
       tier: "silver",
       icon: "🎙️",
       category: "Nhân Chứng Sống",
+      category_en: "Living Witnesses",
       lore: "Ghi nhận sự kết nối thiêng liêng giữa thế hệ hôm nay với các nhân chứng lịch sử và cựu chiến binh, những người trực tiếp trải qua khói lửa để giữ gìn nền độc lập non sông.",
       lore_en: "Recognizes the sacred bond between modern youth and living history witnesses who fought through warfare to safeguard the nation.",
       criteria: "Gặp gỡ và lắng nghe chia sẻ từ 1 Nhân chứng lịch sử / Cựu chiến binh.",
+      criteria_en: "Meet and interview 1 living witness / war veteran.",
       conditions: [
         {
           id: "c-giu-lua-1",
           type: "people_count",
           target_num: 1,
-          desc: "Check-in điểm có tư liệu Nhân chứng sống / Cựu chiến binh"
+          desc: "Check-in điểm có tư liệu Nhân chứng sống / Cựu chiến binh",
+          desc_en: "Check in at a site with Living Witness / War Veteran testimony"
         }
       ],
       is_unlocked: false
@@ -1231,18 +1410,22 @@ const INITIAL_DATA = {
     {
       id: "badge-tieng-vong-thoi-gian",
       name: "Tiếng Vọng Thời Gian",
+      name_en: "Echoes of Time",
       tier: "gold",
       icon: "🎖️",
       category: "Nhân Chứng Sống",
+      category_en: "Living Witnesses",
       lore: "Vinh danh nhà thám hiểm đã giao lưu và lắng nghe ký ức chân thực nhất từ 2 nhân chứng lịch sử sống, đưa những ký ức vô giá vượt thời gian đến với đời sau.",
       lore_en: "Honors explorers who have engaged with 2 living history witnesses, keeping priceless wartime memories alive across generations.",
       criteria: "Giao lưu và check-in với 2 Nhân chứng sống / Người kể chuyện lịch sử.",
+      criteria_en: "Check-in and listen to testimonies from 2 living history witnesses.",
       conditions: [
         {
           id: "c-tieng-vong-1",
           type: "people_count",
           target_num: 2,
-          desc: "Check-in tại 2 điểm có Nhân chứng sống / Ký ức cựu chiến binh"
+          desc: "Check-in tại 2 điểm có Nhân chứng sống / Ký ức cựu chiến binh",
+          desc_en: "Check in at 2 sites with Living Witnesses / Veteran memories"
         }
       ],
       is_unlocked: false
@@ -1250,18 +1433,22 @@ const INITIAL_DATA = {
     {
       id: "badge-dau-chan-di-san",
       name: "Nhà Thám Hiểm Non Sông",
+      name_en: "Realm Explorer",
       tier: "bronze",
       icon: "🗺️",
       category: "Khám Phá Di Sản",
+      category_en: "Heritage Explorer",
       lore: "Chiếc huân chương đồng trao tặng cho bước chân kiên trì chu du khắp 3 địa danh lịch sử, nối dài dải đất hình chữ S bằng niềm tự hào dân tộc.",
       lore_en: "Awarded to devoted explorers who have journeyed to at least 3 historical landmarks across Vietnam.",
       criteria: "Hành trình thám hiểm và check-in tại 3 Địa danh / Di tích lịch sử.",
+      criteria_en: "Journey to and check in at 3 historical heritage landmarks.",
       conditions: [
         {
           id: "c-dau-chan-1",
           type: "pins_count",
           target_num: 3,
-          desc: "Check-in tại 3 Địa danh / Di tích bất kỳ"
+          desc: "Check-in tại 3 Địa danh / Di tích bất kỳ",
+          desc_en: "Check in at any 3 historical landmarks"
         }
       ],
       is_unlocked: false
@@ -1308,21 +1495,26 @@ function loadState() {
           if (!p.desc_en && initPin.desc_en) p.desc_en = initPin.desc_en;
         }
       });
-      // Auto-migrate: Backfill background images from INITIAL_DATA if missing in cache
+      // Auto-migrate: Backfill bilingual fields & background images for figures
       (appState.figures || []).forEach(f => {
-        if (!f.background_image) {
-          const initFig = INITIAL_DATA.figures.find(initF => initF.id === f.id);
-          if (initFig && initFig.background_image) {
-            f.background_image = initFig.background_image;
-          }
+        const initFig = INITIAL_DATA.figures.find(initF => initF.id === f.id);
+        if (initFig) {
+          if (!f.name_en && initFig.name_en) f.name_en = initFig.name_en;
+          if (!f.role_en && initFig.role_en) f.role_en = initFig.role_en;
+          if (!f.dynasty_en && initFig.dynasty_en) f.dynasty_en = initFig.dynasty_en;
+          if (!f.quote_en && initFig.quote_en) f.quote_en = initFig.quote_en;
+          if (!f.bio_en && initFig.bio_en) f.bio_en = initFig.bio_en;
+          if (!f.background_image && initFig.background_image) f.background_image = initFig.background_image;
         }
       });
+
+      // Auto-migrate: Backfill bilingual fields & background images for stories
       (appState.stories || []).forEach(s => {
-        if (!s.background_image) {
-          const initStory = INITIAL_DATA.stories.find(initS => initS.id === s.id);
-          if (initStory && initStory.background_image) {
-            s.background_image = initStory.background_image;
-          }
+        const initStory = INITIAL_DATA.stories.find(initS => initS.id === s.id);
+        if (initStory) {
+          if (!s.name_en && initStory.name_en) s.name_en = initStory.name_en;
+          if (!s.content_en && initStory.content_en) s.content_en = initStory.content_en;
+          if (!s.background_image && initStory.background_image) s.background_image = initStory.background_image;
         }
       });
 
@@ -1344,6 +1536,9 @@ function loadState() {
           if (!existing) {
             appState.badges.push(JSON.parse(JSON.stringify(initBg)));
           } else {
+            if (!existing.name_en && initBg.name_en) existing.name_en = initBg.name_en;
+            if (!existing.category_en && initBg.category_en) existing.category_en = initBg.category_en;
+            if (!existing.criteria_en && initBg.criteria_en) existing.criteria_en = initBg.criteria_en;
             if (!existing.lore && initBg.lore) existing.lore = initBg.lore;
             if (!existing.lore_en && initBg.lore_en) existing.lore_en = initBg.lore_en;
             if ((!existing.conditions || existing.conditions.length === 0) && initBg.conditions) {
@@ -1957,7 +2152,7 @@ function performCheckIn() {
   appState.stories.forEach(st => {
     if (st.required_pin_id === pin.id && st.is_locked) {
       st.is_locked = false;
-      unlockedStoryName = st.name;
+      unlockedStoryName = currentLang === 'en' ? (st.name_en || st.name) : st.name;
     }
   });
 
@@ -1984,7 +2179,7 @@ function performCheckIn() {
   const newlyUnlockedBadges = evaluateAndUnlockBadges(pin);
   let unlockedBadgeName = "";
   if (newlyUnlockedBadges && newlyUnlockedBadges.length > 0) {
-    unlockedBadgeName = newlyUnlockedBadges.map(b => b.name).join(", ");
+    unlockedBadgeName = newlyUnlockedBadges.map(b => currentLang === 'en' ? (b.name_en || b.name) : b.name).join(", ");
   }
 
   saveState();
@@ -2003,7 +2198,9 @@ function triggerUnlockCelebration(pin, storyName, badgeName) {
   const storyRow = document.getElementById("celebration-story-row");
   if (storyName) {
     storyRow.style.display = "flex";
-    document.getElementById("celebration-story-text").innerText = `Mở khóa giai thoại: "${storyName}"!`;
+    document.getElementById("celebration-story-text").innerText = currentLang === 'en'
+      ? `Unlocked Tale: "${storyName}"!`
+      : `Mở khóa giai thoại: "${storyName}"!`;
   } else {
     storyRow.style.display = "none";
   }
@@ -2011,7 +2208,9 @@ function triggerUnlockCelebration(pin, storyName, badgeName) {
   const badgeRow = document.getElementById("celebration-badge-row");
   if (badgeName) {
     badgeRow.style.display = "flex";
-    document.getElementById("celebration-badge-text").innerText = `Nhận Huy hiệu Di sản: "${badgeName}"!`;
+    document.getElementById("celebration-badge-text").innerText = currentLang === 'en'
+      ? `Earned Heritage Badge: "${badgeName}"!`
+      : `Nhận Huy hiệu Di sản: "${badgeName}"!`;
   } else {
     badgeRow.style.display = "none";
   }
@@ -2082,10 +2281,13 @@ function renderFiguresSplitView() {
   // 1. Render Dynasty Filter Chips
   if (chipsContainer) {
     const dynasties = Array.from(new Set(appState.figures.map(f => f.dynasty).filter(Boolean)));
-    let chipsHtml = `<span class="filter-chip ${currentFigureFilter === 'all' ? 'active' : ''}" onclick="filterFiguresByDynasty('all', this)">Tất cả (${appState.figures.length})</span>`;
+    const allLabel = currentLang === 'en' ? 'All' : 'Tất cả';
+    let chipsHtml = `<span class="filter-chip ${currentFigureFilter === 'all' ? 'active' : ''}" onclick="filterFiguresByDynasty('all', this)">${allLabel} (${appState.figures.length})</span>`;
     dynasties.forEach(dyn => {
       const count = appState.figures.filter(f => f.dynasty === dyn).length;
-      chipsHtml += `<span class="filter-chip ${currentFigureFilter === dyn ? 'active' : ''}" onclick="filterFiguresByDynasty('${dyn}', this)">${dyn} (${count})</span>`;
+      const sampleFig = appState.figures.find(f => f.dynasty === dyn);
+      const dynDisplay = currentLang === 'en' ? ((sampleFig && sampleFig.dynasty_en) || dyn) : dyn;
+      chipsHtml += `<span class="filter-chip ${currentFigureFilter === dyn ? 'active' : ''}" onclick="filterFiguresByDynasty('${dyn}', this)">${dynDisplay} (${count})</span>`;
     });
     chipsContainer.innerHTML = chipsHtml;
   }
@@ -2098,14 +2300,17 @@ function renderFiguresSplitView() {
   if (currentFigureSearch) {
     filtered = filtered.filter(f => 
       (f.name && f.name.toLowerCase().includes(currentFigureSearch)) ||
+      (f.name_en && f.name_en.toLowerCase().includes(currentFigureSearch)) ||
       (f.dynasty && f.dynasty.toLowerCase().includes(currentFigureSearch)) ||
-      (f.role && f.role.toLowerCase().includes(currentFigureSearch))
+      (f.dynasty_en && f.dynasty_en.toLowerCase().includes(currentFigureSearch)) ||
+      (f.role && f.role.toLowerCase().includes(currentFigureSearch)) ||
+      (f.role_en && f.role_en.toLowerCase().includes(currentFigureSearch))
     );
   }
 
   // 3. Render Master Sidebar List
   if (filtered.length === 0) {
-    listContainer.innerHTML = `<div style="padding:24px 12px; text-align:center; color:var(--text-muted); font-size:0.88rem;">Không tìm thấy danh nhân phù hợp.</div>`;
+    listContainer.innerHTML = `<div style="padding:24px 12px; text-align:center; color:var(--text-muted); font-size:0.88rem;">${currentLang === 'en' ? 'No historical figures found.' : 'Không tìm thấy danh nhân phù hợp.'}</div>`;
   } else {
     // If no figure selected or current selected figure not in list, pick the first
     if (!selectedFigureId || !filtered.some(f => f.id === selectedFigureId)) {
@@ -2123,12 +2328,15 @@ function renderFiguresSplitView() {
         avatarContent = `<img src="${fig.image_url}" alt="${fig.name}">`;
       }
 
+      const figName = currentLang === 'en' ? (fig.name_en || fig.name) : fig.name;
+      const figDynasty = currentLang === 'en' ? (fig.dynasty_en || fig.dynasty || 'Ancient') : (fig.dynasty || 'Cổ đại');
+
       listHtml += `
         <div class="figure-nav-item ${isSelected ? 'active' : ''}" onclick="selectFigure('${fig.id}')">
           <div class="figure-nav-avatar">${avatarContent}</div>
           <div class="figure-nav-info">
-            <div class="figure-nav-name">${fig.name}</div>
-            <div class="figure-nav-meta">${fig.dynasty || 'Cổ đại'} ${fig.years ? `(${fig.years})` : ''}</div>
+            <div class="figure-nav-name">${figName}</div>
+            <div class="figure-nav-meta">${figDynasty} ${fig.years ? `(${fig.years})` : ''}</div>
           </div>
           <div class="figure-nav-badge-pill">
             ${figureStories.length > 0 ? `${unlockedCount}/${figureStories.length} 📖` : '0 📖'}
@@ -2153,8 +2361,8 @@ function renderFigureDetailPane(figId) {
       detailContainer.innerHTML = `
         <div style="text-align:center; padding:60px 20px; color:var(--text-muted);">
           <div style="font-size:3rem; margin-bottom:12px;">📜</div>
-          <h3>Chưa có Danh nhân nào</h3>
-          <p style="margin-top:6px; font-size:0.9rem;">Hãy bấm nút '+ Thêm Danh nhân mới' để bắt đầu!</p>
+          <h3>${currentLang === 'en' ? 'No Historical Figures Yet' : 'Chưa có Danh nhân nào'}</h3>
+          <p style="margin-top:6px; font-size:0.9rem;">${currentLang === 'en' ? 'Click "+ Add New Hero" to begin!' : 'Hãy bấm nút "+ Thêm Danh nhân mới" để bắt đầu!'}</p>
         </div>
       `;
       return;
@@ -2162,6 +2370,12 @@ function renderFigureDetailPane(figId) {
 
     // Keep selectedFigureId in sync
     selectedFigureId = fig.id;
+
+    const figName = currentLang === 'en' ? (fig.name_en || fig.name) : fig.name;
+    const figDynasty = currentLang === 'en' ? (fig.dynasty_en || fig.dynasty || 'Vietnamese History') : (fig.dynasty || 'Lịch sử Việt Nam');
+    const figRole = currentLang === 'en' ? (fig.role_en || fig.role) : fig.role;
+    const figQuote = currentLang === 'en' ? (fig.quote_en || fig.quote) : fig.quote;
+    const figBio = currentLang === 'en' ? (fig.bio_en || fig.bio || 'No biography available yet.') : (fig.bio || 'Chưa có thông tin tiểu sử.');
 
     // Gather stories
     const figureStories = (appState.stories || []).filter(s => s && s.figure_id === fig.id);
@@ -2176,15 +2390,15 @@ function renderFigureDetailPane(figId) {
     // Avatar markup
     let avatarMarkup = fig.avatar || '⚔️';
     if (fig.image_url && fig.image_url.trim().length > 0) {
-      avatarMarkup = `<img src="${fig.image_url}" alt="${fig.name}">`;
+      avatarMarkup = `<img src="${fig.image_url}" alt="${figName}">`;
     }
 
     // Quote markup
     let quoteMarkup = "";
-    if (fig.quote && fig.quote.trim().length > 0) {
+    if (figQuote && figQuote.trim().length > 0) {
       quoteMarkup = `
         <div class="figure-quote-box">
-          <div class="figure-quote-text">"${fig.quote.trim()}"</div>
+          <div class="figure-quote-text">"${figQuote.trim()}"</div>
         </div>
       `;
     }
@@ -2238,6 +2452,8 @@ function renderFigureDetailPane(figId) {
               const reqPin = (appState.pins || []).find(p => p && p.id === st.required_pin_id);
               const pinName = reqPin ? (currentLang === 'en' ? (reqPin.name_en || reqPin.name) : reqPin.name) : (currentLang === 'en' ? "Designated Landmark" : "Địa danh chỉ dẫn");
               const hasCover = st.background_image && st.background_image.trim().length > 0;
+              const stName = currentLang === 'en' ? (st.name_en || st.name) : st.name;
+              const stContent = currentLang === 'en' ? (st.content_en || st.content) : st.content;
 
               if (st.is_locked) {
                 return `
@@ -2248,7 +2464,7 @@ function renderFigureDetailPane(figId) {
                       </div>
                     ` : ''}
                     <div class="story-card-header">
-                      <div class="story-card-title">🔒 ${st.name}</div>
+                      <div class="story-card-title">🔒 ${stName}</div>
                       ${!hasCover ? `<span class="story-card-badge locked">${currentLang === 'en' ? 'Locked' : 'Đang khóa'}</span>` : ''}
                     </div>
                     <div class="story-card-body">
@@ -2265,23 +2481,23 @@ function renderFigureDetailPane(figId) {
                   </div>
                 `;
               } else {
-                const preview = st.content ? (st.content.substring(0, 160) + '...') : '';
+                const preview = stContent ? (stContent.substring(0, 160) + '...') : '';
                 return `
                   <div class="story-card-rich unlocked">
                     ${hasCover ? `
                       <div class="story-card-cover" style="background-image: url('${st.background_image.trim()}');">
-                        <span class="story-card-cover-badge unlocked">✓ Đã mở khóa</span>
+                        <span class="story-card-cover-badge unlocked">✓ ${currentLang === 'en' ? 'Unlocked' : 'Đã mở khóa'}</span>
                       </div>
                     ` : ''}
                     <div class="story-card-header">
-                      <div class="story-card-title">🔓 ${st.name}</div>
-                      ${!hasCover ? `<span class="story-card-badge unlocked">✓ Đã mở khóa</span>` : ''}
+                      <div class="story-card-title">🔓 ${stName}</div>
+                      ${!hasCover ? `<span class="story-card-badge unlocked">✓ ${currentLang === 'en' ? 'Unlocked' : 'Đã mở khóa'}</span>` : ''}
                     </div>
                     <div class="story-card-body">
                       <p>${preview}</p>
                     </div>
                     <div class="story-card-actions">
-                      <button class="btn-primary" style="font-size:0.82rem; padding:6px 14px;" onclick="openStoryModal('${st.id}')">📖 Đọc Toàn Văn Giai Thoại</button>
+                      <button class="btn-primary" style="font-size:0.82rem; padding:6px 14px;" onclick="openStoryModal('${st.id}')">📖 ${currentLang === 'en' ? 'Read Full Narrative' : 'Đọc Toàn Văn Giai Thoại'}</button>
                     </div>
                   </div>
                 `;
@@ -2294,10 +2510,10 @@ function renderFigureDetailPane(figId) {
       storiesMarkup = `
         <div class="figure-section">
           <div class="figure-section-title" style="justify-content:space-between;">
-            <span>📖 Kho Tàng Giai Thoại & Cốt Truyện (0)</span>
-            <button class="btn-primary" style="font-size:0.82rem; padding:5px 12px;" onclick="openQuickStoryModal('${fig.id}')">+ Thêm Giai Thoại Đầu Tiên</button>
+            <span>📖 ${currentLang === 'en' ? 'Historic Tales & Lore Collection (0)' : 'Kho Tàng Giai Thoại & Cốt Truyện (0)'}</span>
+            <button class="btn-primary" style="font-size:0.82rem; padding:5px 12px;" onclick="openQuickStoryModal('${fig.id}')">${currentLang === 'en' ? '+ Add First Tale' : '+ Thêm Giai Thoại Đầu Tiên'}</button>
           </div>
-          <p style="font-size:0.88rem; color:var(--text-muted); font-style:italic;">Chưa có giai thoại nào liên kết với danh nhân này. Bạn có thể bấm nút trên để thêm mới!</p>
+          <p style="font-size:0.88rem; color:var(--text-muted); font-style:italic;">${currentLang === 'en' ? 'No tales linked to this hero yet. Click the button above to add one!' : 'Chưa có giai thoại nào liên kết với danh nhân này. Bạn có thể bấm nút trên để thêm mới!'}</p>
         </div>
       `;
     }
@@ -2307,12 +2523,12 @@ function renderFigureDetailPane(figId) {
     const heroHeaderMarkup = hasHeroBg ? `
       <div class="figure-hero-backdrop" style="background-image: url('${fig.background_image.trim()}');">
         <div class="hero-backdrop-actions">
-          <label class="btn-hero-bg-action" title="Bấm để chọn ảnh nền bối cảnh mới từ máy tính">
-            📷 Đổi ảnh nền
+          <label class="btn-hero-bg-action" title="${currentLang === 'en' ? 'Choose new background cover from computer' : 'Bấm để chọn ảnh nền bối cảnh mới từ máy tính'}">
+            📷 ${currentLang === 'en' ? 'Change Backdrop' : 'Đổi ảnh nền'}
             <input type="file" accept="image/*" onchange="changeFigureBackgroundDirect(event, '${fig.id}')" style="display:none;">
           </label>
-          <button type="button" class="btn-hero-bg-action-remove" title="Xóa ảnh nền này" onclick="removeFigureBackgroundDirect('${fig.id}')">
-            ✕ Xóa nền
+          <button type="button" class="btn-hero-bg-action-remove" title="${currentLang === 'en' ? 'Remove this background' : 'Xóa ảnh nền này'}" onclick="removeFigureBackgroundDirect('${fig.id}')">
+            ✕ ${currentLang === 'en' ? 'Remove' : 'Xóa nền'}
           </button>
         </div>
         <div class="figure-hero-backdrop-content">
@@ -2320,11 +2536,11 @@ function renderFigureDetailPane(figId) {
             ${avatarMarkup}
           </div>
           <div class="figure-detail-hero-info">
-            <h2 class="figure-detail-title">${fig.name}</h2>
+            <h2 class="figure-detail-title">${figName}</h2>
             <div class="figure-detail-pills">
-              <span class="figure-detail-pill pill-dynasty">🏛️ ${fig.dynasty || 'Lịch sử Việt Nam'}</span>
-              ${fig.years ? `<span class="figure-detail-pill pill-dynasty">⏳ Niên đại: ${fig.years}</span>` : ''}
-              ${fig.role ? `<span class="figure-detail-pill pill-role">🎖️ ${fig.role}</span>` : ''}
+              <span class="figure-detail-pill pill-dynasty">🏛️ ${figDynasty}</span>
+              ${fig.years ? `<span class="figure-detail-pill pill-dynasty">⏳ ${currentLang === 'en' ? 'Era:' : 'Niên đại:'} ${fig.years}</span>` : ''}
+              ${figRole ? `<span class="figure-detail-pill pill-role">🎖️ ${figRole}</span>` : ''}
             </div>
             ${quoteMarkup}
           </div>
@@ -2333,8 +2549,8 @@ function renderFigureDetailPane(figId) {
     ` : `
       <div class="figure-detail-hero" style="position:relative;">
         <div class="hero-backdrop-actions" style="top:0; right:0;">
-          <label class="btn-hero-bg-action" style="background:var(--bg-secondary); color:var(--primary-dark); border-color:var(--accent-gold);" title="Bấm để thêm ảnh nền bối cảnh hào hùng cho danh nhân này">
-            🖼️ + Thêm ảnh nền bối cảnh
+          <label class="btn-hero-bg-action" style="background:var(--bg-secondary); color:var(--primary-dark); border-color:var(--accent-gold);" title="${currentLang === 'en' ? 'Add heroic background cover for this figure' : 'Bấm để thêm ảnh nền bối cảnh hào hùng cho danh nhân này'}">
+            🖼️ + ${currentLang === 'en' ? 'Add Backdrop Cover' : 'Thêm ảnh nền bối cảnh'}
             <input type="file" accept="image/*" onchange="changeFigureBackgroundDirect(event, '${fig.id}')" style="display:none;">
           </label>
         </div>
@@ -2342,11 +2558,11 @@ function renderFigureDetailPane(figId) {
           ${avatarMarkup}
         </div>
         <div class="figure-detail-hero-info">
-          <h2 class="figure-detail-title">${fig.name}</h2>
+          <h2 class="figure-detail-title">${figName}</h2>
           <div class="figure-detail-pills">
-            <span class="figure-detail-pill pill-dynasty">🏛️ ${fig.dynasty || 'Lịch sử Việt Nam'}</span>
-            ${fig.years ? `<span class="figure-detail-pill pill-dynasty">⏳ Niên đại: ${fig.years}</span>` : ''}
-            ${fig.role ? `<span class="figure-detail-pill pill-role">🎖️ ${fig.role}</span>` : ''}
+            <span class="figure-detail-pill pill-dynasty">🏛️ ${figDynasty}</span>
+            ${fig.years ? `<span class="figure-detail-pill pill-dynasty">⏳ ${currentLang === 'en' ? 'Era:' : 'Niên đại:'} ${fig.years}</span>` : ''}
+            ${figRole ? `<span class="figure-detail-pill pill-role">🎖️ ${figRole}</span>` : ''}
           </div>
           ${quoteMarkup}
         </div>
@@ -2361,10 +2577,10 @@ function renderFigureDetailPane(figId) {
       <!-- Section 1: Tiểu sử hào kiệt -->
       <div class="figure-section">
         <div class="figure-section-title">
-          <span>📜 Cuộc Đời & Sự Nghiệp Hào Kiệt</span>
+          <span>📜 ${currentLang === 'en' ? 'Heroic Life & Legacy' : 'Cuộc Đời & Sự Nghiệp Hào Kiệt'}</span>
         </div>
         <div class="figure-bio-text">
-          ${fig.bio || 'Chưa có thông tin tiểu sử.'}
+          ${figBio}
         </div>
       </div>
 
@@ -2376,15 +2592,15 @@ function renderFigureDetailPane(figId) {
 
       <!-- Actions Footer -->
       <div style="margin-top:20px; padding-top:16px; border-top:1px dashed var(--neutral-300); display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:0.8rem; color:var(--text-muted);">Mã danh nhân: ${fig.id}</span>
-        <button class="btn-secondary" style="color:#e53e3e; border-color:#feb2b2; font-size:0.82rem; padding:5px 12px; cursor:pointer;" onclick="deleteFigureById('${fig.id}')">🗑️ Xóa Danh Nhân Này</button>
+        <span style="font-size:0.8rem; color:var(--text-muted);">${currentLang === 'en' ? 'Hero ID:' : 'Mã danh nhân:'} ${fig.id}</span>
+        <button class="btn-secondary" style="color:#e53e3e; border-color:#feb2b2; font-size:0.82rem; padding:5px 12px; cursor:pointer;" onclick="deleteFigureById('${fig.id}')">🗑️ ${currentLang === 'en' ? 'Delete This Hero' : 'Xóa Danh Nhân Này'}</button>
       </div>
     `;
   } catch (err) {
     console.error("Lỗi khi render chi tiết danh nhân:", err);
     detailContainer.innerHTML = `
       <div style="padding:24px; color:#c53030; background:#fff5f5; border:1px solid #feb2b2; border-radius:8px;">
-        <h4>⚠️ Đã xảy ra lỗi khi tải hồ sơ danh nhân</h4>
+        <h4>⚠️ ${currentLang === 'en' ? 'Error loading hero dossier' : 'Đã xảy ra lỗi khi tải hồ sơ danh nhân'}</h4>
         <p style="margin-top:6px; font-size:0.85rem; color:#742a2a;">${err.message}</p>
       </div>
     `;
@@ -2620,10 +2836,11 @@ function evaluateSingleCondition(cond, badgeIsUnlocked = false) {
       items = targets.map(figId => {
         const fig = (appState.figures || []).find(f => f.id === figId);
         const done = discoveredFigs.includes(figId);
+        const figName = fig ? (currentLang === 'en' ? (fig.name_en || fig.name) : fig.name) : figId;
         return {
           id: figId,
           type: 'figure',
-          name: fig ? fig.name : figId,
+          name: figName,
           icon: (fig && fig.avatar) || '⚔️',
           isCompleted: done
         };
@@ -2646,10 +2863,11 @@ function evaluateSingleCondition(cond, badgeIsUnlocked = false) {
       items = targets.map(pinId => {
         const pin = (appState.pins || []).find(p => p.id === pinId);
         const done = checkedPins.includes(pinId);
+        const pinName = pin ? (currentLang === 'en' ? (pin.name_en || pin.name) : pin.name) : pinId;
         return {
           id: pinId,
           type: 'pin',
-          name: pin ? pin.name : pinId,
+          name: pinName,
           icon: (pin && pin.icon) || '📍',
           isCompleted: done
         };
@@ -2703,7 +2921,7 @@ function evaluateSingleCondition(cond, badgeIsUnlocked = false) {
     max,
     unit,
     percent,
-    desc: cond.desc || '',
+    desc: (currentLang === 'en' && cond.desc_en) ? cond.desc_en : (cond.desc || ''),
     items
   };
 }
@@ -2770,7 +2988,11 @@ function evaluateAndUnlockBadges(triggerPin = null) {
   return newlyUnlocked;
 }
 
+let selectedBadgeIdForModal = null;
+let selectedStoryIdForModal = null;
+
 function openBadgeDetailsModal(badgeId) {
+  selectedBadgeIdForModal = badgeId;
   const badge = (appState.badges || []).find(b => b.id === badgeId);
   if (!badge) return;
 
@@ -2781,16 +3003,19 @@ function openBadgeDetailsModal(badgeId) {
   const prog = getBadgeProgress(badge);
   const tier = badge.tier || 'bronze';
 
+  const bName = currentLang === 'en' ? (badge.name_en || badge.name) : badge.name;
+  const bCat = currentLang === 'en' ? (badge.category_en || badge.category || 'History Heritage') : (badge.category || 'Di sản lịch sử');
+
   // Hero header theme
   const hero = document.getElementById("badge-modal-hero");
   if (hero) {
     hero.className = `badge-modal-hero tier-${tier}`;
   }
   document.getElementById("badge-modal-icon").innerText = badge.icon || '🎖️';
-  document.getElementById("badge-modal-title").innerText = badge.name;
+  document.getElementById("badge-modal-title").innerText = bName;
   document.getElementById("badge-modal-tier-tag").innerText = `${tier.toUpperCase()} TIER`;
   document.getElementById("badge-modal-tier-tag").className = `badge-tag badge-${tier}`;
-  document.getElementById("badge-modal-category").innerText = badge.category || 'Di sản lịch sử';
+  document.getElementById("badge-modal-category").innerText = bCat;
 
   // Status banner
   const statusBanner = document.getElementById("badge-modal-status-banner");
@@ -2798,7 +3023,7 @@ function openBadgeDetailsModal(badgeId) {
   const statusProg = document.getElementById("badge-modal-status-progress");
   if (isUnlocked) {
     statusBanner.className = "badge-modal-status-banner unlocked";
-    statusText.innerText = `✓ ${t('badge_unlocked_status')} (${badge.unlocked_date || 'Gần đây'})`;
+    statusText.innerText = `✓ ${t('badge_unlocked_status')} (${badge.unlocked_date || (currentLang === 'en' ? 'Recently' : 'Gần đây')})`;
     statusProg.innerText = currentLang === 'en' ? 'Completed 100%' : 'Hoàn thành 100%';
   } else {
     statusBanner.className = "badge-modal-status-banner locked";
@@ -2809,7 +3034,7 @@ function openBadgeDetailsModal(badgeId) {
   }
 
   // Lore text
-  const loreText = (currentLang === 'en' && badge.lore_en) ? badge.lore_en : (badge.lore || badge.criteria || 'Vinh danh người gìn giữ di sản dân tộc.');
+  const loreText = (currentLang === 'en' && badge.lore_en) ? badge.lore_en : (badge.lore || badge.criteria || (currentLang === 'en' ? 'Honors the keeper of national heritage.' : 'Vinh danh người gìn giữ di sản dân tộc.'));
   document.getElementById("badge-modal-lore-text").innerText = loreText;
   document.getElementById("badge-modal-lore-header").innerText = t('badge_lore_title');
   document.getElementById("badge-modal-cond-header").innerText = t('badge_cond_title');
@@ -2896,6 +3121,7 @@ function openBadgeDetailsModal(badgeId) {
 }
 
 function closeBadgeDetailsModal() {
+  selectedBadgeIdForModal = null;
   const modal = document.getElementById("badge-details-modal");
   if (modal) modal.classList.remove("active");
 }
@@ -2957,6 +3183,10 @@ function renderBadgesGrid() {
     const tierClass = `badge-${b.tier || 'bronze'}`;
     const prog = getBadgeProgress(b);
 
+    const bName = currentLang === 'en' ? (b.name_en || b.name) : b.name;
+    const bCat = currentLang === 'en' ? (b.category_en || b.category || 'History Heritage') : (b.category || 'Di sản lịch sử');
+    const bCriteria = currentLang === 'en' ? (b.criteria_en || b.criteria || 'No criteria set') : (b.criteria || 'Chưa thiết lập yêu cầu');
+
     const card = document.createElement("div");
     card.className = `card badge-card ${isUnlocked ? 'unlocked' : 'locked'}`;
     card.onclick = () => openBadgeDetailsModal(b.id);
@@ -2965,8 +3195,8 @@ function renderBadgesGrid() {
     card.innerHTML = `
       <div class="badge-icon-box">${b.icon || '🎖️'}</div>
       <span class="badge-tag ${tierClass}">${(b.tier || 'bronze').toUpperCase()} TIER</span>
-      <h3 class="badge-card-title">${b.name}</h3>
-      <p class="badge-card-category">${b.category || 'Di sản lịch sử'}</p>
+      <h3 class="badge-card-title">${bName}</h3>
+      <p class="badge-card-category">${bCat}</p>
 
       <div class="badge-req-box">
         <div class="badge-req-header">
@@ -2975,7 +3205,7 @@ function renderBadgesGrid() {
             ${isUnlocked ? (currentLang === 'en' ? 'COMPLETED' : 'HOÀN THÀNH') : `${prog.percent}%`}
           </span>
         </div>
-        <div class="badge-req-desc">${b.criteria || 'Chưa thiết lập yêu cầu'}</div>
+        <div class="badge-req-desc">${bCriteria}</div>
         <div class="badge-progress-wrap">
           <div class="badge-progress-bar" style="width: ${prog.percent}%;"></div>
         </div>
@@ -2986,7 +3216,7 @@ function renderBadgesGrid() {
       </div>
 
       ${isUnlocked 
-        ? `<div class="badge-status-pill unlocked">✓ ${t('badge_unlocked_status')} (${b.unlocked_date || 'Gần đây'})</div>` 
+        ? `<div class="badge-status-pill unlocked">✓ ${t('badge_unlocked_status')} (${b.unlocked_date || (currentLang === 'en' ? 'Recently' : 'Gần đây')})</div>` 
         : `<div class="badge-status-pill locked">🔒 ${t('badge_locked_status')} (${prog.percent}%)</div>`}
 
       <div style="font-size:0.75rem; color:var(--accent-camel); margin-top:8px; display:flex; align-items:center; gap:4px; font-weight:600;">
@@ -3000,7 +3230,9 @@ function renderBadgesGrid() {
 function renderProfileStats() {
   const p = appState.profile;
   document.getElementById("profile-display-name").innerText = p.name;
-  document.getElementById("profile-level-badge").innerText = `CẤP ${p.level} • KỴ SĨ DI SẢN`;
+  const levelTitle = currentLang === 'en' ? 'HERITAGE KNIGHT' : 'KỴ SĨ DI SẢN';
+  const levelPrefix = currentLang === 'en' ? 'LEVEL' : 'CẤP';
+  document.getElementById("profile-level-badge").innerText = `${levelPrefix} ${p.level} • ${levelTitle}`;
   document.getElementById("profile-exp-text").innerText = `${p.exp} / ${p.maxExp} EXP`;
   
   const pct = Math.min(100, Math.round((p.exp / p.maxExp) * 100));
@@ -3029,23 +3261,36 @@ function populateDropdownSelectors() {
   const badgePinSelect = document.getElementById("badge-input-target-pin");
 
   if (figSelect) {
-    figSelect.innerHTML = appState.figures.map(f => `<option value="${f.id}">${f.name}</option>`).join("");
+    figSelect.innerHTML = appState.figures.map(f => {
+      const fName = currentLang === 'en' ? (f.name_en || f.name) : f.name;
+      return `<option value="${f.id}">${fName}</option>`;
+    }).join("");
   }
   if (pinSelect) {
-    pinSelect.innerHTML = appState.pins.map(p => `<option value="${p.id}">${p.icon || '📍'} ${p.name}</option>`).join("");
+    pinSelect.innerHTML = appState.pins.map(p => {
+      const pName = currentLang === 'en' ? (p.name_en || p.name) : p.name;
+      return `<option value="${p.id}">${p.icon || '📍'} ${pName}</option>`;
+    }).join("");
   }
   if (figPinSelect) {
-    figPinSelect.innerHTML = `<option value="">-- Chọn Địa danh di tích gắn liền (nếu có) --</option>` + 
-      appState.pins.map(p => `<option value="${p.id}">${p.icon || '📍'} ${p.name}</option>`).join("");
+    figPinSelect.innerHTML = `<option value="">${t('cms_fig_pins_opt')}</option>` + 
+      appState.pins.map(p => {
+        const pName = currentLang === 'en' ? (p.name_en || p.name) : p.name;
+        return `<option value="${p.id}">${p.icon || '📍'} ${pName}</option>`;
+      }).join("");
   }
   if (figStoryPinSelect) {
-    figStoryPinSelect.innerHTML = appState.pins.map(p => `<option value="${p.id}">${p.icon || '📍'} ${p.name}</option>`).join("");
+    figStoryPinSelect.innerHTML = appState.pins.map(p => {
+      const pName = currentLang === 'en' ? (p.name_en || p.name) : p.name;
+      return `<option value="${p.id}">${p.icon || '📍'} ${pName}</option>`;
+    }).join("");
   }
   if (badgePinSelect) {
     const curVal = badgePinSelect.value;
-    badgePinSelect.innerHTML = appState.pins.map(p => 
-      `<option value="${p.id}">${p.icon || '📍'} ${p.name}</option>`
-    ).join("");
+    badgePinSelect.innerHTML = appState.pins.map(p => {
+      const pName = currentLang === 'en' ? (p.name_en || p.name) : p.name;
+      return `<option value="${p.id}">${p.icon || '📍'} ${pName}</option>`;
+    }).join("");
     if (curVal && appState.pins.some(p => p.id === curVal)) {
       badgePinSelect.value = curVal;
     }
@@ -3054,13 +3299,19 @@ function populateDropdownSelectors() {
 
 // Story modal reader
 function openStoryModal(storyId) {
+  selectedStoryIdForModal = storyId;
   const story = appState.stories.find(s => s.id === storyId);
   if (!story) return;
   const fig = appState.figures.find(f => f.id === story.figure_id);
 
-  document.getElementById("story-modal-title").innerText = `📜 ${story.name}`;
-  document.getElementById("story-modal-meta").innerText = `Danh nhân: ${fig ? fig.name : 'Lịch sử'}`;
-  document.getElementById("story-modal-content").innerText = story.content;
+  const sTitle = currentLang === 'en' ? (story.name_en || story.name) : story.name;
+  const sContent = currentLang === 'en' ? (story.content_en || story.content) : story.content;
+  const fName = fig ? (currentLang === 'en' ? (fig.name_en || fig.name) : fig.name) : (currentLang === 'en' ? 'History' : 'Lịch sử');
+  const metaPrefix = currentLang === 'en' ? 'Hero / Figure:' : 'Danh nhân:';
+
+  document.getElementById("story-modal-title").innerText = `📜 ${sTitle}`;
+  document.getElementById("story-modal-meta").innerText = `${metaPrefix} ${fName}`;
+  document.getElementById("story-modal-content").innerText = sContent;
 
   const coverEl = document.getElementById("story-modal-cover");
   if (coverEl) {
@@ -3068,7 +3319,7 @@ function openStoryModal(storyId) {
       coverEl.style.backgroundImage = `url('${story.background_image.trim()}')`;
       coverEl.style.display = "flex";
       const capEl = document.getElementById("story-modal-cover-caption");
-      if (capEl) capEl.innerText = `Tranh minh họa: ${story.name}`;
+      if (capEl) capEl.innerText = currentLang === 'en' ? `Illustration: ${sTitle}` : `Tranh minh họa: ${sTitle}`;
     } else {
       coverEl.style.display = "none";
     }
@@ -3078,6 +3329,7 @@ function openStoryModal(storyId) {
 }
 
 function closeStoryModal() {
+  selectedStoryIdForModal = null;
   document.getElementById("story-modal").classList.remove("active");
 }
 
@@ -3149,16 +3401,17 @@ function handleCreatePin(e) {
 // ==========================================================================
 // DYNAMIC MULTI-STORY ROWS IN ADD FIGURE FORM (UNLIMITED STORIES)
 // ==========================================================================
-function addFigureStoryRow(title = "", pinId = "", content = "", bgImage = "") {
+function addFigureStoryRow(title = "", pinId = "", content = "", bgImage = "", title_en = "", content_en = "") {
   const container = document.getElementById("fig-stories-list-container");
   if (!container) return;
 
   const rowId = `fig-story-row-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
   const currentCount = container.children.length + 1;
 
-  const pinOptions = appState.pins.map(p => 
-    `<option value="${p.id}" ${p.id === pinId ? 'selected' : ''}>${p.icon || '📍'} ${p.name}</option>`
-  ).join("");
+  const pinOptions = appState.pins.map(p => {
+    const pName = currentLang === 'en' ? (p.name_en || p.name) : p.name;
+    return `<option value="${p.id}" ${p.id === pinId ? 'selected' : ''}>${p.icon || '📍'} ${pName}</option>`;
+  }).join("");
 
   const rowEl = document.createElement("div");
   rowEl.className = "fig-story-row";
@@ -3173,9 +3426,13 @@ function addFigureStoryRow(title = "", pinId = "", content = "", bgImage = "") {
       </button>
     </div>
     <div class="form-grid">
-      <div class="form-group form-grid-full">
-        <label class="fig-story-lbl-title">${t('cms_fig_story_title_lbl')} <span class="req">*</span></label>
+      <div class="form-group">
+        <label class="fig-story-lbl-title-vi">${t('cms_fig_story_title_vi_lbl')} <span class="req">*</span></label>
         <input type="text" class="form-input fig-story-input-title" placeholder="${t('cms_fig_story_title_ph')}" value="${title}">
+      </div>
+      <div class="form-group">
+        <label class="fig-story-lbl-title-en">${t('cms_fig_story_title_en_lbl')}</label>
+        <input type="text" class="form-input fig-story-input-title-en" placeholder="${t('cms_fig_story_title_en_ph')}" value="${title_en}">
       </div>
       <div class="form-group">
         <label class="fig-story-lbl-pin">${t('cms_fig_story_pin_lbl')}</label>
@@ -3198,9 +3455,13 @@ function addFigureStoryRow(title = "", pinId = "", content = "", bgImage = "") {
           <span style="font-size:0.75rem; color:#27ae60;">✓ Có ảnh minh họa</span>
         </div>
       </div>
-      <div class="form-group form-grid-full">
-        <label class="fig-story-lbl-content">${t('cms_fig_story_content_lbl')}</label>
+      <div class="form-group">
+        <label class="fig-story-lbl-content-vi">${t('cms_fig_story_content_vi_lbl')}</label>
         <textarea class="form-textarea fig-story-input-content" rows="3" placeholder="${t('cms_fig_story_content_ph')}">${content}</textarea>
+      </div>
+      <div class="form-group">
+        <label class="fig-story-lbl-content-en">${t('cms_fig_story_content_en_lbl')}</label>
+        <textarea class="form-textarea fig-story-input-content-en" rows="3" placeholder="${t('cms_fig_story_content_en_ph')}">${content_en}</textarea>
       </div>
     </div>
   `;
@@ -3282,10 +3543,13 @@ function openQuickStoryModal(figureId) {
   const fig = appState.figures.find(f => f.id === figureId);
   if (!fig) return;
 
+  const fName = currentLang === 'en' ? (fig.name_en || fig.name) : fig.name;
   document.getElementById("quick-story-figure-id").value = fig.id;
-  document.getElementById("quick-story-figure-name").innerText = `${fig.avatar || '⚔️'} ${fig.name}`;
+  document.getElementById("quick-story-figure-name").innerText = `${fig.avatar || '⚔️'} ${fName}`;
   document.getElementById("quick-story-title").value = "";
+  if (document.getElementById("quick-story-title-en")) document.getElementById("quick-story-title-en").value = "";
   document.getElementById("quick-story-content").value = "";
+  if (document.getElementById("quick-story-content-en")) document.getElementById("quick-story-content-en").value = "";
   
   const quickBg = document.getElementById("quick-story-bg");
   if (quickBg) quickBg.value = "";
@@ -3294,9 +3558,10 @@ function openQuickStoryModal(figureId) {
 
   const pinSelect = document.getElementById("quick-story-pin");
   if (pinSelect) {
-    pinSelect.innerHTML = appState.pins.map(p => 
-      `<option value="${p.id}">${p.icon || '📍'} ${p.name}</option>`
-    ).join("");
+    pinSelect.innerHTML = appState.pins.map(p => {
+      const pName = currentLang === 'en' ? (p.name_en || p.name) : p.name;
+      return `<option value="${p.id}">${p.icon || '📍'} ${pName}</option>`;
+    }).join("");
   }
 
   document.getElementById("quick-story-modal").classList.add("active");
@@ -3348,8 +3613,10 @@ function handleQuickStorySubmit(e) {
   e.preventDefault();
   const figureId = document.getElementById("quick-story-figure-id").value;
   const title = document.getElementById("quick-story-title").value.trim();
+  const title_en = document.getElementById("quick-story-title-en") ? document.getElementById("quick-story-title-en").value.trim() : "";
   const pinId = document.getElementById("quick-story-pin").value;
   const content = document.getElementById("quick-story-content").value.trim();
+  const content_en = document.getElementById("quick-story-content-en") ? document.getElementById("quick-story-content-en").value.trim() : "";
   const bgImage = document.getElementById("quick-story-bg") ? document.getElementById("quick-story-bg").value.trim() : "";
   const keepOpen = document.getElementById("quick-story-keep-open").checked;
 
@@ -3359,10 +3626,12 @@ function handleQuickStorySubmit(e) {
   const newStory = {
     id: `story-${Date.now()}`,
     name: title,
+    name_en: title_en || title,
     figure_id: figureId,
     required_pin_id: pinId,
     is_locked: true,
     content: content || `Giai thoại oai hùng về ${fig.name}.`,
+    content_en: content_en || (content ? content : `Epic historical tale of ${fig.name_en || fig.name}.`),
     background_image: bgImage
   };
 
@@ -3376,11 +3645,17 @@ function handleQuickStorySubmit(e) {
   saveToServerDataJSON();
   refreshAllViews();
 
-  showToast(`✓ Đã thêm Giai thoại: "${title}" cho ${fig.name}!`);
+  const figName = currentLang === 'en' ? (fig.name_en || fig.name) : fig.name;
+  const storyName = currentLang === 'en' ? (newStory.name_en || title) : title;
+  showToast(currentLang === 'en' 
+    ? `✓ Added Tale: "${storyName}" for ${figName}!` 
+    : `✓ Đã thêm Giai thoại: "${title}" cho ${fig.name}!`);
 
   if (keepOpen) {
     document.getElementById("quick-story-title").value = "";
+    if (document.getElementById("quick-story-title-en")) document.getElementById("quick-story-title-en").value = "";
     document.getElementById("quick-story-content").value = "";
+    if (document.getElementById("quick-story-content-en")) document.getElementById("quick-story-content-en").value = "";
     if (document.getElementById("quick-story-bg")) document.getElementById("quick-story-bg").value = "";
     const preview = document.getElementById("quick-story-bg-preview-box");
     if (preview) preview.style.display = "none";
@@ -3498,29 +3773,39 @@ async function handleStoryBgPicker(event) {
 function handleCreateFigure(e) {
   e.preventDefault();
   const name = document.getElementById("fig-input-name").value.trim();
+  const name_en = document.getElementById("fig-input-name-en") ? document.getElementById("fig-input-name-en").value.trim() : "";
   const role = document.getElementById("fig-input-role").value.trim();
+  const role_en = document.getElementById("fig-input-role-en") ? document.getElementById("fig-input-role-en").value.trim() : "";
   const dynasty = document.getElementById("fig-input-dynasty").value.trim();
+  const dynasty_en = document.getElementById("fig-input-dynasty-en") ? document.getElementById("fig-input-dynasty-en").value.trim() : "";
   const years = document.getElementById("fig-input-years").value.trim();
   const avatar = document.getElementById("fig-input-avatar").value;
   const image_url = document.getElementById("fig-input-image").value.trim();
   const background_image = document.getElementById("fig-input-bg") ? document.getElementById("fig-input-bg").value.trim() : "";
   const quote = document.getElementById("fig-input-quote").value.trim();
+  const quote_en = document.getElementById("fig-input-quote-en") ? document.getElementById("fig-input-quote-en").value.trim() : "";
   const pin_id = document.getElementById("fig-input-pins").value;
   const bio = document.getElementById("fig-input-bio").value.trim();
+  const bio_en = document.getElementById("fig-input-bio-en") ? document.getElementById("fig-input-bio-en").value.trim() : "";
 
   const newFigId = `fig-${Date.now()}`;
   const newFig = {
     id: newFigId,
     name,
+    name_en: name_en || name,
     role,
+    role_en: role_en || role,
     dynasty,
+    dynasty_en: dynasty_en || dynasty,
     years,
     avatar,
     image_url,
     background_image,
     quote,
+    quote_en: quote_en || quote,
     related_pins: pin_id ? [pin_id] : [],
-    bio
+    bio,
+    bio_en: bio_en || bio
   };
 
   appState.figures.push(newFig);
@@ -3530,18 +3815,22 @@ function handleCreateFigure(e) {
   let addedStoriesCount = 0;
   storyRows.forEach((row, idx) => {
     const title = row.querySelector(".fig-story-input-title")?.value.trim();
+    const title_en = row.querySelector(".fig-story-input-title-en")?.value.trim() || "";
     const pin = row.querySelector(".fig-story-input-pin")?.value;
     const content = row.querySelector(".fig-story-input-content")?.value.trim();
+    const content_en = row.querySelector(".fig-story-input-content-en")?.value.trim() || "";
     const bg = row.querySelector(".fig-story-input-bg")?.value.trim() || "";
 
     if (title && title.length > 0) {
       const newStory = {
         id: `story-${Date.now()}-${idx}`,
         name: title,
+        name_en: title_en || title,
         figure_id: newFigId,
         required_pin_id: pin || pin_id || (appState.pins[0]?.id || ""),
         is_locked: true,
         content: content || `Giai thoại oai hùng về ${name}.`,
+        content_en: content_en || (content ? content : `Epic historical tale of ${name_en || name}.`),
         background_image: bg
       };
       appState.stories.push(newStory);
@@ -3557,7 +3846,9 @@ function handleCreateFigure(e) {
   selectedFigureId = newFigId;
   refreshAllViews();
 
-  showToast(`✓ Đã tạo Danh nhân "${name}" cùng ${addedStoriesCount} giai thoại lịch sử!`);
+  showToast(currentLang === 'en' 
+    ? `✓ Created Hero "${newFig.name_en || name}" with ${addedStoriesCount} historical tales!` 
+    : `✓ Đã tạo Danh nhân "${name}" cùng ${addedStoriesCount} giai thoại lịch sử!`);
   e.target.reset();
 
   const previewBox = document.getElementById("fig-image-preview-box");
@@ -3573,19 +3864,23 @@ function handleCreateFigure(e) {
 function handleCreateStory(e) {
   e.preventDefault();
   const name = document.getElementById("story-input-name").value.trim();
+  const name_en = document.getElementById("story-input-name-en") ? document.getElementById("story-input-name-en").value.trim() : "";
   const figure_id = document.getElementById("story-input-figure").value;
   const required_pin_id = document.getElementById("story-input-pin").value;
   const background_image = document.getElementById("story-input-bg") ? document.getElementById("story-input-bg").value.trim() : "";
   const content = document.getElementById("story-input-content").value.trim();
+  const content_en = document.getElementById("story-input-content-en") ? document.getElementById("story-input-content-en").value.trim() : "";
   const keepOpen = document.getElementById("story-checkbox-continue")?.checked;
 
   const newStory = {
     id: `story-${Date.now()}`,
     name,
+    name_en: name_en || name,
     figure_id,
     required_pin_id,
     is_locked: true,
     content,
+    content_en: content_en || content,
     background_image
   };
 
@@ -3602,16 +3897,23 @@ function handleCreateStory(e) {
   saveToServerDataJSON();
   refreshAllViews();
 
+  const displayName = currentLang === 'en' ? (newStory.name_en || name) : name;
   if (keepOpen) {
     document.getElementById("story-input-name").value = "";
+    if (document.getElementById("story-input-name-en")) document.getElementById("story-input-name-en").value = "";
     document.getElementById("story-input-content").value = "";
+    if (document.getElementById("story-input-content-en")) document.getElementById("story-input-content-en").value = "";
     if (document.getElementById("story-input-bg")) document.getElementById("story-input-bg").value = "";
     const bgBox = document.getElementById("story-bg-preview-box");
     if (bgBox) bgBox.style.display = "none";
     document.getElementById("story-input-name").focus();
-    showToast(`✓ Đã thêm Giai thoại: "${name}"! Bạn có thể nhập tiếp giai thoại khác ngay.`);
+    showToast(currentLang === 'en' 
+      ? `✓ Added Tale: "${displayName}"! You can add another tale now.` 
+      : `✓ Đã thêm Giai thoại: "${name}"! Bạn có thể nhập tiếp giai thoại khác ngay.`);
   } else {
-    showToast(`✓ Đã tạo Giai thoại khóa: "${name}"!`);
+    showToast(currentLang === 'en' 
+      ? `✓ Created locked Tale: "${displayName}"!` 
+      : `✓ Đã tạo Giai thoại khóa: "${name}"!`);
     e.target.reset();
     const bgBox = document.getElementById("story-bg-preview-box");
     if (bgBox) bgBox.style.display = "none";
@@ -3790,10 +4092,12 @@ function updateBadgeConditionRowTitles() {
 function updateBadgeSummaryCriteriaAuto() {
   const container = document.getElementById("badge-conditions-container");
   const criteriaInput = document.getElementById("badge-input-criteria");
-  if (!container || !criteriaInput) return;
+  const criteriaInputEn = document.getElementById("badge-input-criteria-en");
+  if (!container) return;
 
   const rows = container.querySelectorAll(".badge-cond-row");
-  const descs = [];
+  const descsVi = [];
+  const descsEn = [];
 
   rows.forEach(r => {
     const type = r.querySelector(".badge-cond-type-select").value;
@@ -3801,58 +4105,85 @@ function updateBadgeSummaryCriteriaAuto() {
       const checkedBoxes = Array.from(r.querySelectorAll(".cond-fig-checkbox:checked"));
       const minCount = parseInt(r.querySelector(".cond-fig-min-count").value) || checkedBoxes.length || 1;
       if (checkedBoxes.length > 0) {
-        const names = checkedBoxes.map(cb => {
+        const namesVi = checkedBoxes.map(cb => {
           const fig = (appState.figures || []).find(f => f.id === cb.value);
           return fig ? fig.name : cb.value;
         });
-        descs.push(currentLang === 'en' ? `Discover ${minCount} Heroes: ${names.join(", ")}` : `Khám phá ${minCount} Danh nhân: ${names.join(", ")}`);
+        const namesEn = checkedBoxes.map(cb => {
+          const fig = (appState.figures || []).find(f => f.id === cb.value);
+          return fig ? (fig.name_en || fig.name) : cb.value;
+        });
+        descsVi.push(`Khám phá ${minCount} Danh nhân: ${namesVi.join(", ")}`);
+        descsEn.push(`Discover ${minCount} Heroes: ${namesEn.join(", ")}`);
       } else {
-        descs.push(currentLang === 'en' ? `Unlock selected historical figures` : `Mở khóa các Danh nhân lịch sử được chọn`);
+        descsVi.push(`Mở khóa các Danh nhân lịch sử được chọn`);
+        descsEn.push(`Unlock selected historical figures`);
       }
     } else if (type === 'figures_count') {
       const num = parseInt(r.querySelector(".cond-figures-count-input").value) || 2;
-      descs.push(currentLang === 'en' ? `Discover and unlock ${num} heroic figures` : `Khám phá và mở khóa ${num} Danh nhân lịch sử hào kiệt`);
+      descsVi.push(`Khám phá và mở khóa ${num} Danh nhân lịch sử hào kiệt`);
+      descsEn.push(`Discover and unlock ${num} heroic figures`);
     } else if (type === 'specific_pins') {
       const checkedBoxes = Array.from(r.querySelectorAll(".cond-pin-checkbox:checked"));
       const minCount = parseInt(r.querySelector(".cond-pin-min-count").value) || checkedBoxes.length || 1;
       if (checkedBoxes.length > 0) {
-        const names = checkedBoxes.map(cb => {
+        const namesVi = checkedBoxes.map(cb => {
           const pin = (appState.pins || []).find(p => p.id === cb.value);
           return pin ? pin.name : cb.value;
         });
-        descs.push(currentLang === 'en' ? `Check in at ${minCount} Landmarks: ${names.join(", ")}` : `Check-in tại ${minCount} Địa danh: ${names.join(", ")}`);
+        const namesEn = checkedBoxes.map(cb => {
+          const pin = (appState.pins || []).find(p => p.id === cb.value);
+          return pin ? (pin.name_en || pin.name) : cb.value;
+        });
+        descsVi.push(`Check-in tại ${minCount} Địa danh: ${namesVi.join(", ")}`);
+        descsEn.push(`Check in at ${minCount} Landmarks: ${namesEn.join(", ")}`);
       } else {
-        descs.push(currentLang === 'en' ? `Check in at selected heritage landmarks` : `Check-in tại các Địa danh di tích được chọn`);
+        descsVi.push(`Check-in tại các Địa danh di tích được chọn`);
+        descsEn.push(`Check in at selected heritage landmarks`);
       }
     } else if (type === 'pins_count') {
       const num = parseInt(r.querySelector(".cond-pins-count-input").value) || 3;
-      descs.push(currentLang === 'en' ? `Check in at ${num} Landmarks / Sites` : `Check-in tại ${num} Địa danh / Di tích bất kỳ`);
+      descsVi.push(`Check-in tại ${num} Địa danh / Di tích bất kỳ`);
+      descsEn.push(`Check in at ${num} Landmarks / Sites`);
     } else if (type === 'people_count') {
       const num = parseInt(r.querySelector(".cond-people-count-input").value) || 1;
-      descs.push(currentLang === 'en' ? `Meet and interview ${num} Living Witnesses` : `Gặp gỡ và giao lưu với ${num} Nhân chứng sống / Ký ức`);
+      descsVi.push(`Gặp gỡ và giao lưu với ${num} Nhân chứng sống / Ký ức`);
+      descsEn.push(`Meet and interview ${num} Living Witnesses`);
     } else if (type === 'stories_count') {
       const num = parseInt(r.querySelector(".cond-stories-count-input").value) || 2;
-      descs.push(currentLang === 'en' ? `Unlock ${num} Historical Tales` : `Mở khóa trọn vẹn ${num} Giai thoại lịch sử`);
+      descsVi.push(`Mở khóa trọn vẹn ${num} Giai thoại lịch sử`);
+      descsEn.push(`Unlock ${num} Historical Tales`);
     } else if (type === 'custom') {
       const val = r.querySelector(".cond-custom-desc-input").value.trim();
-      if (val) descs.push(val);
+      if (val) {
+        descsVi.push(val);
+        descsEn.push(val);
+      }
     }
   });
 
-  if (descs.length > 0) {
-    criteriaInput.value = descs.join(" • ");
+  if (criteriaInput && descsVi.length > 0) {
+    criteriaInput.value = descsVi.join(" • ");
+  }
+  if (criteriaInputEn && descsEn.length > 0) {
+    criteriaInputEn.value = descsEn.join(" • ");
   }
 }
 
 function handleCreateBadge(e) {
   e.preventDefault();
   const name = document.getElementById("badge-input-name").value.trim();
+  const name_en = document.getElementById("badge-input-name-en") ? document.getElementById("badge-input-name-en").value.trim() : "";
   const tier = document.getElementById("badge-input-tier").value;
   const icon = document.getElementById("badge-input-icon").value;
   const category = document.getElementById("badge-input-cat").value.trim() || "Di sản";
+  const category_en = document.getElementById("badge-input-cat-en") ? document.getElementById("badge-input-cat-en").value.trim() : "";
   const lore = document.getElementById("badge-input-lore") ? document.getElementById("badge-input-lore").value.trim() : "";
+  const lore_en = document.getElementById("badge-input-lore-en") ? document.getElementById("badge-input-lore-en").value.trim() : "";
   const criteriaInput = document.getElementById("badge-input-criteria");
   const criteria = criteriaInput ? criteriaInput.value.trim() : "";
+  const criteriaInputEn = document.getElementById("badge-input-criteria-en");
+  const criteria_en = criteriaInputEn ? criteriaInputEn.value.trim() : "";
   const isUnlockedCheckbox = document.getElementById("badge-input-is-unlocked");
   const is_unlocked = isUnlockedCheckbox ? isUnlockedCheckbox.checked : false;
 
@@ -3866,59 +4197,79 @@ function handleCreateBadge(e) {
     const condObj = {
       id: `c-${Date.now()}-${idx}`,
       type: type,
-      desc: ""
+      desc: "",
+      desc_en: ""
     };
 
     if (type === 'specific_figures') {
       const checkedBoxes = Array.from(r.querySelectorAll(".cond-fig-checkbox:checked"));
       condObj.target_figures = checkedBoxes.map(cb => cb.value);
       condObj.min_count = parseInt(r.querySelector(".cond-fig-min-count").value) || condObj.target_figures.length || 1;
-      const names = checkedBoxes.map(cb => {
+      const namesVi = checkedBoxes.map(cb => {
         const fig = (appState.figures || []).find(f => f.id === cb.value);
         return fig ? fig.name : cb.value;
       });
-      condObj.desc = `Khám phá ${condObj.min_count} Danh nhân: ${names.join(", ")}`;
+      const namesEn = checkedBoxes.map(cb => {
+        const fig = (appState.figures || []).find(f => f.id === cb.value);
+        return fig ? (fig.name_en || fig.name) : cb.value;
+      });
+      condObj.desc = `Khám phá ${condObj.min_count} Danh nhân: ${namesVi.join(", ")}`;
+      condObj.desc_en = `Discover ${condObj.min_count} Heroes: ${namesEn.join(", ")}`;
     } else if (type === 'figures_count') {
       condObj.target_num = parseInt(r.querySelector(".cond-figures-count-input").value) || 2;
       condObj.desc = `Khám phá và mở khóa ${condObj.target_num} Danh nhân lịch sử hào kiệt`;
+      condObj.desc_en = `Discover and unlock ${condObj.target_num} heroic figures`;
     } else if (type === 'specific_pins') {
       const checkedBoxes = Array.from(r.querySelectorAll(".cond-pin-checkbox:checked"));
       condObj.target_pins = checkedBoxes.map(cb => cb.value);
       condObj.min_count = parseInt(r.querySelector(".cond-pin-min-count").value) || condObj.target_pins.length || 1;
-      const names = checkedBoxes.map(cb => {
+      const namesVi = checkedBoxes.map(cb => {
         const pin = (appState.pins || []).find(p => p.id === cb.value);
         return pin ? pin.name : cb.value;
       });
-      condObj.desc = `Check-in tại ${condObj.min_count} Địa danh: ${names.join(", ")}`;
+      const namesEn = checkedBoxes.map(cb => {
+        const pin = (appState.pins || []).find(p => p.id === cb.value);
+        return pin ? (pin.name_en || pin.name) : cb.value;
+      });
+      condObj.desc = `Check-in tại ${condObj.min_count} Địa danh: ${namesVi.join(", ")}`;
+      condObj.desc_en = `Check in at ${condObj.min_count} Landmarks: ${namesEn.join(", ")}`;
     } else if (type === 'pins_count') {
       condObj.target_num = parseInt(r.querySelector(".cond-pins-count-input").value) || 3;
       condObj.desc = `Check-in tại ${condObj.target_num} Địa danh / Di tích bất kỳ`;
+      condObj.desc_en = `Check in at ${condObj.target_num} Landmarks / Sites`;
     } else if (type === 'people_count') {
       condObj.target_num = parseInt(r.querySelector(".cond-people-count-input").value) || 1;
       condObj.desc = `Gặp gỡ và giao lưu với ${condObj.target_num} Nhân chứng sống / Ký ức`;
+      condObj.desc_en = `Meet and interview ${condObj.target_num} Living Witnesses`;
     } else if (type === 'stories_count') {
       condObj.target_num = parseInt(r.querySelector(".cond-stories-count-input").value) || 2;
       condObj.desc = `Mở khóa trọn vẹn ${condObj.target_num} Giai thoại lịch sử`;
+      condObj.desc_en = `Unlock ${condObj.target_num} Historical Tales`;
     } else if (type === 'custom') {
       condObj.desc = r.querySelector(".cond-custom-desc-input").value.trim() || 'Mục tiêu tự do';
+      condObj.desc_en = condObj.desc;
     }
 
     conditions.push(condObj);
   });
 
   const finalCriteria = criteria || conditions.map(c => c.desc).join(" • ") || "Yêu cầu mở khóa di sản";
+  const finalCriteriaEn = criteria_en || conditions.map(c => c.desc_en || c.desc).join(" • ") || "Heritage unlock requirement";
 
   const newBadge = {
     id: `badge-${Date.now()}`,
     name,
+    name_en: name_en || name,
     tier,
     icon,
     category,
+    category_en: category_en || category,
     lore: lore || `Vinh danh người chơi đạt thành tựu di sản "${name}".`,
-    lore_en: `Honors explorers who have achieved the heritage milestone "${name}".`,
+    lore_en: lore_en || `Honors explorers who have achieved the heritage milestone "${name_en || name}".`,
     criteria: finalCriteria,
+    criteria_en: finalCriteriaEn,
     conditions: conditions.length > 0 ? conditions : [
-      { id: `c-default`, type: "custom", desc: finalCriteria }
+      { id: `c-default`, type: "custom", desc: finalCriteria, desc_en: finalCriteriaEn }
     ],
     is_unlocked: is_unlocked,
     unlocked_date: is_unlocked ? new Date().toLocaleDateString("vi-VN") : undefined
@@ -3932,7 +4283,8 @@ function handleCreateBadge(e) {
   saveToServerDataJSON();
   refreshAllViews();
 
-  showToast(`✓ Đã thêm Huy hiệu mới: "${name}"!`);
+  const badgeDisplayName = currentLang === 'en' ? (newBadge.name_en || name) : name;
+  showToast(currentLang === 'en' ? `✓ Added new Badge: "${badgeDisplayName}"!` : `✓ Đã thêm Huy hiệu mới: "${name}"!`);
   e.target.reset();
   if (container) container.innerHTML = "";
   initBadgeConditionRows();
@@ -4022,37 +4374,43 @@ function deletePinById(id) {
 function deleteFigureById(id) {
   const fig = appState.figures.find(f => f.id === id);
   if (!fig) return;
-  if (!confirm(`Xác nhận xóa Danh nhân: "${fig.name}"?`)) return;
+  const fName = currentLang === 'en' ? (fig.name_en || fig.name) : fig.name;
+  const confirmMsg = currentLang === 'en' ? `Confirm deletion of Hero: "${fName}"?` : `Xác nhận xóa Danh nhân: "${fig.name}"?`;
+  if (!confirm(confirmMsg)) return;
 
   appState.figures = appState.figures.filter(f => f.id !== id);
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
-  showToast(`🗑️ Đã xóa Danh nhân "${fig.name}"!`);
+  showToast(currentLang === 'en' ? `🗑️ Successfully deleted Hero "${fName}"!` : `🗑️ Đã xóa Danh nhân "${fig.name}"!`);
 }
 
 function deleteStoryById(id) {
   const st = appState.stories.find(s => s.id === id);
   if (!st) return;
-  if (!confirm(`Xác nhận xóa Giai thoại: "${st.name}"?`)) return;
+  const sTitle = currentLang === 'en' ? (st.name_en || st.name) : st.name;
+  const confirmMsg = currentLang === 'en' ? `Confirm deletion of Tale: "${sTitle}"?` : `Xác nhận xóa Giai thoại: "${st.name}"?`;
+  if (!confirm(confirmMsg)) return;
 
   appState.stories = appState.stories.filter(s => s.id !== id);
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
-  showToast(`🗑️ Đã xóa Giai thoại "${st.name}"!`);
+  showToast(currentLang === 'en' ? `🗑️ Successfully deleted Tale "${sTitle}"!` : `🗑️ Đã xóa Giai thoại "${st.name}"!`);
 }
 
 function deleteBadgeById(id) {
   const bg = appState.badges.find(b => b.id === id);
   if (!bg) return;
-  if (!confirm(`Xác nhận xóa Huy hiệu: "${bg.name}"?`)) return;
+  const bName = currentLang === 'en' ? (bg.name_en || bg.name) : bg.name;
+  const confirmMsg = currentLang === 'en' ? `Confirm deletion of Badge: "${bName}"?` : `Xác nhận xóa Huy hiệu: "${bg.name}"?`;
+  if (!confirm(confirmMsg)) return;
 
   appState.badges = appState.badges.filter(b => b.id !== id);
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
-  showToast(`🗑️ Đã xóa Huy hiệu "${bg.name}"!`);
+  showToast(currentLang === 'en' ? `🗑️ Successfully deleted Badge "${bName}"!` : `🗑️ Đã xóa Huy hiệu "${bg.name}"!`);
 }
 
 // 3. Reset all data to clean initial state (wipe out test items)
@@ -4136,11 +4494,18 @@ function renderManageTables() {
           <tbody>
       `;
       appState.figures.forEach(fig => {
+        const figName = currentLang === 'en' ? (fig.name_en || fig.name) : fig.name;
+        const figSub = (currentLang === 'en' && fig.name) ? fig.name : (fig.name_en || '');
+        const roleName = currentLang === 'en' ? (fig.role_en || fig.role || '—') : (fig.role || '—');
+        const dynastyName = currentLang === 'en' ? (fig.dynasty_en || fig.dynasty || '—') : (fig.dynasty || '—');
         html += `
           <tr>
-            <td><b>${fig.avatar || '⚔️'} ${fig.name}</b></td>
-            <td>${fig.role || '—'}</td>
-            <td>${fig.dynasty || '—'}</td>
+            <td>
+              <b>${fig.avatar || '⚔️'} ${figName}</b>
+              ${figSub && figSub !== figName ? `<div style="font-size:0.75rem; color:var(--text-muted); font-weight:normal;">${figSub}</div>` : ''}
+            </td>
+            <td>${roleName}</td>
+            <td>${dynastyName}</td>
             <td style="text-align:right;">
               <button class="btn-delete-row" onclick="deleteFigureById('${fig.id}')">${t('manage_tbl_delete')}</button>
             </td>
@@ -4177,11 +4542,18 @@ function renderManageTables() {
       appState.stories.forEach(st => {
         const fig = appState.figures.find(f => f.id === st.figure_id);
         const pin = appState.pins.find(p => p.id === st.required_pin_id);
+        const stTitle = currentLang === 'en' ? (st.name_en || st.name) : st.name;
+        const stSub = (currentLang === 'en' && st.name) ? st.name : (st.name_en || '');
+        const figName = fig ? (currentLang === 'en' ? (fig.name_en || fig.name) : fig.name) : '—';
+        const pinName = pin ? (currentLang === 'en' ? (pin.name_en || pin.name) : pin.name) : '—';
         html += `
           <tr>
-            <td><b>${st.name}</b></td>
-            <td>${fig ? fig.name : '—'}</td>
-            <td>${pin ? pin.name : '—'}</td>
+            <td>
+              <b>${stTitle}</b>
+              ${stSub && stSub !== stTitle ? `<div style="font-size:0.75rem; color:var(--text-muted); font-weight:normal;">${stSub}</div>` : ''}
+            </td>
+            <td>${figName}</td>
+            <td>${pinName}</td>
             <td><span style="font-size:0.8rem; color:${st.is_locked ? '#e67e22' : '#27ae60'};">${st.is_locked ? t('manage_tbl_locked') : t('manage_tbl_unlocked')}</span></td>
             <td style="text-align:right;">
               <button class="btn-delete-row" onclick="deleteStoryById('${st.id}')">${t('manage_tbl_delete')}</button>
@@ -4240,20 +4612,26 @@ function renderManageTables() {
         const clickTitle = currentLang === 'en' ? "Click to view details" : "Bấm để xem chi tiết";
         const toggleTitle = currentLang === 'en' ? "Click to toggle unlocked status" : "Bấm để chuyển đổi nhanh đã nhận / chưa nhận";
 
+        const bName = currentLang === 'en' ? (bg.name_en || bg.name) : bg.name;
+        const bSub = (currentLang === 'en' && bg.name) ? bg.name : (bg.name_en || '');
+        const bCat = currentLang === 'en' ? (bg.category_en || bg.category || 'Heritage') : (bg.category || 'Di sản');
+        const bCriteria = currentLang === 'en' ? (bg.criteria_en || bg.criteria || '') : (bg.criteria || '');
+
         html += `
           <tr>
             <td>
               <div style="display:flex; align-items:center; gap:8px; cursor:pointer;" onclick="openBadgeDetailsModal('${bg.id}')" title="${clickTitle}">
                 <span style="font-size:1.4rem;">${bg.icon || '🏅'}</span>
                 <div>
-                  <b style="color:var(--primary);">${bg.name}</b>
-                  <div style="font-size:0.75rem; color:var(--text-muted);">${bg.category || (currentLang === 'en' ? 'Heritage' : 'Di sản')}</div>
+                  <b style="color:var(--primary);">${bName}</b>
+                  ${bSub && bSub !== bName ? `<div style="font-size:0.72rem; color:var(--text-muted); font-weight:normal;">${bSub}</div>` : ''}
+                  <div style="font-size:0.75rem; color:var(--text-muted);">${bCat}</div>
                 </div>
               </div>
             </td>
             <td><span class="badge-tag badge-${bg.tier || 'bronze'}" style="font-size:0.72rem; padding:3px 8px;">${(bg.tier || 'bronze').toUpperCase()}</span></td>
             <td style="font-size:0.82rem; max-width:280px;">
-              <div>${bg.criteria}</div>
+              <div>${bCriteria}</div>
               <div style="font-size:0.75rem; color:var(--accent-camel); font-weight:600; margin-top:3px;">
                 ${progressLabel}
               </div>

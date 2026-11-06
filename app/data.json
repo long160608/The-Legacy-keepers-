@@ -102,40 +102,55 @@
     {
       "id": "fig-tranquoctuan",
       "name": "Hưng Đạo Đại Vương - Trần Quốc Tuấn",
+      "name_en": "Supreme Prince Tran Quoc Tuan (Tran Hung Dao)",
       "role": "Quốc công Tiết chế (Tổng tư lệnh quân đội)",
+      "role_en": "Supreme Commander of Dai Viet Forces",
       "dynasty": "Nhà Trần",
+      "dynasty_en": "Tran Dynasty",
       "years": "1228 – 1300",
       "avatar": "⚔️",
       "image_url": "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=800&q=80",
       "background_image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80",
       "quote": "Nếu bệ hạ muốn hàng, xin hãy chém đầu thần trước rồi hãy hàng!",
+      "quote_en": "If your Majesty wishes to surrender, please cut off my head first!",
       "bio": "Anh hùng dân tộc, thiên tài quân sự kiệt xuất ba lần chỉ huy quân dân Đại Việt đánh tan quân Nguyên Mông hung hãn, tác giả của bản 'Hịch Tướng Sĩ' truyền đời non sông.",
+      "bio_en": "Legendary national hero and military genius who led the Dai Viet army and people to defeat the fierce Mongol Yuan invasions three times, and authored the immortal martial proclamation 'Hich Tuong Si'.",
       "related_pins": ["pin-bachdang", "pin-thanglong"]
     },
     {
       "id": "fig-quangtrung",
       "name": "Quang Trung - Nguyễn Huệ",
+      "name_en": "Emperor Quang Trung (Nguyen Hue)",
       "role": "Hoàng đế bách chiến bách thắng",
+      "role_en": "Invincible Emperor & Commander",
       "dynasty": "Nhà Tây Sơn",
+      "dynasty_en": "Tay Son Dynasty",
       "years": "1753 – 1792",
       "avatar": "👑",
       "image_url": "",
       "background_image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
       "quote": "Đánh cho để dài tóc, đánh cho để đen răng, đánh cho nó chích luân bất phản, phiến giáp bất hoàn!",
+      "quote_en": "Fight to keep our long hair, fight to keep our black teeth, fight so that not a single enemy chariot returns, nor a piece of armor remains whole!",
       "bio": "Người anh hùng áo vải cờ đào kiệt xuất, đánh tan 5 vạn quân Xiêm rạch Gầm Xoài Mút và thần tốc vượt hơn 600km quét sạch 29 vạn quân Mãn Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+      "bio_en": "Brilliant peasant-turned-emperor who crushed 50,000 Siamese invaders at Rach Gam - Xoai Mut and executed an unprecedented 600km lightning march to route 290,000 Qing imperial troops in the Spring of 1789.",
       "related_pins": ["pin-dongda"]
     },
     {
       "id": "fig-haibatrung",
       "name": "Hai Bà Trưng (Trưng Trắc & Trưng Nhị)",
+      "name_en": "The Trung Sisters (Trung Trac & Trung Nhi)",
       "role": "Nữ vương phất cờ độc lập",
+      "role_en": "Revolutionary Queens of Independence",
       "dynasty": "Nhà Trưng",
+      "dynasty_en": "Trung Dynasty",
       "years": "Năm 40 – 43 SCN",
       "avatar": "🛡️",
       "image_url": "",
       "background_image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
       "quote": "Một xin rửa sạch nước thù / Hai xin đem lại nghiệp xưa họ Hùng!",
+      "quote_en": "First, avenge our country's grievance; Second, restore the ancient heritage of the Hung Kings!",
       "bio": "Hai nữ anh hùng dân tộc đầu tiên phất cờ khởi nghĩa, thu phục 65 thành trì, đánh đuổi thái thú Tô Định, giành lại độc lập tự chủ cho non sông sau hơn 200 năm Bắc thuộc.",
+      "bio_en": "The first female national heroes to raise the banner of rebellion, liberating 65 citadels and driving out the foreign governor To Dinh to reclaim national sovereignty after more than two centuries of northern domination.",
       "related_pins": ["pin-hatmon"]
     }
   ],
@@ -144,47 +159,57 @@
     {
       "id": "story-camcoc",
       "name": "Kế sách cắm cọc sông Bạch Đằng",
+      "name_en": "The Sunken Wooden Stakes Strategy on Bach Dang River",
       "figure_id": "fig-tranquoctuan",
       "required_pin_id": "pin-bachdang",
       "is_locked": false,
       "background_image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "content": "Năm 1288, trước thế giặc Nguyên Mông hung hãn rút lui bằng đường thủy, Trần Quốc Tuấn đã lợi dụng con nước thủy triều hiểm yếu của sông Bạch Đằng.\n\nÔng cho đẵn gỗ lim, vót nhọn bịt sắt rồi cắm xuống lòng sông. Nhân lúc nước triều dâng che khuất bãi cọc, quân ta nhử thuyền giặc vào sâu. Khi nước triều rút mạnh, thuyền địch mắc cạn vào cọc nhọn vỡ toác hàng loạt, toàn bộ hạm đội giặc bị tiêu diệt vang dội non sông."
+      "content": "Năm 1288, trước thế giặc Nguyên Mông hung hãn rút lui bằng đường thủy, Trần Quốc Tuấn đã lợi dụng con nước thủy triều hiểm yếu của sông Bạch Đằng.\n\nÔng cho đẵn gỗ lim, vót nhọn bịt sắt rồi cắm xuống lòng sông. Nhân lúc nước triều dâng che khuất bãi cọc, quân ta nhử thuyền giặc vào sâu. Khi nước triều rút mạnh, thuyền địch mắc cạn vào cọc nhọn vỡ toác hàng loạt, toàn bộ hạm đội giặc bị tiêu diệt vang dội non sông.",
+      "content_en": "In 1288, faced with the retreating Mongol-Yuan navy, Tran Quoc Tuan masterminded an ambush along the Bach Dang River.\n\nHe had sharpened iron-capped ironwood stakes driven into the riverbed. At high tide, our light boats lured the enemy fleet past the submerged stakes. When the tide rapidly ebbed, the massive enemy warships were impaled and trapped upon the timber spikes, leading to the complete annihilation of the invading armada."
     },
     {
       "id": "story-dienhong",
       "name": "Hội nghị Diên Hồng & Lời thề Sát Thát",
+      "name_en": "The Dien Hong Conference & The Sat That Oath",
       "figure_id": "fig-tranquoctuan",
       "required_pin_id": "pin-thanglong",
       "is_locked": true,
       "background_image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
-      "content": "Tại thềm điện Diên Hồng, vua Trần mở tiệc hỏi ý kiến muôn dân: 'Nên hòa hay nên đánh?'. Muôn người cùng muôn miệng reo hò rung chuyển kinh thành: 'ĐÁNH!'.\n\nCác tướng sĩ đồng lòng thích hai chữ 'Sát Thát' vào cánh tay, thề quyết tử cho Tổ quốc quyết sinh."
+      "content": "Tại thềm điện Diên Hồng, vua Trần mở tiệc hỏi ý kiến muôn dân: 'Nên hòa hay nên đánh?'. Muôn người cùng muôn miệng reo hò rung chuyển kinh thành: 'ĐÁNH!'.\n\nCác tướng sĩ đồng lòng thích hai chữ 'Sát Thát' vào cánh tay, thề quyết tử cho Tổ quốc quyết sinh.",
+      "content_en": "At the steps of Dien Hong Palace, the Tran Emperor convened elders from across the kingdom asking: 'Shall we make peace or shall we fight?'. With one voice, thousands shouted 'FIGHT!', shaking the citadel.\n\nThe commanders and warriors tattooed 'Sat That' (Slay the Invaders) onto their arms, swearing to fight to the death for the homeland."
     },
     {
       "id": "story-hanhquan-thantoc",
       "name": "Cuộc hành quân thần tốc mùa xuân Kỷ Dậu",
+      "name_en": "The Lightning March of Spring 1789",
       "figure_id": "fig-quangtrung",
       "required_pin_id": "pin-dongda",
       "is_locked": true,
       "background_image": "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=800&q=80",
-      "content": "Từ Phú Xuân ra Thăng Long dài hơn 600km, vua Quang Trung tổ chức đội hình 3 người một cáng, 2 người khiêng 1 người ngủ luân phiên ngày đêm không nghỉ.\n\nĐoàn quân thần tốc vừa đi vừa tuyển thêm tân binh, tạo nên cuộc hành quân kỳ tích vô tiền khoáng hậu khiến tướng giặc Tôn Sĩ Nghị không kịp trở tay."
+      "content": "Từ Phú Xuân ra Thăng Long dài hơn 600km, vua Quang Trung tổ chức đội hình 3 người một cáng, 2 người khiêng 1 người ngủ luân phiên ngày đêm không nghỉ.\n\nĐoàn quân thần tốc vừa đi vừa tuyển thêm tân binh, tạo nên cuộc hành quân kỳ tích vô tiền khoáng hậu khiến tướng giặc Tôn Sĩ Nghị không kịp trở tay.",
+      "content_en": "Spanning over 600 kilometers from Phu Xuan to Thang Long, Emperor Quang Trung organized troops into three-man hammock teams, with two carrying while one rested in continuous day-and-night shifts.\n\nEnlisting recruits along the march, this unprecedented tactical feat caught Qing general Sun Shiyi completely off guard."
     },
     {
       "id": "story-ngochoi-dongda",
       "name": "Trận đại thắng Ngọc Hồi - Đống Đa",
+      "name_en": "The Great Victory of Ngoc Hoi - Dong Da",
       "figure_id": "fig-quangtrung",
       "required_pin_id": "pin-dongda",
       "is_locked": true,
       "background_image": "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?auto=format&fit=crop&w=800&q=80",
-      "content": "Rạng sáng mùng 5 Tết Kỷ Dậu, vua Quang Trung cho quân lấy thuyền nan bọc rơm ướt khiêng đi trước che đạn lửa của giặc, áp sát đồn Ngọc Hồi phá tan tuyến phòng thủ kiên cố nhất của địch."
+      "content": "Rạng sáng mùng 5 Tết Kỷ Dậu, vua Quang Trung cho quân lấy thuyền nan bọc rơm ướt khiêng đi trước che đạn lửa của giặc, áp sát đồn Ngọc Hồi phá tan tuyến phòng thủ kiên cố nhất của địch.",
+      "content_en": "At dawn on the 5th day of Tet 1789, Emperor Quang Trung spearheaded an assault using wood rafts shielded with wet straw to deflect flaming enemy cannons, breaching Ngoc Hoi fortress and dismantling the enemy's most fortified defensive line."
     },
     {
       "id": "story-loithe-songhat",
       "name": "Lời thề trên sông Hát",
+      "name_en": "The Sacred Oath on the Hat River",
       "figure_id": "fig-haibatrung",
       "required_pin_id": "pin-hatmon",
       "is_locked": true,
       "background_image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-      "content": "Trước giờ xuất trận tại cửa sông Hát, Trưng Trắc dõng dạc tuyên thệ 4 câu thề:\n\n'Một xin rửa sạch nước thù\nHai xin đem lại nghiệp xưa họ Hùng\nBa kẻo oan ức lòng chồng\nBốn xin vẹn vẹn sở công lênh này.'"
+      "content": "Trước giờ xuất trận tại cửa sông Hát, Trưng Trắc dõng dạc tuyên thệ 4 câu thề:\n\n'Một xin rửa sạch nước thù\nHai xin đem lại nghiệp xưa họ Hùng\nBa kẻo oan ức lòng chồng\nBốn xin vẹn vẹn sở công lênh này.'",
+      "content_en": "Prior to marching into battle at the mouth of the Hat River, Trung Trac proclaimed the four historic oaths:\n\n'First, cleanse our land of the enemy's stain,\nSecond, restore the Hung clan's ancestral reign,\nThird, avenge the wrongful death of my spouse,\nFourth, fulfill this vow that we hereby espouse.'"
     }
   ],
 
@@ -192,12 +217,15 @@
     {
       "id": "badge-bachdang",
       "name": "Kỵ Sĩ Sông Bạch Đằng",
+      "name_en": "Knight of Bach Dang River",
       "tier": "gold",
       "icon": "🎖️",
       "category": "Người chinh phục lịch sử",
+      "category_en": "Historical Conqueror",
       "lore": "Vinh danh những bước chân tìm về dòng sông Bạch Đằng lịch sử – nơi ba lần ghi dấu chiến công hiển hách của cha ông, đánh tan quân Nam Hán và Nguyên Mông bằng kế sách cắm cọc tài tình.",
       "lore_en": "Honors travelers to the historic Bach Dang River – where three naval victories crushed foreign invasions with brilliant submerged iron-tipped stake tactics.",
       "criteria": "Check-in thành công tại Di tích Bạch Đằng và mở khóa kế sách cắm cọc.",
+      "criteria_en": "Check in at Bach Dang Historic Site and unlock the timber stakes strategy.",
       "conditions": [
         {
           "id": "c-bachdang-1",
@@ -206,7 +234,8 @@
             "pin-bachdang"
           ],
           "min_count": 1,
-          "desc": "Check-in thực địa tại Khu di tích Bạch Đằng"
+          "desc": "Check-in thực địa tại Khu di tích Bạch Đằng",
+          "desc_en": "On-site check-in at Bach Dang Historic Relic"
         }
       ],
       "is_unlocked": true,
@@ -215,12 +244,15 @@
     {
       "id": "badge-thanglong",
       "name": "Hào Khí Thăng Long",
+      "name_en": "Spirit of Thang Long",
       "tier": "gold",
       "icon": "🏛️",
       "category": "Người chinh phục lịch sử",
+      "category_en": "Historical Conqueror",
       "lore": "Biểu trưng cho tinh thần bất khuất của kinh đô ngàn năm văn hiến, nơi từng vang vọng tiếng hô 'ĐÁNH!' đồng lòng muôn người như một trong Hội nghị Diên Hồng oanh liệt.",
       "lore_en": "Symbolizes the indomitable spirit of Hanoi's thousand-year-old imperial citadel, where the iconic cry 'FIGHT!' united the people in the historic Dien Hong Conference.",
       "criteria": "Ghé thăm Hoàng thành Thăng Long và khám phá hội nghị Diên Hồng.",
+      "criteria_en": "Visit the Imperial Citadel of Thang Long and discover the Dien Hong Conference.",
       "conditions": [
         {
           "id": "c-thanglong-1",
@@ -229,7 +261,8 @@
             "pin-thanglong"
           ],
           "min_count": 1,
-          "desc": "Ghé thăm và check-in tại Hoàng thành Thăng Long"
+          "desc": "Ghé thăm và check-in tại Hoàng thành Thăng Long",
+          "desc_en": "Visit and check in at the Imperial Citadel of Thang Long"
         }
       ],
       "is_unlocked": false
@@ -237,12 +270,15 @@
     {
       "id": "badge-bacho",
       "name": "Dấu Chân Bác Hồ",
+      "name_en": "Footsteps of Uncle Ho",
       "tier": "silver",
       "icon": "🐾",
       "category": "Khám phá Việt Nam",
+      "category_en": "Exploring Vietnam",
       "lore": "Kỷ niệm ngày 5/6/1911 khi người thanh niên yêu nước Nguyễn Tất Thành rời Bến Nhà Rồng ra đi tìm đường cứu nước, mở ra con đường độc lập tự do cho non sông đất Việt.",
       "lore_en": "Commemorates June 5, 1911, when young patriot Nguyen Tat Thanh departed Nha Rong Harbor on his legendary global quest for national independence.",
       "criteria": "Check-in Bến Nhà Rồng và lắng nghe tư liệu hành trình cứu nước 1911.",
+      "criteria_en": "Check in at Nha Rong Wharf and listen to the 1911 salvation journey recordings.",
       "conditions": [
         {
           "id": "c-bacho-1",
@@ -251,7 +287,8 @@
             "pin-ben-nharong"
           ],
           "min_count": 1,
-          "desc": "Check-in thực địa tại Bến Nhà Rồng"
+          "desc": "Check-in thực địa tại Bến Nhà Rồng",
+          "desc_en": "On-site check-in at Nha Rong Wharf"
         }
       ],
       "is_unlocked": false
@@ -259,12 +296,15 @@
     {
       "id": "badge-saigon",
       "name": "Trái Tim Sài Gòn",
+      "name_en": "Heart of Saigon",
       "tier": "bronze",
       "icon": "🎙️",
       "category": "Nhân chứng sống",
+      "category_en": "Living Witnesses",
       "lore": "Tôn vinh lòng quả cảm phi thường của lực lượng Biệt động Sài Gòn, những người đã mưu trí đào hầm cất giấu vũ khí ngay giữa lòng địch chuẩn bị cho cuộc Tổng tiến công Tết Mậu Thân 1968.",
       "lore_en": "Honors the extraordinary valor of Saigon Rangers, who covertly built weapons bunkers in the heart of the city for the historic 1968 Tet Offensive.",
       "criteria": "Check-in tại Căn hầm bí mật Biệt động Sài Gòn và nghe lời kể nhân chứng.",
+      "criteria_en": "Check in at Saigon Commandos secret bunker and hear witness testimonies.",
       "conditions": [
         {
           "id": "c-saigon-1",
@@ -273,7 +313,8 @@
             "pin-ham-bietdong"
           ],
           "min_count": 1,
-          "desc": "Ghé thăm Căn hầm bí mật Biệt động Sài Gòn"
+          "desc": "Ghé thăm Căn hầm bí mật Biệt động Sài Gòn",
+          "desc_en": "Visit the Saigon Commandos secret weapons bunker"
         }
       ],
       "is_unlocked": false
@@ -281,18 +322,22 @@
     {
       "id": "badge-anh-hung-hoi-ngo",
       "name": "Hội Ngộ Hào Kiệt",
+      "name_en": "Gathering of Heroes",
       "tier": "silver",
       "icon": "👑",
       "category": "Hào Khí Danh Nhân",
+      "category_en": "Heroic Spirits",
       "lore": "Minh chứng cho người lữ khách đã giải mã và học hỏi tấm gương của 2 vị anh hùng dân tộc, tiếp nối khí phách quật cường của tiền nhân.",
       "lore_en": "Awarded to explorers who have discovered and unlocked 2 legendary Vietnamese historical heroes.",
       "criteria": "Khám phá và mở khóa 2 Danh nhân lịch sử hào kiệt bất kỳ.",
+      "criteria_en": "Discover and unlock any 2 legendary historical figures.",
       "conditions": [
         {
           "id": "c-hoi-ngo-1",
           "type": "figures_count",
           "target_num": 2,
-          "desc": "Mở khóa 2 Danh nhân lịch sử bất kỳ"
+          "desc": "Mở khóa 2 Danh nhân lịch sử bất kỳ",
+          "desc_en": "Unlock any 2 historical heroes"
         }
       ],
       "is_unlocked": false
@@ -300,12 +345,15 @@
     {
       "id": "badge-su-thi-bach-nien",
       "name": "Đại Nam Liệt Truyện",
+      "name_en": "Chronicles of Dai Nam",
       "tier": "gold",
       "icon": "📜",
       "category": "Hào Khí Danh Nhân",
+      "category_en": "Heroic Spirits",
       "lore": "Bản trường ca lịch sử sống động được khắc ghi khi người chơi thấu suốt trọn vẹn cả 3 vị đại anh hùng dân tộc: Hưng Đạo Đại Vương Trần Quốc Tuấn, Hoàng đế Quang Trung và Hai Bà Trưng.",
       "lore_en": "An epic milestone achieved when discovering all 3 legendary national heroes: Tran Hung Dao, Emperor Quang Trung, and the Trung Sisters.",
       "criteria": "Khám phá trọn vẹn 3 Danh nhân: Trần Hưng Đạo, Quang Trung và Hai Bà Trưng.",
+      "criteria_en": "Discover all 3 heroes: Tran Hung Dao, Emperor Quang Trung, and the Trung Sisters.",
       "conditions": [
         {
           "id": "c-su-thi-1",
@@ -316,7 +364,8 @@
             "fig-haibatrung"
           ],
           "min_count": 3,
-          "desc": "Khám phá 3 Danh nhân: Trần Quốc Tuấn, Quang Trung và Hai Bà Trưng"
+          "desc": "Khám phá 3 Danh nhân: Trần Quốc Tuấn, Quang Trung và Hai Bà Trưng",
+          "desc_en": "Discover 3 Heroes: Tran Quoc Tuan, Quang Trung, and Hai Ba Trung"
         }
       ],
       "is_unlocked": false
@@ -324,18 +373,22 @@
     {
       "id": "badge-nguoi-giu-lua",
       "name": "Người Giữ Lửa Lịch Sử",
+      "name_en": "Keeper of History's Flame",
       "tier": "silver",
       "icon": "🎙️",
       "category": "Nhân Chứng Sống",
+      "category_en": "Living Witnesses",
       "lore": "Ghi nhận sự kết nối thiêng liêng giữa thế hệ hôm nay với các nhân chứng lịch sử và cựu chiến binh, những người trực tiếp trải qua khói lửa để giữ gìn nền độc lập non sông.",
       "lore_en": "Recognizes the sacred bond between modern youth and living history witnesses who fought through warfare to safeguard the nation.",
       "criteria": "Gặp gỡ và lắng nghe chia sẻ từ 1 Nhân chứng lịch sử / Cựu chiến binh.",
+      "criteria_en": "Meet and interview 1 living witness / war veteran.",
       "conditions": [
         {
           "id": "c-giu-lua-1",
           "type": "people_count",
           "target_num": 1,
-          "desc": "Check-in điểm có tư liệu Nhân chứng sống / Cựu chiến binh"
+          "desc": "Check-in điểm có tư liệu Nhân chứng sống / Cựu chiến binh",
+          "desc_en": "Check in at a site with Living Witness / War Veteran testimony"
         }
       ],
       "is_unlocked": false
@@ -343,18 +396,22 @@
     {
       "id": "badge-tieng-vong-thoi-gian",
       "name": "Tiếng Vọng Thời Gian",
+      "name_en": "Echoes of Time",
       "tier": "gold",
       "icon": "🎖️",
       "category": "Nhân Chứng Sống",
+      "category_en": "Living Witnesses",
       "lore": "Vinh danh nhà thám hiểm đã giao lưu và lắng nghe ký ức chân thực nhất từ 2 nhân chứng lịch sử sống, đưa những ký ức vô giá vượt thời gian đến với đời sau.",
       "lore_en": "Honors explorers who have engaged with 2 living history witnesses, keeping priceless wartime memories alive across generations.",
       "criteria": "Giao lưu và check-in với 2 Nhân chứng sống / Người kể chuyện lịch sử.",
+      "criteria_en": "Check-in and listen to testimonies from 2 living history witnesses.",
       "conditions": [
         {
           "id": "c-tieng-vong-1",
           "type": "people_count",
           "target_num": 2,
-          "desc": "Check-in tại 2 điểm có Nhân chứng sống / Ký ức cựu chiến binh"
+          "desc": "Check-in tại 2 điểm có Nhân chứng sống / Ký ức cựu chiến binh",
+          "desc_en": "Check in at 2 sites with Living Witnesses / Veteran memories"
         }
       ],
       "is_unlocked": false
@@ -362,18 +419,22 @@
     {
       "id": "badge-dau-chan-di-san",
       "name": "Nhà Thám Hiểm Non Sông",
+      "name_en": "Realm Explorer",
       "tier": "bronze",
       "icon": "🗺️",
       "category": "Khám Phá Di Sản",
+      "category_en": "Heritage Explorer",
       "lore": "Chiếc huân chương đồng trao tặng cho bước chân kiên trì chu du khắp 3 địa danh lịch sử, nối dài dải đất hình chữ S bằng niềm tự hào dân tộc.",
       "lore_en": "Awarded to devoted explorers who have journeyed to at least 3 historical landmarks across Vietnam.",
       "criteria": "Hành trình thám hiểm và check-in tại 3 Địa danh / Di tích lịch sử.",
+      "criteria_en": "Journey to and check in at 3 historical heritage landmarks.",
       "conditions": [
         {
           "id": "c-dau-chan-1",
           "type": "pins_count",
           "target_num": 3,
-          "desc": "Check-in tại 3 Địa danh / Di tích bất kỳ"
+          "desc": "Check-in tại 3 Địa danh / Di tích bất kỳ",
+          "desc_en": "Check in at any 3 historical landmarks"
         }
       ],
       "is_unlocked": false

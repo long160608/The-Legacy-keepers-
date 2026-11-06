@@ -110,7 +110,7 @@
           <!-- LEFT COLUMN: MỤC DANH SÁCH DANH NHÂN -->
           <div class="figures-sidebar">
             <div class="figures-sidebar-header">
-              <input type="text" id="figures-search-input" class="form-input" placeholder="🔍 Tìm danh nhân, triều đại..." oninput="handleFigureSearch(this.value)">
+              <input type="text" id="figures-search-input" class="form-input" data-i18n-placeholder="figures_search_ph" placeholder="🔍 Tìm danh nhân, triều đại..." oninput="handleFigureSearch(this.value)">
               <div class="figures-filter-chips" id="figures-filter-chips">
                 <span class="filter-chip active" onclick="filterFiguresByDynasty('all', this)">Tất cả</span>
                 <!-- Dynasty chips populated dynamically -->
@@ -355,18 +355,33 @@
             <form id="form-new-figure" onsubmit="handleCreateFigure(event)">
               <div class="form-grid">
                 <div class="form-group">
-                  <label><span data-i18n="cms_fig_name_lbl">Tên Danh nhân / Anh hùng</span> <span class="req">*</span></label>
+                  <label><span data-i18n="cms_fig_name_vi_lbl">Tên Danh nhân / Anh hùng (Tiếng Việt)</span> <span class="req">*</span></label>
                   <input type="text" class="form-input" id="fig-input-name" data-i18n-placeholder="cms_fig_name_ph" placeholder="Ví dụ: Lý Thường Kiệt, Võ Nguyên Giáp..." required>
                 </div>
 
                 <div class="form-group">
-                  <label data-i18n="cms_fig_role_lbl">Tước vị / Vai trò</label>
+                  <label><span data-i18n="cms_fig_name_en_lbl">Tên Danh nhân / Anh hùng (English Name)</span></label>
+                  <input type="text" class="form-input" id="fig-input-name-en" data-i18n-placeholder="cms_fig_name_en_ph" placeholder="Ví dụ: General Tran Hung Dao, Emperor Quang Trung...">
+                </div>
+
+                <div class="form-group">
+                  <label data-i18n="cms_fig_role_vi_lbl">Tước vị / Vai trò (Tiếng Việt)</label>
                   <input type="text" class="form-input" id="fig-input-role" data-i18n-placeholder="cms_fig_role_ph" placeholder="Ví dụ: Đại tướng, Thái úy, Nữ tướng...">
                 </div>
 
                 <div class="form-group">
-                  <label data-i18n="cms_fig_dynasty_lbl">Thời đại / Triều đại</label>
+                  <label data-i18n="cms_fig_role_en_lbl">Tước vị / Vai trò (English Title)</label>
+                  <input type="text" class="form-input" id="fig-input-role-en" data-i18n-placeholder="cms_fig_role_en_ph" placeholder="Ví dụ: Supreme Commander, Emperor, Revolutionary Queen...">
+                </div>
+
+                <div class="form-group">
+                  <label data-i18n="cms_fig_dynasty_vi_lbl">Thời đại / Triều đại (Tiếng Việt)</label>
                   <input type="text" class="form-input" id="fig-input-dynasty" data-i18n-placeholder="cms_fig_dynasty_ph" placeholder="Ví dụ: Nhà Lý, Nhà Trần, Nhà Tây Sơn...">
+                </div>
+
+                <div class="form-group">
+                  <label data-i18n="cms_fig_dynasty_en_lbl">Thời đại / Triều đại (English Era)</label>
+                  <input type="text" class="form-input" id="fig-input-dynasty-en" data-i18n-placeholder="cms_fig_dynasty_en_ph" placeholder="Ví dụ: Tran Dynasty, Tay Son Dynasty...">
                 </div>
 
                 <div class="form-group">
@@ -418,9 +433,14 @@
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label data-i18n="cms_fig_quote_lbl">Câu nói bất hủ / Danh ngôn lịch sử</label>
+                  <label data-i18n="cms_fig_quote_vi_lbl">Câu nói bất hủ / Danh ngôn lịch sử (Tiếng Việt)</label>
                   <input type="text" class="form-input" id="fig-input-quote" data-i18n-placeholder="cms_fig_quote_ph" placeholder="Ví dụ: 'Nếu bệ hạ muốn hàng xin hãy chém đầu thần trước rồi hãy hàng!'">
                   <span class="form-hint" data-i18n="cms_fig_quote_hint">Trích dẫn khí phách anh hùng hoặc lời hịch truyền đời nổi tiếng của nhân vật.</span>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label data-i18n="cms_fig_quote_en_lbl">Câu nói bất hủ / Danh ngôn lịch sử (English Quote)</label>
+                  <input type="text" class="form-input" id="fig-input-quote-en" data-i18n-placeholder="cms_fig_quote_en_ph" placeholder="Ví dụ: 'If your Majesty wishes to surrender, please cut off my head first!'">
                 </div>
 
                 <div class="form-group form-grid-full">
@@ -433,8 +453,13 @@
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label><span data-i18n="cms_fig_bio_lbl">Tiểu sử & Cuộc đời hào kiệt</span> <span class="req">*</span></label>
-                  <textarea class="form-textarea" id="fig-input-bio" data-i18n-placeholder="cms_fig_bio_ph" rows="4" placeholder="Công lao nổi bật, chiến công tiêu biểu, sự nghiệp rực rỡ..." required></textarea>
+                  <label><span data-i18n="cms_fig_bio_vi_lbl">Tiểu sử & Cuộc đời hào kiệt (Tiếng Việt)</span> <span class="req">*</span></label>
+                  <textarea class="form-textarea" id="fig-input-bio" data-i18n-placeholder="cms_fig_bio_ph" rows="3" placeholder="Công lao nổi bật, chiến công tiêu biểu, sự nghiệp rực rỡ..." required></textarea>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label><span data-i18n="cms_fig_bio_en_lbl">Tiểu sử & Cuộc đời hào kiệt (English Biography)</span></label>
+                  <textarea class="form-textarea" id="fig-input-bio-en" data-i18n-placeholder="cms_fig_bio_en_ph" rows="3" placeholder="Glorious feats, strategic triumphs, lifelong devotion..."></textarea>
                 </div>
 
                 <!-- KHỐI THÊM NỘI DUNG LIÊN QUAN: DANH SÁCH GIAI THOẠI MỞ KHÓA (KHÔNG GIỚI HẠN) -->
@@ -472,9 +497,14 @@
           <div id="subtab-stories" class="form-panel">
             <form id="form-new-story" onsubmit="handleCreateStory(event)">
               <div class="form-grid">
-                <div class="form-group form-grid-full">
-                  <label><span data-i18n="cms_story_title_lbl">Tiêu đề Giai thoại / Sự kiện</span> <span class="req">*</span></label>
+                <div class="form-group">
+                  <label><span data-i18n="cms_story_title_vi_lbl">Tiêu đề Giai thoại / Sự kiện (Tiếng Việt)</span> <span class="req">*</span></label>
                   <input type="text" class="form-input" id="story-input-name" data-i18n-placeholder="cms_story_title_ph" placeholder="Ví dụ: Bài thơ thần Nam Quốc Sơn Hà, Lời hịch cứu nước..." required>
+                </div>
+
+                <div class="form-group">
+                  <label><span data-i18n="cms_story_title_en_lbl">Tiêu đề Giai thoại / Sự kiện (English Title)</span></label>
+                  <input type="text" class="form-input" id="story-input-name-en" data-i18n-placeholder="cms_story_title_en_ph" placeholder="Ví dụ: The Sacred Poem of Nhu Nguyet River, The Call to Arms...">
                 </div>
 
                 <div class="form-group">
@@ -508,8 +538,13 @@
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label data-i18n="cms_story_content_lbl">Nội dung chi tiết cốt truyện</label>
-                  <textarea class="form-textarea" id="story-input-content" data-i18n-placeholder="cms_story_content_ph" rows="5" placeholder="Toàn văn câu chuyện, mưu kế lịch sử, diễn biến sự kiện..." required></textarea>
+                  <label data-i18n="cms_story_content_vi_lbl">Nội dung chi tiết cốt truyện (Tiếng Việt)</label>
+                  <textarea class="form-textarea" id="story-input-content" data-i18n-placeholder="cms_story_content_ph" rows="4" placeholder="Toàn văn câu chuyện, mưu kế lịch sử, diễn biến sự kiện..." required></textarea>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label data-i18n="cms_story_content_en_lbl">Nội dung chi tiết cốt truyện (English Content)</label>
+                  <textarea class="form-textarea" id="story-input-content-en" data-i18n-placeholder="cms_story_content_en_ph" rows="4" placeholder="Historical events, military strategy, hero feats in English..."></textarea>
                 </div>
 
                 <div class="form-group form-grid-full">
@@ -532,8 +567,13 @@
             <form id="form-new-badge" onsubmit="handleCreateBadge(event)">
               <div class="form-grid">
                 <div class="form-group">
-                  <label><span data-i18n="cms_badge_name_lbl">Tên Huy hiệu</span> <span class="req">*</span></label>
+                  <label><span data-i18n="cms_badge_name_vi_lbl">Tên Huy hiệu (Tiếng Việt)</span> <span class="req">*</span></label>
                   <input type="text" class="form-input" id="badge-input-name" data-i18n-placeholder="cms_badge_name_ph" placeholder="Ví dụ: Đại Phá Quân Thanh, Tiếng Vang Sông Cầu..." required>
+                </div>
+
+                <div class="form-group">
+                  <label><span data-i18n="cms_badge_name_en_lbl">Tên Huy hiệu (English Name)</span></label>
+                  <input type="text" class="form-input" id="badge-input-name-en" data-i18n-placeholder="cms_badge_name_en_ph" placeholder="Ví dụ: Knight of Bach Dang River, Spirit of Thang Long...">
                 </div>
 
                 <div class="form-group">
@@ -565,15 +605,25 @@
                 </div>
 
                 <div class="form-group">
-                  <label data-i18n="cms_badge_cat_lbl">Bộ sưu tập (Category)</label>
+                  <label data-i18n="cms_badge_cat_vi_lbl">Bộ sưu tập (Tiếng Việt)</label>
                   <input type="text" class="form-input" id="badge-input-cat" data-i18n-placeholder="cms_badge_cat_ph" placeholder="Ví dụ: Hào Khí Danh Nhân, Nhân Chứng Lịch Sử, Khám Phá Việt Nam...">
+                </div>
+
+                <div class="form-group">
+                  <label data-i18n="cms_badge_cat_en_lbl">Bộ sưu tập (English Category)</label>
+                  <input type="text" class="form-input" id="badge-input-cat-en" data-i18n-placeholder="cms_badge_cat_en_ph" placeholder="Ví dụ: Heroic Spirits, Living Witnesses, Vietnam Heritage...">
                 </div>
 
                 <!-- NỘI DUNG & Ý NGHĨA HUY HIỆU -->
                 <div class="form-group form-grid-full">
-                  <label><span data-i18n="cms_badge_lore_lbl">Nội dung & Điển tích của Huy hiệu</span> <span class="req">*</span></label>
-                  <textarea class="form-textarea" id="badge-input-lore" data-i18n-placeholder="cms_badge_lore_ph" rows="3" placeholder="Ý nghĩa tôn vinh, câu chuyện hào hùng hoặc bối cảnh lịch sử gắn liền với huy hiệu này (Hiển thị khi người chơi click vào xem chi tiết huy hiệu)..." required></textarea>
+                  <label><span data-i18n="cms_badge_lore_vi_lbl">Nội dung & Điển tích của Huy hiệu (Tiếng Việt)</span> <span class="req">*</span></label>
+                  <textarea class="form-textarea" id="badge-input-lore" data-i18n-placeholder="cms_badge_lore_ph" rows="2" placeholder="Ý nghĩa tôn vinh, câu chuyện hào hùng hoặc bối cảnh lịch sử gắn liền với huy hiệu này..." required></textarea>
                   <span class="form-hint" data-i18n="cms_badge_lore_hint">Nội dung này sẽ xuất hiện trang trọng trong cửa sổ chi tiết khi người chơi bấm vào huy hiệu.</span>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label><span data-i18n="cms_badge_lore_en_lbl">Nội dung & Điển tích của Huy hiệu (English Lore)</span></label>
+                  <textarea class="form-textarea" id="badge-input-lore-en" data-i18n-placeholder="cms_badge_lore_en_ph" rows="2" placeholder="Historical background, significance and prestige of this badge in English..."></textarea>
                 </div>
 
                 <!-- KHỐI LIÊN KẾT ĐIỀU KIỆN MỞ KHÓA TỰ ĐỘNG (HỖ TRỢ NHIỀU ĐIỀU KIỆN) -->
@@ -598,8 +648,16 @@
                   </div>
 
                   <div style="margin-top:16px; padding-top:12px; border-top:1px dashed var(--neutral-300);">
-                    <label style="font-weight:600; font-size:0.88rem; color:var(--primary-dark);" data-i18n="cms_badge_criteria_lbl">Tóm tắt yêu cầu hiển thị trên thẻ huy hiệu</label>
-                    <input type="text" class="form-input" id="badge-input-criteria" data-i18n-placeholder="cms_badge_criteria_ph" placeholder="Tự động tổng hợp từ các điều kiện trên hoặc nhập tùy chỉnh..." style="margin-top:4px;">
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label style="font-weight:600; font-size:0.88rem; color:var(--primary-dark);" data-i18n="cms_badge_criteria_vi_lbl">Tóm tắt yêu cầu (Tiếng Việt)</label>
+                        <input type="text" class="form-input" id="badge-input-criteria" data-i18n-placeholder="cms_badge_criteria_ph" placeholder="Tự động tổng hợp từ các điều kiện hoặc nhập tùy chỉnh..." style="margin-top:4px;">
+                      </div>
+                      <div class="form-group">
+                        <label style="font-weight:600; font-size:0.88rem; color:var(--primary-dark);" data-i18n="cms_badge_criteria_en_lbl">Tóm tắt yêu cầu (English Summary)</label>
+                        <input type="text" class="form-input" id="badge-input-criteria-en" data-i18n-placeholder="cms_badge_criteria_en_ph" placeholder="Auto-generated in English or custom text..." style="margin-top:4px;">
+                      </div>
+                    </div>
                     <span class="form-hint" data-i18n="cms_badge_criteria_hint">Dòng mô tả tóm tắt này sẽ xuất hiện ngắn gọn trên thẻ huy hiệu trong bộ sưu tập.</span>
                   </div>
                 </div>
@@ -750,7 +808,7 @@
         <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;" id="story-modal-meta">Nhân vật: Trần Hưng Đạo</div>
         <div id="story-modal-content" style="line-height:1.8; color:var(--text-primary); font-size:0.95rem; white-space:pre-line;"></div>
         <div style="margin-top:20px; display:flex; justify-content:flex-end;">
-          <button class="btn-primary" onclick="closeStoryModal()">Đóng</button>
+          <button class="btn-primary" onclick="closeStoryModal()" data-i18n="badge_btn_close">Đóng</button>
         </div>
       </div>
     </div>
@@ -828,13 +886,13 @@
       <div class="celebration-burst-rays"></div>
       <div class="celebration-content">
         <div class="celebration-icon-huge" id="celebration-icon">🏆</div>
-        <h2 class="celebration-title">KHÁM PHÁ THÀNH CÔNG!</h2>
+        <h2 class="celebration-title" data-i18n="celebration_title">KHÁM PHÁ THÀNH CÔNG!</h2>
         <div class="celebration-pin-name" id="celebration-pin-name">Khu di tích Chiến thắng Bạch Đằng</div>
         
         <div class="celebration-rewards-list">
           <div class="reward-row">
             <span class="icon">🌟</span>
-            <span>Kinh nghiệm thám hiểm: <b>+100 EXP</b></span>
+            <span data-i18n="celebration_exp">Kinh nghiệm thám hiểm: <b>+100 EXP</b></span>
           </div>
           <div class="reward-row" id="celebration-story-row" style="display:none;">
             <span class="icon">📖</span>
@@ -846,7 +904,7 @@
           </div>
         </div>
 
-        <button class="btn-celebration-continue" onclick="closeCelebrationModal()">Tiếp Tục Hành Trình</button>
+        <button class="btn-celebration-continue" onclick="closeCelebrationModal()" data-i18n="celebration_btn_continue">Tiếp Tục Hành Trình</button>
       </div>
     </div>
   </div>
@@ -867,8 +925,13 @@
           </div>
 
           <div class="form-group" style="margin-bottom:14px;">
-            <label><span data-i18n="quick_story_title_lbl">Tiêu đề Giai thoại / Sự kiện hào hùng</span> <span class="req">*</span></label>
+            <label><span data-i18n="quick_story_title_vi_lbl">Tiêu đề Giai thoại (Tiếng Việt)</span> <span class="req">*</span></label>
             <input type="text" class="form-input" id="quick-story-title" data-i18n-placeholder="quick_story_title_ph" placeholder="Ví dụ: Lời hịch tướng sĩ, Hội nghị Bình Than..." required>
+          </div>
+
+          <div class="form-group" style="margin-bottom:14px;">
+            <label><span data-i18n="quick_story_title_en_lbl">Tiêu đề Giai thoại (English Title)</span></label>
+            <input type="text" class="form-input" id="quick-story-title-en" data-i18n-placeholder="quick_story_title_en_ph" placeholder="Ví dụ: Proclamation to Officers, Binh Than Conference...">
           </div>
 
           <div class="form-group" style="margin-bottom:14px;">
@@ -894,9 +957,14 @@
             </div>
           </div>
 
+          <div class="form-group" style="margin-bottom:14px;">
+            <label><span data-i18n="quick_story_content_vi_lbl">Nội dung toàn văn câu chuyện (Tiếng Việt)</span> <span class="req">*</span></label>
+            <textarea class="form-textarea" id="quick-story-content" data-i18n-placeholder="quick_story_content_ph" rows="4" placeholder="Bối cảnh lịch sử, diễn biến sự kiện, mưu lược quân sự..." required></textarea>
+          </div>
+
           <div class="form-group" style="margin-bottom:16px;">
-            <label><span data-i18n="quick_story_content_lbl">Nội dung toàn văn câu chuyện</span> <span class="req">*</span></label>
-            <textarea class="form-textarea" id="quick-story-content" data-i18n-placeholder="quick_story_content_ph" rows="5" placeholder="Bối cảnh lịch sử, diễn biến sự kiện, mưu lược quân sự..." required></textarea>
+            <label><span data-i18n="quick_story_content_en_lbl">Nội dung toàn văn câu chuyện (English Narrative)</span></label>
+            <textarea class="form-textarea" id="quick-story-content-en" data-i18n-placeholder="quick_story_content_en_ph" rows="4" placeholder="Historical events, military strategy, hero feats in English..."></textarea>
           </div>
 
           <div style="margin-bottom:16px;">
