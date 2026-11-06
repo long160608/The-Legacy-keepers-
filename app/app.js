@@ -394,8 +394,8 @@ const TRANSLATIONS = {
     celebration_title: "KHÁM PHÁ THÀNH CÔNG!",
     celebration_exp: "Kinh nghiệm thám hiểm: +100 EXP",
     celebration_btn_continue: "Tiếp Tục Hành Trình",
-    sim_toggle_btn: "📱 Thử giao diện Điện thoại",
-    sim_btn_desktop: "💻 Trở lại Desktop",
+    sim_toggle_btn: "Thử giao diện Điện thoại",
+    sim_btn_desktop: "Trở lại Desktop",
     sim_bar_title: "iPhone 15 Pro • 390 × 844",
     sim_bar_title_max: "iPhone 15 Pro Max • 430 × 932",
     sim_btn_size: "Đổi cỡ màn hình",
@@ -790,8 +790,8 @@ const TRANSLATIONS = {
     celebration_title: "DISCOVERY SUCCESSFUL!",
     celebration_exp: "Exploration Experience: +100 EXP",
     celebration_btn_continue: "Continue Journey",
-    sim_toggle_btn: "📱 Test Mobile View",
-    sim_btn_desktop: "💻 Return to Desktop",
+    sim_toggle_btn: "Test Mobile View",
+    sim_btn_desktop: "Return to Desktop",
     sim_bar_title: "iPhone 15 Pro • 390 × 844",
     sim_bar_title_max: "iPhone 15 Pro Max • 430 × 932",
     sim_btn_size: "Toggle Device Size",
@@ -844,6 +844,10 @@ function setLanguage(lang) {
   const toggleLabel = document.getElementById("device-toggle-label");
   if (toggleLabel) {
     toggleLabel.innerText = isSimulatorMode ? t("sim_btn_desktop") : t("sim_toggle_btn");
+  }
+  const sidebarLabel = document.getElementById("sidebar-sim-label");
+  if (sidebarLabel) {
+    sidebarLabel.innerText = isSimulatorMode ? t("sim_btn_desktop") : t("sim_toggle_btn");
   }
   const simBarTitle = document.getElementById("sim-bar-title");
   if (simBarTitle) {
@@ -1809,6 +1813,8 @@ function toggleMobileSimulator(forceState) {
   const toggleBtn = document.getElementById("btn-device-toggle");
   const toggleLabel = document.getElementById("device-toggle-label");
   const toggleIcon = document.getElementById("device-toggle-icon");
+  const sidebarLabel = document.getElementById("sidebar-sim-label");
+  const sidebarIcon = document.getElementById("sidebar-sim-icon");
   const simBarTitle = document.getElementById("sim-bar-title");
 
   if (isSimulatorMode) {
@@ -1816,6 +1822,8 @@ function toggleMobileSimulator(forceState) {
     localStorage.setItem("legacy_keepers_mobile_sim", "true");
     if (toggleLabel) toggleLabel.innerText = t("sim_btn_desktop");
     if (toggleIcon) toggleIcon.innerText = "💻";
+    if (sidebarLabel) sidebarLabel.innerText = t("sim_btn_desktop");
+    if (sidebarIcon) sidebarIcon.innerText = "💻";
     if (simBarTitle) simBarTitle.innerText = isSimulatorMax ? t("sim_bar_title_max") : t("sim_bar_title");
     showToast(t("sim_toast_on"));
   } else {
@@ -1823,6 +1831,8 @@ function toggleMobileSimulator(forceState) {
     localStorage.removeItem("legacy_keepers_mobile_sim");
     if (toggleLabel) toggleLabel.innerText = t("sim_toggle_btn");
     if (toggleIcon) toggleIcon.innerText = "📱";
+    if (sidebarLabel) sidebarLabel.innerText = t("sim_toggle_btn");
+    if (sidebarIcon) sidebarIcon.innerText = "📱";
     showToast(t("sim_toast_off"));
   }
 

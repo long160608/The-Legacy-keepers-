@@ -101,7 +101,7 @@
 
     <div class="sidebar-footer">
       <button class="sidebar-sim-btn" onclick="toggleMobileSimulator()" title="Thử nghiệm giao diện điện thoại">
-        <span>📱</span> <span data-i18n="sim_toggle_btn">Giao diện Điện thoại</span>
+        <span id="sidebar-sim-icon">📱</span> <span id="sidebar-sim-label" data-i18n="sim_toggle_btn">Giao diện Điện thoại</span>
       </button>
       <div class="sync-status-indicator">
         <div class="status-dot"></div>
@@ -138,11 +138,6 @@
           <button class="filter-btn" id="btn-real-gps" onclick="toggleRealGPS()" style="padding:4px 12px; font-size:0.8rem;">📍 Dùng GPS Thực</button>
           <button class="filter-btn" id="btn-walk-sim" onclick="simulateWalk()" style="padding:4px 12px; font-size:0.8rem;">🚶 Đi tuần tra tới gần Pin</button>
         </div>
-
-        <!-- Floating Quick Input Button on Map Screen -->
-        <button class="fab-quick-input" onclick="openQuickInputModal()">
-          <span>✍️</span> <span data-i18n="radar_quick_add_pin">Thêm Địa Danh Mới</span>
-        </button>
       </div>
     </section>
 
