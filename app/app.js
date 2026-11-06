@@ -87,7 +87,224 @@ const TRANSLATIONS = {
     cms_subtab_badges: "🏅 4. Huy Hiệu Di Sản",
     cms_subtab_manage: "🗂️ 5. Quản Lý & Xóa Dữ Liệu Test",
     reload_data_btn: "🔄 Nạp từ file data.json",
-    import_json_btn: "📤 Chọn file JSON"
+    import_json_btn: "📤 Chọn file JSON",
+    // CMS Form Labels — Pin
+    cms_export_btn: "📥 Tải sao lưu JSON",
+    cms_pin_name_lbl: "Tên Địa danh / Chiến trường / Điểm di tích",
+    cms_pin_name_ph: "Ví dụ: Đền Hùng, Ngã ba Đồng Lộc, Cố đô Hoa Lư...",
+    cms_pin_type_lbl: "Loại nội dung Pin",
+    cms_pin_type_landmark: "🏛️ Địa danh & Di tích (Công trình kiến trúc, danh thắng)",
+    cms_pin_type_battlefield: "⚔️ Trận đánh & Chiến dịch (Chiến trường xưa, tuyến đường lịch sử)",
+    cms_pin_type_living: "🎙️ Nhân chứng sống / Ký ức (Ghi âm cựu chiến binh, tư liệu sống)",
+    cms_pin_type_story: "📖 Mảnh ký ức & Sự kiện (Căn hầm, bia tưởng niệm)",
+    cms_pin_type_culture: "🎨 Văn hóa & Làng nghề truyền thống",
+    cms_pin_rarity_lbl: "Độ hiếm & Tầm phủ Radar",
+    cms_pin_rarity_common: "Thường (Common) - Radar quét 1-2km, Check-in 150m",
+    cms_pin_rarity_uncommon: "Hiếm (Uncommon) - Radar quét 5-8km, Check-in 80m",
+    cms_pin_rarity_legendary: "Huyền thoại (Legendary) - Radar quét 15-30km, Check-in 30m",
+    cms_pin_rarity_event: "Sự kiện mùa (Limited Event) - Toàn quốc",
+    cms_pin_lat_lbl: "Vĩ độ (Latitude)",
+    cms_pin_lat_hint: "Mẹo: Bạn có thể click chuột trực tiếp lên Radar Bản đồ để tự điền tọa độ!",
+    cms_pin_lng_lbl: "Kinh độ (Longitude)",
+    cms_pin_radar_lbl: "Tầm quét Radar (mét)",
+    cms_pin_checkin_lbl: "Bán kính Check-in thực địa (mét)",
+    cms_pin_image_lbl: "Hình ảnh Địa danh / Di tích",
+    cms_pin_image_ph: "Dán link online (https://...) hoặc nhập đường dẫn file (media/images/anh.jpg)...",
+    cms_pin_image_btn: "📁 Chọn ảnh từ máy",
+    cms_pin_image_ok: "✓ Đã nạp ảnh thành công",
+    cms_pin_image_hint: "Hỗ trợ: Link web, tải ảnh từ máy tính (tự lưu vào app/media/images/ hoặc Base64 offline).",
+    cms_pin_media_lbl: "Đường dẫn Audio / Video / Lời kể nhân chứng",
+    cms_pin_media_ph: "Dán link YouTube (https://youtube.com/...) hoặc file video (media/videos/clip.mp4)...",
+    cms_pin_media_btn: "📁 Chọn video/audio",
+    cms_pin_media_hint: "Hỗ trợ: Link YouTube, file video .mp4/.webm hoặc audio .mp3 trong thư mục app/media/videos/.",
+    cms_pin_desc_lbl: "Tóm tắt tư liệu lịch sử & Nguồn kiểm chứng",
+    cms_pin_desc_ph: "Ý nghĩa lịch sử, bối cảnh hình thành, giá trị văn hóa...",
+    cms_pin_reset: "Làm mới",
+    cms_pin_save: "💾 Lưu Ghim Bản Đồ & Đồng Bộ",
+    // CMS Form Labels — Figure
+    cms_fig_name_lbl: "Tên Danh nhân / Anh hùng",
+    cms_fig_name_ph: "Ví dụ: Lý Thường Kiệt, Võ Nguyên Giáp...",
+    cms_fig_role_lbl: "Tước vị / Vai trò",
+    cms_fig_role_ph: "Ví dụ: Đại tướng, Thái úy, Nữ tướng...",
+    cms_fig_dynasty_lbl: "Thời đại / Triều đại",
+    cms_fig_dynasty_ph: "Ví dụ: Nhà Lý, Nhà Trần, Nhà Tây Sơn...",
+    cms_fig_years_lbl: "Niên đại (Năm sinh – Năm mất)",
+    cms_fig_years_ph: "Ví dụ: 1228 – 1300 hoặc Thế kỷ 11",
+    cms_fig_avatar_lbl: "Biểu tượng Avatar",
+    cms_fig_avatar_warrior: "⚔️ Kiếm sĩ / Tướng lĩnh",
+    cms_fig_avatar_king: "👑 Hoàng đế / Vương giả",
+    cms_fig_avatar_guard: "🛡️ Hộ quốc anh hùng",
+    cms_fig_avatar_archer: "🏹 Chiến binh khởi nghĩa",
+    cms_fig_avatar_eagle: "🦅 Chim lạc trống đồng",
+    cms_fig_avatar_scholar: "📜 Hiền sĩ / Danh nho",
+    cms_fig_image_lbl: "Hình ảnh / Chân dung Danh nhân",
+    cms_fig_image_ph: "Dán link ảnh online (https://...) hoặc file cục bộ (media/images/portrait.jpg)...",
+    cms_fig_image_btn: "📁 Chọn ảnh từ máy",
+    cms_fig_image_ok: "✓ Đã nạp chân dung thành công",
+    cms_fig_bg_lbl: "Ảnh Nền / Bối cảnh Lịch sử Danh nhân (Hero Backdrop Cover)",
+    cms_fig_bg_ph: "Dán link ảnh online (https://...) hoặc file bối cảnh lịch sử / chiến trường...",
+    cms_fig_bg_btn: "📁 Chọn ảnh nền",
+    cms_fig_bg_ok: "✓ Đã nạp ảnh nền bối cảnh thành công",
+    cms_fig_bg_hint: "Ảnh nền sẽ phủ ở đầu trang hồ sơ nhân vật với hiệu ứng mờ hào hùng, tôn vinh khí phách lịch sử.",
+    cms_fig_quote_lbl: "Câu nói bất hủ / Danh ngôn lịch sử",
+    cms_fig_quote_ph: "Ví dụ: 'Nếu bệ hạ muốn hàng xin hãy chém đầu thần trước rồi hãy hàng!'",
+    cms_fig_quote_hint: "Trích dẫn khí phách anh hùng hoặc lời hịch truyền đời nổi tiếng của nhân vật.",
+    cms_fig_pins_lbl: "Địa danh & Chiến trường gắn liền (Nội dung liên quan)",
+    cms_fig_pins_opt: "-- Chọn Địa danh di tích gắn liền (nếu có) --",
+    cms_fig_pins_hint: "Chọn địa danh tiêu biểu nơi danh nhân đã lập nên chiến công oanh liệt.",
+    cms_fig_bio_lbl: "Tiểu sử & Cuộc đời hào kiệt",
+    cms_fig_bio_ph: "Công lao nổi bật, chiến công tiêu biểu, sự nghiệp rực rỡ...",
+    cms_fig_stories_header: "📖 Kho Giai Thoại & Cốt Truyện Mở Khóa Của Danh Nhân",
+    cms_fig_stories_desc: "Bạn có thể thêm 1 hoặc NHIỀU giai thoại (không giới hạn số lượng). Mỗi giai thoại có thể gắn với một địa danh di tích khác nhau để người chơi chu du mở khóa!",
+    cms_fig_add_story_btn: "+ Thêm Giai Thoại Nữa",
+    cms_fig_reset: "Làm mới",
+    cms_fig_save: "💾 Lưu Danh Nhân & Toàn Bộ Giai Thoại",
+    // Story row (dynamic)
+    cms_fig_story_label: "📖 Giai thoại",
+    cms_fig_story_remove: "✕ Bỏ giai thoại này",
+    cms_fig_story_title_lbl: "Tiêu đề Giai thoại / Sự kiện hào hùng",
+    cms_fig_story_title_ph: "Ví dụ: Kế sách cắm cọc sông Bạch Đằng, Lời thề Sát Thát...",
+    cms_fig_story_pin_lbl: "Địa danh (Ghim) yêu cầu Check-in để mở khóa",
+    cms_fig_story_pin_hint: "Người chơi cần di chuyển đến mốc này trên Radar để mở khóa đọc câu chuyện.",
+    cms_fig_story_bg_lbl: "Ảnh Nền / Tranh minh họa Giai thoại (Tùy chọn)",
+    cms_fig_story_bg_ph: "Dán link ảnh online (https://...) hoặc file minh họa...",
+    cms_fig_story_bg_btn: "📁 Chọn ảnh",
+    cms_fig_story_bg_ok: "✓ Có ảnh minh họa",
+    cms_fig_story_content_lbl: "Nội dung chi tiết câu chuyện lịch sử",
+    cms_fig_story_content_ph: "Bối cảnh lịch sử, diễn biến sự kiện, kế sách quân sự...",
+    // CMS Form Labels — Story
+    cms_story_title_lbl: "Tiêu đề Giai thoại / Sự kiện",
+    cms_story_title_ph: "Ví dụ: Bài thơ thần Nam Quốc Sơn Hà, Lời hịch cứu nước...",
+    cms_story_figure_lbl: "Thuộc Danh nhân nào?",
+    cms_story_pin_lbl: "Địa danh (Pin) yêu cầu đến Check-in để mở khóa",
+    cms_story_bg_lbl: "Ảnh Nền / Tranh minh họa Giai thoại (Story Cover)",
+    cms_story_bg_ph: "Dán link ảnh online (https://...) hoặc file minh họa giai thoại...",
+    cms_story_bg_btn: "📁 Chọn ảnh nền",
+    cms_story_bg_ok: "✓ Đã nạp tranh minh họa giai thoại",
+    cms_story_bg_hint: "Hình ảnh sẽ xuất hiện trên thẻ giai thoại và đầu cửa sổ đọc truyện khi mở khóa.",
+    cms_story_content_lbl: "Nội dung chi tiết cốt truyện",
+    cms_story_content_ph: "Toàn văn câu chuyện, mưu kế lịch sử, diễn biến sự kiện...",
+    cms_story_cont_lbl: "Tiếp tục ở lại đây để thêm tiếp các giai thoại khác sau khi lưu",
+    cms_story_reset: "Làm mới",
+    cms_story_save: "💾 Lưu Giai Thoại Khóa",
+    // CMS Form Labels — Badge
+    cms_badge_name_lbl: "Tên Huy hiệu",
+    cms_badge_name_ph: "Ví dụ: Đại Phá Quân Thanh, Tiếng Vang Sông Cầu...",
+    cms_badge_tier_lbl: "Phẩm cấp (Tier)",
+    cms_badge_tier_gold: "🥇 Vàng (Gold Tier) - Rực rỡ ánh kim",
+    cms_badge_tier_silver: "🥈 Bạc (Silver Tier) - Thanh nhã",
+    cms_badge_tier_bronze: "🥉 Đồng (Bronze Tier) - Cổ điển",
+    cms_badge_tier_diamond: "💎 Bạch Kim (Diamond Tier) - Huyền thoại",
+    cms_badge_icon_lbl: "Biểu tượng Icon",
+    cms_badge_icon_medal: "🎖️ Huân chương danh dự",
+    cms_badge_icon_crown: "👑 Vương miện hào kiệt",
+    cms_badge_icon_sword: "⚔️ Kiếm lệnh hào hùng",
+    cms_badge_icon_temple: "🏛️ Vương miện di tích",
+    cms_badge_icon_witness: "🎙️ Nhân chứng lịch sử",
+    cms_badge_icon_footprint: "🐾 Dấu chân di sản",
+    cms_badge_icon_eagle: "🦅 Chim lạc trống đồng",
+    cms_badge_icon_scroll: "📜 Chiếu thư hoàng gia",
+    cms_badge_icon_shield: "🛡️ Khiên hộ quốc",
+    cms_badge_icon_map: "🗺️ Bản đồ giang sơn",
+    cms_badge_icon_star: "🌟 Tinh hoa di sản",
+    cms_badge_icon_flag: "🚩 Cờ lệnh xuất quân",
+    cms_badge_cat_lbl: "Bộ sưu tập (Category)",
+    cms_badge_cat_ph: "Ví dụ: Hào Khí Danh Nhân, Nhân Chứng Lịch Sử, Khám Phá Việt Nam...",
+    cms_badge_lore_lbl: "Nội dung & Điển tích của Huy hiệu",
+    cms_badge_lore_ph: "Ý nghĩa tôn vinh, câu chuyện hào hùng hoặc bối cảnh lịch sử gắn liền với huy hiệu này (Hiển thị khi người chơi click vào xem chi tiết huy hiệu)...",
+    cms_badge_lore_hint: "Nội dung này sẽ xuất hiện trang trọng trong cửa sổ chi tiết khi người chơi bấm vào huy hiệu.",
+    cms_badge_cond_header: "🎯 Thiết Lập Điều Kiện Mở Khóa Tự Động (Nhiều điều kiện kết hợp)",
+    cms_badge_cond_desc: "Bạn có thể thêm 1 hoặc NHIỀU điều kiện cùng lúc (ví dụ: vừa phải ghé các địa danh chỉ định, vừa phải khám phá đủ danh nhân).",
+    cms_badge_add_cond_btn: "+ Thêm Loại Điều Kiện Nữa",
+    cms_badge_criteria_lbl: "Tóm tắt yêu cầu hiển thị trên thẻ huy hiệu",
+    cms_badge_criteria_ph: "Tự động tổng hợp từ các điều kiện trên hoặc nhập tùy chỉnh...",
+    cms_badge_criteria_hint: "Dòng mô tả tóm tắt này sẽ xuất hiện ngắn gọn trên thẻ huy hiệu trong bộ sưu tập.",
+    cms_badge_unlock_lbl: "Mở khóa sẵn ngay lập tức (Dành cho huy hiệu khởi đầu hoặc tân thủ)",
+    cms_badge_reset: "Làm mới",
+    cms_badge_save: "💾 Lưu Huy Hiệu Mới",
+    // Badge condition rows (dynamic)
+    cms_cond_title: "Điều kiện mở khóa",
+    cms_cond_remove: "✕ Xóa điều kiện",
+    cms_cond_type_lbl: "Chọn Loại điều kiện",
+    cms_cond_type_specific_fig: "👑 Mở khóa các Danh nhân / Anh hùng cụ thể (Chọn danh sách)",
+    cms_cond_type_fig_count: "👑 Mở khóa theo số lượng Danh nhân bất kỳ (Đếm số lượng)",
+    cms_cond_type_specific_pin: "📍 Ghé thăm các Địa danh / Di tích cụ thể (Chọn danh sách mốc)",
+    cms_cond_type_pin_count: "🗺️ Check-in theo số lượng Địa danh bất kỳ (Đếm số lượng mốc)",
+    cms_cond_type_people: "🎙️ Gặp gỡ Nhân chứng sống / Ký ức / Cựu chiến binh (Đếm số lượng)",
+    cms_cond_type_stories: "📖 Mở khóa số lượng Giai thoại lịch sử (Đếm số lượng)",
+    cms_cond_type_custom: "✍️ Điều kiện tự do (Nhập mô tả thủ công)",
+    cms_cond_fig_lbl: "Chọn các Danh nhân lịch sử yêu cầu",
+    cms_cond_fig_min: "Yêu cầu mở khóa tối thiểu:",
+    cms_cond_fig_min_suf: "danh nhân trong số người được chọn.",
+    cms_cond_figcount_lbl: "Số lượng Danh nhân yêu cầu khám phá",
+    cms_cond_figcount_hint: "Người chơi mở khóa đủ số lượng danh nhân bất kỳ này sẽ hoàn thành điều kiện.",
+    cms_cond_pin_lbl: "Chọn các Địa danh / Di tích yêu cầu check-in",
+    cms_cond_pin_min: "Yêu cầu check-in tối thiểu:",
+    cms_cond_pin_min_suf: "địa danh trong số điểm được chọn.",
+    cms_cond_pincount_lbl: "Số lượng Địa danh / Di tích yêu cầu check-in",
+    cms_cond_pincount_hint: "Người chơi đến thực địa và check-in đủ số mốc bất kỳ để hoàn thành điều kiện.",
+    cms_cond_people_lbl: "Số lượng Nhân chứng sống / Cựu chiến binh yêu cầu gặp gỡ",
+    cms_cond_people_hint: "Người chơi check-in tại các điểm có tư liệu nhân chứng sống hoặc cựu chiến binh.",
+    cms_cond_stories_lbl: "Số lượng Giai thoại cốt truyện yêu cầu mở khóa",
+    cms_cond_custom_lbl: "Mô tả điều kiện tự do",
+    cms_cond_custom_ph: "Ví dụ: Tham gia sự kiện lễ hội kỷ niệm hoặc giải mã câu đố...",
+    // CMS Manage Tab
+    cms_manage_title: "⚠️ Dọn dẹp dữ liệu thử nghiệm (Reset gốc)",
+    cms_manage_desc: "Khôi phục lại toàn bộ dữ liệu chuẩn ban đầu của game. Mọi Ghim, Danh nhân, Giai thoại hoặc Huy hiệu bạn đã thêm test sẽ được xóa sạch!",
+    cms_manage_reset_btn: "🔄 Khôi phục Dữ liệu Gốc",
+    cms_manage_pins_title: "📍 1. Danh sách Ghim Địa danh",
+    cms_manage_pins_hint: "Bấm nút 🗑️ để xóa từng ghim test",
+    cms_manage_figs_title: "⚔️ 2. Danh sách Danh nhân Lịch sử",
+    cms_manage_stories_title: "📖 3. Danh sách Giai thoại Lịch sử",
+    cms_manage_badges_title: "🏅 4. Danh sách Huy hiệu Di sản",
+    // Manage Tables Columns & Status
+    manage_tbl_icon_name: "Icon & Tên",
+    manage_tbl_type: "Loại",
+    manage_tbl_rarity: "Độ hiếm",
+    manage_tbl_coords: "Tọa độ",
+    manage_tbl_radius: "Bán kính",
+    manage_tbl_action: "Thao tác",
+    manage_tbl_delete: "🗑️ Xóa",
+    manage_tbl_empty_pins: "Chưa có Ghim nào.",
+    manage_tbl_empty_figs: "Chưa có Danh nhân nào.",
+    manage_tbl_empty_stories: "Chưa có Giai thoại nào.",
+    manage_tbl_empty_badges: "Chưa có Huy hiệu nào.",
+    manage_tbl_avatar_title: "Avatar & Danh xưng",
+    manage_tbl_role: "Tước vị / Vai trò",
+    manage_tbl_dynasty: "Thời đại",
+    manage_tbl_story_name: "Tên giai thoại",
+    manage_tbl_figure: "Danh nhân",
+    manage_tbl_required_pin: "Địa danh yêu cầu",
+    manage_tbl_status: "Trạng thái",
+    manage_tbl_tier: "Cấp độ",
+    manage_tbl_criteria: "Tiêu chí đạt",
+    manage_tbl_locked: "🔒 Đang khóa",
+    manage_tbl_unlocked: "🔓 Đã mở",
+    manage_radius_scan: "Quét",
+    manage_radius_reach: "Đến",
+    manage_badge_spec_figs: "Danh nhân chỉ định",
+    manage_badge_figs: "Danh nhân",
+    manage_badge_spec_pins: "Mốc chỉ định",
+    manage_badge_pins: "Địa danh",
+    manage_badge_witnesses: "Nhân chứng",
+    manage_badge_stories: "Giai thoại",
+    manage_badge_custom: "Tự do",
+    // Quick Story Modal
+    quick_story_modal_title: "📖 Thêm Giai Thoại Mới",
+    quick_story_figure_lbl: "Giai thoại gắn liền với danh nhân:",
+    quick_story_title_lbl: "Tiêu đề Giai thoại / Sự kiện hào hùng",
+    quick_story_title_ph: "Ví dụ: Lời hịch tướng sĩ, Hội nghị Bình Than...",
+    quick_story_pin_lbl: "Địa danh (Pin) yêu cầu đến Check-in để mở khóa",
+    quick_story_pin_hint: "Người chơi sẽ phải đi tuần tra thực địa tới mốc này để mở khóa đọc câu chuyện.",
+    quick_story_bg_lbl: "Ảnh Nền / Tranh minh họa Giai thoại (Tùy chọn)",
+    quick_story_bg_ph: "Dán link ảnh (https://...) hoặc file minh họa...",
+    quick_story_bg_btn: "📁 Chọn ảnh",
+    quick_story_bg_ok: "✓ Đã nạp tranh minh họa",
+    quick_story_content_lbl: "Nội dung toàn văn câu chuyện",
+    quick_story_content_ph: "Bối cảnh lịch sử, diễn biến sự kiện, mưu lược quân sự...",
+    quick_story_cont_lbl: "Tiếp tục thêm giai thoại khác cho nhân vật này sau khi lưu",
+    quick_story_btn_cancel: "Hủy",
+    quick_story_btn_save: "💾 Lưu Giai Thoại Ngay"
   },
   en: {
     brand_title: "The Legacy Keepers",
@@ -165,7 +382,224 @@ const TRANSLATIONS = {
     cms_subtab_badges: "🏅 4. Heritage Badges",
     cms_subtab_manage: "🗂️ 5. Manage & Test Data",
     reload_data_btn: "🔄 Reload from data.json",
-    import_json_btn: "📤 Choose JSON File"
+    import_json_btn: "📤 Choose JSON File",
+    // CMS Form Labels — Pin (English)
+    cms_export_btn: "📥 Download JSON Backup",
+    cms_pin_name_lbl: "Landmark / Battlefield / Heritage Site Name",
+    cms_pin_name_ph: "e.g., Temple of Literature, Dien Bien Phu Citadel...",
+    cms_pin_type_lbl: "Pin Content Type",
+    cms_pin_type_landmark: "🏛️ Landmark & Heritage Site (Architectural monument, scenic spot)",
+    cms_pin_type_battlefield: "⚔️ Battle & Campaign (Historic battlefield, military route)",
+    cms_pin_type_living: "🎙️ Living Witness / Memory (Veteran recordings, living testimonies)",
+    cms_pin_type_story: "📖 Memory Fragment & Event (Bunker, memorial plaque)",
+    cms_pin_type_culture: "🎨 Culture & Traditional Craft Village",
+    cms_pin_rarity_lbl: "Rarity & Radar Range",
+    cms_pin_rarity_common: "Common - Radar 1-2km, Check-in 150m",
+    cms_pin_rarity_uncommon: "Uncommon - Radar 5-8km, Check-in 80m",
+    cms_pin_rarity_legendary: "Legendary - Radar 15-30km, Check-in 30m",
+    cms_pin_rarity_event: "Limited Event - Nationwide",
+    cms_pin_lat_lbl: "Latitude",
+    cms_pin_lat_hint: "Tip: Click directly on the Radar Map to auto-fill coordinates!",
+    cms_pin_lng_lbl: "Longitude",
+    cms_pin_radar_lbl: "Radar Scan Range (meters)",
+    cms_pin_checkin_lbl: "On-site Check-in Radius (meters)",
+    cms_pin_image_lbl: "Landmark / Heritage Site Image",
+    cms_pin_image_ph: "Paste online link (https://...) or file path (media/images/photo.jpg)...",
+    cms_pin_image_btn: "📁 Choose Image",
+    cms_pin_image_ok: "✓ Image loaded successfully",
+    cms_pin_image_hint: "Supports: Web links, local image files (saved to app/media/images/ or Base64 offline).",
+    cms_pin_media_lbl: "Audio / Video / Witness Testimony Path",
+    cms_pin_media_ph: "Paste YouTube link (https://youtube.com/...) or video file (media/videos/clip.mp4)...",
+    cms_pin_media_btn: "📁 Choose Video/Audio",
+    cms_pin_media_hint: "Supports: YouTube links, .mp4/.webm video or .mp3 audio in app/media/videos/ folder.",
+    cms_pin_desc_lbl: "Historical Summary & Source",
+    cms_pin_desc_ph: "Historical significance, background, cultural value...",
+    cms_pin_reset: "Reset",
+    cms_pin_save: "💾 Save Radar Pin & Sync",
+    // CMS Form Labels — Figure (English)
+    cms_fig_name_lbl: "Hero / Historical Figure Name",
+    cms_fig_name_ph: "e.g., Ly Thuong Kiet, Vo Nguyen Giap...",
+    cms_fig_role_lbl: "Title / Role",
+    cms_fig_role_ph: "e.g., General, Grand Marshal, Female Commander...",
+    cms_fig_dynasty_lbl: "Era / Dynasty",
+    cms_fig_dynasty_ph: "e.g., Ly Dynasty, Tran Dynasty, Tay Son...",
+    cms_fig_years_lbl: "Lifespan (Birth – Death Year)",
+    cms_fig_years_ph: "e.g., 1228 – 1300 or 11th Century",
+    cms_fig_avatar_lbl: "Avatar Symbol",
+    cms_fig_avatar_warrior: "⚔️ Swordsman / Commander",
+    cms_fig_avatar_king: "👑 Emperor / Sovereign",
+    cms_fig_avatar_guard: "🛡️ Nation's Guardian Hero",
+    cms_fig_avatar_archer: "🏹 Uprising Warrior",
+    cms_fig_avatar_eagle: "🦅 Lac Bird Bronze Drum",
+    cms_fig_avatar_scholar: "📜 Scholar / Intellectual",
+    cms_fig_image_lbl: "Portrait / Figure Image",
+    cms_fig_image_ph: "Paste online link (https://...) or local file (media/images/portrait.jpg)...",
+    cms_fig_image_btn: "📁 Choose Portrait",
+    cms_fig_image_ok: "✓ Portrait loaded successfully",
+    cms_fig_bg_lbl: "Background / Historical Setting Image (Hero Backdrop Cover)",
+    cms_fig_bg_ph: "Paste online link (https://...) or historical background / battlefield file...",
+    cms_fig_bg_btn: "📁 Choose Background",
+    cms_fig_bg_ok: "✓ Background image loaded successfully",
+    cms_fig_bg_hint: "The backdrop will cover the hero profile header with an epic blurred effect honoring their legacy.",
+    cms_fig_quote_lbl: "Famous Quote / Historical Saying",
+    cms_fig_quote_ph: "e.g., 'If Your Majesty wishes to surrender, please behead me first!'",
+    cms_fig_quote_hint: "A heroic proclamation or famous battle cry attributed to this figure.",
+    cms_fig_pins_lbl: "Associated Landmarks & Battlefields (Related Content)",
+    cms_fig_pins_opt: "-- Select an associated heritage site (if any) --",
+    cms_fig_pins_hint: "Pick the landmark where this hero achieved their most glorious victories.",
+    cms_fig_bio_lbl: "Biography & Heroic Life",
+    cms_fig_bio_ph: "Notable contributions, landmark battles, illustrious career...",
+    cms_fig_stories_header: "📖 Historical Tales & Lore Vault for This Hero",
+    cms_fig_stories_desc: "You can add 1 or MORE tales (unlimited). Each tale can be linked to a different heritage site for players to explore and unlock!",
+    cms_fig_add_story_btn: "+ Add Another Tale",
+    cms_fig_reset: "Reset",
+    cms_fig_save: "💾 Save Hero & All Tales",
+    // Story row (dynamic — English)
+    cms_fig_story_label: "📖 Tale",
+    cms_fig_story_remove: "✕ Remove this tale",
+    cms_fig_story_title_lbl: "Tale Title / Heroic Event",
+    cms_fig_story_title_ph: "e.g., The Stake Strategy at Bach Dang, Oath of Sat Tat...",
+    cms_fig_story_pin_lbl: "Landmark (Pin) required for Check-in to unlock",
+    cms_fig_story_pin_hint: "Players must travel to this Radar pin to unlock and read this tale.",
+    cms_fig_story_bg_lbl: "Background / Story Illustration (Optional)",
+    cms_fig_story_bg_ph: "Paste online image link (https://...) or illustration file...",
+    cms_fig_story_bg_btn: "📁 Choose Image",
+    cms_fig_story_bg_ok: "✓ Illustration loaded",
+    cms_fig_story_content_lbl: "Full Historical Story Content",
+    cms_fig_story_content_ph: "Historical context, battle development, military strategy...",
+    // CMS Form Labels — Story (English)
+    cms_story_title_lbl: "Tale / Event Title",
+    cms_story_title_ph: "e.g., The Divine Poem 'Nam Quoc Son Ha', The Rallying Cry...",
+    cms_story_figure_lbl: "Which Hero does this belong to?",
+    cms_story_pin_lbl: "Landmark (Pin) required for Check-in to unlock",
+    cms_story_bg_lbl: "Background / Story Cover Illustration",
+    cms_story_bg_ph: "Paste online image link (https://...) or story illustration file...",
+    cms_story_bg_btn: "📁 Choose Background",
+    cms_story_bg_ok: "✓ Story illustration loaded",
+    cms_story_bg_hint: "Image will appear on the tale card and at the top of the reading window when unlocked.",
+    cms_story_content_lbl: "Full Story Content",
+    cms_story_content_ph: "Full narrative, historical tactics, event progression...",
+    cms_story_cont_lbl: "Stay here to add more tales for other figures after saving",
+    cms_story_reset: "Reset",
+    cms_story_save: "💾 Save Locked Tale",
+    // CMS Form Labels — Badge (English)
+    cms_badge_name_lbl: "Badge Name",
+    cms_badge_name_ph: "e.g., The Great Defeat of Qing, Echo of the Cau River...",
+    cms_badge_tier_lbl: "Tier / Rank",
+    cms_badge_tier_gold: "🥇 Gold Tier - Gleaming Prestige",
+    cms_badge_tier_silver: "🥈 Silver Tier - Refined Honor",
+    cms_badge_tier_bronze: "🥉 Bronze Tier - Classic Legacy",
+    cms_badge_tier_diamond: "💎 Platinum Tier - Legendary",
+    cms_badge_icon_lbl: "Badge Icon",
+    cms_badge_icon_medal: "🎖️ Medal of Honor",
+    cms_badge_icon_crown: "👑 Crown of Heroes",
+    cms_badge_icon_sword: "⚔️ Battle Sword",
+    cms_badge_icon_temple: "🏛️ Heritage Crown",
+    cms_badge_icon_witness: "🎙️ Living Witness",
+    cms_badge_icon_footprint: "🐾 Heritage Footprint",
+    cms_badge_icon_eagle: "🦅 Lac Bird of Bronze",
+    cms_badge_icon_scroll: "📜 Royal Edict",
+    cms_badge_icon_shield: "🛡️ Nation's Shield",
+    cms_badge_icon_map: "🗺️ Realm Map",
+    cms_badge_icon_star: "🌟 Heritage Gem",
+    cms_badge_icon_flag: "🚩 Battle Standard",
+    cms_badge_cat_lbl: "Collection / Category",
+    cms_badge_cat_ph: "e.g., Hero's Spirit, Living Witnesses, Explore Vietnam...",
+    cms_badge_lore_lbl: "Badge Lore & Significance",
+    cms_badge_lore_ph: "The honor story, heroic tale, or historical context tied to this badge (shown when players click for details)...",
+    cms_badge_lore_hint: "This text will appear ceremonially in the badge detail modal when players open it.",
+    cms_badge_cond_header: "🎯 Set Up Auto-Unlock Conditions (Multiple Combined Conditions)",
+    cms_badge_cond_desc: "You can add 1 or MORE conditions at once (e.g., must visit specific landmarks AND discover enough heroes).",
+    cms_badge_add_cond_btn: "+ Add Another Condition",
+    cms_badge_criteria_lbl: "Badge Card Summary Requirement (Displayed on Badge Card)",
+    cms_badge_criteria_ph: "Auto-generated from conditions above, or enter custom text...",
+    cms_badge_criteria_hint: "This short description appears on the badge card in the collection.",
+    cms_badge_unlock_lbl: "Unlock immediately (For starter or beginner badges)",
+    cms_badge_reset: "Reset",
+    cms_badge_save: "💾 Save New Badge",
+    // Badge condition rows (dynamic — English)
+    cms_cond_title: "Unlock condition",
+    cms_cond_remove: "✕ Remove condition",
+    cms_cond_type_lbl: "Select Condition Type",
+    cms_cond_type_specific_fig: "👑 Discover specific Heroes / Historical Figures (Pick from list)",
+    cms_cond_type_fig_count: "👑 Unlock by any Hero count (Count-based)",
+    cms_cond_type_specific_pin: "📍 Visit specific Landmarks / Heritage Sites (Pick from list)",
+    cms_cond_type_pin_count: "🗺️ Check-in at any Landmark count (Count-based)",
+    cms_cond_type_people: "🎙️ Meet Living Witnesses / Veterans / Memories (Count-based)",
+    cms_cond_type_stories: "📖 Unlock Historical Tales count (Count-based)",
+    cms_cond_type_custom: "✍️ Free-form Condition (Enter description manually)",
+    cms_cond_fig_lbl: "Select required Historical Heroes",
+    cms_cond_fig_min: "Minimum required to unlock:",
+    cms_cond_fig_min_suf: "heroes from the selected list.",
+    cms_cond_figcount_lbl: "Number of Heroes required to discover",
+    cms_cond_figcount_hint: "Players who unlock enough heroes of any type will complete this condition.",
+    cms_cond_pin_lbl: "Select required Landmarks / Heritage Sites to check in",
+    cms_cond_pin_min: "Minimum check-ins required:",
+    cms_cond_pin_min_suf: "sites from the selected list.",
+    cms_cond_pincount_lbl: "Number of Landmarks / Heritage Sites required to check in",
+    cms_cond_pincount_hint: "Players who physically visit and check in enough pins will complete this condition.",
+    cms_cond_people_lbl: "Number of Living Witnesses / Veterans required to meet",
+    cms_cond_people_hint: "Players who check in at sites with living history or veteran records complete this condition.",
+    cms_cond_stories_lbl: "Number of Historical Tales required to unlock",
+    cms_cond_custom_lbl: "Free-form condition description",
+    cms_cond_custom_ph: "e.g., Attend a historic anniversary festival or solve a historical riddle...",
+    // CMS Manage Tab (English)
+    cms_manage_title: "⚠️ Clean Up Test Data (Factory Reset)",
+    cms_manage_desc: "Restore all game data to the original baseline. All Pins, Heroes, Tales, or Badges you added for testing will be wiped!",
+    cms_manage_reset_btn: "🔄 Restore Original Data",
+    cms_manage_pins_title: "📍 1. Landmark Pin List",
+    cms_manage_pins_hint: "Press 🗑️ to delete individual test pins",
+    cms_manage_figs_title: "⚔️ 2. Historical Figure List",
+    cms_manage_stories_title: "📖 3. Historical Tales List",
+    cms_manage_badges_title: "🏅 4. Heritage Badge List",
+    // Manage Tables Columns & Status (English)
+    manage_tbl_icon_name: "Icon & Name",
+    manage_tbl_type: "Type",
+    manage_tbl_rarity: "Rarity",
+    manage_tbl_coords: "Coordinates",
+    manage_tbl_radius: "Radius",
+    manage_tbl_action: "Actions",
+    manage_tbl_delete: "🗑️ Delete",
+    manage_tbl_empty_pins: "No Pins found.",
+    manage_tbl_empty_figs: "No Figures found.",
+    manage_tbl_empty_stories: "No Tales found.",
+    manage_tbl_empty_badges: "No Badges found.",
+    manage_tbl_avatar_title: "Avatar & Title",
+    manage_tbl_role: "Title / Role",
+    manage_tbl_dynasty: "Dynasty / Era",
+    manage_tbl_story_name: "Tale Title",
+    manage_tbl_figure: "Hero",
+    manage_tbl_required_pin: "Required Landmark",
+    manage_tbl_status: "Status",
+    manage_tbl_tier: "Tier",
+    manage_tbl_criteria: "Criteria",
+    manage_tbl_locked: "🔒 Locked",
+    manage_tbl_unlocked: "🔓 Unlocked",
+    manage_radius_scan: "Scan",
+    manage_radius_reach: "Reach",
+    manage_badge_spec_figs: "Specific Heroes",
+    manage_badge_figs: "Heroes",
+    manage_badge_spec_pins: "Specific Sites",
+    manage_badge_pins: "Sites",
+    manage_badge_witnesses: "Witnesses",
+    manage_badge_stories: "Tales",
+    manage_badge_custom: "Custom",
+    // Quick Story Modal (English)
+    quick_story_modal_title: "📖 Add New Tale",
+    quick_story_figure_lbl: "Tale associated with Hero:",
+    quick_story_title_lbl: "Tale Title / Heroic Event",
+    quick_story_title_ph: "e.g., The Officer's Proclamation, Binh Than Conference...",
+    quick_story_pin_lbl: "Landmark (Pin) required for Check-in to unlock",
+    quick_story_pin_hint: "Players must patrol to this landmark on Radar to unlock and read the tale.",
+    quick_story_bg_lbl: "Background / Story Illustration (Optional)",
+    quick_story_bg_ph: "Paste image link (https://...) or illustration file...",
+    quick_story_bg_btn: "📁 Choose Image",
+    quick_story_bg_ok: "✓ Illustration loaded",
+    quick_story_content_lbl: "Full Story Narrative",
+    quick_story_content_ph: "Historical context, battle events, military strategy...",
+    quick_story_cont_lbl: "Keep adding more tales for this hero after saving",
+    quick_story_btn_cancel: "Cancel",
+    quick_story_btn_save: "💾 Save Tale Now"
   }
 };
 
@@ -204,8 +638,190 @@ function setLanguage(lang) {
     }
   });
 
+  // Apply to all elements with data-i18n-placeholder
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (key) {
+      el.placeholder = t(key);
+    }
+  });
+
+  // Apply to all elements with data-i18n-title
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    if (key) {
+      el.title = t(key);
+    }
+  });
+
+  // Apply CMS & Dynamic Forms Translations
+  applyCMSTranslations();
+
   // Re-render views
   refreshAllViews();
+}
+
+function applyCMSTranslations() {
+  // 1. Select options in Form 1 (Pins)
+  const pinTypeSelect = document.getElementById('pin-input-type');
+  if (pinTypeSelect) {
+    for (let opt of pinTypeSelect.options) {
+      if (opt.value === 'landmark') opt.text = t('cms_pin_type_landmark');
+      else if (opt.value === 'battlefield') opt.text = t('cms_pin_type_battlefield');
+      else if (opt.value === 'living_history') opt.text = t('cms_pin_type_living');
+      else if (opt.value === 'story') opt.text = t('cms_pin_type_story');
+      else if (opt.value === 'culture') opt.text = t('cms_pin_type_culture');
+    }
+  }
+
+  const pinRaritySelect = document.getElementById('pin-input-rarity');
+  if (pinRaritySelect) {
+    for (let opt of pinRaritySelect.options) {
+      if (opt.value === 'common') opt.text = t('cms_pin_rarity_common');
+      else if (opt.value === 'uncommon') opt.text = t('cms_pin_rarity_uncommon');
+      else if (opt.value === 'legendary') opt.text = t('cms_pin_rarity_legendary');
+      else if (opt.value === 'event') opt.text = t('cms_pin_rarity_event');
+    }
+  }
+
+  // 2. Select options in Form 2 (Figures)
+  const figAvatarSelect = document.getElementById('fig-input-avatar');
+  if (figAvatarSelect) {
+    for (let opt of figAvatarSelect.options) {
+      if (opt.value === '⚔️') opt.text = t('cms_fig_avatar_warrior');
+      else if (opt.value === '👑') opt.text = t('cms_fig_avatar_king');
+      else if (opt.value === '🛡️') opt.text = t('cms_fig_avatar_guard');
+      else if (opt.value === '🏹') opt.text = t('cms_fig_avatar_archer');
+      else if (opt.value === '🦅') opt.text = t('cms_fig_avatar_eagle');
+      else if (opt.value === '📜') opt.text = t('cms_fig_avatar_scholar');
+    }
+  }
+
+  const figPinsSelect = document.getElementById('fig-input-pins');
+  if (figPinsSelect && figPinsSelect.options.length > 0 && figPinsSelect.options[0].value === "") {
+    figPinsSelect.options[0].text = t('cms_fig_pins_opt');
+  }
+
+  // 3. Select options in Form 4 (Badges)
+  const badgeTierSelect = document.getElementById('badge-input-tier');
+  if (badgeTierSelect) {
+    for (let opt of badgeTierSelect.options) {
+      if (opt.value === 'gold') opt.text = t('cms_badge_tier_gold');
+      else if (opt.value === 'silver') opt.text = t('cms_badge_tier_silver');
+      else if (opt.value === 'bronze') opt.text = t('cms_badge_tier_bronze');
+      else if (opt.value === 'diamond') opt.text = t('cms_badge_tier_diamond');
+    }
+  }
+
+  const badgeIconSelect = document.getElementById('badge-input-icon');
+  if (badgeIconSelect) {
+    for (let opt of badgeIconSelect.options) {
+      if (opt.value === '🎖️') opt.text = t('cms_badge_icon_medal');
+      else if (opt.value === '👑') opt.text = t('cms_badge_icon_crown');
+      else if (opt.value === '⚔️') opt.text = t('cms_badge_icon_sword');
+      else if (opt.value === '🏛️') opt.text = t('cms_badge_icon_temple');
+      else if (opt.value === '🎙️') opt.text = t('cms_badge_icon_witness');
+      else if (opt.value === '🐾') opt.text = t('cms_badge_icon_footprint');
+      else if (opt.value === '🦅') opt.text = t('cms_badge_icon_eagle');
+      else if (opt.value === '📜') opt.text = t('cms_badge_icon_scroll');
+      else if (opt.value === '🛡️') opt.text = t('cms_badge_icon_shield');
+      else if (opt.value === '🗺️') opt.text = t('cms_badge_icon_map');
+      else if (opt.value === '🌟') opt.text = t('cms_badge_icon_star');
+      else if (opt.value === '🚩') opt.text = t('cms_badge_icon_flag');
+    }
+  }
+
+  // 4. Update dynamic Figure Story rows in Form 2
+  const figStoryRows = document.querySelectorAll('.fig-story-row');
+  figStoryRows.forEach((row, idx) => {
+    const label = row.querySelector('.fig-story-row-label');
+    if (label) label.innerText = `${t('cms_fig_story_label')} #${idx + 1}`;
+    const delBtn = row.querySelector('.fig-story-btn-del');
+    if (delBtn) delBtn.innerText = t('cms_fig_story_remove');
+    const titleLbl = row.querySelector('.fig-story-lbl-title');
+    if (titleLbl) titleLbl.innerHTML = `${t('cms_fig_story_title_lbl')} <span class="req">*</span>`;
+    const titleInp = row.querySelector('.fig-story-input-title');
+    if (titleInp) titleInp.placeholder = t('cms_fig_story_title_ph');
+    const pinLbl = row.querySelector('.fig-story-lbl-pin');
+    if (pinLbl) pinLbl.innerText = t('cms_fig_story_pin_lbl');
+    const pinHint = row.querySelector('.fig-story-hint-pin');
+    if (pinHint) pinHint.innerText = t('cms_fig_story_pin_hint');
+    const bgLbl = row.querySelector('.fig-story-lbl-bg');
+    if (bgLbl) bgLbl.innerText = t('cms_fig_story_bg_lbl');
+    const bgInp = row.querySelector('.fig-story-input-bg');
+    if (bgInp) bgInp.placeholder = t('cms_fig_story_bg_ph');
+    const bgBtn = row.querySelector('.fig-story-btn-bg');
+    if (bgBtn) bgBtn.innerText = t('cms_fig_story_bg_btn');
+    const contentLbl = row.querySelector('.fig-story-lbl-content');
+    if (contentLbl) contentLbl.innerText = t('cms_fig_story_content_lbl');
+    const contentInp = row.querySelector('.fig-story-input-content');
+    if (contentInp) contentInp.placeholder = t('cms_fig_story_content_ph');
+  });
+
+  // 5. Update dynamic Badge Condition rows in Form 4
+  const badgeCondRows = document.querySelectorAll('.badge-cond-row');
+  badgeCondRows.forEach((row, idx) => {
+    const title = row.querySelector('.cond-row-title');
+    if (title) title.innerText = `${t('cms_cond_title')} #${idx + 1}`;
+    const delBtn = row.querySelector('.btn-delete-row');
+    if (delBtn) delBtn.innerText = t('cms_cond_remove');
+
+    const typeSelect = row.querySelector('.badge-cond-type-select');
+    if (typeSelect) {
+      for (let o of typeSelect.options) {
+        if (o.value === 'specific_figures') o.text = t('cms_cond_type_specific_fig');
+        else if (o.value === 'figures_count') o.text = t('cms_cond_type_fig_count');
+        else if (o.value === 'specific_pins') o.text = t('cms_cond_type_specific_pin');
+        else if (o.value === 'pins_count') o.text = t('cms_cond_type_pin_count');
+        else if (o.value === 'people_count') o.text = t('cms_cond_type_people');
+        else if (o.value === 'stories_count') o.text = t('cms_cond_type_stories');
+        else if (o.value === 'custom') o.text = t('cms_cond_type_custom');
+      }
+    }
+
+    const typeLbl = row.querySelector('.cond-lbl-type');
+    if (typeLbl) typeLbl.innerHTML = `${t('cms_cond_type_lbl')} <span class="req">*</span>`;
+
+    const figLbl = row.querySelector('.cond-lbl-fig');
+    if (figLbl) figLbl.innerHTML = `${t('cms_cond_fig_lbl')} <span class="req">*</span>`;
+    const figMin = row.querySelector('.cond-txt-fig-min');
+    if (figMin) figMin.innerText = t('cms_cond_fig_min');
+    const figMinSuf = row.querySelector('.cond-txt-fig-suf');
+    if (figMinSuf) figMinSuf.innerText = t('cms_cond_fig_min_suf');
+
+    const figCountLbl = row.querySelector('.cond-lbl-figcount');
+    if (figCountLbl) figCountLbl.innerHTML = `${t('cms_cond_figcount_lbl')} <span class="req">*</span>`;
+    const figCountHint = row.querySelector('.cond-hint-figcount');
+    if (figCountHint) figCountHint.innerText = t('cms_cond_figcount_hint');
+
+    const pinLbl = row.querySelector('.cond-lbl-pin');
+    if (pinLbl) pinLbl.innerHTML = `${t('cms_cond_pin_lbl')} <span class="req">*</span>`;
+    const pinMin = row.querySelector('.cond-txt-pin-min');
+    if (pinMin) pinMin.innerText = t('cms_cond_pin_min');
+    const pinMinSuf = row.querySelector('.cond-txt-pin-suf');
+    if (pinMinSuf) pinMinSuf.innerText = t('cms_cond_pin_min_suf');
+
+    const pinCountLbl = row.querySelector('.cond-lbl-pincount');
+    if (pinCountLbl) pinCountLbl.innerHTML = `${t('cms_cond_pincount_lbl')} <span class="req">*</span>`;
+    const pinCountHint = row.querySelector('.cond-hint-pincount');
+    if (pinCountHint) pinCountHint.innerText = t('cms_cond_pincount_hint');
+
+    const peopleLbl = row.querySelector('.cond-lbl-people');
+    if (peopleLbl) peopleLbl.innerHTML = `${t('cms_cond_people_lbl')} <span class="req">*</span>`;
+    const peopleHint = row.querySelector('.cond-hint-people');
+    if (peopleHint) peopleHint.innerText = t('cms_cond_people_hint');
+
+    const storiesLbl = row.querySelector('.cond-lbl-stories');
+    if (storiesLbl) storiesLbl.innerHTML = `${t('cms_cond_stories_lbl')} <span class="req">*</span>`;
+
+    const customLbl = row.querySelector('.cond-lbl-custom');
+    if (customLbl) customLbl.innerText = t('cms_cond_custom_lbl');
+    const customInp = row.querySelector('.cond-custom-desc-input');
+    if (customInp) customInp.placeholder = t('cms_cond_custom_ph');
+  });
+
+  // Re-sync criteria summary text if automatic
+  updateBadgeSummaryCriteriaAuto();
 }
 
 // Initial Default Data Set (from Thiết kế.docx)
@@ -2426,30 +3042,30 @@ function addFigureStoryRow(title = "", pinId = "", content = "", bgImage = "") {
   rowEl.innerHTML = `
     <div class="fig-story-row-header">
       <strong style="color:var(--primary-dark); font-size:0.92rem;" class="fig-story-row-label">
-        📖 Giai thoại #${currentCount}
+        ${t('cms_fig_story_label')} #${currentCount}
       </strong>
-      <button type="button" class="btn-secondary" style="color:#e53e3e; border-color:#feb2b2; padding:3px 10px; font-size:0.75rem; cursor:pointer;" onclick="removeFigureStoryRow('${rowId}')">
-        ✕ Bỏ giai thoại này
+      <button type="button" class="btn-secondary fig-story-btn-del" style="color:#e53e3e; border-color:#feb2b2; padding:3px 10px; font-size:0.75rem; cursor:pointer;" onclick="removeFigureStoryRow('${rowId}')">
+        ${t('cms_fig_story_remove')}
       </button>
     </div>
     <div class="form-grid">
       <div class="form-group form-grid-full">
-        <label>Tiêu đề Giai thoại / Sự kiện hào hùng <span class="req">*</span></label>
-        <input type="text" class="form-input fig-story-input-title" placeholder="Ví dụ: Kế sách cắm cọc sông Bạch Đằng, Lời thề Sát Thát..." value="${title}">
+        <label class="fig-story-lbl-title">${t('cms_fig_story_title_lbl')} <span class="req">*</span></label>
+        <input type="text" class="form-input fig-story-input-title" placeholder="${t('cms_fig_story_title_ph')}" value="${title}">
       </div>
       <div class="form-group">
-        <label>Địa danh (Ghim) yêu cầu Check-in để mở khóa</label>
+        <label class="fig-story-lbl-pin">${t('cms_fig_story_pin_lbl')}</label>
         <select class="form-select fig-story-input-pin">
           ${pinOptions}
         </select>
-        <span class="form-hint">Người chơi cần di chuyển đến mốc này trên Radar để mở khóa đọc câu chuyện.</span>
+        <span class="form-hint fig-story-hint-pin">${t('cms_fig_story_pin_hint')}</span>
       </div>
       <div class="form-group">
-        <label>Ảnh Nền / Tranh minh họa Giai thoại (Tùy chọn)</label>
+        <label class="fig-story-lbl-bg">${t('cms_fig_story_bg_lbl')}</label>
         <div style="display:flex; gap:8px;">
-          <input type="text" class="form-input fig-story-input-bg" placeholder="Dán link ảnh online (https://...) hoặc file minh họa..." value="${bgImage}" style="flex:1;">
+          <input type="text" class="form-input fig-story-input-bg" placeholder="${t('cms_fig_story_bg_ph')}" value="${bgImage}" style="flex:1;">
           <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.8rem; padding:8px 12px;" title="Chọn file ảnh từ máy">
-            📁 Chọn ảnh
+            <span class="fig-story-btn-bg">${t('cms_fig_story_bg_btn')}</span>
             <input type="file" accept="image/*" onchange="handleRowStoryBgPicker(event, '${rowId}')" style="display:none;">
           </label>
         </div>
@@ -2459,8 +3075,8 @@ function addFigureStoryRow(title = "", pinId = "", content = "", bgImage = "") {
         </div>
       </div>
       <div class="form-group form-grid-full">
-        <label>Nội dung chi tiết câu chuyện lịch sử</label>
-        <textarea class="form-textarea fig-story-input-content" rows="3" placeholder="Bối cảnh lịch sử, diễn biến sự kiện, kế sách quân sự...">${content}</textarea>
+        <label class="fig-story-lbl-content">${t('cms_fig_story_content_lbl')}</label>
+        <textarea class="form-textarea fig-story-input-content" rows="3" placeholder="${t('cms_fig_story_content_ph')}">${content}</textarea>
       </div>
     </div>
   `;
@@ -2524,7 +3140,7 @@ function renumberFigureStoryRows() {
   const rows = container.querySelectorAll(".fig-story-row");
   rows.forEach((row, idx) => {
     const label = row.querySelector(".fig-story-row-label");
-    if (label) label.innerText = `📖 Giai thoại #${idx + 1}`;
+    if (label) label.innerText = `${t('cms_fig_story_label')} #${idx + 1}`;
   });
 }
 
@@ -2914,28 +3530,28 @@ function addBadgeConditionRow(initialData = null) {
   rowCard.innerHTML = `
     <div class="badge-cond-row-header">
       <strong style="color:var(--primary-dark); font-size:0.95rem; display:flex; align-items:center; gap:6px;">
-        <span class="cond-row-badge">🎯</span> <span class="cond-row-title">Điều kiện mở khóa</span>
+        <span class="cond-row-badge">🎯</span> <span class="cond-row-title">${t('cms_cond_title')}</span>
       </strong>
-      <button type="button" class="btn-delete-row" style="padding:4px 8px; font-size:0.75rem;" onclick="removeBadgeConditionRow('${rowId}')">✕ Xóa điều kiện</button>
+      <button type="button" class="btn-delete-row" style="padding:4px 8px; font-size:0.75rem;" onclick="removeBadgeConditionRow('${rowId}')">${t('cms_cond_remove')}</button>
     </div>
 
     <div class="form-grid">
       <div class="form-group form-grid-full">
-        <label>Chọn Loại điều kiện <span class="req">*</span></label>
+        <label class="cond-lbl-type">${t('cms_cond_type_lbl')} <span class="req">*</span></label>
         <select class="form-select badge-cond-type-select" onchange="handleConditionTypeChange('${rowId}', this.value)">
-          <option value="specific_figures" ${type === 'specific_figures' ? 'selected' : ''}>👑 Mở khóa các Danh nhân / Anh hùng cụ thể (Chọn danh sách)</option>
-          <option value="figures_count" ${type === 'figures_count' ? 'selected' : ''}>👑 Mở khóa theo số lượng Danh nhân bất kỳ (Đếm số lượng)</option>
-          <option value="specific_pins" ${type === 'specific_pins' ? 'selected' : ''}>📍 Ghé thăm các Địa danh / Di tích cụ thể (Chọn danh sách mốc)</option>
-          <option value="pins_count" ${type === 'pins_count' ? 'selected' : ''}>🗺️ Check-in theo số lượng Địa danh bất kỳ (Đếm số lượng mốc)</option>
-          <option value="people_count" ${type === 'people_count' ? 'selected' : ''}>🎙️ Gặp gỡ Nhân chứng sống / Ký ức / Cựu chiến binh (Đếm số lượng)</option>
-          <option value="stories_count" ${type === 'stories_count' ? 'selected' : ''}>📖 Mở khóa số lượng Giai thoại lịch sử (Đếm số lượng)</option>
-          <option value="custom" ${type === 'custom' ? 'selected' : ''}>✍️ Điều kiện tự do (Nhập mô tả thủ công)</option>
+          <option value="specific_figures" ${type === 'specific_figures' ? 'selected' : ''}>${t('cms_cond_type_specific_fig')}</option>
+          <option value="figures_count" ${type === 'figures_count' ? 'selected' : ''}>${t('cms_cond_type_fig_count')}</option>
+          <option value="specific_pins" ${type === 'specific_pins' ? 'selected' : ''}>${t('cms_cond_type_specific_pin')}</option>
+          <option value="pins_count" ${type === 'pins_count' ? 'selected' : ''}>${t('cms_cond_type_pin_count')}</option>
+          <option value="people_count" ${type === 'people_count' ? 'selected' : ''}>${t('cms_cond_type_people')}</option>
+          <option value="stories_count" ${type === 'stories_count' ? 'selected' : ''}>${t('cms_cond_type_stories')}</option>
+          <option value="custom" ${type === 'custom' ? 'selected' : ''}>${t('cms_cond_type_custom')}</option>
         </select>
       </div>
 
       <!-- Specific Figures Block -->
       <div class="form-group form-grid-full cond-block-specific-figures" style="${type === 'specific_figures' ? 'display:block;' : 'display:none;'}">
-        <label>Chọn các Danh nhân lịch sử yêu cầu <span class="req">*</span></label>
+        <label class="cond-lbl-fig">${t('cms_cond_fig_lbl')} <span class="req">*</span></label>
         <div class="badge-checkbox-grid">
           ${(appState.figures || []).map(fig => `
             <label class="badge-checkbox-label">
@@ -2945,22 +3561,22 @@ function addBadgeConditionRow(initialData = null) {
           `).join("")}
         </div>
         <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
-          <span style="font-size:0.83rem; color:var(--text-muted);">Yêu cầu mở khóa tối thiểu:</span>
+          <span class="cond-txt-fig-min" style="font-size:0.83rem; color:var(--text-muted);">${t('cms_cond_fig_min')}</span>
           <input type="number" class="form-input cond-fig-min-count" min="1" max="50" value="${numVal}" style="width:80px; padding:4px 8px;" oninput="updateBadgeSummaryCriteriaAuto()">
-          <span style="font-size:0.83rem; color:var(--text-muted);">danh nhân trong số người được chọn.</span>
+          <span class="cond-txt-fig-suf" style="font-size:0.83rem; color:var(--text-muted);">${t('cms_cond_fig_min_suf')}</span>
         </div>
       </div>
 
       <!-- Figures Count Block -->
       <div class="form-group form-grid-full cond-block-figures-count" style="${type === 'figures_count' ? 'display:block;' : 'display:none;'}">
-        <label>Số lượng Danh nhân yêu cầu khám phá <span class="req">*</span></label>
+        <label class="cond-lbl-figcount">${t('cms_cond_figcount_lbl')} <span class="req">*</span></label>
         <input type="number" class="form-input cond-figures-count-input" min="1" max="100" value="${numVal}" oninput="updateBadgeSummaryCriteriaAuto()">
-        <span class="form-hint">Người chơi mở khóa đủ số lượng danh nhân bất kỳ này sẽ hoàn thành điều kiện.</span>
+        <span class="form-hint cond-hint-figcount">${t('cms_cond_figcount_hint')}</span>
       </div>
 
       <!-- Specific Pins Block -->
       <div class="form-group form-grid-full cond-block-specific-pins" style="${type === 'specific_pins' ? 'display:block;' : 'display:none;'}">
-        <label>Chọn các Địa danh / Di tích yêu cầu check-in <span class="req">*</span></label>
+        <label class="cond-lbl-pin">${t('cms_cond_pin_lbl')} <span class="req">*</span></label>
         <div class="badge-checkbox-grid">
           ${(appState.pins || []).map(pin => `
             <label class="badge-checkbox-label">
@@ -2970,36 +3586,36 @@ function addBadgeConditionRow(initialData = null) {
           `).join("")}
         </div>
         <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
-          <span style="font-size:0.83rem; color:var(--text-muted);">Yêu cầu check-in tối thiểu:</span>
+          <span class="cond-txt-pin-min" style="font-size:0.83rem; color:var(--text-muted);">${t('cms_cond_pin_min')}</span>
           <input type="number" class="form-input cond-pin-min-count" min="1" max="50" value="${numVal}" style="width:80px; padding:4px 8px;" oninput="updateBadgeSummaryCriteriaAuto()">
-          <span style="font-size:0.83rem; color:var(--text-muted);">địa danh trong số điểm được chọn.</span>
+          <span class="cond-txt-pin-suf" style="font-size:0.83rem; color:var(--text-muted);">${t('cms_cond_pin_min_suf')}</span>
         </div>
       </div>
 
       <!-- Pins Count Block -->
       <div class="form-group form-grid-full cond-block-pins-count" style="${type === 'pins_count' ? 'display:block;' : 'display:none;'}">
-        <label>Số lượng Địa danh / Di tích yêu cầu check-in <span class="req">*</span></label>
+        <label class="cond-lbl-pincount">${t('cms_cond_pincount_lbl')} <span class="req">*</span></label>
         <input type="number" class="form-input cond-pins-count-input" min="1" max="100" value="${numVal}" oninput="updateBadgeSummaryCriteriaAuto()">
-        <span class="form-hint">Người chơi đến thực địa và check-in đủ số mốc bất kỳ để hoàn thành điều kiện.</span>
+        <span class="form-hint cond-hint-pincount">${t('cms_cond_pincount_hint')}</span>
       </div>
 
       <!-- People Count Block -->
       <div class="form-group form-grid-full cond-block-people-count" style="${type === 'people_count' ? 'display:block;' : 'display:none;'}">
-        <label>Số lượng Nhân chứng sống / Cựu chiến binh yêu cầu gặp gỡ <span class="req">*</span></label>
+        <label class="cond-lbl-people">${t('cms_cond_people_lbl')} <span class="req">*</span></label>
         <input type="number" class="form-input cond-people-count-input" min="1" max="100" value="${numVal}" oninput="updateBadgeSummaryCriteriaAuto()">
-        <span class="form-hint">Người chơi check-in tại các điểm có tư liệu nhân chứng sống hoặc cựu chiến binh.</span>
+        <span class="form-hint cond-hint-people">${t('cms_cond_people_hint')}</span>
       </div>
 
       <!-- Stories Count Block -->
       <div class="form-group form-grid-full cond-block-stories-count" style="${type === 'stories_count' ? 'display:block;' : 'display:none;'}">
-        <label>Số lượng Giai thoại cốt truyện yêu cầu mở khóa <span class="req">*</span></label>
+        <label class="cond-lbl-stories">${t('cms_cond_stories_lbl')} <span class="req">*</span></label>
         <input type="number" class="form-input cond-stories-count-input" min="1" max="100" value="${numVal}" oninput="updateBadgeSummaryCriteriaAuto()">
       </div>
 
       <!-- Custom Description Block -->
       <div class="form-group form-grid-full cond-block-custom" style="${type === 'custom' ? 'display:block;' : 'display:none;'}">
-        <label>Mô tả điều kiện tự do</label>
-        <input type="text" class="form-input cond-custom-desc-input" placeholder="Ví dụ: Tham gia sự kiện lễ hội kỷ niệm hoặc giải mã câu đố..." oninput="updateBadgeSummaryCriteriaAuto()">
+        <label class="cond-lbl-custom">${t('cms_cond_custom_lbl')}</label>
+        <input type="text" class="form-input cond-custom-desc-input" placeholder="${t('cms_cond_custom_ph')}" oninput="updateBadgeSummaryCriteriaAuto()">
       </div>
     </div>
   `;
@@ -3013,7 +3629,7 @@ function removeBadgeConditionRow(rowId) {
   const container = document.getElementById("badge-conditions-container");
   if (!container) return;
   if (container.children.length <= 1) {
-    showToast("⚠️ Huy hiệu cần có tối thiểu ít nhất 1 điều kiện mở khóa!");
+    showToast(currentLang === 'en' ? "⚠️ Badges require at least 1 unlock condition!" : "⚠️ Huy hiệu cần có tối thiểu ít nhất 1 điều kiện mở khóa!");
     return;
   }
   const el = document.getElementById(rowId);
@@ -3043,7 +3659,7 @@ function updateBadgeConditionRowTitles() {
   const rows = container.querySelectorAll(".badge-cond-row");
   rows.forEach((r, idx) => {
     const title = r.querySelector(".cond-row-title");
-    if (title) title.innerText = `Điều kiện mở khóa #${idx + 1}`;
+    if (title) title.innerText = `${t('cms_cond_title')} #${idx + 1}`;
   });
 }
 
@@ -3065,13 +3681,13 @@ function updateBadgeSummaryCriteriaAuto() {
           const fig = (appState.figures || []).find(f => f.id === cb.value);
           return fig ? fig.name : cb.value;
         });
-        descs.push(`Khám phá ${minCount} Danh nhân: ${names.join(", ")}`);
+        descs.push(currentLang === 'en' ? `Discover ${minCount} Heroes: ${names.join(", ")}` : `Khám phá ${minCount} Danh nhân: ${names.join(", ")}`);
       } else {
-        descs.push(`Mở khóa các Danh nhân lịch sử được chọn`);
+        descs.push(currentLang === 'en' ? `Unlock selected historical figures` : `Mở khóa các Danh nhân lịch sử được chọn`);
       }
     } else if (type === 'figures_count') {
       const num = parseInt(r.querySelector(".cond-figures-count-input").value) || 2;
-      descs.push(`Khám phá và mở khóa ${num} Danh nhân lịch sử hào kiệt`);
+      descs.push(currentLang === 'en' ? `Discover and unlock ${num} heroic figures` : `Khám phá và mở khóa ${num} Danh nhân lịch sử hào kiệt`);
     } else if (type === 'specific_pins') {
       const checkedBoxes = Array.from(r.querySelectorAll(".cond-pin-checkbox:checked"));
       const minCount = parseInt(r.querySelector(".cond-pin-min-count").value) || checkedBoxes.length || 1;
@@ -3080,19 +3696,19 @@ function updateBadgeSummaryCriteriaAuto() {
           const pin = (appState.pins || []).find(p => p.id === cb.value);
           return pin ? pin.name : cb.value;
         });
-        descs.push(`Check-in tại ${minCount} Địa danh: ${names.join(", ")}`);
+        descs.push(currentLang === 'en' ? `Check in at ${minCount} Landmarks: ${names.join(", ")}` : `Check-in tại ${minCount} Địa danh: ${names.join(", ")}`);
       } else {
-        descs.push(`Check-in tại các Địa danh di tích được chọn`);
+        descs.push(currentLang === 'en' ? `Check in at selected heritage landmarks` : `Check-in tại các Địa danh di tích được chọn`);
       }
     } else if (type === 'pins_count') {
       const num = parseInt(r.querySelector(".cond-pins-count-input").value) || 3;
-      descs.push(`Check-in tại ${num} Địa danh / Di tích bất kỳ`);
+      descs.push(currentLang === 'en' ? `Check in at ${num} Landmarks / Sites` : `Check-in tại ${num} Địa danh / Di tích bất kỳ`);
     } else if (type === 'people_count') {
       const num = parseInt(r.querySelector(".cond-people-count-input").value) || 1;
-      descs.push(`Gặp gỡ và giao lưu với ${num} Nhân chứng sống / Ký ức`);
+      descs.push(currentLang === 'en' ? `Meet and interview ${num} Living Witnesses` : `Gặp gỡ và giao lưu với ${num} Nhân chứng sống / Ký ức`);
     } else if (type === 'stories_count') {
       const num = parseInt(r.querySelector(".cond-stories-count-input").value) || 2;
-      descs.push(`Mở khóa trọn vẹn ${num} Giai thoại lịch sử`);
+      descs.push(currentLang === 'en' ? `Unlock ${num} Historical Tales` : `Mở khóa trọn vẹn ${num} Giai thoại lịch sử`);
     } else if (type === 'custom') {
       const val = r.querySelector(".cond-custom-desc-input").value.trim();
       if (val) descs.push(val);
@@ -3326,18 +3942,18 @@ function renderManageTables() {
 
   if (pinWrap) {
     if (appState.pins.length === 0) {
-      pinWrap.innerHTML = "<p style='color:var(--text-muted); font-size:0.9rem; padding:12px;'>Chưa có Ghim nào.</p>";
+      pinWrap.innerHTML = `<p style='color:var(--text-muted); font-size:0.9rem; padding:12px;'>${t('manage_tbl_empty_pins')}</p>`;
     } else {
       let html = `
         <table class="manage-table">
           <thead>
             <tr>
-              <th>Icon & Tên</th>
-              <th>Loại</th>
-              <th>Độ hiếm</th>
-              <th>Tọa độ</th>
-              <th>Bán kính</th>
-              <th style="text-align:right;">Thao tác</th>
+              <th>${t('manage_tbl_icon_name')}</th>
+              <th>${t('manage_tbl_type')}</th>
+              <th>${t('manage_tbl_rarity')}</th>
+              <th>${t('manage_tbl_coords')}</th>
+              <th>${t('manage_tbl_radius')}</th>
+              <th style="text-align:right;">${t('manage_tbl_action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -3349,9 +3965,9 @@ function renderManageTables() {
             <td><span style="font-size:0.8rem; background:var(--neutral-100); padding:3px 8px; border-radius:4px;">${pin.category}</span></td>
             <td><span style="font-size:0.8rem; font-weight:600;">${pin.rarity}</span></td>
             <td style="font-family:monospace; font-size:0.8rem;">${Number(pin.lat).toFixed(4)}, ${Number(pin.lng).toFixed(4)}</td>
-            <td style="font-size:0.8rem;">Quét ${pin.discovery_radius}m / Đến ${pin.interaction_radius}m</td>
+            <td style="font-size:0.8rem;">${t('manage_radius_scan')} ${pin.discovery_radius}m / ${t('manage_radius_reach')} ${pin.interaction_radius}m</td>
             <td style="text-align:right;">
-              <button class="btn-delete-row" onclick="deletePinById('${pin.id}')">🗑️ Xóa</button>
+              <button class="btn-delete-row" onclick="deletePinById('${pin.id}')">${t('manage_tbl_delete')}</button>
             </td>
           </tr>
         `;
@@ -3368,16 +3984,16 @@ function renderManageTables() {
 
   if (figWrap) {
     if (appState.figures.length === 0) {
-      figWrap.innerHTML = "<p style='color:var(--text-muted); font-size:0.9rem; padding:12px;'>Chưa có Danh nhân nào.</p>";
+      figWrap.innerHTML = `<p style='color:var(--text-muted); font-size:0.9rem; padding:12px;'>${t('manage_tbl_empty_figs')}</p>`;
     } else {
       let html = `
         <table class="manage-table">
           <thead>
             <tr>
-              <th>Avatar & Danh xưng</th>
-              <th>Tước vị / Vai trò</th>
-              <th>Thời đại</th>
-              <th style="text-align:right;">Thao tác</th>
+              <th>${t('manage_tbl_avatar_title')}</th>
+              <th>${t('manage_tbl_role')}</th>
+              <th>${t('manage_tbl_dynasty')}</th>
+              <th style="text-align:right;">${t('manage_tbl_action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -3389,7 +4005,7 @@ function renderManageTables() {
             <td>${fig.role || '—'}</td>
             <td>${fig.dynasty || '—'}</td>
             <td style="text-align:right;">
-              <button class="btn-delete-row" onclick="deleteFigureById('${fig.id}')">🗑️ Xóa</button>
+              <button class="btn-delete-row" onclick="deleteFigureById('${fig.id}')">${t('manage_tbl_delete')}</button>
             </td>
           </tr>
         `;
@@ -3406,17 +4022,17 @@ function renderManageTables() {
 
   if (storyWrap) {
     if (appState.stories.length === 0) {
-      storyWrap.innerHTML = "<p style='color:var(--text-muted); font-size:0.9rem; padding:12px;'>Chưa có Giai thoại nào.</p>";
+      storyWrap.innerHTML = `<p style='color:var(--text-muted); font-size:0.9rem; padding:12px;'>${t('manage_tbl_empty_stories')}</p>`;
     } else {
       let html = `
         <table class="manage-table">
           <thead>
             <tr>
-              <th>Tên giai thoại</th>
-              <th>Danh nhân</th>
-              <th>Địa danh yêu cầu</th>
-              <th>Trạng thái</th>
-              <th style="text-align:right;">Thao tác</th>
+              <th>${t('manage_tbl_story_name')}</th>
+              <th>${t('manage_tbl_figure')}</th>
+              <th>${t('manage_tbl_required_pin')}</th>
+              <th>${t('manage_tbl_status')}</th>
+              <th style="text-align:right;">${t('manage_tbl_action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -3429,9 +4045,9 @@ function renderManageTables() {
             <td><b>${st.name}</b></td>
             <td>${fig ? fig.name : '—'}</td>
             <td>${pin ? pin.name : '—'}</td>
-            <td><span style="font-size:0.8rem; color:${st.is_locked ? '#e67e22' : '#27ae60'};">${st.is_locked ? '🔒 Đang khóa' : '🔓 Đã mở'}</span></td>
+            <td><span style="font-size:0.8rem; color:${st.is_locked ? '#e67e22' : '#27ae60'};">${st.is_locked ? t('manage_tbl_locked') : t('manage_tbl_unlocked')}</span></td>
             <td style="text-align:right;">
-              <button class="btn-delete-row" onclick="deleteStoryById('${st.id}')">🗑️ Xóa</button>
+              <button class="btn-delete-row" onclick="deleteStoryById('${st.id}')">${t('manage_tbl_delete')}</button>
             </td>
           </tr>
         `;
@@ -3448,17 +4064,17 @@ function renderManageTables() {
 
   if (badgeWrap) {
     if (appState.badges.length === 0) {
-      badgeWrap.innerHTML = "<p style='color:var(--text-muted); font-size:0.9rem; padding:12px;'>Chưa có Huy hiệu nào.</p>";
+      badgeWrap.innerHTML = `<p style='color:var(--text-muted); font-size:0.9rem; padding:12px;'>${t('manage_tbl_empty_badges')}</p>`;
     } else {
       let html = `
         <table class="manage-table">
           <thead>
             <tr>
-              <th>Icon & Tên</th>
-              <th>Cấp độ</th>
-              <th>Tiêu chí đạt</th>
-              <th>Trạng thái</th>
-              <th style="text-align:right;">Thao tác</th>
+              <th>${t('manage_tbl_icon_name')}</th>
+              <th>${t('manage_tbl_tier')}</th>
+              <th>${t('manage_tbl_criteria')}</th>
+              <th>${t('manage_tbl_status')}</th>
+              <th style="text-align:right;">${t('manage_tbl_action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -3467,23 +4083,34 @@ function renderManageTables() {
         const prog = getBadgeProgress(bg);
         const conds = getNormalizedBadgeConditions(bg);
         const condSummaries = conds.map(c => {
-          if (c.type === 'specific_figures') return `👑 ${(c.target_figures || []).length} Danh nhân chỉ định`;
-          if (c.type === 'figures_count') return `👑 ${c.target_num} Danh nhân`;
-          if (c.type === 'specific_pins') return `📍 ${(c.target_pins || []).length} Mốc chỉ định`;
-          if (c.type === 'pins_count') return `🗺️ ${c.target_num} Địa danh`;
-          if (c.type === 'people_count') return `🎙️ ${c.target_num} Nhân chứng`;
-          if (c.type === 'stories_count') return `📖 ${c.target_num} Giai thoại`;
-          return `✍️ Tự do`;
+          if (c.type === 'specific_figures') return `👑 ${(c.target_figures || []).length} ${t('manage_badge_spec_figs')}`;
+          if (c.type === 'figures_count') return `👑 ${c.target_num} ${t('manage_badge_figs')}`;
+          if (c.type === 'specific_pins') return `📍 ${(c.target_pins || []).length} ${t('manage_badge_spec_pins')}`;
+          if (c.type === 'pins_count') return `🗺️ ${c.target_num} ${t('manage_badge_pins')}`;
+          if (c.type === 'people_count') return `🎙️ ${c.target_num} ${t('manage_badge_witnesses')}`;
+          if (c.type === 'stories_count') return `📖 ${c.target_num} ${t('manage_badge_stories')}`;
+          return `✍️ ${t('manage_badge_custom')}`;
         }).join(" + ");
+
+        const progressLabel = currentLang === 'en'
+          ? `Rule: [${condSummaries}] • Progress: <b>${prog.current}</b>/<b>${prog.max}</b> (${prog.percent}%)`
+          : `Luật: [${condSummaries}] • Tiến độ: <b>${prog.current}</b>/<b>${prog.max}</b> (${prog.percent}%)`;
+
+        const toggleLabel = bg.is_unlocked
+          ? (currentLang === 'en' ? '✓ Owned (Click to lock)' : '✓ Đã nhận (Bấm khóa)')
+          : (currentLang === 'en' ? '🔒 Locked (Click to open)' : '🔒 Chưa nhận (Bấm mở)');
+
+        const clickTitle = currentLang === 'en' ? "Click to view details" : "Bấm để xem chi tiết";
+        const toggleTitle = currentLang === 'en' ? "Click to toggle unlocked status" : "Bấm để chuyển đổi nhanh đã nhận / chưa nhận";
 
         html += `
           <tr>
             <td>
-              <div style="display:flex; align-items:center; gap:8px; cursor:pointer;" onclick="openBadgeDetailsModal('${bg.id}')" title="Bấm để xem chi tiết">
+              <div style="display:flex; align-items:center; gap:8px; cursor:pointer;" onclick="openBadgeDetailsModal('${bg.id}')" title="${clickTitle}">
                 <span style="font-size:1.4rem;">${bg.icon || '🏅'}</span>
                 <div>
                   <b style="color:var(--primary);">${bg.name}</b>
-                  <div style="font-size:0.75rem; color:var(--text-muted);">${bg.category || 'Di sản'}</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">${bg.category || (currentLang === 'en' ? 'Heritage' : 'Di sản')}</div>
                 </div>
               </div>
             </td>
@@ -3491,16 +4118,16 @@ function renderManageTables() {
             <td style="font-size:0.82rem; max-width:280px;">
               <div>${bg.criteria}</div>
               <div style="font-size:0.75rem; color:var(--accent-camel); font-weight:600; margin-top:3px;">
-                Luật: [${condSummaries}] • Tiến độ: <b>${prog.current}</b>/<b>${prog.max}</b> (${prog.percent}%)
+                ${progressLabel}
               </div>
             </td>
             <td>
-              <button class="btn-secondary" style="font-size:0.76rem; padding:4px 10px; cursor:pointer;" onclick="toggleBadgeUnlock('${bg.id}')" title="Bấm để chuyển đổi nhanh đã nhận / chưa nhận">
-                ${bg.is_unlocked ? '✓ Đã nhận (Bấm khóa)' : '🔒 Chưa nhận (Bấm mở)'}
+              <button class="btn-secondary" style="font-size:0.76rem; padding:4px 10px; cursor:pointer;" onclick="toggleBadgeUnlock('${bg.id}')" title="${toggleTitle}">
+                ${toggleLabel}
               </button>
             </td>
             <td style="text-align:right;">
-              <button class="btn-delete-row" onclick="deleteBadgeById('${bg.id}')">🗑️ Xóa</button>
+              <button class="btn-delete-row" onclick="deleteBadgeById('${bg.id}')">${t('manage_tbl_delete')}</button>
             </td>
           </tr>
         `;

@@ -240,7 +240,7 @@
                 📤 Chọn file JSON
                 <input type="file" id="json-file-input" accept=".json" onchange="importJSONFile(event)" style="display:none;">
               </label>
-              <button class="btn-secondary" onclick="exportDataJSON()" title="Tải toàn bộ dữ liệu hiện tại về máy dạng JSON">📥 Tải sao lưu JSON</button>
+              <button class="btn-secondary" onclick="exportDataJSON()" data-i18n="cms_export_btn" title="Tải toàn bộ dữ liệu hiện tại về máy dạng JSON">📥 Tải sao lưu JSON</button>
             </div>
           </div>
 
@@ -258,12 +258,12 @@
             <form id="form-new-pin" onsubmit="handleCreatePin(event)">
               <div class="form-grid">
                 <div class="form-group form-grid-full">
-                  <label>Tên Địa danh / Chiến trường / Điểm di tích <span class="req">*</span></label>
-                  <input type="text" class="form-input" id="pin-input-name" placeholder="Ví dụ: Đền Hùng, Ngã ba Đồng Lộc, Cố đô Hoa Lư..." required>
+                  <label><span data-i18n="cms_pin_name_lbl">Tên Địa danh / Chiến trường / Điểm di tích</span> <span class="req">*</span></label>
+                  <input type="text" class="form-input" id="pin-input-name" data-i18n-placeholder="cms_pin_name_ph" placeholder="Ví dụ: Đền Hùng, Ngã ba Đồng Lộc, Cố đô Hoa Lư..." required>
                 </div>
 
                 <div class="form-group">
-                  <label>Loại nội dung Pin <span class="req">*</span></label>
+                  <label><span data-i18n="cms_pin_type_lbl">Loại nội dung Pin</span> <span class="req">*</span></label>
                   <select class="form-select" id="pin-input-type" required>
                     <option value="landmark">🏛️ Địa danh & Di tích (Công trình kiến trúc, danh thắng)</option>
                     <option value="battlefield">⚔️ Trận đánh & Chiến dịch (Chiến trường xưa, tuyến đường lịch sử)</option>
@@ -274,7 +274,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Độ hiếm & Tầm phủ Radar <span class="req">*</span></label>
+                  <label><span data-i18n="cms_pin_rarity_lbl">Độ hiếm & Tầm phủ Radar</span> <span class="req">*</span></label>
                   <select class="form-select" id="pin-input-rarity" required>
                     <option value="common">Thường (Common) - Radar quét 1-2km, Check-in 150m</option>
                     <option value="uncommon">Hiếm (Uncommon) - Radar quét 5-8km, Check-in 80m</option>
@@ -284,63 +284,63 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Vĩ độ (Latitude) <span class="req">*</span></label>
+                  <label><span data-i18n="cms_pin_lat_lbl">Vĩ độ (Latitude)</span> <span class="req">*</span></label>
                   <input type="number" step="any" class="form-input" id="pin-input-lat" placeholder="21.0345600" required>
-                  <span class="form-hint">Mẹo: Bạn có thể click chuột trực tiếp lên Radar Bản đồ để tự điền tọa độ!</span>
+                  <span class="form-hint" data-i18n="cms_pin_lat_hint">Mẹo: Bạn có thể click chuột trực tiếp lên Radar Bản đồ để tự điền tọa độ!</span>
                 </div>
 
                 <div class="form-group">
-                  <label>Kinh độ (Longitude) <span class="req">*</span></label>
+                  <label><span data-i18n="cms_pin_lng_lbl">Kinh độ (Longitude)</span> <span class="req">*</span></label>
                   <input type="number" step="any" class="form-input" id="pin-input-lng" placeholder="105.8407400" required>
                 </div>
 
                 <div class="form-group">
-                  <label>Tầm quét Radar (mét)</label>
+                  <label data-i18n="cms_pin_radar_lbl">Tầm quét Radar (mét)</label>
                   <input type="number" class="form-input" id="pin-input-discovery-radius" value="2000">
                 </div>
 
                 <div class="form-group">
-                  <label>Bán kính Check-in thực địa (mét)</label>
+                  <label data-i18n="cms_pin_checkin_lbl">Bán kính Check-in thực địa (mét)</label>
                   <input type="number" class="form-input" id="pin-input-interaction-radius" value="100">
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Hình ảnh Địa danh / Di tích</label>
+                  <label data-i18n="cms_pin_image_lbl">Hình ảnh Địa danh / Di tích</label>
                   <div style="display:flex; gap:8px;">
-                    <input type="text" class="form-input" id="pin-input-image" placeholder="Dán link online (https://...) hoặc nhập đường dẫn file (media/images/anh.jpg)..." style="flex:1;">
+                    <input type="text" class="form-input" id="pin-input-image" data-i18n-placeholder="cms_pin_image_ph" placeholder="Dán link online (https://...) hoặc nhập đường dẫn file (media/images/anh.jpg)..." style="flex:1;">
                     <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file ảnh từ máy tính của bạn">
-                      📁 Chọn ảnh từ máy
+                      <span data-i18n="cms_pin_image_btn">📁 Chọn ảnh từ máy</span>
                       <input type="file" id="pin-file-image-picker" accept="image/*" onchange="handleImageFilePicker(event)" style="display:none;">
                     </label>
                   </div>
                   <div id="pin-image-preview-box" style="margin-top:8px; display:none; align-items:center; gap:12px; background:var(--neutral-100); padding:8px 12px; border-radius:6px;">
                     <img id="pin-image-preview-thumb" src="" style="height:60px; width:90px; border-radius:4px; border:1px solid var(--neutral-300); object-fit:cover;">
-                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;">✓ Đã nạp ảnh thành công</div>
+                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;" data-i18n="cms_pin_image_ok">✓ Đã nạp ảnh thành công</div>
                   </div>
-                  <span class="form-hint">Hỗ trợ: Link web, tải ảnh từ máy tính (tự lưu vào <code>app/media/images/</code> hoặc Base64 offline).</span>
+                  <span class="form-hint" data-i18n="cms_pin_image_hint">Hỗ trợ: Link web, tải ảnh từ máy tính (tự lưu vào <code>app/media/images/</code> hoặc Base64 offline).</span>
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Đường dẫn Audio / Video / Lời kể nhân chứng</label>
+                  <label data-i18n="cms_pin_media_lbl">Đường dẫn Audio / Video / Lời kể nhân chứng</label>
                   <div style="display:flex; gap:8px;">
-                    <input type="text" class="form-input" id="pin-input-media" placeholder="Dán link YouTube (https://youtube.com/...) hoặc file video (media/videos/clip.mp4)..." style="flex:1;">
+                    <input type="text" class="form-input" id="pin-input-media" data-i18n-placeholder="cms_pin_media_ph" placeholder="Dán link YouTube (https://youtube.com/...) hoặc file video (media/videos/clip.mp4)..." style="flex:1;">
                     <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file video/audio từ máy tính của bạn">
-                      📁 Chọn video/audio
+                      <span data-i18n="cms_pin_media_btn">📁 Chọn video/audio</span>
                       <input type="file" id="pin-file-media-picker" accept="video/*,audio/*" onchange="handleMediaFilePicker(event)" style="display:none;">
                     </label>
                   </div>
-                  <span class="form-hint">Hỗ trợ: Link YouTube, file video <code>.mp4</code>/<code>.webm</code> hoặc audio <code>.mp3</code> trong thư mục <code>app/media/videos/</code>.</span>
+                  <span class="form-hint" data-i18n="cms_pin_media_hint">Hỗ trợ: Link YouTube, file video <code>.mp4</code>/<code>.webm</code> hoặc audio <code>.mp3</code> trong thư mục <code>app/media/videos/</code>.</span>
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Tóm tắt tư liệu lịch sử & Nguồn kiểm chứng</label>
-                  <textarea class="form-textarea" id="pin-input-desc" rows="4" placeholder="Ý nghĩa lịch sử, bối cảnh hình thành, giá trị văn hóa..."></textarea>
+                  <label data-i18n="cms_pin_desc_lbl">Tóm tắt tư liệu lịch sử & Nguồn kiểm chứng</label>
+                  <textarea class="form-textarea" id="pin-input-desc" data-i18n-placeholder="cms_pin_desc_ph" rows="4" placeholder="Ý nghĩa lịch sử, bối cảnh hình thành, giá trị văn hóa..."></textarea>
                 </div>
               </div>
 
               <div class="btn-row">
-                <button type="reset" class="btn-secondary">Làm mới</button>
-                <button type="submit" class="btn-primary">💾 Lưu Ghim Bản Đồ & Đồng Bộ</button>
+                <button type="reset" class="btn-secondary" data-i18n="cms_pin_reset">Làm mới</button>
+                <button type="submit" class="btn-primary" data-i18n="cms_pin_save">💾 Lưu Ghim Bản Đồ & Đồng Bộ</button>
               </div>
             </form>
           </div>
@@ -350,27 +350,27 @@
             <form id="form-new-figure" onsubmit="handleCreateFigure(event)">
               <div class="form-grid">
                 <div class="form-group">
-                  <label>Tên Danh nhân / Anh hùng <span class="req">*</span></label>
-                  <input type="text" class="form-input" id="fig-input-name" placeholder="Ví dụ: Lý Thường Kiệt, Võ Nguyên Giáp..." required>
+                  <label><span data-i18n="cms_fig_name_lbl">Tên Danh nhân / Anh hùng</span> <span class="req">*</span></label>
+                  <input type="text" class="form-input" id="fig-input-name" data-i18n-placeholder="cms_fig_name_ph" placeholder="Ví dụ: Lý Thường Kiệt, Võ Nguyên Giáp..." required>
                 </div>
 
                 <div class="form-group">
-                  <label>Tước vị / Vai trò</label>
-                  <input type="text" class="form-input" id="fig-input-role" placeholder="Ví dụ: Đại tướng, Thái úy, Nữ tướng...">
+                  <label data-i18n="cms_fig_role_lbl">Tước vị / Vai trò</label>
+                  <input type="text" class="form-input" id="fig-input-role" data-i18n-placeholder="cms_fig_role_ph" placeholder="Ví dụ: Đại tướng, Thái úy, Nữ tướng...">
                 </div>
 
                 <div class="form-group">
-                  <label>Thời đại / Triều đại</label>
-                  <input type="text" class="form-input" id="fig-input-dynasty" placeholder="Ví dụ: Nhà Lý, Nhà Trần, Nhà Tây Sơn...">
+                  <label data-i18n="cms_fig_dynasty_lbl">Thời đại / Triều đại</label>
+                  <input type="text" class="form-input" id="fig-input-dynasty" data-i18n-placeholder="cms_fig_dynasty_ph" placeholder="Ví dụ: Nhà Lý, Nhà Trần, Nhà Tây Sơn...">
                 </div>
 
                 <div class="form-group">
-                  <label>Niên đại (Năm sinh – Năm mất)</label>
-                  <input type="text" class="form-input" id="fig-input-years" placeholder="Ví dụ: 1228 – 1300 hoặc Thế kỷ 11">
+                  <label data-i18n="cms_fig_years_lbl">Niên đại (Năm sinh – Năm mất)</label>
+                  <input type="text" class="form-input" id="fig-input-years" data-i18n-placeholder="cms_fig_years_ph" placeholder="Ví dụ: 1228 – 1300 hoặc Thế kỷ 11">
                 </div>
 
                 <div class="form-group">
-                  <label>Biểu tượng Avatar</label>
+                  <label data-i18n="cms_fig_avatar_lbl">Biểu tượng Avatar</label>
                   <select class="form-select" id="fig-input-avatar">
                     <option value="⚔️">⚔️ Kiếm sĩ / Tướng lĩnh</option>
                     <option value="👑">👑 Hoàng đế / Vương giả</option>
@@ -382,68 +382,68 @@
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Hình ảnh / Chân dung Danh nhân</label>
+                  <label data-i18n="cms_fig_image_lbl">Hình ảnh / Chân dung Danh nhân</label>
                   <div style="display:flex; gap:8px;">
-                    <input type="text" class="form-input" id="fig-input-image" placeholder="Dán link ảnh online (https://...) hoặc file cục bộ (media/images/portrait.jpg)..." style="flex:1;">
+                    <input type="text" class="form-input" id="fig-input-image" data-i18n-placeholder="cms_fig_image_ph" placeholder="Dán link ảnh online (https://...) hoặc file cục bộ (media/images/portrait.jpg)..." style="flex:1;">
                     <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file ảnh từ máy tính">
-                      📁 Chọn ảnh từ máy
+                      <span data-i18n="cms_fig_image_btn">📁 Chọn ảnh từ máy</span>
                       <input type="file" id="fig-file-image-picker" accept="image/*" onchange="handleFigureImagePicker(event)" style="display:none;">
                     </label>
                   </div>
                   <div id="fig-image-preview-box" style="margin-top:8px; display:none; align-items:center; gap:12px; background:var(--neutral-100); padding:8px 12px; border-radius:6px;">
                     <img id="fig-image-preview-thumb" src="" style="height:60px; width:60px; border-radius:50%; border:2px solid var(--accent-gold); object-fit:cover;">
-                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;">✓ Đã nạp chân dung thành công</div>
+                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;" data-i18n="cms_fig_image_ok">✓ Đã nạp chân dung thành công</div>
                   </div>
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Ảnh Nền / Bối cảnh Lịch sử Danh nhân (Hero Backdrop Cover)</label>
+                  <label data-i18n="cms_fig_bg_lbl">Ảnh Nền / Bối cảnh Lịch sử Danh nhân (Hero Backdrop Cover)</label>
                   <div style="display:flex; gap:8px;">
-                    <input type="text" class="form-input" id="fig-input-bg" placeholder="Dán link ảnh online (https://...) hoặc file bối cảnh lịch sử / chiến trường..." style="flex:1;">
+                    <input type="text" class="form-input" id="fig-input-bg" data-i18n-placeholder="cms_fig_bg_ph" placeholder="Dán link ảnh online (https://...) hoặc file bối cảnh lịch sử / chiến trường..." style="flex:1;">
                     <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file ảnh nền từ máy tính">
-                      📁 Chọn ảnh nền
+                      <span data-i18n="cms_fig_bg_btn">📁 Chọn ảnh nền</span>
                       <input type="file" id="fig-file-bg-picker" accept="image/*" onchange="handleFigureBgPicker(event)" style="display:none;">
                     </label>
                   </div>
                   <div id="fig-bg-preview-box" style="margin-top:8px; display:none; align-items:center; gap:12px; background:var(--neutral-100); padding:8px 12px; border-radius:6px;">
                     <img id="fig-bg-preview-thumb" src="" style="height:60px; width:100px; border-radius:4px; border:2px solid var(--accent-gold); object-fit:cover;">
-                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;">✓ Đã nạp ảnh nền bối cảnh thành công</div>
+                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;" data-i18n="cms_fig_bg_ok">✓ Đã nạp ảnh nền bối cảnh thành công</div>
                   </div>
-                  <span class="form-hint">Ảnh nền sẽ phủ ở đầu trang hồ sơ nhân vật với hiệu ứng mờ hào hùng, tôn vinh khí phách lịch sử.</span>
+                  <span class="form-hint" data-i18n="cms_fig_bg_hint">Ảnh nền sẽ phủ ở đầu trang hồ sơ nhân vật với hiệu ứng mờ hào hùng, tôn vinh khí phách lịch sử.</span>
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Câu nói bất hủ / Danh ngôn lịch sử</label>
-                  <input type="text" class="form-input" id="fig-input-quote" placeholder="Ví dụ: 'Nếu bệ hạ muốn hàng xin hãy chém đầu thần trước rồi hãy hàng!'">
-                  <span class="form-hint">Trích dẫn khí phách anh hùng hoặc lời hịch truyền đời nổi tiếng của nhân vật.</span>
+                  <label data-i18n="cms_fig_quote_lbl">Câu nói bất hủ / Danh ngôn lịch sử</label>
+                  <input type="text" class="form-input" id="fig-input-quote" data-i18n-placeholder="cms_fig_quote_ph" placeholder="Ví dụ: 'Nếu bệ hạ muốn hàng xin hãy chém đầu thần trước rồi hãy hàng!'">
+                  <span class="form-hint" data-i18n="cms_fig_quote_hint">Trích dẫn khí phách anh hùng hoặc lời hịch truyền đời nổi tiếng của nhân vật.</span>
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Địa danh & Chiến trường gắn liền (Nội dung liên quan)</label>
+                  <label data-i18n="cms_fig_pins_lbl">Địa danh & Chiến trường gắn liền (Nội dung liên quan)</label>
                   <select class="form-select" id="fig-input-pins">
                     <option value="">-- Chọn Địa danh di tích gắn liền (nếu có) --</option>
                     <!-- Populated from existing pins -->
                   </select>
-                  <span class="form-hint">Chọn địa danh tiêu biểu nơi danh nhân đã lập nên chiến công oanh liệt.</span>
+                  <span class="form-hint" data-i18n="cms_fig_pins_hint">Chọn địa danh tiêu biểu nơi danh nhân đã lập nên chiến công oanh liệt.</span>
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Tiểu sử & Cuộc đời hào kiệt <span class="req">*</span></label>
-                  <textarea class="form-textarea" id="fig-input-bio" rows="4" placeholder="Công lao nổi bật, chiến công tiêu biểu, sự nghiệp rực rỡ..." required></textarea>
+                  <label><span data-i18n="cms_fig_bio_lbl">Tiểu sử & Cuộc đời hào kiệt</span> <span class="req">*</span></label>
+                  <textarea class="form-textarea" id="fig-input-bio" data-i18n-placeholder="cms_fig_bio_ph" rows="4" placeholder="Công lao nổi bật, chiến công tiêu biểu, sự nghiệp rực rỡ..." required></textarea>
                 </div>
 
                 <!-- KHỐI THÊM NỘI DUNG LIÊN QUAN: DANH SÁCH GIAI THOẠI MỞ KHÓA (KHÔNG GIỚI HẠN) -->
                 <div class="form-group form-grid-full" style="background:#FFFDF8; border:1px solid var(--accent-gold); border-radius:var(--radius-sm); padding:18px; margin-top:8px;">
                   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
                     <div>
-                      <strong style="color:var(--primary-dark); font-size:1.02rem; display:flex; align-items:center; gap:8px;">
+                      <strong style="color:var(--primary-dark); font-size:1.02rem; display:flex; align-items:center; gap:8px;" data-i18n="cms_fig_stories_header">
                         📖 Kho Giai Thoại & Cốt Truyện Mở Khóa Của Danh Nhân
                       </strong>
-                      <p style="font-size:0.83rem; color:var(--text-muted); margin-top:3px;">
+                      <p style="font-size:0.83rem; color:var(--text-muted); margin-top:3px;" data-i18n="cms_fig_stories_desc">
                         Bạn có thể thêm <b>1 hoặc NHIỀU giai thoại</b> (không giới hạn số lượng). Mỗi giai thoại có thể gắn với một địa danh di tích khác nhau để người chơi chu du mở khóa!
                       </p>
                     </div>
-                    <button type="button" class="btn-secondary" style="font-size:0.84rem; padding:6px 14px; font-weight:600; cursor:pointer;" onclick="addFigureStoryRow()">
+                    <button type="button" class="btn-secondary" style="font-size:0.84rem; padding:6px 14px; font-weight:600; cursor:pointer;" onclick="addFigureStoryRow()" data-i18n="cms_fig_add_story_btn">
                       + Thêm Giai Thoại Nữa
                     </button>
                   </div>
@@ -457,8 +457,8 @@
               </div>
 
               <div class="btn-row">
-                <button type="reset" class="btn-secondary">Làm mới</button>
-                <button type="submit" class="btn-primary">💾 Lưu Danh Nhân & Toàn Bộ Giai Thoại</button>
+                <button type="reset" class="btn-secondary" data-i18n="cms_fig_reset">Làm mới</button>
+                <button type="submit" class="btn-primary" data-i18n="cms_fig_save">💾 Lưu Danh Nhân & Toàn Bộ Giai Thoại</button>
               </div>
             </form>
           </div>
@@ -468,56 +468,56 @@
             <form id="form-new-story" onsubmit="handleCreateStory(event)">
               <div class="form-grid">
                 <div class="form-group form-grid-full">
-                  <label>Tiêu đề Giai thoại / Sự kiện <span class="req">*</span></label>
-                  <input type="text" class="form-input" id="story-input-name" placeholder="Ví dụ: Bài thơ thần Nam Quốc Sơn Hà, Lời hịch cứu nước..." required>
+                  <label><span data-i18n="cms_story_title_lbl">Tiêu đề Giai thoại / Sự kiện</span> <span class="req">*</span></label>
+                  <input type="text" class="form-input" id="story-input-name" data-i18n-placeholder="cms_story_title_ph" placeholder="Ví dụ: Bài thơ thần Nam Quốc Sơn Hà, Lời hịch cứu nước..." required>
                 </div>
 
                 <div class="form-group">
-                  <label>Thuộc Danh nhân nào? <span class="req">*</span></label>
+                  <label><span data-i18n="cms_story_figure_lbl">Thuộc Danh nhân nào?</span> <span class="req">*</span></label>
                   <select class="form-select" id="story-input-figure" required>
                     <!-- Populated dynamically -->
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label>Địa danh (Pin) yêu cầu đến Check-in để mở khóa <span class="req">*</span></label>
+                  <label><span data-i18n="cms_story_pin_lbl">Địa danh (Pin) yêu cầu đến Check-in để mở khóa</span> <span class="req">*</span></label>
                   <select class="form-select" id="story-input-pin" required>
                     <!-- Populated dynamically -->
                   </select>
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Ảnh Nền / Tranh minh họa Giai thoại (Story Cover)</label>
+                  <label data-i18n="cms_story_bg_lbl">Ảnh Nền / Tranh minh họa Giai thoại (Story Cover)</label>
                   <div style="display:flex; gap:8px;">
-                    <input type="text" class="form-input" id="story-input-bg" placeholder="Dán link ảnh online (https://...) hoặc file minh họa giai thoại..." style="flex:1;">
+                    <input type="text" class="form-input" id="story-input-bg" data-i18n-placeholder="cms_story_bg_ph" placeholder="Dán link ảnh online (https://...) hoặc file minh họa giai thoại..." style="flex:1;">
                     <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:9px 14px;" title="Chọn file ảnh từ máy tính">
-                      📁 Chọn ảnh nền
+                      <span data-i18n="cms_story_bg_btn">📁 Chọn ảnh nền</span>
                       <input type="file" id="story-file-bg-picker" accept="image/*" onchange="handleStoryBgPicker(event)" style="display:none;">
                     </label>
                   </div>
                   <div id="story-bg-preview-box" style="margin-top:8px; display:none; align-items:center; gap:12px; background:var(--neutral-100); padding:8px 12px; border-radius:6px;">
                     <img id="story-bg-preview-thumb" src="" style="height:60px; width:100px; border-radius:4px; border:2px solid var(--accent-gold); object-fit:cover;">
-                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;">✓ Đã nạp tranh minh họa giai thoại</div>
+                    <div style="font-size:0.82rem; color:#27ae60; font-weight:600;" data-i18n="cms_story_bg_ok">✓ Đã nạp tranh minh họa giai thoại</div>
                   </div>
-                  <span class="form-hint">Hình ảnh sẽ xuất hiện trên thẻ giai thoại và đầu cửa sổ đọc truyện khi mở khóa.</span>
+                  <span class="form-hint" data-i18n="cms_story_bg_hint">Hình ảnh sẽ xuất hiện trên thẻ giai thoại và đầu cửa sổ đọc truyện khi mở khóa.</span>
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label>Nội dung chi tiết cốt truyện</label>
-                  <textarea class="form-textarea" id="story-input-content" rows="5" placeholder="Toàn văn câu chuyện, mưu kế lịch sử, diễn biến sự kiện..." required></textarea>
+                  <label data-i18n="cms_story_content_lbl">Nội dung chi tiết cốt truyện</label>
+                  <textarea class="form-textarea" id="story-input-content" data-i18n-placeholder="cms_story_content_ph" rows="5" placeholder="Toàn văn câu chuyện, mưu kế lịch sử, diễn biến sự kiện..." required></textarea>
                 </div>
 
                 <div class="form-group form-grid-full">
                   <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:0.88rem; color:var(--text-primary);">
                     <input type="checkbox" id="story-checkbox-continue" checked>
-                    <span>Tiếp tục ở lại đây để thêm tiếp các giai thoại khác sau khi lưu</span>
+                    <span data-i18n="cms_story_cont_lbl">Tiếp tục ở lại đây để thêm tiếp các giai thoại khác sau khi lưu</span>
                   </label>
                 </div>
               </div>
 
               <div class="btn-row">
-                <button type="reset" class="btn-secondary">Làm mới</button>
-                <button type="submit" class="btn-primary">💾 Lưu Giai Thoại Khóa</button>
+                <button type="reset" class="btn-secondary" data-i18n="cms_story_reset">Làm mới</button>
+                <button type="submit" class="btn-primary" data-i18n="cms_story_save">💾 Lưu Giai Thoại Khóa</button>
               </div>
             </form>
           </div>
@@ -527,12 +527,12 @@
             <form id="form-new-badge" onsubmit="handleCreateBadge(event)">
               <div class="form-grid">
                 <div class="form-group">
-                  <label>Tên Huy hiệu <span class="req">*</span></label>
-                  <input type="text" class="form-input" id="badge-input-name" placeholder="Ví dụ: Đại Phá Quân Thanh, Tiếng Vang Sông Cầu..." required>
+                  <label><span data-i18n="cms_badge_name_lbl">Tên Huy hiệu</span> <span class="req">*</span></label>
+                  <input type="text" class="form-input" id="badge-input-name" data-i18n-placeholder="cms_badge_name_ph" placeholder="Ví dụ: Đại Phá Quân Thanh, Tiếng Vang Sông Cầu..." required>
                 </div>
 
                 <div class="form-group">
-                  <label>Phẩm cấp (Tier) <span class="req">*</span></label>
+                  <label><span data-i18n="cms_badge_tier_lbl">Phẩm cấp (Tier)</span> <span class="req">*</span></label>
                   <select class="form-select" id="badge-input-tier" required>
                     <option value="gold">🥇 Vàng (Gold Tier) - Rực rỡ ánh kim</option>
                     <option value="silver">🥈 Bạc (Silver Tier) - Thanh nhã</option>
@@ -542,7 +542,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Biểu tượng Icon</label>
+                  <label data-i18n="cms_badge_icon_lbl">Biểu tượng Icon</label>
                   <select class="form-select" id="badge-input-icon">
                     <option value="🎖️">🎖️ Huân chương danh dự</option>
                     <option value="👑">👑 Vương miện hào kiệt</option>
@@ -560,29 +560,29 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Bộ sưu tập (Category)</label>
-                  <input type="text" class="form-input" id="badge-input-cat" placeholder="Ví dụ: Hào Khí Danh Nhân, Nhân Chứng Lịch Sử, Khám Phá Việt Nam...">
+                  <label data-i18n="cms_badge_cat_lbl">Bộ sưu tập (Category)</label>
+                  <input type="text" class="form-input" id="badge-input-cat" data-i18n-placeholder="cms_badge_cat_ph" placeholder="Ví dụ: Hào Khí Danh Nhân, Nhân Chứng Lịch Sử, Khám Phá Việt Nam...">
                 </div>
 
                 <!-- NỘI DUNG & Ý NGHĨA HUY HIỆU -->
                 <div class="form-group form-grid-full">
-                  <label>Nội dung & Điển tích của Huy hiệu <span class="req">*</span></label>
-                  <textarea class="form-textarea" id="badge-input-lore" rows="3" placeholder="Ý nghĩa tôn vinh, câu chuyện hào hùng hoặc bối cảnh lịch sử gắn liền với huy hiệu này (Hiển thị khi người chơi click vào xem chi tiết huy hiệu)..." required></textarea>
-                  <span class="form-hint">Nội dung này sẽ xuất hiện trang trọng trong cửa sổ chi tiết khi người chơi bấm vào huy hiệu.</span>
+                  <label><span data-i18n="cms_badge_lore_lbl">Nội dung & Điển tích của Huy hiệu</span> <span class="req">*</span></label>
+                  <textarea class="form-textarea" id="badge-input-lore" data-i18n-placeholder="cms_badge_lore_ph" rows="3" placeholder="Ý nghĩa tôn vinh, câu chuyện hào hùng hoặc bối cảnh lịch sử gắn liền với huy hiệu này (Hiển thị khi người chơi click vào xem chi tiết huy hiệu)..." required></textarea>
+                  <span class="form-hint" data-i18n="cms_badge_lore_hint">Nội dung này sẽ xuất hiện trang trọng trong cửa sổ chi tiết khi người chơi bấm vào huy hiệu.</span>
                 </div>
 
                 <!-- KHỐI LIÊN KẾT ĐIỀU KIỆN MỞ KHÓA TỰ ĐỘNG (HỖ TRỢ NHIỀU ĐIỀU KIỆN) -->
                 <div class="form-group form-grid-full" style="background:#FFFDF8; border:1px solid var(--accent-gold); border-radius:var(--radius-sm); padding:18px; margin-top:6px;">
                   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
                     <div>
-                      <strong style="color:var(--primary-dark); font-size:1.02rem; display:flex; align-items:center; gap:8px;">
+                      <strong style="color:var(--primary-dark); font-size:1.02rem; display:flex; align-items:center; gap:8px;" data-i18n="cms_badge_cond_header">
                         🎯 Thiết Lập Điều Kiện Mở Khóa Tự Động (Nhiều điều kiện kết hợp)
                       </strong>
-                      <p style="font-size:0.83rem; color:var(--text-muted); margin-top:3px;">
+                      <p style="font-size:0.83rem; color:var(--text-muted); margin-top:3px;" data-i18n="cms_badge_cond_desc">
                         Bạn có thể thêm <b>1 hoặc NHIỀU điều kiện</b> cùng lúc (ví dụ: vừa phải ghé các địa danh chỉ định, vừa phải khám phá đủ danh nhân).
                       </p>
                     </div>
-                    <button type="button" class="btn-secondary" style="font-size:0.84rem; padding:6px 14px; font-weight:600; cursor:pointer;" onclick="addBadgeConditionRow()">
+                    <button type="button" class="btn-secondary" style="font-size:0.84rem; padding:6px 14px; font-weight:600; cursor:pointer;" onclick="addBadgeConditionRow()" data-i18n="cms_badge_add_cond_btn">
                       + Thêm Loại Điều Kiện Nữa
                     </button>
                   </div>
@@ -593,23 +593,23 @@
                   </div>
 
                   <div style="margin-top:16px; padding-top:12px; border-top:1px dashed var(--neutral-300);">
-                    <label style="font-weight:600; font-size:0.88rem; color:var(--primary-dark);">Tóm tắt yêu cầu hiển thị trên thẻ huy hiệu</label>
-                    <input type="text" class="form-input" id="badge-input-criteria" placeholder="Tự động tổng hợp từ các điều kiện trên hoặc nhập tùy chỉnh..." style="margin-top:4px;">
-                    <span class="form-hint">Dòng mô tả tóm tắt này sẽ xuất hiện ngắn gọn trên thẻ huy hiệu trong bộ sưu tập.</span>
+                    <label style="font-weight:600; font-size:0.88rem; color:var(--primary-dark);" data-i18n="cms_badge_criteria_lbl">Tóm tắt yêu cầu hiển thị trên thẻ huy hiệu</label>
+                    <input type="text" class="form-input" id="badge-input-criteria" data-i18n-placeholder="cms_badge_criteria_ph" placeholder="Tự động tổng hợp từ các điều kiện trên hoặc nhập tùy chỉnh..." style="margin-top:4px;">
+                    <span class="form-hint" data-i18n="cms_badge_criteria_hint">Dòng mô tả tóm tắt này sẽ xuất hiện ngắn gọn trên thẻ huy hiệu trong bộ sưu tập.</span>
                   </div>
                 </div>
 
                 <div class="form-group form-grid-full">
                   <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:0.88rem; color:var(--text-primary);">
                     <input type="checkbox" id="badge-input-is-unlocked">
-                    <span>Mở khóa sẵn ngay lập tức (Dành cho huy hiệu khởi đầu hoặc tân thủ)</span>
+                    <span data-i18n="cms_badge_unlock_lbl">Mở khóa sẵn ngay lập tức (Dành cho huy hiệu khởi đầu hoặc tân thủ)</span>
                   </label>
                 </div>
               </div>
 
               <div class="btn-row">
-                <button type="reset" class="btn-secondary">Làm mới</button>
-                <button type="submit" class="btn-primary">💾 Lưu Huy Hiệu Mới</button>
+                <button type="reset" class="btn-secondary" data-i18n="cms_badge_reset">Làm mới</button>
+                <button type="submit" class="btn-primary" data-i18n="cms_badge_save">💾 Lưu Huy Hiệu Mới</button>
               </div>
             </form>
           </div>
@@ -618,17 +618,17 @@
           <div id="subtab-manage" class="form-panel">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:14px; padding:18px; background:#fff5f5; border:1px solid #feb2b2; border-radius:var(--radius-sm);">
               <div>
-                <strong style="color:#c53030; font-size:1.1rem; display:flex; align-items:center; gap:6px;">⚠️ Dọn dẹp dữ liệu thử nghiệm (Reset gốc)</strong>
-                <p style="font-size:0.88rem; color:#742a2a; margin-top:4px;">Khôi phục lại toàn bộ dữ liệu chuẩn ban đầu của game. Mọi Ghim, Danh nhân, Giai thoại hoặc Huy hiệu bạn đã thêm test sẽ được xóa sạch!</p>
+                <strong style="color:#c53030; font-size:1.1rem; display:flex; align-items:center; gap:6px;" data-i18n="cms_manage_title">⚠️ Dọn dẹp dữ liệu thử nghiệm (Reset gốc)</strong>
+                <p style="font-size:0.88rem; color:#742a2a; margin-top:4px;" data-i18n="cms_manage_desc">Khôi phục lại toàn bộ dữ liệu chuẩn ban đầu của game. Mọi Ghim, Danh nhân, Giai thoại hoặc Huy hiệu bạn đã thêm test sẽ được xóa sạch!</p>
               </div>
-              <button class="btn-primary" style="background:#e53e3e; border-color:#c53030; color:#fff;" onclick="resetToInitialData()">🔄 Khôi phục Dữ liệu Gốc</button>
+              <button class="btn-primary" style="background:#e53e3e; border-color:#c53030; color:#fff;" onclick="resetToInitialData()" data-i18n="cms_manage_reset_btn">🔄 Khôi phục Dữ liệu Gốc</button>
             </div>
 
             <!-- 1. Danh sách Ghim hiện có -->
             <div style="margin-bottom:28px;">
               <h3 style="color:var(--primary-dark); font-size:1.15rem; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
-                <span>📍 1. Danh sách Ghim Địa danh (<span id="manage-pin-count">0</span>)</span>
-                <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">Bấm nút 🗑️ để xóa từng ghim test</span>
+                <span>📍 1. <span data-i18n="cms_manage_pins_title">Danh sách Ghim Địa danh</span> (<span id="manage-pin-count">0</span>)</span>
+                <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" data-i18n="cms_manage_pins_hint">Bấm nút 🗑️ để xóa từng ghim test</span>
               </h3>
               <div id="manage-pins-table-wrap" style="overflow-x:auto;">
                 <!-- Populated via JS -->
@@ -638,7 +638,7 @@
             <!-- 2. Danh sách Danh nhân hiện có -->
             <div style="margin-bottom:28px;">
               <h3 style="color:var(--primary-dark); font-size:1.15rem; margin-bottom:12px;">
-                <span>⚔️ 2. Danh sách Danh nhân Lịch sử (<span id="manage-figure-count">0</span>)</span>
+                <span>⚔️ 2. <span data-i18n="cms_manage_figs_title">Danh sách Danh nhân Lịch sử</span> (<span id="manage-figure-count">0</span>)</span>
               </h3>
               <div id="manage-figures-table-wrap" style="overflow-x:auto;">
                 <!-- Populated via JS -->
@@ -648,7 +648,7 @@
             <!-- 3. Danh sách Giai thoại hiện có -->
             <div style="margin-bottom:28px;">
               <h3 style="color:var(--primary-dark); font-size:1.15rem; margin-bottom:12px;">
-                <span>📖 3. Danh sách Giai thoại Lịch sử (<span id="manage-story-count">0</span>)</span>
+                <span>📖 3. <span data-i18n="cms_manage_stories_title">Danh sách Giai thoại Lịch sử</span> (<span id="manage-story-count">0</span>)</span>
               </h3>
               <div id="manage-stories-table-wrap" style="overflow-x:auto;">
                 <!-- Populated via JS -->
@@ -658,7 +658,7 @@
             <!-- 4. Danh sách Huy hiệu hiện có -->
             <div style="margin-bottom:28px;">
               <h3 style="color:var(--primary-dark); font-size:1.15rem; margin-bottom:12px;">
-                <span>🏅 4. Danh sách Huy hiệu Di sản (<span id="manage-badge-count">0</span>)</span>
+                <span>🏅 4. <span data-i18n="cms_manage_badges_title">Danh sách Huy hiệu Di sản</span> (<span id="manage-badge-count">0</span>)</span>
               </h3>
               <div id="manage-badges-table-wrap" style="overflow-x:auto;">
                 <!-- Populated via JS -->
@@ -850,60 +850,60 @@
   <div class="modal-overlay" id="quick-story-modal">
     <div class="modal-box" style="max-width:580px;">
       <div class="modal-header">
-        <h3 id="quick-story-modal-title">📖 Thêm Giai Thoại Mới</h3>
+        <h3 id="quick-story-modal-title" data-i18n="quick_story_modal_title">📖 Thêm Giai Thoại Mới</h3>
         <button class="modal-close-btn" onclick="closeQuickStoryModal()">✕</button>
       </div>
       <div class="modal-body">
         <form id="form-quick-story" onsubmit="handleQuickStorySubmit(event)">
           <input type="hidden" id="quick-story-figure-id" value="">
           <div style="background:var(--bg-card-sub); padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:16px; border-left:4px solid var(--accent-gold);">
-            <span style="font-size:0.82rem; color:var(--text-muted);">Giai thoại gắn liền với danh nhân:</span>
+            <span style="font-size:0.82rem; color:var(--text-muted);" data-i18n="quick_story_figure_lbl">Giai thoại gắn liền với danh nhân:</span>
             <div id="quick-story-figure-name" style="font-weight:700; color:var(--primary-dark); font-size:1.05rem;">Trần Quốc Tuấn</div>
           </div>
 
           <div class="form-group" style="margin-bottom:14px;">
-            <label>Tiêu đề Giai thoại / Sự kiện hào hùng <span class="req">*</span></label>
-            <input type="text" class="form-input" id="quick-story-title" placeholder="Ví dụ: Lời hịch tướng sĩ, Hội nghị Bình Than..." required>
+            <label><span data-i18n="quick_story_title_lbl">Tiêu đề Giai thoại / Sự kiện hào hùng</span> <span class="req">*</span></label>
+            <input type="text" class="form-input" id="quick-story-title" data-i18n-placeholder="quick_story_title_ph" placeholder="Ví dụ: Lời hịch tướng sĩ, Hội nghị Bình Than..." required>
           </div>
 
           <div class="form-group" style="margin-bottom:14px;">
-            <label>Địa danh (Pin) yêu cầu đến Check-in để mở khóa <span class="req">*</span></label>
+            <label><span data-i18n="quick_story_pin_lbl">Địa danh (Pin) yêu cầu đến Check-in để mở khóa</span> <span class="req">*</span></label>
             <select class="form-select" id="quick-story-pin" required>
               <!-- Populated from appState.pins -->
             </select>
-            <span class="form-hint">Người chơi sẽ phải đi tuần tra thực địa tới mốc này để mở khóa đọc câu chuyện.</span>
+            <span class="form-hint" data-i18n="quick_story_pin_hint">Người chơi sẽ phải đi tuần tra thực địa tới mốc này để mở khóa đọc câu chuyện.</span>
           </div>
 
           <div class="form-group" style="margin-bottom:14px;">
-            <label>Ảnh Nền / Tranh minh họa Giai thoại (Tùy chọn)</label>
+            <label data-i18n="quick_story_bg_lbl">Ảnh Nền / Tranh minh họa Giai thoại (Tùy chọn)</label>
             <div style="display:flex; gap:8px;">
-              <input type="text" class="form-input" id="quick-story-bg" placeholder="Dán link ảnh (https://...) hoặc file minh họa..." style="flex:1;">
+              <input type="text" class="form-input" id="quick-story-bg" data-i18n-placeholder="quick_story_bg_ph" placeholder="Dán link ảnh (https://...) hoặc file minh họa..." style="flex:1;">
               <label class="btn-secondary" style="cursor:pointer; white-space:nowrap; margin-bottom:0; font-size:0.85rem; padding:8px 12px;" title="Chọn file từ máy">
-                📁 Chọn ảnh
+                <span data-i18n="quick_story_bg_btn">📁 Chọn ảnh</span>
                 <input type="file" id="quick-story-file-picker" accept="image/*" onchange="handleQuickStoryBgPicker(event)" style="display:none;">
               </label>
             </div>
             <div id="quick-story-bg-preview-box" style="margin-top:6px; display:none; align-items:center; gap:10px; background:var(--neutral-100); padding:6px 10px; border-radius:6px;">
               <img id="quick-story-bg-preview-thumb" src="" style="height:48px; width:80px; border-radius:4px; border:2px solid var(--accent-gold); object-fit:cover;">
-              <div style="font-size:0.8rem; color:#27ae60; font-weight:600;">✓ Đã nạp tranh minh họa</div>
+              <div style="font-size:0.8rem; color:#27ae60; font-weight:600;" data-i18n="quick_story_bg_ok">✓ Đã nạp tranh minh họa</div>
             </div>
           </div>
 
           <div class="form-group" style="margin-bottom:16px;">
-            <label>Nội dung toàn văn câu chuyện <span class="req">*</span></label>
-            <textarea class="form-textarea" id="quick-story-content" rows="5" placeholder="Bối cảnh lịch sử, diễn biến sự kiện, mưu lược quân sự..." required></textarea>
+            <label><span data-i18n="quick_story_content_lbl">Nội dung toàn văn câu chuyện</span> <span class="req">*</span></label>
+            <textarea class="form-textarea" id="quick-story-content" data-i18n-placeholder="quick_story_content_ph" rows="5" placeholder="Bối cảnh lịch sử, diễn biến sự kiện, mưu lược quân sự..." required></textarea>
           </div>
 
           <div style="margin-bottom:16px;">
             <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:0.85rem; color:var(--text-primary);">
               <input type="checkbox" id="quick-story-keep-open">
-              <span>Tiếp tục thêm giai thoại khác cho nhân vật này sau khi lưu</span>
+              <span data-i18n="quick_story_cont_lbl">Tiếp tục thêm giai thoại khác cho nhân vật này sau khi lưu</span>
             </label>
           </div>
 
           <div style="display:flex; justify-content:flex-end; gap:10px;">
-            <button type="button" class="btn-secondary" onclick="closeQuickStoryModal()">Hủy</button>
-            <button type="submit" class="btn-primary">💾 Lưu Giai Thoại Ngay</button>
+            <button type="button" class="btn-secondary" onclick="closeQuickStoryModal()" data-i18n="quick_story_btn_cancel">Hủy</button>
+            <button type="submit" class="btn-primary" data-i18n="quick_story_btn_save">💾 Lưu Giai Thoại Ngay</button>
           </div>
         </form>
       </div>
