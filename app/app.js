@@ -393,7 +393,19 @@ const TRANSLATIONS = {
     cms_badge_criteria_en_ph: "Auto-generated in English or custom text...",
     celebration_title: "KHÁM PHÁ THÀNH CÔNG!",
     celebration_exp: "Kinh nghiệm thám hiểm: +100 EXP",
-    celebration_btn_continue: "Tiếp Tục Hành Trình"
+    celebration_btn_continue: "Tiếp Tục Hành Trình",
+    sim_toggle_btn: "📱 Thử giao diện Điện thoại",
+    sim_btn_desktop: "💻 Trở lại Desktop",
+    sim_bar_title: "iPhone 15 Pro • 390 × 844",
+    sim_bar_title_max: "iPhone 15 Pro Max • 430 × 932",
+    sim_btn_size: "Đổi cỡ màn hình",
+    sim_toast_on: "📱 Đã bật giả lập giao diện điện thoại! Bạn có thể thao tác trực tiếp trên khung máy.",
+    sim_toast_off: "💻 Đã trở lại giao diện máy tính!",
+    mob_nav_radar: "Radar",
+    mob_nav_figures: "Nhân vật",
+    mob_nav_badges: "Huy hiệu",
+    mob_nav_profile: "Hồ sơ",
+    mob_nav_cms: "Nhập liệu"
   },
   en: {
     brand_title: "The Legacy Keepers",
@@ -777,7 +789,19 @@ const TRANSLATIONS = {
     cms_badge_criteria_en_ph: "Auto-generated in English or custom text...",
     celebration_title: "DISCOVERY SUCCESSFUL!",
     celebration_exp: "Exploration Experience: +100 EXP",
-    celebration_btn_continue: "Continue Journey"
+    celebration_btn_continue: "Continue Journey",
+    sim_toggle_btn: "📱 Test Mobile View",
+    sim_btn_desktop: "💻 Return to Desktop",
+    sim_bar_title: "iPhone 15 Pro • 390 × 844",
+    sim_bar_title_max: "iPhone 15 Pro Max • 430 × 932",
+    sim_btn_size: "Toggle Device Size",
+    sim_toast_on: "📱 Mobile simulator activated! You can interact directly with the phone mockup.",
+    sim_toast_off: "💻 Returned to desktop view!",
+    mob_nav_radar: "Radar",
+    mob_nav_figures: "Figures",
+    mob_nav_badges: "Badges",
+    mob_nav_profile: "Profile",
+    mob_nav_cms: "CMS Portal"
   }
 };
 
@@ -800,7 +824,7 @@ function setLanguage(lang) {
   document.documentElement.lang = lang;
 
   // Update button active classes
-  document.querySelectorAll('.lang-btn').forEach(btn => {
+  document.querySelectorAll('.lang-btn, .mob-lang-btn').forEach(btn => {
     if (btn.id.includes(lang)) {
       btn.classList.add('active');
     } else {
@@ -815,6 +839,16 @@ function setLanguage(lang) {
       el.innerText = t(key);
     }
   });
+
+  // Update simulator button label and title if present
+  const toggleLabel = document.getElementById("device-toggle-label");
+  if (toggleLabel) {
+    toggleLabel.innerText = isSimulatorMode ? t("sim_btn_desktop") : t("sim_toggle_btn");
+  }
+  const simBarTitle = document.getElementById("sim-bar-title");
+  if (simBarTitle) {
+    simBarTitle.innerText = isSimulatorMax ? t("sim_bar_title_max") : t("sim_bar_title");
+  }
 
   // Apply to all elements with data-i18n-placeholder
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -1686,47 +1720,143 @@ document.addEventListener("DOMContentLoaded", () => {
   initBadgeConditionRows();
   setLanguage(currentLang);
   refreshAllViews();
+  initMobileSimulator();
+
+  // Window resize handler for Leaflet map
+  window.addEventListener("resize", () => {
+    if (map) {
+      map.invalidateSize();
+    }
+  });
 
   // Tự động kiểm tra file data.json nếu server đang chạy
   reloadFromDataJSON(false);
 });
 
 // ==========================================================================
-// NAVIGATION & TABS
+// NAVIGATION & TABS (SYNCS DESKTOP SIDEBAR & MOBILE BOTTOM NAV)
 // ==========================================================================
-function initNavigation() {
-  document.querySelectorAll(".nav-item").forEach(item => {
-    item.addEventListener("click", () => {
-      document.querySelectorAll(".nav-item").forEach(i => i.classList.remove("active"));
-      document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+function switchTab(targetTab) {
+  if (!targetTab) return;
 
+  // Sync active classes on both Desktop sidebar (.nav-item) and Mobile bottom bar (.mobile-nav-item)
+  document.querySelectorAll(".nav-item, .mobile-nav-item").forEach(item => {
+    if (item.getAttribute("data-tab") === targetTab) {
       item.classList.add("active");
-      const targetTab = item.getAttribute("data-tab");
-      const panel = document.getElementById(targetTab);
-      if (panel) {
-        panel.classList.add("active");
-      }
+    } else {
+      item.classList.remove("active");
+    }
+  });
 
-      if (targetTab === "tab-map" && map) {
-        setTimeout(() => map.invalidateSize(), 200);
-      }
-      if (targetTab === "tab-figures") {
-        renderFiguresSplitView();
+  // Switch active tab pane
+  document.querySelectorAll(".tab-pane").forEach(pane => {
+    pane.classList.toggle("active", pane.id === targetTab);
+  });
+
+  // Refresh tab-specific views & invalidate map
+  if (targetTab === "tab-map" && map) {
+    setTimeout(() => map.invalidateSize(), 200);
+  }
+  if (targetTab === "tab-figures") {
+    renderFiguresSplitView();
+  }
+  if (targetTab === "tab-badges") {
+    renderBadgesGrid();
+  }
+  if (targetTab === "tab-profile") {
+    renderProfileStats();
+  }
+  if (targetTab === "tab-input-portal") {
+    renderManageTables();
+  }
+}
+
+function initNavigation() {
+  document.querySelectorAll(".nav-item, .mobile-nav-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const targetTab = item.getAttribute("data-tab");
+      if (targetTab) {
+        switchTab(targetTab);
       }
     });
   });
 }
 
 function switchToInputTab(subtabId) {
-  const inputNavItem = document.querySelector('[data-tab="tab-input-portal"]');
-  if (inputNavItem) {
-    inputNavItem.click();
-  }
+  switchTab("tab-input-portal");
   if (subtabId) {
     const subTabBtn = document.querySelector(`[data-subtab="${subtabId}"]`);
     if (subTabBtn) {
       subTabBtn.click();
     }
+  }
+}
+
+// ==========================================================================
+// MOBILE SIMULATOR LOGIC (TEST PHONE VIEW ON DESKTOP)
+// ==========================================================================
+let isSimulatorMode = false;
+let isSimulatorMax = false;
+
+function toggleMobileSimulator(forceState) {
+  if (typeof forceState === 'boolean') {
+    isSimulatorMode = forceState;
+  } else {
+    isSimulatorMode = !isSimulatorMode;
+  }
+
+  const body = document.body;
+  const toggleBtn = document.getElementById("btn-device-toggle");
+  const toggleLabel = document.getElementById("device-toggle-label");
+  const toggleIcon = document.getElementById("device-toggle-icon");
+  const simBarTitle = document.getElementById("sim-bar-title");
+
+  if (isSimulatorMode) {
+    body.classList.add("simulator-mode");
+    localStorage.setItem("legacy_keepers_mobile_sim", "true");
+    if (toggleLabel) toggleLabel.innerText = t("sim_btn_desktop");
+    if (toggleIcon) toggleIcon.innerText = "💻";
+    if (simBarTitle) simBarTitle.innerText = isSimulatorMax ? t("sim_bar_title_max") : t("sim_bar_title");
+    showToast(t("sim_toast_on"));
+  } else {
+    body.classList.remove("simulator-mode");
+    localStorage.removeItem("legacy_keepers_mobile_sim");
+    if (toggleLabel) toggleLabel.innerText = t("sim_toggle_btn");
+    if (toggleIcon) toggleIcon.innerText = "📱";
+    showToast(t("sim_toast_off"));
+  }
+
+  // Force Leaflet recalculation for crisp rendering inside phone frame
+  if (map) {
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 280);
+  }
+}
+
+function toggleDeviceSize() {
+  const chassis = document.getElementById("phone-chassis");
+  const title = document.getElementById("sim-bar-title");
+  if (!chassis) return;
+
+  isSimulatorMax = !isSimulatorMax;
+  if (isSimulatorMax) {
+    chassis.classList.add("phone-size-max");
+    if (title) title.innerText = t("sim_bar_title_max");
+  } else {
+    chassis.classList.remove("phone-size-max");
+    if (title) title.innerText = t("sim_bar_title");
+  }
+
+  if (map) {
+    setTimeout(() => map.invalidateSize(), 300);
+  }
+}
+
+function initMobileSimulator() {
+  const savedSim = localStorage.getItem("legacy_keepers_mobile_sim");
+  if (savedSim === "true" && window.innerWidth > 768) {
+    toggleMobileSimulator(true);
   }
 }
 

@@ -9,11 +9,60 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Floating Quick Language Switcher -->
-  <div class="floating-lang-toggle" title="Chuyển đổi ngôn ngữ / Switch Language">
-    <button class="lang-btn active" id="float-lang-vi" onclick="setLanguage('vi')">🇻🇳 VI</button>
-    <button class="lang-btn" id="float-lang-en" onclick="setLanguage('en')">🇬🇧 EN</button>
+  <!-- Desktop Simulator Control Bar (Active when in Simulator Mode) -->
+  <aside class="simulator-control-bar" id="simulator-control-bar" aria-label="Bảng điều khiển Giả lập Di động">
+    <div class="simulator-bar-info">
+      <span class="simulator-bar-icon">📱</span>
+      <span class="simulator-bar-title" id="sim-bar-title" data-i18n="sim_bar_title">iPhone 15 Pro • 390 × 844</span>
+    </div>
+    <div class="simulator-bar-actions">
+      <button class="sim-btn" onclick="toggleDeviceSize()" id="btn-toggle-device-size" title="Đổi kích thước màn hình / Toggle Device Size">
+        <span>🔄</span> <span data-i18n="sim_btn_size">Đổi cỡ màn hình</span>
+      </button>
+      <button class="sim-btn sim-btn-exit" onclick="toggleMobileSimulator(false)" title="Trở lại giao diện máy tính / Return to Desktop">
+        <span>💻</span> <span data-i18n="sim_btn_desktop">Trở lại Desktop</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Floating Switcher Toolbar on Desktop -->
+  <div class="floating-top-bar" id="desktop-floating-bar">
+    <button class="device-toggle-btn" id="btn-device-toggle" onclick="toggleMobileSimulator()" title="Thử nghiệm giao diện điện thoại / Test Mobile View">
+      <span class="device-icon" id="device-toggle-icon">📱</span>
+      <span id="device-toggle-label" data-i18n="sim_toggle_btn">Giao diện Điện thoại</span>
+    </button>
+    <div class="floating-lang-toggle" title="Chuyển đổi ngôn ngữ / Switch Language">
+      <button class="lang-btn active" id="float-lang-vi" onclick="setLanguage('vi')">🇻🇳 VI</button>
+      <button class="lang-btn" id="float-lang-en" onclick="setLanguage('en')">🇬🇧 EN</button>
+    </div>
   </div>
+
+  <!-- Main Phone Wrapper (Container for App) -->
+  <div class="phone-wrapper" id="phone-wrapper">
+    <div class="phone-chassis" id="phone-chassis">
+      
+      <!-- Dynamic Island / Speaker notch for simulator mode -->
+      <div class="phone-notch" id="phone-notch">
+        <div class="notch-speaker"></div>
+        <div class="notch-camera"></div>
+      </div>
+
+      <!-- App Screen Container -->
+      <div class="phone-screen" id="phone-screen">
+        
+        <!-- Mobile Top App Bar -->
+        <header class="mobile-top-bar" id="mobile-top-bar">
+          <div class="mob-brand">
+            <span class="mob-brand-icon">📜</span>
+            <span class="mob-brand-name" data-i18n="brand_title">The Legacy Keepers</span>
+          </div>
+          <div class="mob-top-actions">
+            <div class="mob-lang-switch">
+              <button class="mob-lang-btn active" id="mob-lang-vi" onclick="setLanguage('vi')">VI</button>
+              <button class="mob-lang-btn" id="mob-lang-en" onclick="setLanguage('en')">EN</button>
+            </div>
+          </div>
+        </header>
 
   <!-- ==================== SIDEBAR ==================== -->
   <aside class="sidebar">
@@ -51,6 +100,9 @@
     </ul>
 
     <div class="sidebar-footer">
+      <button class="sidebar-sim-btn" onclick="toggleMobileSimulator()" title="Thử nghiệm giao diện điện thoại">
+        <span>📱</span> <span data-i18n="sim_toggle_btn">Giao diện Điện thoại</span>
+      </button>
       <div class="sync-status-indicator">
         <div class="status-dot"></div>
         <span data-i18n="sync_ready">Cogover Sync: Sẵn sàng</span>
@@ -735,6 +787,30 @@
 
   </main>
 
+  <!-- Mobile Bottom Navigation Bar (5 Tabs) -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Thanh điều hướng di động">
+    <button class="mobile-nav-item active" data-tab="tab-map">
+      <span class="mobile-nav-icon">🧭</span>
+      <span class="mobile-nav-label" data-i18n="mob_nav_radar">Radar</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="tab-figures">
+      <span class="mobile-nav-icon">⚔️</span>
+      <span class="mobile-nav-label" data-i18n="mob_nav_figures">Nhân vật</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="tab-badges">
+      <span class="mobile-nav-icon">🏅</span>
+      <span class="mobile-nav-label" data-i18n="mob_nav_badges">Huy hiệu</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="tab-profile">
+      <span class="mobile-nav-icon">👤</span>
+      <span class="mobile-nav-label" data-i18n="mob_nav_profile">Hồ sơ</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="tab-input-portal">
+      <span class="mobile-nav-icon">✍️</span>
+      <span class="mobile-nav-label" data-i18n="mob_nav_cms">Nhập liệu</span>
+    </button>
+  </nav>
+
   <!-- ==================== LOCATION POPUP MODAL ==================== -->
   <div class="modal-overlay" id="location-modal">
     <div class="modal-box">
@@ -985,6 +1061,13 @@
 
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toast-container"></div>
+
+      </div> <!-- /phone-screen -->
+
+      <!-- Phone Home Indicator for Simulator mode -->
+      <div class="phone-home-indicator" id="phone-home-indicator"></div>
+    </div> <!-- /phone-chassis -->
+  </div> <!-- /phone-wrapper -->
 
   <!-- Scripts (Local Leaflet for instant offline loading) -->
   <script src="vendor/leaflet.js"></script>
