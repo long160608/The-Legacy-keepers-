@@ -316,6 +316,11 @@ const TRANSLATIONS = {
     modal_checkin_radius_unit: "mét",
     modal_btn_checkin_ready: "Check-in Khám Phá & Mở Khóa Giai Thoại Ngay!",
     modal_btn_checkin_dist: "Check-in (Khoảng cách còn ",
+    modal_btn_checkin_done: "✓ Đã Check-in Khám Phá",
+    modal_already_checked_title: "✓ Đã Check-in Khám Phá",
+    modal_already_checked_desc: "Bạn đã lưu dấu ấn tại di tích lịch sử này và mở khóa giai thoại thành công!",
+    modal_toast_already_checked_in: "✓ Bạn đã hoàn thành check-in tại địa danh này rồi!",
+    modal_toast_out_of_range: "📍 Bạn còn ở ngoài phạm vi check-in của địa danh này!",
     modal_btn_delete_pin: "🗑️ Xóa Ghim Này",
     modal_confirm_delete_pin: "Xác nhận xóa Ghim:",
     modal_media_video_title: "🎬 Thước phim Tư liệu Lịch sử:",
@@ -771,6 +776,11 @@ const TRANSLATIONS = {
     modal_checkin_radius_unit: "meters",
     modal_btn_checkin_ready: "Check-in Now to Discover & Unlock Tales!",
     modal_btn_checkin_dist: "Check-in (Distance remaining: ",
+    modal_btn_checkin_done: "✓ Already Checked In",
+    modal_already_checked_title: "✓ Explored & Checked In",
+    modal_already_checked_desc: "You have visited this historical site and successfully unlocked its tales!",
+    modal_toast_already_checked_in: "✓ You have already checked in at this location!",
+    modal_toast_out_of_range: "📍 You are still outside the check-in range for this location!",
     modal_btn_delete_pin: "🗑️ Delete This Pin",
     modal_confirm_delete_pin: "Confirm deletion of landmark pin:",
     modal_media_video_title: "🎬 Historical Documentary Footage:",
@@ -2457,16 +2467,19 @@ function renderPinsOnMap(filter = "all") {
     }).addTo(map);
     activePinCircles.push(discoveryCircle);
 
+    // Kiểm tra trạng thái đã check-in của địa danh này
+    const isCheckedIn = Array.isArray(appState.profile?.checked_in_pins) && appState.profile.checked_in_pins.includes(pin.id);
+
     // 2. VÒNG CHECK-IN TƯƠNG TÁC (INTERACTION RADIUS) - CHUẨN TỶ LỆ MÉT THỰC TẾ
     // Bán kính từ 40m đến 150m. Khi zoom in/out, vòng này co giãn CHÍNH XÁC theo thước đo bản đồ!
     const interactionCircle = L.circle([pin.lat, pin.lng], {
       radius: interactionRadius,
-      color: isWithinCheckinReach ? '#2E7D32' : spec.color,
-      weight: isWithinCheckinReach ? 2.5 : 1.8,
-      dashArray: isWithinCheckinReach ? 'none' : '4, 4',
-      fillColor: isWithinCheckinReach ? '#A5D6A7' : spec.fillColor,
-      fillOpacity: isWithinCheckinReach ? 0.38 : 0.2,
-      className: `geo-pin-checkin-circle ${isWithinCheckinReach ? 'in-range-pulse' : ''}`,
+      color: isCheckedIn ? '#2E7D32' : (isWithinCheckinReach ? '#2E7D32' : spec.color),
+      weight: isCheckedIn ? 2 : (isWithinCheckinReach ? 2.5 : 1.8),
+      dashArray: (isCheckedIn || isWithinCheckinReach) ? 'none' : '4, 4',
+      fillColor: isCheckedIn ? '#C8E6C9' : (isWithinCheckinReach ? '#A5D6A7' : spec.fillColor),
+      fillOpacity: isCheckedIn ? 0.28 : (isWithinCheckinReach ? 0.38 : 0.2),
+      className: `geo-pin-checkin-circle ${isCheckedIn ? 'pin-already-checked-circle' : (isWithinCheckinReach ? 'in-range-pulse' : '')}`,
       interactive: true
     }).addTo(map);
     interactionCircle.on("click", () => openLocationModal(pin));
@@ -2475,27 +2488,31 @@ function renderPinsOnMap(filter = "all") {
     // 3. MARKER PIN: HUY HIỆU DI SẢN (HERITAGE SEAL BADGE)
     // Thiết kế tinh tế 36px, không bị phóng đại quá khổ khi zoom out
     const rarityClass = `pin-rarity-${pin.rarity || 'common'}`;
-    const pulseClass = isWithinCheckinReach ? 'checkin-ready' : (isWithinRadarReach ? 'within-radar' : 'distant-landmark');
+    const pulseClass = isCheckedIn ? 'already-explored' : (isWithinCheckinReach ? 'checkin-ready' : (isWithinRadarReach ? 'within-radar' : 'distant-landmark'));
     const pinName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
 
     const heritageIcon = L.divIcon({
       className: 'heritage-pin-leaflet-icon',
       html: `
-        <div class="heritage-pin-container ${rarityClass} ${pulseClass}">
+        <div class="heritage-pin-container ${rarityClass} ${pulseClass} ${isCheckedIn ? 'is-checked-in' : ''}">
           <div class="heritage-pin-geodesic-wave"></div>
           <div class="heritage-pin-seal" title="${pinName}">
             <span class="heritage-pin-emoji">${pin.icon || '🏛️'}</span>
+            ${isCheckedIn ? `<span class="pin-check-stamp" title="${currentLang === 'en' ? 'Checked in' : 'Đã check-in'}">✓</span>` : ''}
           </div>
-          <div class="heritage-pin-caption">${pinName}</div>
+          <div class="heritage-pin-caption">${isCheckedIn ? '✓ ' : ''}${pinName}</div>
         </div>
       `,
       iconSize: [36, 36],
       iconAnchor: [18, 18]
     });
 
-    const m = L.marker([pin.lat, pin.lng], { icon: heritageIcon, zIndexOffset: isWithinRadarReach ? 200 : 50 }).addTo(map);
+    const m = L.marker([pin.lat, pin.lng], { icon: heritageIcon, zIndexOffset: isCheckedIn ? 150 : (isWithinRadarReach ? 200 : 50) }).addTo(map);
     const distLabel = distToPin >= 1000 ? `${(distToPin / 1000).toFixed(1)} km` : `${distToPin} m`;
-    m.bindTooltip(`<b>${pin.icon || '📍'} ${pinName}</b><br><span style="font-size:0.75rem; color:var(--text-muted);">${currentLang === 'en' ? 'Distance: ' : 'Cách bạn: '}${distLabel}</span>`, {
+    const checkedStatusHtml = isCheckedIn
+      ? `<span style="display:inline-block; margin-left:4px; padding:1px 6px; border-radius:10px; background:#E8F5E9; color:#2E7D32; font-size:0.72rem; font-weight:700;">✓ ${currentLang === 'en' ? 'Checked In' : 'Đã check-in'}</span>`
+      : '';
+    m.bindTooltip(`<b>${pin.icon || '📍'} ${pinName}</b>${checkedStatusHtml}<br><span style="font-size:0.75rem; color:var(--text-muted);">${currentLang === 'en' ? 'Distance: ' : 'Cách bạn: '}${distLabel}</span>`, {
       direction: 'top',
       offset: [0, -20]
     });
@@ -2630,19 +2647,44 @@ function openLocationModal(pin) {
     livingBox.style.display = "none";
   }
 
-  // Check if within radius
+  // Check if already checked in
+  const isAlreadyCheckedIn = Array.isArray(appState.profile?.checked_in_pins) && appState.profile.checked_in_pins.includes(pin.id);
+  const checkedBanner = document.getElementById("modal-checked-in-banner");
+  const checkedTimeEl = document.getElementById("modal-checked-time");
   const btn = document.getElementById("btn-modal-checkin");
   const label = document.getElementById("btn-checkin-label");
+  const iconEl = document.getElementById("btn-checkin-icon");
   const canCheckIn = dist <= (pin.interaction_radius || 50);
 
-  if (canCheckIn) {
-    btn.className = "btn-checkin-action ready";
-    label.innerText = t('modal_btn_checkin_ready');
+  if (isAlreadyCheckedIn) {
+    if (checkedBanner) {
+      checkedBanner.style.display = "flex";
+      const historyInfo = appState.profile.check_in_history?.[pin.id];
+      if (checkedTimeEl) {
+        checkedTimeEl.innerText = historyInfo
+          ? `${currentLang === 'en' ? 'Check-in time: ' : 'Thời gian check-in: '}${historyInfo.formattedTime || historyInfo.timestamp}`
+          : (currentLang === 'en' ? 'Exploration milestone recorded' : 'Đã ghi nhận mốc khám phá');
+      }
+    }
+    btn.className = "btn-checkin-action already-checked";
+    btn.setAttribute("aria-disabled", "true");
+    if (iconEl) iconEl.innerText = "✓";
+    label.innerText = t('modal_btn_checkin_done');
   } else {
-    btn.className = "btn-checkin-action distance-out";
-    label.innerText = currentLang === 'en'
-      ? `Check-in (${distText} remaining)`
-      : `${t('modal_btn_checkin_dist')}${distText})`;
+    if (checkedBanner) checkedBanner.style.display = "none";
+    btn.removeAttribute("aria-disabled");
+
+    if (canCheckIn) {
+      btn.className = "btn-checkin-action ready";
+      if (iconEl) iconEl.innerText = "🚩";
+      label.innerText = t('modal_btn_checkin_ready');
+    } else {
+      btn.className = "btn-checkin-action distance-out";
+      if (iconEl) iconEl.innerText = "📍";
+      label.innerText = currentLang === 'en'
+        ? `Check-in (${distText} remaining)`
+        : `${t('modal_btn_checkin_dist')}${distText})`;
+    }
   }
 
   // Role visibility on location modal
@@ -2663,6 +2705,29 @@ function performCheckIn() {
   if (!selectedPinForModal) return;
   const pin = selectedPinForModal;
 
+  // 1. Chống check-in nhiều lần trên cùng 1 địa danh
+  if (!appState.profile.checked_in_pins) appState.profile.checked_in_pins = [];
+  if (appState.profile.checked_in_pins.includes(pin.id)) {
+    showToast(t('modal_toast_already_checked_in'));
+    return;
+  }
+
+  // 2. Chống hack khoảng cách (phải nằm trong bán kính interaction_radius)
+  const dist = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
+  if (dist > (pin.interaction_radius || 50)) {
+    showToast(t('modal_toast_out_of_range'));
+    return;
+  }
+
+  // 3. Ghi nhận check-in vào profile và lịch sử chi tiết
+  appState.profile.checked_in_pins.push(pin.id);
+  if (!appState.profile.check_in_history) appState.profile.check_in_history = {};
+  const now = new Date();
+  appState.profile.check_in_history[pin.id] = {
+    timestamp: now.toISOString(),
+    formattedTime: now.toLocaleString(currentLang === 'en' ? 'en-US' : 'vi-VN')
+  };
+
   // Add EXP
   appState.profile.exp += 100;
   if (appState.profile.exp >= appState.profile.maxExp) {
@@ -2670,12 +2735,6 @@ function performCheckIn() {
     appState.profile.exp -= appState.profile.maxExp;
     appState.profile.maxExp += 250;
     showToast(`🌟 CHÚC MỪNG: Bạn đã thăng cấp Nhà Thám Hiểm Lên Cấp ${appState.profile.level}!`);
-  }
-
-  // Record checked-in pin in profile
-  if (!appState.profile.checked_in_pins) appState.profile.checked_in_pins = [];
-  if (!appState.profile.checked_in_pins.includes(pin.id)) {
-    appState.profile.checked_in_pins.push(pin.id);
   }
 
   // Unlock linked story
@@ -2698,7 +2757,7 @@ function performCheckIn() {
   });
 
   // Log action
-  const timeStr = new Date().toLocaleDateString(currentLang === 'en' ? "en-US" : "vi-VN");
+  const timeStr = now.toLocaleDateString(currentLang === 'en' ? "en-US" : "vi-VN");
   const pName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
   if (!appState.profile.logs) appState.profile.logs = [];
   appState.profile.logs.unshift(currentLang === 'en' ? `${timeStr}: Checked-in at '${pName}' (+100 EXP)` : `${timeStr}: Check-in tại '${pName}' (+100 EXP)`);
@@ -2716,7 +2775,9 @@ function performCheckIn() {
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
-  closeModal();
+
+  // Cập nhật lại ngay trạng thái modal thành "Đã Check-in"
+  openLocationModal(pin);
 
   // KÍCH HOẠT ANIMATION CHÚC MỪNG MỞ KHÓA HOÀNH TRÁNG (CELEBRATION BURST)
   triggerUnlockCelebration(pin, unlockedStoryName, unlockedBadgeName);

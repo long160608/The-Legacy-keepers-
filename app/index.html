@@ -932,9 +932,19 @@
           <b id="modal-checkin-radius" style="color:var(--primary-dark);">50m</b>
         </div>
 
+        <!-- Checked-in Status Banner (Displayed after check-in) -->
+        <div id="modal-checked-in-banner" class="modal-checked-banner" style="display:none;">
+          <div class="modal-checked-icon">✓</div>
+          <div class="modal-checked-info">
+            <b data-i18n="modal_already_checked_title">✓ Đã Check-in Khám Phá</b>
+            <p data-i18n="modal_already_checked_desc">Bạn đã lưu dấu ấn tại di tích lịch sử này và mở khóa giai thoại thành công!</p>
+            <span id="modal-checked-time" class="modal-checked-time"></span>
+          </div>
+        </div>
+
         <!-- Action Button -->
         <button class="btn-checkin-action ready" id="btn-modal-checkin" onclick="performCheckIn()">
-          <span>🚩</span>
+          <span id="btn-checkin-icon">🚩</span>
           <span id="btn-checkin-label">Check-in Khám Phá & Mở Khóa Giai Thoại</span>
         </button>
 
