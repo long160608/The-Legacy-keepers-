@@ -183,9 +183,20 @@
       "tier": "gold",
       "icon": "🎖️",
       "category": "Người chinh phục lịch sử",
-      "criteria_type": "specific_pin",
-      "criteria_target": "pin-bachdang",
+      "lore": "Vinh danh những bước chân tìm về dòng sông Bạch Đằng lịch sử – nơi ba lần ghi dấu chiến công hiển hách của cha ông, đánh tan quân Nam Hán và Nguyên Mông bằng kế sách cắm cọc tài tình.",
+      "lore_en": "Honors travelers to the historic Bach Dang River – where three naval victories crushed foreign invasions with brilliant submerged iron-tipped stake tactics.",
       "criteria": "Check-in thành công tại Di tích Bạch Đằng và mở khóa kế sách cắm cọc.",
+      "conditions": [
+        {
+          "id": "c-bachdang-1",
+          "type": "specific_pins",
+          "target_pins": [
+            "pin-bachdang"
+          ],
+          "min_count": 1,
+          "desc": "Check-in thực địa tại Khu di tích Bạch Đằng"
+        }
+      ],
       "is_unlocked": true,
       "unlocked_date": "05/11/2026"
     },
@@ -195,9 +206,20 @@
       "tier": "gold",
       "icon": "🏛️",
       "category": "Người chinh phục lịch sử",
-      "criteria_type": "specific_pin",
-      "criteria_target": "pin-thanglong",
+      "lore": "Biểu trưng cho tinh thần bất khuất của kinh đô ngàn năm văn hiến, nơi từng vang vọng tiếng hô 'ĐÁNH!' đồng lòng muôn người như một trong Hội nghị Diên Hồng oanh liệt.",
+      "lore_en": "Symbolizes the indomitable spirit of Hanoi's thousand-year-old imperial citadel, where the iconic cry 'FIGHT!' united the people in the historic Dien Hong Conference.",
       "criteria": "Ghé thăm Hoàng thành Thăng Long và khám phá hội nghị Diên Hồng.",
+      "conditions": [
+        {
+          "id": "c-thanglong-1",
+          "type": "specific_pins",
+          "target_pins": [
+            "pin-thanglong"
+          ],
+          "min_count": 1,
+          "desc": "Ghé thăm và check-in tại Hoàng thành Thăng Long"
+        }
+      ],
       "is_unlocked": false
     },
     {
@@ -206,9 +228,20 @@
       "tier": "silver",
       "icon": "🐾",
       "category": "Khám phá Việt Nam",
-      "criteria_type": "specific_pin",
-      "criteria_target": "pin-ben-nharong",
+      "lore": "Kỷ niệm ngày 5/6/1911 khi người thanh niên yêu nước Nguyễn Tất Thành rời Bến Nhà Rồng ra đi tìm đường cứu nước, mở ra con đường độc lập tự do cho non sông đất Việt.",
+      "lore_en": "Commemorates June 5, 1911, when young patriot Nguyen Tat Thanh departed Nha Rong Harbor on his legendary global quest for national independence.",
       "criteria": "Check-in Bến Nhà Rồng và lắng nghe tư liệu hành trình cứu nước 1911.",
+      "conditions": [
+        {
+          "id": "c-bacho-1",
+          "type": "specific_pins",
+          "target_pins": [
+            "pin-ben-nharong"
+          ],
+          "min_count": 1,
+          "desc": "Check-in thực địa tại Bến Nhà Rồng"
+        }
+      ],
       "is_unlocked": false
     },
     {
@@ -217,9 +250,20 @@
       "tier": "bronze",
       "icon": "🎙️",
       "category": "Nhân chứng sống",
-      "criteria_type": "specific_pin",
-      "criteria_target": "pin-ham-bietdong",
+      "lore": "Tôn vinh lòng quả cảm phi thường của lực lượng Biệt động Sài Gòn, những người đã mưu trí đào hầm cất giấu vũ khí ngay giữa lòng địch chuẩn bị cho cuộc Tổng tiến công Tết Mậu Thân 1968.",
+      "lore_en": "Honors the extraordinary valor of Saigon Rangers, who covertly built weapons bunkers in the heart of the city for the historic 1968 Tet Offensive.",
       "criteria": "Check-in tại Căn hầm bí mật Biệt động Sài Gòn và nghe lời kể nhân chứng.",
+      "conditions": [
+        {
+          "id": "c-saigon-1",
+          "type": "specific_pins",
+          "target_pins": [
+            "pin-ham-bietdong"
+          ],
+          "min_count": 1,
+          "desc": "Ghé thăm Căn hầm bí mật Biệt động Sài Gòn"
+        }
+      ],
       "is_unlocked": false
     },
     {
@@ -228,9 +272,17 @@
       "tier": "silver",
       "icon": "👑",
       "category": "Hào Khí Danh Nhân",
-      "criteria_type": "figures_count",
-      "criteria_target": 2,
-      "criteria": "Khám phá và mở khóa 2 Danh nhân lịch sử hào kiệt",
+      "lore": "Minh chứng cho người lữ khách đã giải mã và học hỏi tấm gương của 2 vị anh hùng dân tộc, tiếp nối khí phách quật cường của tiền nhân.",
+      "lore_en": "Awarded to explorers who have discovered and unlocked 2 legendary Vietnamese historical heroes.",
+      "criteria": "Khám phá và mở khóa 2 Danh nhân lịch sử hào kiệt bất kỳ.",
+      "conditions": [
+        {
+          "id": "c-hoi-ngo-1",
+          "type": "figures_count",
+          "target_num": 2,
+          "desc": "Mở khóa 2 Danh nhân lịch sử bất kỳ"
+        }
+      ],
       "is_unlocked": false
     },
     {
@@ -239,9 +291,22 @@
       "tier": "gold",
       "icon": "📜",
       "category": "Hào Khí Danh Nhân",
-      "criteria_type": "figures_count",
-      "criteria_target": 3,
-      "criteria": "Khám phá trọn vẹn 3 Danh nhân anh hùng dân tộc",
+      "lore": "Bản trường ca lịch sử sống động được khắc ghi khi người chơi thấu suốt trọn vẹn cả 3 vị đại anh hùng dân tộc: Hưng Đạo Đại Vương Trần Quốc Tuấn, Hoàng đế Quang Trung và Hai Bà Trưng.",
+      "lore_en": "An epic milestone achieved when discovering all 3 legendary national heroes: Tran Hung Dao, Emperor Quang Trung, and the Trung Sisters.",
+      "criteria": "Khám phá trọn vẹn 3 Danh nhân: Trần Hưng Đạo, Quang Trung và Hai Bà Trưng.",
+      "conditions": [
+        {
+          "id": "c-su-thi-1",
+          "type": "specific_figures",
+          "target_figures": [
+            "fig-tranquoctuan",
+            "fig-quangtrung",
+            "fig-haibatrung"
+          ],
+          "min_count": 3,
+          "desc": "Khám phá 3 Danh nhân: Trần Quốc Tuấn, Quang Trung và Hai Bà Trưng"
+        }
+      ],
       "is_unlocked": false
     },
     {
@@ -250,9 +315,17 @@
       "tier": "silver",
       "icon": "🎙️",
       "category": "Nhân Chứng Sống",
-      "criteria_type": "people_count",
-      "criteria_target": 1,
-      "criteria": "Gặp gỡ và lắng nghe chia sẻ từ 1 Nhân chứng lịch sử / Cựu chiến binh",
+      "lore": "Ghi nhận sự kết nối thiêng liêng giữa thế hệ hôm nay với các nhân chứng lịch sử và cựu chiến binh, những người trực tiếp trải qua khói lửa để giữ gìn nền độc lập non sông.",
+      "lore_en": "Recognizes the sacred bond between modern youth and living history witnesses who fought through warfare to safeguard the nation.",
+      "criteria": "Gặp gỡ và lắng nghe chia sẻ từ 1 Nhân chứng lịch sử / Cựu chiến binh.",
+      "conditions": [
+        {
+          "id": "c-giu-lua-1",
+          "type": "people_count",
+          "target_num": 1,
+          "desc": "Check-in điểm có tư liệu Nhân chứng sống / Cựu chiến binh"
+        }
+      ],
       "is_unlocked": false
     },
     {
@@ -261,9 +334,17 @@
       "tier": "gold",
       "icon": "🎖️",
       "category": "Nhân Chứng Sống",
-      "criteria_type": "people_count",
-      "criteria_target": 2,
-      "criteria": "Giao lưu và check-in với 2 Nhân chứng sống / Người kể chuyện lịch sử",
+      "lore": "Vinh danh nhà thám hiểm đã giao lưu và lắng nghe ký ức chân thực nhất từ 2 nhân chứng lịch sử sống, đưa những ký ức vô giá vượt thời gian đến với đời sau.",
+      "lore_en": "Honors explorers who have engaged with 2 living history witnesses, keeping priceless wartime memories alive across generations.",
+      "criteria": "Giao lưu và check-in với 2 Nhân chứng sống / Người kể chuyện lịch sử.",
+      "conditions": [
+        {
+          "id": "c-tieng-vong-1",
+          "type": "people_count",
+          "target_num": 2,
+          "desc": "Check-in tại 2 điểm có Nhân chứng sống / Ký ức cựu chiến binh"
+        }
+      ],
       "is_unlocked": false
     },
     {
@@ -272,9 +353,17 @@
       "tier": "bronze",
       "icon": "🗺️",
       "category": "Khám Phá Di Sản",
-      "criteria_type": "pins_count",
-      "criteria_target": 3,
-      "criteria": "Hành trình thám hiểm và check-in tại 3 Địa danh / Di tích lịch sử",
+      "lore": "Chiếc huân chương đồng trao tặng cho bước chân kiên trì chu du khắp 3 địa danh lịch sử, nối dài dải đất hình chữ S bằng niềm tự hào dân tộc.",
+      "lore_en": "Awarded to devoted explorers who have journeyed to at least 3 historical landmarks across Vietnam.",
+      "criteria": "Hành trình thám hiểm và check-in tại 3 Địa danh / Di tích lịch sử.",
+      "conditions": [
+        {
+          "id": "c-dau-chan-1",
+          "type": "pins_count",
+          "target_num": 3,
+          "desc": "Check-in tại 3 Địa danh / Di tích bất kỳ"
+        }
+      ],
       "is_unlocked": false
     }
   ],
