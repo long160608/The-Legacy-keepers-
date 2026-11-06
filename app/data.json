@@ -183,6 +183,8 @@
       "tier": "gold",
       "icon": "🎖️",
       "category": "Người chinh phục lịch sử",
+      "criteria_type": "specific_pin",
+      "criteria_target": "pin-bachdang",
       "criteria": "Check-in thành công tại Di tích Bạch Đằng và mở khóa kế sách cắm cọc.",
       "is_unlocked": true,
       "unlocked_date": "05/11/2026"
@@ -193,6 +195,8 @@
       "tier": "gold",
       "icon": "🏛️",
       "category": "Người chinh phục lịch sử",
+      "criteria_type": "specific_pin",
+      "criteria_target": "pin-thanglong",
       "criteria": "Ghé thăm Hoàng thành Thăng Long và khám phá hội nghị Diên Hồng.",
       "is_unlocked": false
     },
@@ -202,6 +206,8 @@
       "tier": "silver",
       "icon": "🐾",
       "category": "Khám phá Việt Nam",
+      "criteria_type": "specific_pin",
+      "criteria_target": "pin-ben-nharong",
       "criteria": "Check-in Bến Nhà Rồng và lắng nghe tư liệu hành trình cứu nước 1911.",
       "is_unlocked": false
     },
@@ -210,9 +216,83 @@
       "name": "Trái Tim Sài Gòn",
       "tier": "bronze",
       "icon": "🎙️",
-      "category": "Khám phá Việt Nam",
+      "category": "Nhân chứng sống",
+      "criteria_type": "specific_pin",
+      "criteria_target": "pin-ham-bietdong",
       "criteria": "Check-in tại Căn hầm bí mật Biệt động Sài Gòn và nghe lời kể nhân chứng.",
       "is_unlocked": false
+    },
+    {
+      "id": "badge-anh-hung-hoi-ngo",
+      "name": "Hội Ngộ Hào Kiệt",
+      "tier": "silver",
+      "icon": "👑",
+      "category": "Hào Khí Danh Nhân",
+      "criteria_type": "figures_count",
+      "criteria_target": 2,
+      "criteria": "Khám phá và mở khóa 2 Danh nhân lịch sử hào kiệt",
+      "is_unlocked": false
+    },
+    {
+      "id": "badge-su-thi-bach-nien",
+      "name": "Đại Nam Liệt Truyện",
+      "tier": "gold",
+      "icon": "📜",
+      "category": "Hào Khí Danh Nhân",
+      "criteria_type": "figures_count",
+      "criteria_target": 3,
+      "criteria": "Khám phá trọn vẹn 3 Danh nhân anh hùng dân tộc",
+      "is_unlocked": false
+    },
+    {
+      "id": "badge-nguoi-giu-lua",
+      "name": "Người Giữ Lửa Lịch Sử",
+      "tier": "silver",
+      "icon": "🎙️",
+      "category": "Nhân Chứng Sống",
+      "criteria_type": "people_count",
+      "criteria_target": 1,
+      "criteria": "Gặp gỡ và lắng nghe chia sẻ từ 1 Nhân chứng lịch sử / Cựu chiến binh",
+      "is_unlocked": false
+    },
+    {
+      "id": "badge-tieng-vong-thoi-gian",
+      "name": "Tiếng Vọng Thời Gian",
+      "tier": "gold",
+      "icon": "🎖️",
+      "category": "Nhân Chứng Sống",
+      "criteria_type": "people_count",
+      "criteria_target": 2,
+      "criteria": "Giao lưu và check-in với 2 Nhân chứng sống / Người kể chuyện lịch sử",
+      "is_unlocked": false
+    },
+    {
+      "id": "badge-dau-chan-di-san",
+      "name": "Nhà Thám Hiểm Non Sông",
+      "tier": "bronze",
+      "icon": "🗺️",
+      "category": "Khám Phá Di Sản",
+      "criteria_type": "pins_count",
+      "criteria_target": 3,
+      "criteria": "Hành trình thám hiểm và check-in tại 3 Địa danh / Di tích lịch sử",
+      "is_unlocked": false
     }
-  ]
+  ],
+  "profile": {
+    "name": "Người Giữ Gìn Di Sản #001",
+    "level": 2,
+    "exp": 250,
+    "maxExp": 500,
+    "checked_in_pins": [
+      "pin-bachdang"
+    ],
+    "discovered_figures": [
+      "fig-tranquoctuan"
+    ],
+    "logs": [
+      "05/11/2026: Check-in thành công tại 'Khu di tích Chiến thắng Bạch Đằng' (+100 EXP)",
+      "05/11/2026: Mở khóa giai thoại 'Kế sách cắm cọc sông Bạch Đằng'",
+      "05/11/2026: Mở khóa Huy hiệu 'Kỵ Sĩ Sông Bạch Đằng'"
+    ]
+  }
 }

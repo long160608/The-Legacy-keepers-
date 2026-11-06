@@ -191,6 +191,8 @@ const INITIAL_DATA = {
       tier: "gold",
       icon: "🎖️",
       category: "Người chinh phục lịch sử",
+      criteria_type: "specific_pin",
+      criteria_target: "pin-bachdang",
       criteria: "Check-in thành công tại Di tích Bạch Đằng và mở khóa kế sách cắm cọc.",
       is_unlocked: true,
       unlocked_date: "05/11/2026"
@@ -201,6 +203,8 @@ const INITIAL_DATA = {
       tier: "gold",
       icon: "🏛️",
       category: "Người chinh phục lịch sử",
+      criteria_type: "specific_pin",
+      criteria_target: "pin-thanglong",
       criteria: "Ghé thăm Hoàng thành Thăng Long và khám phá hội nghị Diên Hồng.",
       is_unlocked: false
     },
@@ -210,6 +214,8 @@ const INITIAL_DATA = {
       tier: "silver",
       icon: "🐾",
       category: "Khám phá Việt Nam",
+      criteria_type: "specific_pin",
+      criteria_target: "pin-ben-nharong",
       criteria: "Check-in Bến Nhà Rồng và lắng nghe tư liệu hành trình cứu nước 1911.",
       is_unlocked: false
     },
@@ -218,8 +224,65 @@ const INITIAL_DATA = {
       name: "Trái Tim Sài Gòn",
       tier: "bronze",
       icon: "🎙️",
-      category: "Khám phá Việt Nam",
+      category: "Nhân chứng sống",
+      criteria_type: "specific_pin",
+      criteria_target: "pin-ham-bietdong",
       criteria: "Check-in tại Căn hầm bí mật Biệt động Sài Gòn và nghe lời kể nhân chứng.",
+      is_unlocked: false
+    },
+    {
+      id: "badge-anh-hung-hoi-ngo",
+      name: "Hội Ngộ Hào Kiệt",
+      tier: "silver",
+      icon: "👑",
+      category: "Hào Khí Danh Nhân",
+      criteria_type: "figures_count",
+      criteria_target: 2,
+      criteria: "Khám phá và mở khóa 2 Danh nhân lịch sử hào kiệt",
+      is_unlocked: false
+    },
+    {
+      id: "badge-su-thi-bach-nien",
+      name: "Đại Nam Liệt Truyện",
+      tier: "gold",
+      icon: "📜",
+      category: "Hào Khí Danh Nhân",
+      criteria_type: "figures_count",
+      criteria_target: 3,
+      criteria: "Khám phá trọn vẹn 3 Danh nhân anh hùng dân tộc",
+      is_unlocked: false
+    },
+    {
+      id: "badge-nguoi-giu-lua",
+      name: "Người Giữ Lửa Lịch Sử",
+      tier: "silver",
+      icon: "🎙️",
+      category: "Nhân Chứng Sống",
+      criteria_type: "people_count",
+      criteria_target: 1,
+      criteria: "Gặp gỡ và lắng nghe chia sẻ từ 1 Nhân chứng lịch sử / Cựu chiến binh",
+      is_unlocked: false
+    },
+    {
+      id: "badge-tieng-vong-thoi-gian",
+      name: "Tiếng Vọng Thời Gian",
+      tier: "gold",
+      icon: "🎖️",
+      category: "Nhân Chứng Sống",
+      criteria_type: "people_count",
+      criteria_target: 2,
+      criteria: "Giao lưu và check-in với 2 Nhân chứng sống / Người kể chuyện lịch sử",
+      is_unlocked: false
+    },
+    {
+      id: "badge-dau-chan-di-san",
+      name: "Nhà Thám Hiểm Non Sông",
+      tier: "bronze",
+      icon: "🗺️",
+      category: "Khám Phá Di Sản",
+      criteria_type: "pins_count",
+      criteria_target: 3,
+      criteria: "Hành trình thám hiểm và check-in tại 3 Địa danh / Di tích lịch sử",
       is_unlocked: false
     }
   ],
@@ -230,6 +293,8 @@ const INITIAL_DATA = {
     level: 2,
     exp: 250,
     maxExp: 500,
+    checked_in_pins: ["pin-bachdang"],
+    discovered_figures: ["fig-tranquoctuan"],
     logs: [
       "05/11/2026: Check-in thành công tại 'Khu di tích Chiến thắng Bạch Đằng' (+100 EXP)",
       "05/11/2026: Mở khóa giai thoại 'Kế sách cắm cọc sông Bạch Đằng'",
@@ -271,6 +336,34 @@ function loadState() {
           }
         }
       });
+
+      // Auto-migrate: Ensure profile arrays exist
+      if (!appState.profile) appState.profile = {};
+      if (!Array.isArray(appState.profile.checked_in_pins)) {
+        appState.profile.checked_in_pins = INITIAL_DATA.profile.checked_in_pins || ["pin-bachdang"];
+      }
+      if (!Array.isArray(appState.profile.discovered_figures)) {
+        appState.profile.discovered_figures = INITIAL_DATA.profile.discovered_figures || ["fig-tranquoctuan"];
+      }
+
+      // Auto-migrate: Synchronize and enrich badges from INITIAL_DATA
+      if (!Array.isArray(appState.badges) || appState.badges.length === 0) {
+        appState.badges = JSON.parse(JSON.stringify(INITIAL_DATA.badges));
+      } else {
+        INITIAL_DATA.badges.forEach(initBg => {
+          const existing = appState.badges.find(b => b.id === initBg.id);
+          if (!existing) {
+            appState.badges.push(JSON.parse(JSON.stringify(initBg)));
+          } else {
+            if (!existing.criteria_type && initBg.criteria_type) {
+              existing.criteria_type = initBg.criteria_type;
+              existing.criteria_target = initBg.criteria_target;
+            }
+          }
+        });
+      }
+
+      evaluateAndUnlockBadges();
     } catch (e) {
       console.warn("Could not parse saved state, resetting to initial.");
       appState = JSON.parse(JSON.stringify(INITIAL_DATA));
@@ -299,6 +392,13 @@ async function reloadFromDataJSON(showToastMsg = true) {
         if (data.profile) {
           appState.profile = { ...appState.profile, ...data.profile };
         }
+        if (!Array.isArray(appState.profile.checked_in_pins)) {
+          appState.profile.checked_in_pins = ["pin-bachdang"];
+        }
+        if (!Array.isArray(appState.profile.discovered_figures)) {
+          appState.profile.discovered_figures = ["fig-tranquoctuan"];
+        }
+        evaluateAndUnlockBadges();
         saveState();
         refreshAllViews();
         if (showToastMsg) {
@@ -371,6 +471,7 @@ let selectedPinForModal = null;
 let selectedFigureId = null;
 let currentFigureFilter = 'all';
 let currentFigureSearch = '';
+let currentBadgeFilter = 'all';
 
 // ==========================================================================
 // INITIALIZATION
@@ -440,6 +541,13 @@ function initInputSubTabs() {
       }
       if (targetSubtab === "subtab-manage") {
         renderManageTables();
+      }
+      if (targetSubtab === "subtab-badges") {
+        populateDropdownSelectors();
+        const typeSelect = document.getElementById("badge-input-type");
+        if (typeSelect) {
+          handleBadgeTypeChange(typeSelect.value || 'figures_count');
+        }
       }
     });
   });
@@ -818,6 +926,12 @@ function performCheckIn() {
     showToast(`🌟 CHÚC MỪNG: Bạn đã thăng cấp Nhà Thám Hiểm Lên Cấp ${appState.profile.level}!`);
   }
 
+  // Record checked-in pin in profile
+  if (!appState.profile.checked_in_pins) appState.profile.checked_in_pins = [];
+  if (!appState.profile.checked_in_pins.includes(pin.id)) {
+    appState.profile.checked_in_pins.push(pin.id);
+  }
+
   // Unlock linked story
   let unlockedStoryName = "";
   appState.stories.forEach(st => {
@@ -827,27 +941,33 @@ function performCheckIn() {
     }
   });
 
-  // Unlock linked badge
-  let unlockedBadgeName = "";
-  appState.badges.forEach(bg => {
-    if (!bg.is_unlocked && bg.criteria && bg.criteria.toLowerCase().includes(pin.name.toLowerCase().substring(0, 10))) {
-      bg.is_unlocked = true;
-      bg.unlocked_date = new Date().toLocaleDateString("vi-VN");
-      unlockedBadgeName = bg.name;
+  // Also discover linked figures if related to this pin
+  if (!appState.profile.discovered_figures) appState.profile.discovered_figures = [];
+  (appState.figures || []).forEach(f => {
+    if (f.related_pins && f.related_pins.includes(pin.id)) {
+      if (!appState.profile.discovered_figures.includes(f.id)) {
+        appState.profile.discovered_figures.push(f.id);
+      }
     }
   });
 
   // Log action
   const timeStr = new Date().toLocaleDateString("vi-VN");
+  if (!appState.profile.logs) appState.profile.logs = [];
   appState.profile.logs.unshift(`${timeStr}: Check-in tại '${pin.name}' (+100 EXP)`);
   if (unlockedStoryName) {
     appState.profile.logs.unshift(`${timeStr}: Mở khóa giai thoại '${unlockedStoryName}'!`);
   }
-  if (unlockedBadgeName) {
-    appState.profile.logs.unshift(`${timeStr}: Nhận huy hiệu mới '${unlockedBadgeName}'!`);
+
+  // Evaluate and unlock badges based on rule engine
+  const newlyUnlockedBadges = evaluateAndUnlockBadges(pin);
+  let unlockedBadgeName = "";
+  if (newlyUnlockedBadges && newlyUnlockedBadges.length > 0) {
+    unlockedBadgeName = newlyUnlockedBadges.map(b => b.name).join(", ");
   }
 
   saveState();
+  saveToServerDataJSON();
   refreshAllViews();
   closeModal();
 
@@ -1247,6 +1367,18 @@ function renderFigureDetailPane(figId) {
 
 function selectFigure(id) {
   selectedFigureId = id;
+  if (!appState.profile.discovered_figures) {
+    appState.profile.discovered_figures = [];
+  }
+  if (!appState.profile.discovered_figures.includes(id)) {
+    appState.profile.discovered_figures.push(id);
+    const newBadges = evaluateAndUnlockBadges();
+    if (newBadges && newBadges.length > 0) {
+      showToast(`🏅 Chúc mừng! Bạn vừa mở khóa huy hiệu: ${newBadges.map(b => b.name).join(', ')}`);
+    }
+    saveState();
+    saveToServerDataJSON();
+  }
   renderFiguresSplitView();
 }
 
@@ -1325,26 +1457,221 @@ function addStoryForCurrentFigure(figId) {
   }, 100);
 }
 
+// ==========================================================================
+// BADGE LOGIC, RULE ENGINE & LIVE PROGRESS CALCULATION
+// ==========================================================================
+
+function getDiscoveredFigures() {
+  const set = new Set();
+  // 1. Figures in profile.discovered_figures
+  if (appState.profile && Array.isArray(appState.profile.discovered_figures)) {
+    appState.profile.discovered_figures.forEach(id => set.add(id));
+  }
+  // 2. Figures with at least 1 unlocked story
+  (appState.stories || []).forEach(st => {
+    if (!st.is_locked && st.figure_id) {
+      set.add(st.figure_id);
+    }
+  });
+  // 3. Figures linked to any checked-in pin
+  const checkedPins = (appState.profile && appState.profile.checked_in_pins) || [];
+  (appState.figures || []).forEach(fig => {
+    if (fig.related_pins && fig.related_pins.some(pid => checkedPins.includes(pid))) {
+      set.add(fig.id);
+    }
+  });
+  return Array.from(set);
+}
+
+function getLivingHistoryMet() {
+  const checkedPins = (appState.profile && appState.profile.checked_in_pins) || [];
+  return (appState.pins || []).filter(p => 
+    checkedPins.includes(p.id) && (p.category === 'living_history' || p.hasLivingHistory === true)
+  );
+}
+
+function getBadgeProgress(badge) {
+  const checkedPins = (appState.profile && appState.profile.checked_in_pins) || [];
+  const discoveredFigs = getDiscoveredFigures();
+  const livingHistoryMet = getLivingHistoryMet();
+  const unlockedStories = (appState.stories || []).filter(s => !s.is_locked);
+
+  const type = badge.criteria_type || "custom";
+  let current = 0;
+  let max = 1;
+  let unit = "";
+  let isComplete = !!badge.is_unlocked;
+
+  switch (type) {
+    case "figures_count": {
+      max = Math.max(1, parseInt(badge.criteria_target) || 1);
+      current = Math.min(discoveredFigs.length, max);
+      unit = "Danh nhân";
+      if (current >= max) isComplete = true;
+      break;
+    }
+    case "people_count": {
+      max = Math.max(1, parseInt(badge.criteria_target) || 1);
+      current = Math.min(livingHistoryMet.length, max);
+      unit = "Nhân chứng";
+      if (current >= max) isComplete = true;
+      break;
+    }
+    case "pins_count": {
+      max = Math.max(1, parseInt(badge.criteria_target) || 1);
+      current = Math.min(checkedPins.length, max);
+      unit = "Địa danh";
+      if (current >= max) isComplete = true;
+      break;
+    }
+    case "stories_count": {
+      max = Math.max(1, parseInt(badge.criteria_target) || 1);
+      current = Math.min(unlockedStories.length, max);
+      unit = "Giai thoại";
+      if (current >= max) isComplete = true;
+      break;
+    }
+    case "specific_pin": {
+      max = 1;
+      const targetPinId = badge.criteria_target;
+      const hasPin = checkedPins.includes(targetPinId);
+      current = hasPin ? 1 : 0;
+      unit = "Điểm mốc";
+      if (hasPin) isComplete = true;
+      break;
+    }
+    default: {
+      max = 1;
+      current = badge.is_unlocked ? 1 : 0;
+      unit = "Mục tiêu";
+      break;
+    }
+  }
+
+  if (badge.is_unlocked) {
+    current = max;
+    isComplete = true;
+  }
+
+  const percent = Math.min(100, Math.round((current / max) * 100));
+  return { current, max, unit, percent, isComplete };
+}
+
+function evaluateAndUnlockBadges(triggerPin = null) {
+  const newlyUnlocked = [];
+  const timeStr = new Date().toLocaleDateString("vi-VN");
+
+  if (!appState.badges) appState.badges = [];
+
+  appState.badges.forEach(bg => {
+    if (bg.is_unlocked) return;
+
+    let meets = false;
+    const prog = getBadgeProgress(bg);
+
+    if (prog.isComplete) {
+      meets = true;
+    } else if (triggerPin && bg.criteria && bg.criteria.toLowerCase().includes(triggerPin.name.toLowerCase().substring(0, 8))) {
+      meets = true;
+    }
+
+    if (meets) {
+      bg.is_unlocked = true;
+      bg.unlocked_date = timeStr;
+      newlyUnlocked.push(bg);
+      if (!appState.profile.logs) appState.profile.logs = [];
+      appState.profile.logs.unshift(`${timeStr}: 🏅 Mở khóa Huy hiệu mới: '${bg.name}'!`);
+    }
+  });
+
+  return newlyUnlocked;
+}
+
+function renderBadgeFilterChips() {
+  const chipsContainer = document.getElementById("badge-filter-chips");
+  if (!chipsContainer) return;
+
+  const total = (appState.badges || []).length;
+  const unlockedCount = (appState.badges || []).filter(b => b.is_unlocked).length;
+  const lockedCount = total - unlockedCount;
+  const goldCount = (appState.badges || []).filter(b => b.tier === 'gold').length;
+  const silverCount = (appState.badges || []).filter(b => b.tier === 'silver').length;
+  const bronzeCount = (appState.badges || []).filter(b => b.tier === 'bronze').length;
+
+  chipsContainer.innerHTML = `
+    <span class="filter-chip ${currentBadgeFilter === 'all' ? 'active' : ''}" onclick="filterBadges('all', this)">Tất cả (${total})</span>
+    <span class="filter-chip ${currentBadgeFilter === 'unlocked' ? 'active' : ''}" onclick="filterBadges('unlocked', this)">✓ Đã sở hữu (${unlockedCount})</span>
+    <span class="filter-chip ${currentBadgeFilter === 'locked' ? 'active' : ''}" onclick="filterBadges('locked', this)">🔒 Đang phấn đấu (${lockedCount})</span>
+    <span class="filter-chip ${currentBadgeFilter === 'gold' ? 'active' : ''}" onclick="filterBadges('gold', this)">🥇 Vàng (${goldCount})</span>
+    <span class="filter-chip ${currentBadgeFilter === 'silver' ? 'active' : ''}" onclick="filterBadges('silver', this)">🥈 Bạc (${silverCount})</span>
+    <span class="filter-chip ${currentBadgeFilter === 'bronze' ? 'active' : ''}" onclick="filterBadges('bronze', this)">🥉 Đồng (${bronzeCount})</span>
+  `;
+}
+
+function filterBadges(filterType, el) {
+  currentBadgeFilter = filterType;
+  renderBadgesGrid();
+}
+
 function renderBadgesGrid() {
+  renderBadgeFilterChips();
   const container = document.getElementById("badges-grid");
   if (!container) return;
   container.innerHTML = "";
 
-  appState.badges.forEach(b => {
-    const isUnlocked = b.is_unlocked;
+  let list = appState.badges || [];
+  if (currentBadgeFilter === 'unlocked') {
+    list = list.filter(b => b.is_unlocked);
+  } else if (currentBadgeFilter === 'locked') {
+    list = list.filter(b => !b.is_unlocked);
+  } else if (['gold', 'silver', 'bronze', 'diamond'].includes(currentBadgeFilter)) {
+    list = list.filter(b => b.tier === currentBadgeFilter);
+  }
+
+  if (list.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; padding: 36px 16px; text-align: center; color: var(--text-muted); background: #FFFDF8; border-radius: var(--radius-md); border: 1px dashed var(--neutral-300);">
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">🎖️</div>
+        <p style="font-size: 0.95rem; font-weight: 600;">Không có huy hiệu nào trong danh mục này.</p>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Hãy thử chọn bộ lọc khác hoặc tạo thêm huy hiệu mới ở mục Nhập liệu!</p>
+      </div>
+    `;
+    return;
+  }
+
+  list.forEach(b => {
+    const isUnlocked = !!b.is_unlocked;
     const tierClass = `badge-${b.tier || 'bronze'}`;
+    const prog = getBadgeProgress(b);
 
     const card = document.createElement("div");
     card.className = `card badge-card ${isUnlocked ? 'unlocked' : 'locked'}`;
     card.innerHTML = `
       <div class="badge-icon-box">${b.icon || '🎖️'}</div>
-      <span class="badge-tag ${tierClass}">${b.tier ? b.tier.toUpperCase() + ' TIER' : 'BRONZE'}</span>
-      <h3 style="font-size:1.15rem; margin-bottom:4px;">${b.name}</h3>
-      <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:8px;">${b.category || 'Di sản'}</p>
-      <p style="font-size:0.86rem; color:var(--text-secondary);">${b.criteria || ''}</p>
-      <div style="margin-top:12px; font-size:0.8rem; font-weight:600; color:${isUnlocked ? '#27ae60' : 'var(--text-muted)'};">
-        ${isUnlocked ? `✓ Đã sở hữu (${b.unlocked_date || 'Gần đây'})` : '🔒 Chưa mở khóa'}
+      <span class="badge-tag ${tierClass}">${(b.tier || 'bronze').toUpperCase()} TIER</span>
+      <h3 class="badge-card-title">${b.name}</h3>
+      <p class="badge-card-category">${b.category || 'Di sản lịch sử'}</p>
+
+      <div class="badge-req-box">
+        <div class="badge-req-header">
+          <span>🎯 Mục tiêu yêu cầu</span>
+          <span style="font-size:0.75rem; font-weight:700; color:${isUnlocked ? '#27ae60' : 'var(--primary-dark)'};">
+            ${isUnlocked ? 'HOÀN THÀNH' : `${prog.percent}%`}
+          </span>
+        </div>
+        <div class="badge-req-desc">${b.criteria || 'Chưa thiết lập yêu cầu'}</div>
+        <div class="badge-progress-wrap">
+          <div class="badge-progress-bar" style="width: ${prog.percent}%;"></div>
+        </div>
+        <div class="badge-progress-text">
+          <span>Tiến độ thực tế</span>
+          <span><b>${prog.current}</b> / <b>${prog.max}</b> ${prog.unit}</span>
+        </div>
       </div>
+
+      ${isUnlocked 
+        ? `<div class="badge-status-pill unlocked">✓ Đã sở hữu (${b.unlocked_date || 'Gần đây'})</div>` 
+        : `<div class="badge-status-pill locked">🔒 Chưa đạt (${prog.percent}%)</div>`}
     `;
     container.appendChild(card);
   });
@@ -1359,15 +1686,17 @@ function renderProfileStats() {
   const pct = Math.min(100, Math.round((p.exp / p.maxExp) * 100));
   document.getElementById("profile-exp-bar").style.width = `${pct}%`;
 
-  const unlockedStories = appState.stories.filter(s => !s.is_locked).length;
-  const unlockedBadges = appState.badges.filter(b => b.is_unlocked).length;
+  const unlockedStories = (appState.stories || []).filter(s => !s.is_locked).length;
+  const unlockedBadges = (appState.badges || []).filter(b => b.is_unlocked).length;
+  const checkedInCount = (appState.profile.checked_in_pins && appState.profile.checked_in_pins.length) || 
+    (appState.profile.logs || []).filter(l => l.includes("Check-in")).length;
 
-  document.getElementById("stat-pins-scanned").innerText = appState.profile.logs.filter(l => l.includes("Check-in")).length;
+  document.getElementById("stat-pins-scanned").innerText = checkedInCount;
   document.getElementById("stat-stories-unlocked").innerText = unlockedStories;
   document.getElementById("stat-badges-owned").innerText = unlockedBadges;
 
   const logList = document.getElementById("activity-log-list");
-  logList.innerHTML = p.logs.map(item => `
+  logList.innerHTML = (p.logs || []).map(item => `
     <li style="padding:6px 0; border-bottom:1px dashed var(--neutral-200);">${item}</li>
   `).join("");
 }
@@ -1377,6 +1706,7 @@ function populateDropdownSelectors() {
   const pinSelect = document.getElementById("story-input-pin");
   const figPinSelect = document.getElementById("fig-input-pins");
   const figStoryPinSelect = document.getElementById("fig-story-pin");
+  const badgePinSelect = document.getElementById("badge-input-target-pin");
 
   if (figSelect) {
     figSelect.innerHTML = appState.figures.map(f => `<option value="${f.id}">${f.name}</option>`).join("");
@@ -1390,6 +1720,15 @@ function populateDropdownSelectors() {
   }
   if (figStoryPinSelect) {
     figStoryPinSelect.innerHTML = appState.pins.map(p => `<option value="${p.id}">${p.icon || '📍'} ${p.name}</option>`).join("");
+  }
+  if (badgePinSelect) {
+    const curVal = badgePinSelect.value;
+    badgePinSelect.innerHTML = appState.pins.map(p => 
+      `<option value="${p.id}">${p.icon || '📍'} ${p.name}</option>`
+    ).join("");
+    if (curVal && appState.pins.some(p => p.id === curVal)) {
+      badgePinSelect.value = curVal;
+    }
   }
 }
 
@@ -1953,13 +2292,101 @@ function handleCreateStory(e) {
   }
 }
 
+function handleBadgeTypeChange(type) {
+  const groupTargetNum = document.getElementById("badge-group-target-num");
+  const groupTargetPin = document.getElementById("badge-group-target-pin");
+  const labelTargetNum = document.getElementById("badge-label-target-num");
+  const inputTargetNum = document.getElementById("badge-input-target-num");
+  const hintTargetNum = document.getElementById("badge-hint-target-num");
+
+  if (!groupTargetNum || !groupTargetPin) return;
+
+  if (type === 'figures_count') {
+    groupTargetNum.style.display = 'block';
+    groupTargetPin.style.display = 'none';
+    if (labelTargetNum) labelTargetNum.innerHTML = 'Số lượng Danh nhân yêu cầu <span class="req">*</span>';
+    if (hintTargetNum) hintTargetNum.innerText = 'Người chơi cần khám phá & mở khóa đủ số lượng Danh nhân lịch sử này.';
+    if (inputTargetNum && (!inputTargetNum.value || inputTargetNum.value < 1)) inputTargetNum.value = 2;
+  } else if (type === 'people_count') {
+    groupTargetNum.style.display = 'block';
+    groupTargetPin.style.display = 'none';
+    if (labelTargetNum) labelTargetNum.innerHTML = 'Số lượng Nhân chứng / Người yêu cầu <span class="req">*</span>';
+    if (hintTargetNum) hintTargetNum.innerText = 'Người chơi cần check-in tại các điểm có Nhân chứng sống / Cựu chiến binh / Ký ức.';
+    if (inputTargetNum && (!inputTargetNum.value || inputTargetNum.value < 1)) inputTargetNum.value = 1;
+  } else if (type === 'pins_count') {
+    groupTargetNum.style.display = 'block';
+    groupTargetPin.style.display = 'none';
+    if (labelTargetNum) labelTargetNum.innerHTML = 'Số lượng Địa danh yêu cầu <span class="req">*</span>';
+    if (hintTargetNum) hintTargetNum.innerText = 'Người chơi cần thám hiểm và check-in đủ số lượng Địa danh / Di tích bất kỳ.';
+    if (inputTargetNum && (!inputTargetNum.value || inputTargetNum.value < 1)) inputTargetNum.value = 3;
+  } else if (type === 'stories_count') {
+    groupTargetNum.style.display = 'block';
+    groupTargetPin.style.display = 'none';
+    if (labelTargetNum) labelTargetNum.innerHTML = 'Số lượng Giai thoại yêu cầu <span class="req">*</span>';
+    if (hintTargetNum) hintTargetNum.innerText = 'Người chơi cần mở khóa đủ số lượng Giai thoại lịch sử.';
+    if (inputTargetNum && (!inputTargetNum.value || inputTargetNum.value < 1)) inputTargetNum.value = 2;
+  } else if (type === 'specific_pin') {
+    groupTargetNum.style.display = 'none';
+    groupTargetPin.style.display = 'block';
+  } else {
+    groupTargetNum.style.display = 'none';
+    groupTargetPin.style.display = 'none';
+  }
+
+  updateBadgeCriteriaTextAuto();
+}
+
+function updateBadgeCriteriaTextAuto() {
+  const typeSelect = document.getElementById("badge-input-type");
+  const criteriaInput = document.getElementById("badge-input-criteria");
+  if (!typeSelect || !criteriaInput) return;
+
+  const type = typeSelect.value;
+  const numInput = document.getElementById("badge-input-target-num");
+  const num = numInput ? (parseInt(numInput.value) || 1) : 1;
+  const pinSelect = document.getElementById("badge-input-target-pin");
+
+  let autoText = "";
+  if (type === 'figures_count') {
+    autoText = `Khám phá và mở khóa ${num} Danh nhân lịch sử hào kiệt`;
+  } else if (type === 'people_count') {
+    autoText = `Gặp gỡ và lắng nghe chia sẻ từ ${num} Nhân chứng lịch sử / Cựu chiến binh`;
+  } else if (type === 'pins_count') {
+    autoText = `Hành trình thám hiểm và check-in tại ${num} Địa danh / Di tích lịch sử`;
+  } else if (type === 'stories_count') {
+    autoText = `Giải mã và mở khóa trọn vẹn ${num} Giai thoại lịch sử non sông`;
+  } else if (type === 'specific_pin') {
+    let pinName = "địa danh di tích chỉ định";
+    if (pinSelect && pinSelect.selectedOptions && pinSelect.selectedOptions[0]) {
+      pinName = pinSelect.selectedOptions[0].text.replace(/^[^\s]+\s/, '');
+    }
+    autoText = `Check-in thực địa tại ${pinName}`;
+  }
+
+  if (autoText && type !== 'custom') {
+    criteriaInput.value = autoText;
+  }
+}
+
 function handleCreateBadge(e) {
   e.preventDefault();
   const name = document.getElementById("badge-input-name").value.trim();
   const tier = document.getElementById("badge-input-tier").value;
   const icon = document.getElementById("badge-input-icon").value;
   const category = document.getElementById("badge-input-cat").value.trim() || "Di sản";
+  const criteria_type = document.getElementById("badge-input-type") ? document.getElementById("badge-input-type").value : "custom";
+  const targetNum = parseInt(document.getElementById("badge-input-target-num") ? document.getElementById("badge-input-target-num").value : "1") || 1;
+  const targetPin = document.getElementById("badge-input-target-pin") ? document.getElementById("badge-input-target-pin").value : "";
   const criteria = document.getElementById("badge-input-criteria").value.trim();
+  const isUnlockedCheckbox = document.getElementById("badge-input-is-unlocked");
+  const is_unlocked = isUnlockedCheckbox ? isUnlockedCheckbox.checked : false;
+
+  let criteria_target = null;
+  if (criteria_type === 'specific_pin') {
+    criteria_target = targetPin;
+  } else if (['figures_count', 'people_count', 'pins_count', 'stories_count'].includes(criteria_type)) {
+    criteria_target = targetNum;
+  }
 
   const newBadge = {
     id: `badge-${Date.now()}`,
@@ -1967,18 +2394,46 @@ function handleCreateBadge(e) {
     tier,
     icon,
     category,
+    criteria_type,
+    criteria_target,
     criteria,
-    is_unlocked: false
+    is_unlocked: is_unlocked,
+    unlocked_date: is_unlocked ? new Date().toLocaleDateString("vi-VN") : undefined
   };
 
+  if (!appState.badges) appState.badges = [];
   appState.badges.push(newBadge);
+
+  evaluateAndUnlockBadges();
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
 
   showToast(`✓ Đã thêm Huy hiệu mới: "${name}"!`);
   e.target.reset();
+
+  if (document.getElementById("badge-input-type")) {
+    document.getElementById("badge-input-type").value = "figures_count";
+    handleBadgeTypeChange("figures_count");
+  }
+
   document.querySelector('[data-tab="tab-badges"]').click();
+}
+
+function toggleBadgeUnlock(id) {
+  const bg = appState.badges.find(b => b.id === id);
+  if (!bg) return;
+  bg.is_unlocked = !bg.is_unlocked;
+  if (bg.is_unlocked) {
+    bg.unlocked_date = new Date().toLocaleDateString("vi-VN");
+    showToast(`✓ Đã mở khóa Huy hiệu "${bg.name}"!`);
+  } else {
+    bg.unlocked_date = undefined;
+    showToast(`🔒 Đã khóa lại Huy hiệu "${bg.name}".`);
+  }
+  saveState();
+  saveToServerDataJSON();
+  refreshAllViews();
 }
 
 // Export backup
@@ -2229,12 +2684,40 @@ function renderManageTables() {
           <tbody>
       `;
       appState.badges.forEach(bg => {
+        const prog = getBadgeProgress(bg);
+        const typeLabels = {
+          'figures_count': `👑 ${bg.criteria_target} Danh nhân`,
+          'people_count': `🎙️ ${bg.criteria_target} Nhân chứng`,
+          'pins_count': `🗺️ ${bg.criteria_target} Địa danh`,
+          'stories_count': `📖 ${bg.criteria_target} Giai thoại`,
+          'specific_pin': `📍 Ghé 1 mốc`,
+          'custom': `✍️ Tự do`
+        };
+        const typeText = typeLabels[bg.criteria_type] || '✍️ Tự do';
+
         html += `
           <tr>
-            <td><b>${bg.icon || '🏅'} ${bg.name}</b></td>
-            <td><span style="text-transform:uppercase; font-size:0.75rem; font-weight:700;">${bg.tier}</span></td>
-            <td style="font-size:0.82rem; max-width:260px;">${bg.criteria}</td>
-            <td><span style="font-size:0.8rem; color:${bg.is_unlocked ? '#27ae60' : 'var(--text-muted)'};">${bg.is_unlocked ? '✓ Đã nhận' : 'Chưa nhận'}</span></td>
+            <td>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:1.4rem;">${bg.icon || '🏅'}</span>
+                <div>
+                  <b>${bg.name}</b>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">${bg.category || 'Di sản'}</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge-tag badge-${bg.tier || 'bronze'}" style="font-size:0.72rem; padding:3px 8px;">${(bg.tier || 'bronze').toUpperCase()}</span></td>
+            <td style="font-size:0.82rem; max-width:260px;">
+              <div>${bg.criteria}</div>
+              <div style="font-size:0.75rem; color:var(--accent-camel); font-weight:600; margin-top:3px;">
+                Luật: ${typeText} • Tiến độ: <b>${prog.current}</b>/<b>${prog.max}</b> (${prog.percent}%)
+              </div>
+            </td>
+            <td>
+              <button class="btn-secondary" style="font-size:0.76rem; padding:4px 10px; cursor:pointer;" onclick="toggleBadgeUnlock('${bg.id}')" title="Bấm để chuyển đổi nhanh đã nhận / chưa nhận">
+                ${bg.is_unlocked ? '✓ Đã nhận (Bấm khóa)' : '🔒 Chưa nhận (Bấm mở)'}
+              </button>
+            </td>
             <td style="text-align:right;">
               <button class="btn-delete-row" onclick="deleteBadgeById('${bg.id}')">🗑️ Xóa</button>
             </td>
