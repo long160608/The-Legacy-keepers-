@@ -1607,15 +1607,19 @@ function updatePlayerRadarMarker() {
     offset: [0, -20]
   });
 
-  document.getElementById("gps-coords-display").innerText = `${userCoords[0].toFixed(4)}, ${userCoords[1].toFixed(4)}`;
+  const gpsCoordsDisplay = document.getElementById("gps-coords-display");
+  if (gpsCoordsDisplay) {
+    gpsCoordsDisplay.innerText = `${userCoords[0].toFixed(4)}, ${userCoords[1].toFixed(4)}`;
+  }
 }
 
 let activePinCircles = [];
 
 /**
- * Hiển thị các Pin với vòng tròn đúng tỷ lệ mét theo độ hiếm và ẩn/hiện theo tầm khám phá
+ * Hiển thị các Pin với vòng tròn đúng tỷ lệ mét theo độ hiếm và radar pulse
  */
 function renderPinsOnMap(filter = "all") {
+  if (!map) return;
   // Clear existing markers and geographical radius circles
   activePinMarkers.forEach(m => map.removeLayer(m));
   activePinMarkers = [];
@@ -1623,7 +1627,8 @@ function renderPinsOnMap(filter = "all") {
   activePinCircles = [];
 
   const filtered = filter === "all" ? appState.pins : appState.pins.filter(p => p.category === filter);
-  document.getElementById("count-all").innerText = appState.pins.length;
+  const countAll = document.getElementById("count-all");
+  if (countAll) countAll.innerText = appState.pins.length;
 
   filtered.forEach(pin => {
     const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
@@ -1633,37 +1638,37 @@ function renderPinsOnMap(filter = "all") {
     // Khoảng cách thực tế từ người chơi đến Pin
     const distToPin = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
 
-    // Cơ chế Pokémon GO: Chỉ hiển thị Pin trên Radar khi người chơi đi vào tầm phủ sóng (Discovery Radius)!
+    // Kiểm tra tầm phủ sóng Radar (Discovery Radius)
     const isWithinRadarReach = distToPin <= discoveryRadius;
 
-    // Nếu người chơi ở quá xa ngoài tầm phát hiện của radar thì ẩn pin đi
-    if (!isWithinRadarReach) {
-      return;
+    // VÒNG TRÒN CHECK-IN CHUẨN TỶ LỆ MÉT (Vẽ khi người chơi nằm trong tầm radar phủ sóng)
+    if (isWithinRadarReach) {
+      const interactionCircle = L.circle([pin.lat, pin.lng], {
+        radius: interactionRadius,
+        color: spec.color,
+        fillColor: spec.fillColor,
+        fillOpacity: 0.18,
+        weight: 1.5,
+        dashArray: '4, 4'
+      }).addTo(map);
+      activePinCircles.push(interactionCircle);
     }
 
-    // VÒNG TRÒN CHECK-IN CHUẨN TỶ LỆ MÉT (Tự động co giãn chính xác khi zoom in/out!)
-    const interactionCircle = L.circle([pin.lat, pin.lng], {
-      radius: interactionRadius, // Đúng mét thực tế (vd: 40m, 80m, 150m)
-      color: spec.color,
-      fillColor: spec.fillColor,
-      fillOpacity: 0.18,
-      weight: 1.5,
-      dashArray: '4, 4'
-    }).addTo(map);
-    activePinCircles.push(interactionCircle);
-
-    // Marker Pin với các vòng tròn đồng tâm tỏa ra
+    // Marker Pin: Luôn hiển thị các di tích lịch sử trên bản đồ để khám phá và tra cứu
     const rarityClass = `pin-rarity-${pin.rarity || 'common'}`;
+    const pulseClass = isWithinRadarReach ? 'within-radar' : 'distant-landmark';
     const concentricIcon = L.divIcon({
       className: 'concentric-pin-leaflet-icon',
       html: `
-        <div class="concentric-pin-container ${rarityClass}">
-          <!-- 3 Vòng tròn đồng tâm từ tâm tỏa ra theo màu Aura -->
-          <div class="pin-ripple-circle pin-ripple-1"></div>
-          <div class="pin-ripple-circle pin-ripple-2"></div>
-          <div class="pin-ripple-circle pin-ripple-3"></div>
+        <div class="concentric-pin-container ${rarityClass} ${pulseClass}">
+          ${isWithinRadarReach ? `
+            <!-- 3 Vòng tròn đồng tâm từ tâm tỏa ra theo màu Aura khi radar bắt trúng -->
+            <div class="pin-ripple-circle pin-ripple-1"></div>
+            <div class="pin-ripple-circle pin-ripple-2"></div>
+            <div class="pin-ripple-circle pin-ripple-3"></div>
+          ` : ''}
           <!-- Tâm Pin -->
-          <div class="pin-core-badge">
+          <div class="pin-core-badge" title="${pin.name}">
             ${pin.icon || '🏛️'}
           </div>
         </div>
@@ -1673,6 +1678,11 @@ function renderPinsOnMap(filter = "all") {
     });
 
     const m = L.marker([pin.lat, pin.lng], { icon: concentricIcon }).addTo(map);
+    const distLabel = distToPin >= 1000 ? `${(distToPin / 1000).toFixed(1)} km` : `${distToPin} m`;
+    m.bindTooltip(`<b>${pin.icon || '📍'} ${pin.name}</b><br><span style="font-size:0.75rem; color:var(--text-muted);">${currentLang === 'en' ? 'Distance: ' : 'Cách bạn: '}${distLabel}</span>`, {
+      direction: 'top',
+      offset: [0, -18]
+    });
     m.on("click", () => openLocationModal(pin));
     activePinMarkers.push(m);
   });
@@ -1916,12 +1926,15 @@ function simulatePlayAudio() {
 
 // Walk simulation: Di chuyển người chơi đến sát Pin đầu tiên
 function simulateWalk() {
-  if (appState.pins.length === 0) return;
-  const target = appState.pins[0];
+  if (!appState.pins || appState.pins.length === 0) return;
+  const target = selectedPinForModal || appState.pins[0];
   userCoords = [target.lat + 0.00015, target.lng + 0.00015];
   updatePlayerRadarMarker();
+  renderPinsOnMap();
   map.setView(userCoords, 16);
-  showToast(`🚶 Bạn đã di chuyển đến gần: ${target.name} (Cách ~15m). Bấm vào Pin để check-in!`);
+  showToast(currentLang === 'en'
+    ? `🚶 Moved close to: ${target.name} (~15m). Click Pin to check in!`
+    : `🚶 Bạn đã di chuyển đến gần: ${target.name} (Cách ~15m). Bấm vào Pin để check-in!`);
 }
 
 // GPS Thực tế từ thiết bị
