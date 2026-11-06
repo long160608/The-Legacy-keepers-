@@ -1877,6 +1877,12 @@ function toggleMobileSimulator(forceState) {
     showToast(t("sim_toast_off"));
   }
 
+  // Refresh active tab views if needed
+  const activeFigures = document.querySelector("#tab-figures.tab-pane.active");
+  if (activeFigures) {
+    renderFiguresSplitView();
+  }
+
   // Force Leaflet recalculation for crisp rendering inside phone frame
   if (map) {
     setTimeout(() => {
