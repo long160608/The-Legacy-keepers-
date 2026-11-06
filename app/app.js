@@ -2266,15 +2266,16 @@ function initLeafletMap() {
     maxZoom: 20
   }).setView(userCoords, 14);
 
-  // CartoDB Voyager Tile Layer: Crisp, light cream aesthetic, high-resolution up to zoom 20
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap contributors',
-    subdomains: 'abcd',
-    maxNativeZoom: 19,
+  // Clean Minimalist Radar Theme (Esri World Light Gray Base)
+  // maxNativeZoom: 16 ensures Leaflet smoothly upscales tiles up to level 20 without blank tiles!
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: '&copy; Esri &mdash; The Legacy Keepers Clean Radar',
+    minZoom: 4,
+    maxNativeZoom: 16,
     maxZoom: 20
   }).addTo(map);
 
-  // Dynamic zoom class handling for responsive pin labels and viewports
+  // Dynamic zoom class handling and concentric ripples re-scale
   const updateZoomClass = () => {
     if (!map) return;
     const currentZoom = map.getZoom();
@@ -2289,7 +2290,10 @@ function initLeafletMap() {
       }
     }
   };
-  map.on('zoomend', updateZoomClass);
+  map.on('zoomend', () => {
+    updateZoomClass();
+    renderPinsOnMap(); // Cập nhật lại bán kính pixel của các vòng tròn đồng tâm khi zoom thay đổi
+  });
   updateZoomClass();
 
   // Force map to compute exact container size
@@ -2427,7 +2431,24 @@ function updatePlayerRadarMarker() {
 let activePinCircles = [];
 
 /**
+ * Tính chính xác bán kính pixel của một khoảng cách mét trên bản đồ tại vĩ độ & mức zoom hiện tại
+ */
+function getPixelRadius(lat, lng, radiusMeters) {
+  if (!map) return 40;
+  try {
+    const deltaLat = radiusMeters / 111139;
+    const pCenter = map.latLngToLayerPoint([lat, lng]);
+    const pEdge = map.latLngToLayerPoint([lat + deltaLat, lng]);
+    const px = Math.round(Math.abs(pCenter.y - pEdge.y));
+    return Math.max(px, 16);
+  } catch (e) {
+    return 40;
+  }
+}
+
+/**
  * Hiển thị các Pin với vòng tròn địa lý chuẩn tỷ lệ mét (L.circle) và Huy hiệu Di sản (Heritage Seal)
+ * Các đường tròn đồng tâm tỏa ra từ tâm con dấu đến đúng viền phạm vi check-in!
  */
 function renderPinsOnMap(filter = "all") {
   if (!map) return;
@@ -2443,59 +2464,47 @@ function renderPinsOnMap(filter = "all") {
 
   filtered.forEach(pin => {
     const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
-    const discoveryRadius = pin.discovery_radius || spec.discoveryRadius;
     const interactionRadius = pin.interaction_radius || spec.interactionRadius;
 
     // Khoảng cách thực tế từ người chơi đến Pin
     const distToPin = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
-
-    // Kiểm tra tầm phủ sóng Radar (Discovery Radius) và Check-in (Interaction Radius)
-    const isWithinRadarReach = distToPin <= discoveryRadius;
     const isWithinCheckinReach = distToPin <= interactionRadius;
-
-    // 1. VÒNG TẦM PHỦ SÓNG RADAR (DISCOVERY RADIUS) - CHUẨN TỶ LỆ MÉT THỰC TẾ
-    // Bán kính từ 1.500m đến 25.000m tùy cài đặt và độ hiếm
-    const discoveryCircle = L.circle([pin.lat, pin.lng], {
-      radius: discoveryRadius,
-      color: spec.color,
-      weight: isWithinRadarReach ? 1.5 : 1,
-      dashArray: '6, 8',
-      fillColor: spec.fillColor,
-      fillOpacity: isWithinRadarReach ? 0.08 : 0.025,
-      className: `geo-pin-discovery-circle ${isWithinRadarReach ? 'radar-active-zone' : ''}`,
-      interactive: false
-    }).addTo(map);
-    activePinCircles.push(discoveryCircle);
-
-    // Kiểm tra trạng thái đã check-in của địa danh này
     const isCheckedIn = Array.isArray(appState.profile?.checked_in_pins) && appState.profile.checked_in_pins.includes(pin.id);
 
-    // 2. VÒNG CHECK-IN TƯƠNG TÁC (INTERACTION RADIUS) - CHUẨN TỶ LỆ MÉT THỰC TẾ
-    // Bán kính từ 40m đến 150m. Khi zoom in/out, vòng này co giãn CHÍNH XÁC theo thước đo bản đồ!
+    // Tính chính xác bán kính pixel của phạm vi check-in ở mức zoom hiện tại
+    const checkinPx = getPixelRadius(pin.lat, pin.lng, interactionRadius);
+
+    // 1. VÒNG RANH GIỚI CHECK-IN (INTERACTION RADIUS) - CHUẨN TỶ LỆ MÉT THỰC TẾ
+    // Dùng L.circle để vẽ đường viền ranh giới cố định của phạm vi check-in (40m - 150m)
     const interactionCircle = L.circle([pin.lat, pin.lng], {
       radius: interactionRadius,
-      color: isCheckedIn ? '#2E7D32' : (isWithinCheckinReach ? '#2E7D32' : spec.color),
+      color: isCheckedIn ? '#2E7D32' : (isWithinCheckinReach ? '#27AE60' : spec.color),
       weight: isCheckedIn ? 2 : (isWithinCheckinReach ? 2.5 : 1.8),
       dashArray: (isCheckedIn || isWithinCheckinReach) ? 'none' : '4, 4',
       fillColor: isCheckedIn ? '#C8E6C9' : (isWithinCheckinReach ? '#A5D6A7' : spec.fillColor),
-      fillOpacity: isCheckedIn ? 0.28 : (isWithinCheckinReach ? 0.38 : 0.2),
+      fillOpacity: isCheckedIn ? 0.22 : (isWithinCheckinReach ? 0.35 : 0.14),
       className: `geo-pin-checkin-circle ${isCheckedIn ? 'pin-already-checked-circle' : (isWithinCheckinReach ? 'in-range-pulse' : '')}`,
       interactive: true
     }).addTo(map);
     interactionCircle.on("click", () => openLocationModal(pin));
     activePinCircles.push(interactionCircle);
 
-    // 3. MARKER PIN: HUY HIỆU DI SẢN (HERITAGE SEAL BADGE)
-    // Thiết kế tinh tế 36px, không bị phóng đại quá khổ khi zoom out
+    // 2. MARKER PIN: CÁC ĐƯỜNG TRÒN ĐỒNG TÂM TỎA RA ĐẾN ĐÚNG VIỀN PHẠM VI CHECK-IN
     const rarityClass = `pin-rarity-${pin.rarity || 'common'}`;
-    const pulseClass = isCheckedIn ? 'already-explored' : (isWithinCheckinReach ? 'checkin-ready' : (isWithinRadarReach ? 'within-radar' : 'distant-landmark'));
+    const pulseClass = isCheckedIn ? 'already-explored' : (isWithinCheckinReach ? 'checkin-ready' : 'within-radar');
     const pinName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
+    const pulseColor = isCheckedIn ? '#2E7D32' : (isWithinCheckinReach ? '#27AE60' : (spec.pulseColor || spec.color));
 
     const heritageIcon = L.divIcon({
       className: 'heritage-pin-leaflet-icon',
       html: `
-        <div class="heritage-pin-container ${rarityClass} ${pulseClass} ${isCheckedIn ? 'is-checked-in' : ''}">
-          <div class="heritage-pin-geodesic-wave"></div>
+        <div class="heritage-pin-container ${rarityClass} ${pulseClass} ${isCheckedIn ? 'is-checked-in' : ''}" style="--checkin-px: ${checkinPx}px; --pulse-color: ${pulseColor};">
+          <!-- 3 VÒNG TRÒN ĐỒNG TÂM TỎA RA TỪ TÂM ĐẾN ĐÚNG VIỀN PHẠM VI CHECK-IN -->
+          <div class="concentric-wave wave-1"></div>
+          <div class="concentric-wave wave-2"></div>
+          <div class="concentric-wave wave-3"></div>
+
+          <!-- Con dấu Pin ở trung tâm -->
           <div class="heritage-pin-seal" title="${pinName}">
             <span class="heritage-pin-emoji">${pin.icon || '🏛️'}</span>
             ${isCheckedIn ? `<span class="pin-check-stamp" title="${currentLang === 'en' ? 'Checked in' : 'Đã check-in'}">✓</span>` : ''}
@@ -2507,7 +2516,7 @@ function renderPinsOnMap(filter = "all") {
       iconAnchor: [18, 18]
     });
 
-    const m = L.marker([pin.lat, pin.lng], { icon: heritageIcon, zIndexOffset: isCheckedIn ? 150 : (isWithinRadarReach ? 200 : 50) }).addTo(map);
+    const m = L.marker([pin.lat, pin.lng], { icon: heritageIcon, zIndexOffset: isCheckedIn ? 150 : 250 }).addTo(map);
     const distLabel = distToPin >= 1000 ? `${(distToPin / 1000).toFixed(1)} km` : `${distToPin} m`;
     const checkedStatusHtml = isCheckedIn
       ? `<span style="display:inline-block; margin-left:4px; padding:1px 6px; border-radius:10px; background:#E8F5E9; color:#2E7D32; font-size:0.72rem; font-weight:700;">✓ ${currentLang === 'en' ? 'Checked In' : 'Đã check-in'}</span>`

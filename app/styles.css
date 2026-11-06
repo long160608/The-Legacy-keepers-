@@ -600,27 +600,57 @@ body {
   cursor: pointer;
 }
 
-.heritage-pin-geodesic-wave {
+/* 3 Vòng tròn đồng tâm tỏa ra từ tâm con dấu đến đúng viền phạm vi check-in */
+.concentric-wave {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 36px;
-  height: 36px;
+  width: calc(var(--checkin-px, 50px) * 2);
+  height: calc(var(--checkin-px, 50px) * 2);
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
+  border: 2px solid var(--pulse-color, var(--accent-gold));
+  box-sizing: border-box;
 }
 
-.heritage-pin-container.within-radar .heritage-pin-geodesic-wave,
-.heritage-pin-container.checkin-ready .heritage-pin-geodesic-wave {
-  animation: geodesic-radar-ping 2.6s infinite cubic-bezier(0.1, 0.45, 0.35, 1);
+.wave-1 {
+  animation: ripple-to-checkin-boundary 2.8s infinite cubic-bezier(0.15, 0.45, 0.35, 1);
+  animation-delay: 0s;
 }
 
-@keyframes geodesic-radar-ping {
-  0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.9; }
-  60% { opacity: 0.35; }
-  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+.wave-2 {
+  animation: ripple-to-checkin-boundary 2.8s infinite cubic-bezier(0.15, 0.45, 0.35, 1);
+  animation-delay: 0.93s;
+}
+
+.wave-3 {
+  animation: ripple-to-checkin-boundary 2.8s infinite cubic-bezier(0.15, 0.45, 0.35, 1);
+  animation-delay: 1.86s;
+}
+
+@keyframes ripple-to-checkin-boundary {
+  0% {
+    transform: translate(-50%, -50%) scale(0.06);
+    opacity: 0.95;
+    border-width: 3.5px;
+  }
+  65% {
+    opacity: 0.55;
+    border-width: 2px;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+/* Khi đã check-in: sóng đồng tâm đổi sang xanh ngọc êm dịu */
+.heritage-pin-container.is-checked-in .concentric-wave {
+  border-color: #2E7D32 !important;
+  animation-duration: 3.6s;
 }
 
 .heritage-pin-seal {
@@ -684,13 +714,13 @@ body {
   transform: translateX(-50%) scale(1);
 }
 
-/* Rarity specific badge colors */
+/* Rarity specific badge & wave colors */
 .heritage-pin-container.pin-rarity-common .heritage-pin-seal {
   border-color: #CEA884;
   background: linear-gradient(135deg, #FFFDF8 0%, #E8DED0 100%);
 }
-.heritage-pin-container.pin-rarity-common .heritage-pin-geodesic-wave {
-  border: 2px solid #CEA884;
+.heritage-pin-container.pin-rarity-common .concentric-wave {
+  border-color: #CEA884;
 }
 
 .heritage-pin-container.pin-rarity-uncommon .heritage-pin-seal {
@@ -698,8 +728,8 @@ body {
   background: linear-gradient(135deg, #F0F8FA 0%, #C1D1D7 100%);
   box-shadow: 0 0 10px rgba(91, 146, 168, 0.5);
 }
-.heritage-pin-container.pin-rarity-uncommon .heritage-pin-geodesic-wave {
-  border: 2.5px solid #5B92A8;
+.heritage-pin-container.pin-rarity-uncommon .concentric-wave {
+  border-color: #5B92A8;
 }
 
 .heritage-pin-container.pin-rarity-legendary .heritage-pin-seal {
@@ -707,8 +737,8 @@ body {
   background: linear-gradient(135deg, #FFF8E7 0%, #FDDB9B 100%);
   box-shadow: 0 0 12px rgba(251, 208, 113, 0.8), 0 2px 6px rgba(84, 51, 27, 0.4);
 }
-.heritage-pin-container.pin-rarity-legendary .heritage-pin-geodesic-wave {
-  border: 2.5px solid #FFA800;
+.heritage-pin-container.pin-rarity-legendary .concentric-wave {
+  border-color: #FFA800;
 }
 
 .heritage-pin-container.pin-rarity-event .heritage-pin-seal {
@@ -716,8 +746,8 @@ body {
   background: linear-gradient(135deg, #FFF5F5 0%, #F5B7B1 100%);
   box-shadow: 0 0 12px rgba(231, 76, 60, 0.8);
 }
-.heritage-pin-container.pin-rarity-event .heritage-pin-geodesic-wave {
-  border: 2.5px solid #E74C3C;
+.heritage-pin-container.pin-rarity-event .concentric-wave {
+  border-color: #E74C3C;
 }
 
 /* Check-in ready pulse */
