@@ -89,7 +89,7 @@
 
         <!-- Floating Quick Input Button on Map Screen -->
         <button class="fab-quick-input" onclick="openQuickInputModal()">
-          <span>✍️</span> Thêm Địa Danh Mới
+          <span>✍️</span> <span data-i18n="radar_quick_add_pin">Thêm Địa Danh Mới</span>
         </button>
       </div>
     </section>
@@ -252,9 +252,14 @@
           <div id="subtab-pins" class="form-panel active">
             <form id="form-new-pin" onsubmit="handleCreatePin(event)">
               <div class="form-grid">
-                <div class="form-group form-grid-full">
-                  <label><span data-i18n="cms_pin_name_lbl">Tên Địa danh / Chiến trường / Điểm di tích</span> <span class="req">*</span></label>
+                <div class="form-group">
+                  <label><span data-i18n="cms_pin_name_vi_lbl">Tên Địa danh (Tiếng Việt)</span> <span class="req">*</span></label>
                   <input type="text" class="form-input" id="pin-input-name" data-i18n-placeholder="cms_pin_name_ph" placeholder="Ví dụ: Đền Hùng, Ngã ba Đồng Lộc, Cố đô Hoa Lư..." required>
+                </div>
+
+                <div class="form-group">
+                  <label><span data-i18n="cms_pin_name_en_lbl">Tên Địa danh (English Name)</span></label>
+                  <input type="text" class="form-input" id="pin-input-name-en" data-i18n-placeholder="cms_pin_name_en_ph" placeholder="Ví dụ: Imperial Citadel of Thang Long, Bach Dang Victory Site...">
                 </div>
 
                 <div class="form-group">
@@ -328,8 +333,13 @@
                 </div>
 
                 <div class="form-group form-grid-full">
-                  <label data-i18n="cms_pin_desc_lbl">Tóm tắt tư liệu lịch sử & Nguồn kiểm chứng</label>
-                  <textarea class="form-textarea" id="pin-input-desc" data-i18n-placeholder="cms_pin_desc_ph" rows="4" placeholder="Ý nghĩa lịch sử, bối cảnh hình thành, giá trị văn hóa..."></textarea>
+                  <label data-i18n="cms_pin_desc_vi_lbl">Tóm tắt tư liệu lịch sử (Tiếng Việt)</label>
+                  <textarea class="form-textarea" id="pin-input-desc" data-i18n-placeholder="cms_pin_desc_ph" rows="3" placeholder="Ý nghĩa lịch sử, bối cảnh hình thành, giá trị văn hóa..."></textarea>
+                </div>
+
+                <div class="form-group form-grid-full">
+                  <label data-i18n="cms_pin_desc_en_lbl">Tóm tắt tư liệu lịch sử (English Summary)</label>
+                  <textarea class="form-textarea" id="pin-input-desc-en" data-i18n-placeholder="cms_pin_desc_en_ph" rows="3" placeholder="Historical background, significance, glorious feats in English..."></textarea>
                 </div>
               </div>
 
@@ -707,7 +717,7 @@
         </div>
 
         <div style="background:var(--neutral-100); padding:10px 14px; border-radius:var(--radius-sm); font-size:0.82rem; color:var(--text-muted); margin-bottom:18px; display:flex; justify-content:space-between;">
-          <span>Phạm vi Check-in cho phép:</span>
+          <span data-i18n="modal_checkin_radius_lbl">Phạm vi Check-in cho phép:</span>
           <b id="modal-checkin-radius" style="color:var(--primary-dark);">50m</b>
         </div>
 
@@ -720,7 +730,7 @@
         <!-- Manage / Delete Pin Footer -->
         <div style="margin-top:14px; padding-top:10px; border-top:1px dashed var(--neutral-300); display:flex; justify-content:space-between; align-items:center;">
           <span id="modal-pin-id-text" style="font-size:0.75rem; color:var(--text-muted); font-family:monospace;">ID: pin-xxx</span>
-          <button class="btn-secondary" style="color:#c0392b; border-color:#e74c3c; font-size:0.8rem; padding:4px 12px; cursor:pointer;" onclick="deleteSelectedPin()">🗑️ Xóa Ghim Này</button>
+          <button class="btn-secondary" style="color:#c0392b; border-color:#e74c3c; font-size:0.8rem; padding:4px 12px; cursor:pointer;" onclick="deleteSelectedPin()" data-i18n="modal_btn_delete_pin">🗑️ Xóa Ghim Này</button>
         </div>
       </div>
     </div>

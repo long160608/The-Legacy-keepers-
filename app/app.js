@@ -304,7 +304,42 @@ const TRANSLATIONS = {
     quick_story_content_ph: "Bối cảnh lịch sử, diễn biến sự kiện, mưu lược quân sự...",
     quick_story_cont_lbl: "Tiếp tục thêm giai thoại khác cho nhân vật này sau khi lưu",
     quick_story_btn_cancel: "Hủy",
-    quick_story_btn_save: "💾 Lưu Giai Thoại Ngay"
+    quick_story_btn_save: "💾 Lưu Giai Thoại Ngay",
+    // Location Radar Modal (Vietnamese)
+    modal_cat_landmark: "🏛️ ĐỊA DANH DI TÍCH",
+    modal_cat_battlefield: "⚔️ TRẬN ĐÁNH HÀO HÙNG",
+    modal_cat_living: "🎙️ NHÂN CHỨNG SỐNG / KÝ ỨC",
+    modal_cat_story: "📖 MẢNH KÝ ỨC & SỰ KIỆN",
+    modal_cat_culture: "🎨 VĂN HÓA & LÀNG NGHỀ",
+    modal_dist_prefix: "Cách bạn: ",
+    modal_checkin_radius_lbl: "Phạm vi Check-in cho phép:",
+    modal_checkin_radius_unit: "mét",
+    modal_btn_checkin_ready: "Check-in Khám Phá & Mở Khóa Giai Thoại Ngay!",
+    modal_btn_checkin_dist: "Check-in (Khoảng cách còn ",
+    modal_btn_delete_pin: "🗑️ Xóa Ghim Này",
+    modal_confirm_delete_pin: "Xác nhận xóa Ghim:",
+    modal_media_video_title: "🎬 Thước phim Tư liệu Lịch sử:",
+    modal_media_video_desc: "Video tư liệu thực địa được phát trực tiếp.",
+    modal_media_audio_title: "🎙️ Lời kể Nhân chứng & Âm thanh Lịch sử:",
+    modal_media_audio_desc: "Ghi âm hồi ức hoặc tư liệu podcast lịch sử.",
+    modal_media_yt_title: "📺 Phim Tư liệu YouTube:",
+    modal_media_yt_desc: "Video thuyết minh lịch sử được nhúng trực tiếp.",
+    modal_media_living_title: "🎙️ Thước phim Ký ức / Lời kể Nhân chứng:",
+    modal_media_living_desc: "Tư liệu sống ghi lại trực tiếp tại không gian sự kiện lịch sử này.",
+    modal_media_btn_audio: "▶️ Lắng nghe tư liệu ký ức (30s)",
+    modal_media_btn_ext: "🔗 Mở liên kết tư liệu ngoài",
+    modal_media_btn_attach: "🔗 Mở xem tư liệu lịch sử đính kèm",
+    modal_rarity_common: "Thường (Common)",
+    modal_rarity_uncommon: "Hiếm (Uncommon)",
+    modal_rarity_legendary: "Huyền thoại (Legendary)",
+    modal_rarity_event: "Sự kiện Mùa (Limited)",
+    cms_pin_name_vi_lbl: "Tên Địa danh (Tiếng Việt)",
+    cms_pin_name_en_lbl: "Tên Địa danh (English Name)",
+    cms_pin_name_en_ph: "Ví dụ: Imperial Citadel of Thang Long, Bach Dang Victory Site...",
+    cms_pin_desc_vi_lbl: "Tóm tắt tư liệu lịch sử (Tiếng Việt)",
+    cms_pin_desc_en_lbl: "Tóm tắt tư liệu lịch sử (English Summary)",
+    cms_pin_desc_en_ph: "Historical background, significance, glorious feats in English...",
+    radar_quick_add_pin: "Thêm Địa Danh Mới"
   },
   en: {
     brand_title: "The Legacy Keepers",
@@ -599,7 +634,42 @@ const TRANSLATIONS = {
     quick_story_content_ph: "Historical context, battle events, military strategy...",
     quick_story_cont_lbl: "Keep adding more tales for this hero after saving",
     quick_story_btn_cancel: "Cancel",
-    quick_story_btn_save: "💾 Save Tale Now"
+    quick_story_btn_save: "💾 Save Tale Now",
+    // Location Radar Modal (English)
+    modal_cat_landmark: "🏛️ HERITAGE LANDMARK",
+    modal_cat_battlefield: "⚔️ HISTORIC BATTLEFIELD",
+    modal_cat_living: "🎙️ LIVING WITNESS / MEMORY",
+    modal_cat_story: "📖 MEMORY FRAGMENT & EVENT",
+    modal_cat_culture: "🎨 CULTURE & TRADITIONAL CRAFT",
+    modal_dist_prefix: "Distance: ",
+    modal_checkin_radius_lbl: "Allowed Check-in Radius:",
+    modal_checkin_radius_unit: "meters",
+    modal_btn_checkin_ready: "Check-in Now to Discover & Unlock Tales!",
+    modal_btn_checkin_dist: "Check-in (Distance remaining: ",
+    modal_btn_delete_pin: "🗑️ Delete This Pin",
+    modal_confirm_delete_pin: "Confirm deletion of landmark pin:",
+    modal_media_video_title: "🎬 Historical Documentary Footage:",
+    modal_media_video_desc: "Field historical video played directly.",
+    modal_media_audio_title: "🎙️ Living Witness Testimony & Historical Audio:",
+    modal_media_audio_desc: "Audio memories and historical recordings.",
+    modal_media_yt_title: "📺 YouTube Documentary Video:",
+    modal_media_yt_desc: "Historical narrated video embedded directly.",
+    modal_media_living_title: "🎙️ Memories & Living Witness Testimonies:",
+    modal_media_living_desc: "Living testimonies recorded directly at this historical site.",
+    modal_media_btn_audio: "▶️ Listen to witness recording (30s)",
+    modal_media_btn_ext: "🔗 Open external documentary link",
+    modal_media_btn_attach: "🔗 Open attached historical media",
+    modal_rarity_common: "Common",
+    modal_rarity_uncommon: "Uncommon",
+    modal_rarity_legendary: "Legendary",
+    modal_rarity_event: "Limited Event",
+    cms_pin_name_vi_lbl: "Landmark Name (Vietnamese)",
+    cms_pin_name_en_lbl: "Landmark Name (English)",
+    cms_pin_name_en_ph: "e.g., Imperial Citadel of Thang Long, Bach Dang Victory Site...",
+    cms_pin_desc_vi_lbl: "Historical Summary (Vietnamese)",
+    cms_pin_desc_en_lbl: "Historical Summary (English)",
+    cms_pin_desc_en_ph: "Historical background, significance, glorious feats in English...",
+    radar_quick_add_pin: "Add New Landmark"
   }
 };
 
@@ -656,6 +726,11 @@ function setLanguage(lang) {
 
   // Apply CMS & Dynamic Forms Translations
   applyCMSTranslations();
+
+  // If location modal is open, re-render it in the new language
+  if (selectedPinForModal && document.getElementById("location-modal") && document.getElementById("location-modal").classList.contains("active")) {
+    openLocationModal(selectedPinForModal);
+  }
 
   // Re-render views
   refreshAllViews();
@@ -830,6 +905,7 @@ const INITIAL_DATA = {
     {
       id: "pin-thanglong",
       name: "Hoàng thành Thăng Long",
+      name_en: "Imperial Citadel of Thang Long",
       category: "landmark",
       rarity: "legendary",
       lat: 21.0345600,
@@ -838,12 +914,14 @@ const INITIAL_DATA = {
       interaction_radius: 50,
       icon: "🏛️",
       desc: "Di tích quốc gia đặc biệt, nơi phát hiệu ứng hào quang Aura Pulse toàn vùng. Trung tâm quyền lực suốt hơn 13 thế kỷ từ thời Tiền Thăng Long đến triều Lý, Trần, Lê.",
+      desc_en: "A UNESCO World Heritage Site and Special National Relic, emitting an aura across the realm. The epic political power center for over 13 consecutive centuries through the Ly, Tran, and Le dynasties.",
       image_url: "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=800&q=80",
       hasLivingHistory: false
     },
     {
       id: "pin-bachdang",
       name: "Khu di tích Chiến thắng Bạch Đằng",
+      name_en: "Bach Dang Victory Historic Site",
       category: "battlefield",
       rarity: "legendary",
       lat: 20.9168000,
@@ -852,12 +930,14 @@ const INITIAL_DATA = {
       interaction_radius: 100,
       icon: "⚔️",
       desc: "Chiến trường xưa với 3 lần đánh bại quân xâm lược phương Bắc bằng kế sách cắm cọc hiểm yếu dưới lòng sông của Ngô Quyền, Lê Hoàn và Trần Hưng Đạo.",
+      desc_en: "Legendary historical battlefield where northern invaders were crushed three times using ingenious sunken wooden stake traps in the riverbed by Ngo Quyen, Le Hoan, and Tran Hung Dao.",
       image_url: "https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=800&q=80",
       hasLivingHistory: true
     },
     {
       id: "pin-ham-bietdong",
       name: "Căn hầm bí mật chứa vũ khí Biệt động Sài Gòn",
+      name_en: "Secret Underground Weapons Depot of Saigon Commandos",
       category: "living_history",
       rarity: "uncommon",
       lat: 10.7769000,
@@ -866,12 +946,14 @@ const INITIAL_DATA = {
       interaction_radius: 80,
       icon: "🎙️",
       desc: "Nơi cất giấu gần 2 tấn súng đạn, chất nổ của lực lượng Biệt động Sài Gòn ngay giữa lòng đô thành phục vụ cuộc Tổng tiến công Tết Mậu Thân 1968.",
+      desc_en: "The secret hideout storing nearly 2 tons of firearms and explosives used by the Saigon Special Action Commandos right in the heart of Saigon during the 1968 Tet Offensive.",
       image_url: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
       hasLivingHistory: true
     },
     {
       id: "pin-ben-nharong",
       name: "Bến Nhà Rồng - Bảo tàng Hồ Chí Minh",
+      name_en: "Nha Rong Wharf - Ho Chi Minh Museum",
       category: "landmark",
       rarity: "legendary",
       lat: 10.7684000,
@@ -880,12 +962,14 @@ const INITIAL_DATA = {
       interaction_radius: 50,
       icon: "🏛️",
       desc: "Nơi người thanh niên yêu nước Nguyễn Tất Thành ra đi tìm đường cứu nước vào ngày 5/6/1911 trên con tàu Amiral Latouche-Tréville.",
+      desc_en: "The historic riverfront where the patriotic young man Nguyen Tat Thanh embarked on his journey across the world aboard the Amiral Latouche-Treville on June 5, 1911 to seek national salvation.",
       image_url: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=800&q=80",
       hasLivingHistory: true
     },
     {
       id: "pin-dongda",
       name: "Công viên Văn hóa Đống Đa",
+      name_en: "Dong Da Cultural Park",
       category: "battlefield",
       rarity: "uncommon",
       lat: 21.0152000,
@@ -894,11 +978,13 @@ const INITIAL_DATA = {
       interaction_radius: 80,
       icon: "⚔️",
       desc: "Địa danh ghi dấu chiến công vang dội của Hoàng đế Quang Trung đại phá 29 vạn quân Mãn Thanh mùa xuân năm Kỷ Dậu 1789.",
+      desc_en: "The historic battleground marking Emperor Quang Trung's thunderous victory, completely routing 290,000 Qing imperial invaders during the Spring of 1789 (Year of the Rooster).",
       hasLivingHistory: false
     },
     {
       id: "pin-hatmon",
       name: "Đền thờ Hai Bà Trưng (Hát Môn)",
+      name_en: "Hai Ba Trung Temple (Hat Mon)",
       category: "landmark",
       rarity: "legendary",
       lat: 21.1354000,
@@ -907,6 +993,7 @@ const INITIAL_DATA = {
       interaction_radius: 60,
       icon: "🏛️",
       desc: "Nơi Hai Bà Trưng tế cờ khởi nghĩa và đọc 4 lời thề cứu nước son sắt trước khi xuất quân trừng trị giặc Tô Định.",
+      desc_en: "The sacred shrine where the Trung Sisters raised the rebellion flag and declared the four solemn patriotic oaths before marching off to defeat the Han colonial governor To Dinh.",
       hasLivingHistory: false
     }
   ],
@@ -1213,6 +1300,14 @@ function loadState() {
   if (saved) {
     try {
       appState = JSON.parse(saved);
+      // Auto-migrate: Backfill bilingual names and descriptions for pins
+      (appState.pins || []).forEach(p => {
+        const initPin = INITIAL_DATA.pins.find(initP => initP.id === p.id);
+        if (initPin) {
+          if (!p.name_en && initPin.name_en) p.name_en = initPin.name_en;
+          if (!p.desc_en && initPin.desc_en) p.desc_en = initPin.desc_en;
+        }
+      });
       // Auto-migrate: Backfill background images from INITIAL_DATA if missing in cache
       (appState.figures || []).forEach(f => {
         if (!f.background_image) {
@@ -1657,6 +1752,7 @@ function renderPinsOnMap(filter = "all") {
     // Marker Pin: Luôn hiển thị các di tích lịch sử trên bản đồ để khám phá và tra cứu
     const rarityClass = `pin-rarity-${pin.rarity || 'common'}`;
     const pulseClass = isWithinRadarReach ? 'within-radar' : 'distant-landmark';
+    const pinName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
     const concentricIcon = L.divIcon({
       className: 'concentric-pin-leaflet-icon',
       html: `
@@ -1668,7 +1764,7 @@ function renderPinsOnMap(filter = "all") {
             <div class="pin-ripple-circle pin-ripple-3"></div>
           ` : ''}
           <!-- Tâm Pin -->
-          <div class="pin-core-badge" title="${pin.name}">
+          <div class="pin-core-badge" title="${pinName}">
             ${pin.icon || '🏛️'}
           </div>
         </div>
@@ -1679,7 +1775,7 @@ function renderPinsOnMap(filter = "all") {
 
     const m = L.marker([pin.lat, pin.lng], { icon: concentricIcon }).addTo(map);
     const distLabel = distToPin >= 1000 ? `${(distToPin / 1000).toFixed(1)} km` : `${distToPin} m`;
-    m.bindTooltip(`<b>${pin.icon || '📍'} ${pin.name}</b><br><span style="font-size:0.75rem; color:var(--text-muted);">${currentLang === 'en' ? 'Distance: ' : 'Cách bạn: '}${distLabel}</span>`, {
+    m.bindTooltip(`<b>${pin.icon || '📍'} ${pinName}</b><br><span style="font-size:0.75rem; color:var(--text-muted);">${currentLang === 'en' ? 'Distance: ' : 'Cách bạn: '}${distLabel}</span>`, {
       direction: 'top',
       offset: [0, -18]
     });
@@ -1694,7 +1790,7 @@ function renderPinsOnMap(filter = "all") {
 function openLocationModal(pin) {
   selectedPinForModal = pin;
   const dist = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
-  const distText = dist >= 1000 ? `${(dist / 1000).toFixed(1)} km` : `${dist} mét`;
+  const distText = dist >= 1000 ? `${(dist / 1000).toFixed(1)} km` : `${dist} ${t('modal_checkin_radius_unit')}`;
 
   // Dynamic Header Style based on Rarity
   const heroHeader = document.getElementById("modal-hero-header");
@@ -1705,25 +1801,28 @@ function openLocationModal(pin) {
 
   // Category Tag Text & Icon
   const categoryNames = {
-    landmark: "🏛️ ĐỊA DANH DI TÍCH",
-    battlefield: "⚔️ TRẬN ĐÁNH HÀO HÙNG",
-    living_history: "🎙️ NHÂN CHỨNG SỐNG / KÝ ỨC",
-    story: "📖 MẢNH KÝ ỨC & SỰ KIỆN",
-    culture: "🎨 VĂN HÓA & LÀNG NGHỀ"
+    landmark: t('modal_cat_landmark'),
+    battlefield: t('modal_cat_battlefield'),
+    living_history: t('modal_cat_living'),
+    story: t('modal_cat_story'),
+    culture: t('modal_cat_culture')
   };
-  document.getElementById("modal-category-tag").innerText = categoryNames[pin.category] || "📍 DI TÍCH LỊCH SỬ";
+  document.getElementById("modal-category-tag").innerText = categoryNames[pin.category] || (currentLang === 'en' ? "🏛️ HISTORICAL SITE" : "📍 DI TÍCH LỊCH SỬ");
 
-  document.getElementById("modal-title").innerText = `${pin.icon || '📍'} ${pin.name}`;
-  document.getElementById("modal-desc").innerText = pin.desc;
-  document.getElementById("modal-distance").innerText = `Cách bạn: ${distText}`;
-  document.getElementById("modal-checkin-radius").innerText = `${pin.interaction_radius || 50} mét`;
+  const displayName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
+  const displayDesc = currentLang === 'en' ? (pin.desc_en || pin.desc) : pin.desc;
+
+  document.getElementById("modal-title").innerText = `${pin.icon || '📍'} ${displayName}`;
+  document.getElementById("modal-desc").innerText = displayDesc;
+  document.getElementById("modal-distance").innerText = `${t('modal_dist_prefix')}${distText}`;
+  document.getElementById("modal-checkin-radius").innerText = `${pin.interaction_radius || 50} ${t('modal_checkin_radius_unit')}`;
   
   // Rarity Tag Styling
   const rarityMap = {
-    common: { label: "Thường (Common)", bg: "var(--neutral-200)", color: "var(--text-primary)" },
-    uncommon: { label: "Hiếm (Uncommon)", bg: "#A8D1E2", color: "#152B34" },
-    legendary: { label: "Huyền thoại (Legendary)", bg: "var(--accent-gold)", color: "var(--primary-dark)" },
-    event: { label: "Sự kiện Mùa (Limited)", bg: "#E74C3C", color: "#FFF" }
+    common: { label: t('modal_rarity_common'), bg: "var(--neutral-200)", color: "var(--text-primary)" },
+    uncommon: { label: t('modal_rarity_uncommon'), bg: "#A8D1E2", color: "#152B34" },
+    legendary: { label: t('modal_rarity_legendary'), bg: "var(--accent-gold)", color: "var(--primary-dark)" },
+    event: { label: t('modal_rarity_event'), bg: "#E74C3C", color: "#FFF" }
   };
   const rMeta = rarityMap[pin.rarity] || rarityMap.common;
   const rarityBadge = document.getElementById("modal-rarity");
@@ -1756,30 +1855,30 @@ function openLocationModal(pin) {
     const mLower = mUrl.toLowerCase();
 
     if (mLower.endsWith(".mp4") || mLower.endsWith(".webm") || mLower.endsWith(".mov") || mLower.endsWith(".mkv")) {
-      if (mediaTitle) mediaTitle.innerText = "🎬 Thước phim Tư liệu Lịch sử:";
-      if (mediaDesc) mediaDesc.innerText = "Video tư liệu thực địa được phát trực tiếp.";
+      if (mediaTitle) mediaTitle.innerText = t('modal_media_video_title');
+      if (mediaDesc) mediaDesc.innerText = t('modal_media_video_desc');
       if (mediaContainer) {
         mediaContainer.innerHTML = `
           <video controls style="width:100%; max-height:220px; border-radius:6px; background:#000; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
             <source src="${mUrl}">
-            Trình duyệt không hỗ trợ xem video trực tiếp.
+            ${currentLang === 'en' ? 'Your browser does not support video playback.' : 'Trình duyệt không hỗ trợ xem video trực tiếp.'}
           </video>
         `;
       }
     } else if (mLower.endsWith(".mp3") || mLower.endsWith(".wav") || mLower.endsWith(".ogg") || mLower.endsWith(".m4a")) {
-      if (mediaTitle) mediaTitle.innerText = "🎙️ Lời kể Nhân chứng & Âm thanh Lịch sử:";
-      if (mediaDesc) mediaDesc.innerText = "Ghi âm hồi ức hoặc tư liệu podcast lịch sử.";
+      if (mediaTitle) mediaTitle.innerText = t('modal_media_audio_title');
+      if (mediaDesc) mediaDesc.innerText = t('modal_media_audio_desc');
       if (mediaContainer) {
         mediaContainer.innerHTML = `
           <audio controls style="width:100%; margin-top:6px;">
             <source src="${mUrl}">
-            Trình duyệt không hỗ trợ nghe audio.
+            ${currentLang === 'en' ? 'Your browser does not support audio playback.' : 'Trình duyệt không hỗ trợ nghe audio.'}
           </audio>
         `;
       }
     } else if (mLower.includes("youtube.com") || mLower.includes("youtu.be")) {
-      if (mediaTitle) mediaTitle.innerText = "📺 Phim Tư liệu YouTube:";
-      if (mediaDesc) mediaDesc.innerText = "Video thuyết minh lịch sử được nhúng trực tiếp.";
+      if (mediaTitle) mediaTitle.innerText = t('modal_media_yt_title');
+      if (mediaDesc) mediaDesc.innerText = t('modal_media_yt_desc');
       let videoId = "";
       if (mUrl.includes("v=")) {
         videoId = mUrl.split("v=")[1].split("&")[0];
@@ -1793,19 +1892,19 @@ function openLocationModal(pin) {
           </div>
         `;
       } else if (mediaContainer) {
-        mediaContainer.innerHTML = `<a href="${mUrl}" target="_blank" class="btn-secondary" style="display:block; text-align:center; padding:8px;">🔗 Mở liên kết tư liệu ngoài</a>`;
+        mediaContainer.innerHTML = `<a href="${mUrl}" target="_blank" class="btn-secondary" style="display:block; text-align:center; padding:8px;">${t('modal_media_btn_ext')}</a>`;
       }
     } else {
       if (mediaContainer) {
-        mediaContainer.innerHTML = `<a href="${mUrl}" target="_blank" class="btn-secondary" style="display:block; text-align:center; padding:8px;">🔗 Mở xem tư liệu lịch sử đính kèm</a>`;
+        mediaContainer.innerHTML = `<a href="${mUrl}" target="_blank" class="btn-secondary" style="display:block; text-align:center; padding:8px;">${t('modal_media_btn_attach')}</a>`;
       }
     }
   } else if (pin.hasLivingHistory) {
     livingBox.style.display = "block";
-    if (mediaTitle) mediaTitle.innerText = "🎙️ Thước phim Ký ức / Lời kể Nhân chứng:";
-    if (mediaDesc) mediaDesc.innerText = "Tư liệu sống ghi lại trực tiếp tại không gian sự kiện lịch sử này.";
+    if (mediaTitle) mediaTitle.innerText = t('modal_media_living_title');
+    if (mediaDesc) mediaDesc.innerText = t('modal_media_living_desc');
     if (mediaContainer) {
-      mediaContainer.innerHTML = `<button class="btn-secondary" style="width:100%; padding:8px; font-size:0.85rem;" onclick="simulatePlayAudio()">▶️ Lắng nghe tư liệu ký ức (30s)</button>`;
+      mediaContainer.innerHTML = `<button class="btn-secondary" style="width:100%; padding:8px; font-size:0.85rem;" onclick="simulatePlayAudio()">${t('modal_media_btn_audio')}</button>`;
     }
   } else {
     livingBox.style.display = "none";
@@ -1818,10 +1917,12 @@ function openLocationModal(pin) {
 
   if (canCheckIn) {
     btn.className = "btn-checkin-action ready";
-    label.innerText = "Check-in Khám Phá & Mở Khóa Giai Thoại Ngay!";
+    label.innerText = t('modal_btn_checkin_ready');
   } else {
     btn.className = "btn-checkin-action distance-out";
-    label.innerText = `Check-in (Khoảng cách còn ${distText})`;
+    label.innerText = currentLang === 'en'
+      ? `Check-in (${distText} remaining)`
+      : `${t('modal_btn_checkin_dist')}${distText})`;
   }
 
   document.getElementById("location-modal").classList.add("active");
@@ -1871,11 +1972,12 @@ function performCheckIn() {
   });
 
   // Log action
-  const timeStr = new Date().toLocaleDateString("vi-VN");
+  const timeStr = new Date().toLocaleDateString(currentLang === 'en' ? "en-US" : "vi-VN");
+  const pName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
   if (!appState.profile.logs) appState.profile.logs = [];
-  appState.profile.logs.unshift(`${timeStr}: Check-in tại '${pin.name}' (+100 EXP)`);
+  appState.profile.logs.unshift(currentLang === 'en' ? `${timeStr}: Checked-in at '${pName}' (+100 EXP)` : `${timeStr}: Check-in tại '${pName}' (+100 EXP)`);
   if (unlockedStoryName) {
-    appState.profile.logs.unshift(`${timeStr}: Mở khóa giai thoại '${unlockedStoryName}'!`);
+    appState.profile.logs.unshift(currentLang === 'en' ? `${timeStr}: Unlocked historic tale '${unlockedStoryName}'!` : `${timeStr}: Mở khóa giai thoại '${unlockedStoryName}'!`);
   }
 
   // Evaluate and unlock badges based on rule engine
@@ -1895,7 +1997,8 @@ function performCheckIn() {
 }
 
 function triggerUnlockCelebration(pin, storyName, badgeName) {
-  document.getElementById("celebration-pin-name").innerText = `${pin.icon || '📍'} ${pin.name}`;
+  const pName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
+  document.getElementById("celebration-pin-name").innerText = `${pin.icon || '📍'} ${pName}`;
   
   const storyRow = document.getElementById("celebration-story-row");
   if (storyName) {
@@ -2092,7 +2195,7 @@ function renderFigureDetailPane(figId) {
       linkedPinsMarkup = `
         <div class="figure-section">
           <div class="figure-section-title">
-            <span>📍 Địa Danh & Chiến Trường Gắn Liền (${linkedPins.length})</span>
+            <span>📍 ${currentLang === 'en' ? 'Associated Landmarks & Battlegrounds' : 'Địa Danh & Chiến Trường Gắn Liền'} (${linkedPins.length})</span>
           </div>
           <div class="figure-linked-pins">
             ${linkedPins.map(pin => {
@@ -2105,12 +2208,13 @@ function renderFigureDetailPane(figId) {
                   distText = dist >= 1000 ? `${(dist / 1000).toFixed(1)} km` : `${dist} m`;
                 }
               } catch (e) {}
+              const pName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
               return `
-                <div class="figure-pin-card" onclick="viewPinOnMap('${pin.id}')" title="Bấm để mở bản đồ và check-in">
+                <div class="figure-pin-card" onclick="viewPinOnMap('${pin.id}')" title="${currentLang === 'en' ? 'Click to open map and check in' : 'Bấm để mở bản đồ và check-in'}">
                   <span style="font-size:1.5rem;">${pin.icon || '📍'}</span>
                   <div>
-                    <div style="font-weight:700; font-size:0.92rem; color:var(--primary-dark);">${pin.name}</div>
-                    <div style="font-size:0.78rem; color:var(--text-muted);">${distText ? `Cách bạn ~${distText} • ` : ''}Bấm để xem trên Radar</div>
+                    <div style="font-weight:700; font-size:0.92rem; color:var(--primary-dark);">${pName}</div>
+                    <div style="font-size:0.78rem; color:var(--text-muted);">${distText ? (currentLang === 'en' ? `Distance ~${distText} • ` : `Cách bạn ~${distText} • `) : ''}${currentLang === 'en' ? 'Click to view on Radar' : 'Bấm để xem trên Radar'}</div>
                   </div>
                 </div>
               `;
@@ -2126,13 +2230,13 @@ function renderFigureDetailPane(figId) {
       storiesMarkup = `
         <div class="figure-section">
           <div class="figure-section-title" style="justify-content:space-between;">
-            <span>📖 Kho Tàng Giai Thoại & Cốt Truyện (${figureStories.length})</span>
-            <button class="btn-primary" style="font-size:0.82rem; padding:5px 12px;" onclick="openQuickStoryModal('${fig.id}')">+ Thêm Giai Thoại Mới</button>
+            <span>📖 ${currentLang === 'en' ? 'Historic Tales & Lore Collection' : 'Kho Tàng Giai Thoại & Cốt Truyện'} (${figureStories.length})</span>
+            <button class="btn-primary" style="font-size:0.82rem; padding:5px 12px;" onclick="openQuickStoryModal('${fig.id}')">${currentLang === 'en' ? '+ Add New Tale' : '+ Thêm Giai Thoại Mới'}</button>
           </div>
           <div class="figure-stories-container">
             ${figureStories.map(st => {
               const reqPin = (appState.pins || []).find(p => p && p.id === st.required_pin_id);
-              const pinName = reqPin ? reqPin.name : "Địa danh chỉ dẫn";
+              const pinName = reqPin ? (currentLang === 'en' ? (reqPin.name_en || reqPin.name) : reqPin.name) : (currentLang === 'en' ? "Designated Landmark" : "Địa danh chỉ dẫn");
               const hasCover = st.background_image && st.background_image.trim().length > 0;
 
               if (st.is_locked) {
@@ -2140,23 +2244,23 @@ function renderFigureDetailPane(figId) {
                   <div class="story-card-rich locked">
                     ${hasCover ? `
                       <div class="story-card-cover locked" style="background-image: url('${st.background_image.trim()}');">
-                        <span class="story-card-cover-badge locked">🔒 Cần Check-in để mở khóa</span>
+                        <span class="story-card-cover-badge locked">🔒 ${currentLang === 'en' ? 'Check-in required to unlock' : 'Cần Check-in để mở khóa'}</span>
                       </div>
                     ` : ''}
                     <div class="story-card-header">
                       <div class="story-card-title">🔒 ${st.name}</div>
-                      ${!hasCover ? `<span class="story-card-badge locked">Đang khóa</span>` : ''}
+                      ${!hasCover ? `<span class="story-card-badge locked">${currentLang === 'en' ? 'Locked' : 'Đang khóa'}</span>` : ''}
                     </div>
                     <div class="story-card-body">
                       <p style="color:var(--text-muted); font-size:0.85rem; font-style:italic;">
-                        Nội dung giai thoại đang được niêm phong trong dòng lịch sử.
+                        ${currentLang === 'en' ? 'This historic narrative is currently sealed in history.' : 'Nội dung giai thoại đang được niêm phong trong dòng lịch sử.'}
                       </p>
                       <div style="margin-top:6px; color:#d35400; font-size:0.85rem; font-weight:600;">
-                        🧭 Chỉ dẫn mở khóa: Hãy đến và check-in thực tế tại [${pinName}]!
+                        ${currentLang === 'en' ? `🧭 Unlock guide: Travel and check in at [${pinName}]!` : `🧭 Chỉ dẫn mở khóa: Hãy đến và check-in thực tế tại [${pinName}]!`}
                       </div>
                     </div>
                     <div class="story-card-actions">
-                      ${reqPin ? `<button class="btn-secondary" style="font-size:0.8rem; padding:4px 10px;" onclick="viewPinOnMap('${reqPin.id}')">📍 Xem Ghim '${pinName}'</button>` : ''}
+                      ${reqPin ? `<button class="btn-secondary" style="font-size:0.8rem; padding:4px 10px;" onclick="viewPinOnMap('${reqPin.id}')">📍 ${currentLang === 'en' ? `View Pin '${pinName}'` : `Xem Ghim '${pinName}'`}</button>` : ''}
                     </div>
                   </div>
                 `;
@@ -2988,6 +3092,7 @@ function openQuickInputModal() {
 function handleCreatePin(e) {
   e.preventDefault();
   const name = document.getElementById("pin-input-name").value.trim();
+  const name_en = document.getElementById("pin-input-name-en") ? document.getElementById("pin-input-name-en").value.trim() : "";
   const category = document.getElementById("pin-input-type").value;
   const rarity = document.getElementById("pin-input-rarity").value;
   const lat = parseFloat(document.getElementById("pin-input-lat").value);
@@ -2996,6 +3101,7 @@ function handleCreatePin(e) {
   const interaction = parseInt(document.getElementById("pin-input-interaction-radius").value) || 100;
   const image_url = document.getElementById("pin-input-image").value.trim();
   const desc = document.getElementById("pin-input-desc").value.trim();
+  const desc_en = document.getElementById("pin-input-desc-en") ? document.getElementById("pin-input-desc-en").value.trim() : "";
   const media = document.getElementById("pin-input-media").value.trim();
 
   const iconMap = {
@@ -3009,6 +3115,7 @@ function handleCreatePin(e) {
   const newPin = {
     id: `pin-${Date.now()}`,
     name,
+    name_en: name_en || name,
     category,
     rarity,
     lat,
@@ -3017,6 +3124,7 @@ function handleCreatePin(e) {
     interaction_radius: interaction,
     image_url: image_url,
     desc,
+    desc_en: desc_en || desc,
     media_url: media,
     icon: iconMap[category] || "📍",
     hasLivingHistory: category === "living_history" || media.length > 0
@@ -3027,8 +3135,11 @@ function handleCreatePin(e) {
   saveToServerDataJSON();
   refreshAllViews();
 
-  showToast(`✓ Đã thêm Ghim mới: "${name}" thành công!`);
+  showToast(currentLang === 'en' ? `✓ Successfully added new landmark pin: "${name_en || name}"!` : `✓ Đã thêm Ghim mới: "${name}" thành công!`);
   e.target.reset();
+
+  const previewBox = document.getElementById("pin-image-preview-box");
+  if (previewBox) previewBox.style.display = "none";
 
   // Switch to Map to view immediately
   document.querySelector('[data-tab="tab-map"]').click();
@@ -3877,27 +3988,35 @@ function showToast(message) {
 function deleteSelectedPin() {
   if (!selectedPinForModal) return;
   const pin = selectedPinForModal;
-  if (!confirm(`Bạn có chắc chắn muốn xóa Ghim "${pin.name}" khỏi bản đồ không?`)) return;
+  const pName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
+  const confirmMsg = currentLang === 'en'
+    ? `Are you sure you want to delete landmark pin "${pName}" from the map?`
+    : `Bạn có chắc chắn muốn xóa Ghim "${pin.name}" khỏi bản đồ không?`;
+  if (!confirm(confirmMsg)) return;
 
   appState.pins = appState.pins.filter(p => p.id !== pin.id);
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
   closeModal();
-  showToast(`🗑️ Đã xóa Ghim "${pin.name}" thành công!`);
+  showToast(currentLang === 'en' ? `🗑️ Successfully deleted landmark pin "${pName}"!` : `🗑️ Đã xóa Ghim "${pin.name}" thành công!`);
 }
 
 // 2. Delete single items by ID
 function deletePinById(id) {
   const pin = appState.pins.find(p => p.id === id);
   if (!pin) return;
-  if (!confirm(`Xác nhận xóa Ghim: "${pin.name}"?`)) return;
+  const pName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
+  const confirmMsg = currentLang === 'en'
+    ? `Confirm deletion of landmark pin: "${pName}"?`
+    : `Xác nhận xóa Ghim: "${pin.name}"?`;
+  if (!confirm(confirmMsg)) return;
 
   appState.pins = appState.pins.filter(p => p.id !== id);
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
-  showToast(`🗑️ Đã xóa Ghim "${pin.name}"!`);
+  showToast(currentLang === 'en' ? `🗑️ Successfully deleted landmark pin "${pName}"!` : `🗑️ Đã xóa Ghim "${pin.name}"!`);
 }
 
 function deleteFigureById(id) {
@@ -3972,9 +4091,14 @@ function renderManageTables() {
           <tbody>
       `;
       appState.pins.forEach(pin => {
+        const displayName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
+        const subName = (currentLang === 'en' && pin.name) ? pin.name : (pin.name_en || '');
         html += `
           <tr>
-            <td><b>${pin.icon || '📍'} ${pin.name}</b></td>
+            <td>
+              <b>${pin.icon || '📍'} ${displayName}</b>
+              ${subName && subName !== displayName ? `<div style="font-size:0.75rem; color:var(--text-muted); font-weight:normal;">${subName}</div>` : ''}
+            </td>
             <td><span style="font-size:0.8rem; background:var(--neutral-100); padding:3px 8px; border-radius:4px;">${pin.category}</span></td>
             <td><span style="font-size:0.8rem; font-weight:600;">${pin.rarity}</span></td>
             <td style="font-family:monospace; font-size:0.8rem;">${Number(pin.lat).toFixed(4)}, ${Number(pin.lng).toFixed(4)}</td>

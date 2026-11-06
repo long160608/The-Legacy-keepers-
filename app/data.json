@@ -3,6 +3,7 @@
     {
       "id": "pin-thanglong",
       "name": "Hoàng thành Thăng Long",
+      "name_en": "Imperial Citadel of Thang Long",
       "category": "landmark",
       "rarity": "legendary",
       "lat": 21.0345600,
@@ -12,11 +13,13 @@
       "icon": "🏛️",
       "image_url": "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=800&q=80",
       "desc": "Di tích quốc gia đặc biệt, nơi phát hiệu ứng hào quang Aura Pulse toàn vùng. Trung tâm quyền lực suốt hơn 13 thế kỷ từ thời Tiền Thăng Long đến triều Lý, Trần, Lê.",
+      "desc_en": "A UNESCO World Heritage Site and Special National Relic, emitting an aura across the realm. The epic political power center for over 13 consecutive centuries through the Ly, Tran, and Le dynasties.",
       "hasLivingHistory": false
     },
     {
       "id": "pin-bachdang",
       "name": "Khu di tích Chiến thắng Bạch Đằng",
+      "name_en": "Bach Dang Victory Historic Site",
       "category": "battlefield",
       "rarity": "legendary",
       "lat": 20.9168000,
@@ -26,11 +29,13 @@
       "icon": "⚔️",
       "image_url": "https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=800&q=80",
       "desc": "Chiến trường xưa với 3 lần đánh bại quân xâm lược phương Bắc bằng kế sách cắm cọc hiểm yếu dưới lòng sông của Ngô Quyền, Lê Hoàn và Trần Hưng Đạo.",
+      "desc_en": "Legendary historical battlefield where northern invaders were crushed three times using ingenious sunken wooden stake traps in the riverbed by Ngo Quyen, Le Hoan, and Tran Hung Dao.",
       "hasLivingHistory": true
     },
     {
       "id": "pin-ham-bietdong",
       "name": "Căn hầm bí mật chứa vũ khí Biệt động Sài Gòn",
+      "name_en": "Secret Underground Weapons Depot of Saigon Commandos",
       "category": "living_history",
       "rarity": "uncommon",
       "lat": 10.7769000,
@@ -40,11 +45,13 @@
       "icon": "🎙️",
       "image_url": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
       "desc": "Nơi cất giấu gần 2 tấn súng đạn, chất nổ của lực lượng Biệt động Sài Gòn ngay giữa lòng đô thành phục vụ cuộc Tổng tiến công Tết Mậu Thân 1968.",
+      "desc_en": "The secret hideout storing nearly 2 tons of firearms and explosives used by the Saigon Special Action Commandos right in the heart of Saigon during the 1968 Tet Offensive.",
       "hasLivingHistory": true
     },
     {
       "id": "pin-ben-nharong",
       "name": "Bến Nhà Rồng - Bảo tàng Hồ Chí Minh",
+      "name_en": "Nha Rong Wharf - Ho Chi Minh Museum",
       "category": "landmark",
       "rarity": "legendary",
       "lat": 10.7684000,
@@ -54,11 +61,13 @@
       "icon": "🏛️",
       "image_url": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=800&q=80",
       "desc": "Nơi người thanh niên yêu nước Nguyễn Tất Thành ra đi tìm đường cứu nước vào ngày 5/6/1911 trên con tàu Amiral Latouche-Tréville.",
+      "desc_en": "The historic riverfront where the patriotic young man Nguyen Tat Thanh embarked on his journey across the world aboard the Amiral Latouche-Treville on June 5, 1911 to seek national salvation.",
       "hasLivingHistory": true
     },
     {
       "id": "pin-dongda",
       "name": "Công viên Văn hóa Đống Đa",
+      "name_en": "Dong Da Cultural Park",
       "category": "battlefield",
       "rarity": "uncommon",
       "lat": 21.0152000,
@@ -68,11 +77,13 @@
       "icon": "⚔️",
       "image_url": "",
       "desc": "Địa danh ghi dấu chiến công vang dội của Hoàng đế Quang Trung đại phá 29 vạn quân Mãn Thanh mùa xuân năm Kỷ Dậu 1789.",
+      "desc_en": "The historic battleground marking Emperor Quang Trung's thunderous victory, completely routing 290,000 Qing imperial invaders during the Spring of 1789 (Year of the Rooster).",
       "hasLivingHistory": false
     },
     {
       "id": "pin-hatmon",
       "name": "Đền thờ Hai Bà Trưng (Hát Môn)",
+      "name_en": "Hai Ba Trung Temple (Hat Mon)",
       "category": "landmark",
       "rarity": "legendary",
       "lat": 21.1354000,
@@ -82,6 +93,7 @@
       "icon": "🏛️",
       "image_url": "",
       "desc": "Nơi Hai Bà Trưng tế cờ khởi nghĩa và đọc 4 lời thề cứu nước son sắt trước khi xuất quân trừng trị giặc Tô Định.",
+      "desc_en": "The sacred shrine where the Trung Sisters raised the rebellion flag and declared the four solemn patriotic oaths before marching off to defeat the Han colonial governor To Dinh.",
       "hasLivingHistory": false
     }
   ],
