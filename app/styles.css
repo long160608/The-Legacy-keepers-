@@ -3139,10 +3139,24 @@ body.simulator-mode .mobile-bottom-nav {
     display: none !important;
   }
 
-  /* Figures & Stories Screen Adjustments */
+  /* Figures & Stories Screen Adjustments on Mobile */
+  #tab-figures .section-header {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 8px !important;
+  }
+
+  #tab-figures .section-header .btn-primary {
+    font-size: 0.74rem !important;
+    padding: 5px 10px !important;
+    border-radius: 14px !important;
+    white-space: nowrap !important;
+  }
+
   .figures-split-container {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 10px !important;
     height: auto !important;
     min-height: auto !important;
   }
@@ -3150,35 +3164,311 @@ body.simulator-mode .mobile-bottom-nav {
   .figures-sidebar {
     position: static !important;
     max-height: none !important;
-    padding: 10px !important;
+    padding: 10px 12px !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+    background: #fff !important;
   }
 
   .figures-sidebar-header {
-    gap: 8px !important;
-    padding-bottom: 8px !important;
+    gap: 6px !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 6px !important;
+    border-bottom: 1px dashed var(--neutral-200) !important;
   }
 
+  #figures-search-input {
+    height: 36px !important;
+    font-size: 0.82rem !important;
+    padding: 6px 12px !important;
+    border-radius: 18px !important;
+  }
+
+  .figures-filter-chips {
+    gap: 5px !important;
+    padding-bottom: 2px !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+
+  .figures-filter-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .figures-filter-chips .filter-chip {
+    padding: 4px 10px !important;
+    font-size: 0.72rem !important;
+    border-radius: 12px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Sleek horizontal character bubble selector on mobile */
   .figures-list-wrap {
-    max-height: 150px !important;
-    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    max-height: none !important;
+    gap: 10px !important;
+    padding: 6px 2px 8px 2px !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .figures-list-wrap::-webkit-scrollbar {
+    display: none;
   }
 
   .figure-nav-item {
-    padding: 6px 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 76px !important;
+    min-width: 76px !important;
+    max-width: 76px !important;
+    padding: 8px 4px !important;
+    border-radius: 14px !important;
+    background: #fff !important;
+    border: 1.5px solid var(--neutral-200) !important;
+    border-left: 1.5px solid var(--neutral-200) !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03) !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .figure-nav-item.active {
+    background: #FFFDF8 !important;
+    border-color: var(--accent-gold) !important;
+    border-left-color: var(--accent-gold) !important;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35) !important;
+    transform: translateY(-2px) scale(1.03) !important;
   }
 
   .figure-nav-avatar {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.1rem !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    border: 2px solid var(--accent-gold) !important;
+    font-size: 1.4rem !important;
+    margin-bottom: 2px !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .figure-nav-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .figure-nav-item.active .figure-nav-avatar {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px var(--accent-gold) !important;
+  }
+
+  .figure-nav-info {
+    width: 100% !important;
+    text-align: center !important;
   }
 
   .figure-nav-name {
-    font-size: 0.85rem !important;
+    font-size: 0.74rem !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 70px !important;
+    color: var(--primary-dark) !important;
   }
 
   .figure-nav-meta {
-    font-size: 0.72rem !important;
+    font-size: 0.65rem !important;
+    color: var(--text-muted) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 70px !important;
+    margin-top: 1px !important;
+  }
+
+  .figure-nav-badge-pill {
+    display: none !important;
+  }
+
+  /* Figure Detail Showcase Pane on Mobile */
+  .figures-detail-pane {
+    padding: 12px 10px !important;
+    gap: 14px !important;
+    border-radius: var(--radius-md) !important;
+    min-height: auto !important;
+  }
+
+  /* Version A: Has Cover Image Backdrop */
+  .figure-hero-backdrop {
+    margin: -12px -10px 10px -10px !important;
+    min-height: 185px !important;
+    padding: 14px 12px !important;
+    border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+    align-items: flex-end !important;
+  }
+
+  .figure-hero-backdrop-content {
+    flex-direction: row !important;
+    align-items: flex-end !important;
+    text-align: left !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .figure-hero-backdrop .figure-detail-title {
+    font-size: 1.2rem !important;
+    line-height: 1.2 !important;
+    color: #FFFDF8 !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.85) !important;
+    margin-bottom: 2px !important;
+  }
+
+  .figure-hero-backdrop .figure-detail-pill {
+    background: rgba(0, 0, 0, 0.45) !important;
+    color: #FFFDF8 !important;
+    border: 1px solid rgba(212, 175, 55, 0.6) !important;
+    backdrop-filter: blur(4px) !important;
+    font-size: 0.68rem !important;
+    padding: 2px 7px !important;
+  }
+
+  .figure-hero-backdrop .figure-quote-box {
+    margin-top: 6px !important;
+    padding: 6px 10px !important;
+    font-size: 0.78rem !important;
+    border-radius: 6px !important;
+    background: rgba(0, 0, 0, 0.45) !important;
+    color: #FFFDF8 !important;
+    border-left: 3px solid var(--accent-gold) !important;
+    backdrop-filter: blur(4px) !important;
+  }
+
+  /* Version B: Clean Light Hero without Cover */
+  .figure-detail-hero {
+    flex-direction: row !important;
+    align-items: center !important;
+    text-align: left !important;
+    gap: 12px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .figure-detail-hero .figure-detail-title {
+    font-size: 1.2rem !important;
+    line-height: 1.2 !important;
+    color: var(--primary-dark) !important;
+    margin-bottom: 2px !important;
+  }
+
+  .figure-detail-hero .figure-detail-pill {
+    font-size: 0.68rem !important;
+    padding: 2px 7px !important;
+  }
+
+  .figure-detail-hero .figure-quote-box {
+    margin-top: 6px !important;
+    padding: 6px 10px !important;
+    font-size: 0.78rem !important;
+    border-radius: 6px !important;
+  }
+
+  .figure-detail-avatar-box {
+    width: 62px !important;
+    height: 62px !important;
+    border-radius: 50% !important;
+    border: 3px solid #FFFDF8 !important;
+    font-size: 1.7rem !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .figure-detail-pills {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+    margin-top: 4px !important;
+  }
+
+  .hero-backdrop-actions {
+    top: 8px !important;
+    right: 8px !important;
+    gap: 6px !important;
+  }
+
+  .btn-hero-bg-action,
+  .btn-hero-bg-action-remove {
+    padding: 4px 8px !important;
+    font-size: 0.7rem !important;
+    border-radius: 12px !important;
+  }
+
+  .figure-section {
+    margin-top: 6px !important;
+  }
+
+  .figure-section-title {
+    font-size: 0.92rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .figure-bio-text {
+    padding: 10px 12px !important;
+    font-size: 0.84rem !important;
+    line-height: 1.6 !important;
+    background: #FFFDF8 !important;
+    border-radius: 10px !important;
+    border: 1px solid var(--neutral-200) !important;
+  }
+
+  .figure-linked-pins {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .figure-pin-card {
+    padding: 8px 10px !important;
+    border-radius: 10px !important;
+    gap: 10px !important;
+  }
+
+  .figure-stories-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .story-card-rich {
+    border-radius: 12px !important;
+  }
+
+  .story-card-cover {
+    height: 110px !important;
+  }
+
+  .story-card-body {
+    padding: 10px 12px !important;
+  }
+
+  .story-card-title {
+    font-size: 0.92rem !important;
+  }
+
+  .story-card-excerpt {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
   }
 
   /* Badges Screen Adjustments */

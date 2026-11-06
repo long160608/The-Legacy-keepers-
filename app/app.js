@@ -2803,6 +2803,14 @@ function selectFigure(id) {
     saveToServerDataJSON();
   }
   renderFiguresSplitView();
+
+  // On mobile, scroll the active avatar bubble into view smoothly
+  setTimeout(() => {
+    const activeItem = document.querySelector(".figure-nav-item.active");
+    if (activeItem && typeof activeItem.scrollIntoView === 'function') {
+      activeItem.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  }, 40);
 }
 
 async function changeFigureBackgroundDirect(event, figId) {
