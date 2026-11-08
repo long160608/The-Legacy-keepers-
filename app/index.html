@@ -1197,73 +1197,91 @@
 
   <!-- ==================== ROLE SWITCHER MODAL ==================== -->
   <div class="modal-overlay" id="role-modal">
-    <div class="modal-box" style="max-width:520px;">
+    <div class="modal-box" style="max-width:580px;">
       <div class="modal-header">
         <h3 id="role-modal-title" data-i18n="role_switch_title">🔐 Cấp Quyền & Vai Trò Hệ Thống</h3>
         <button class="modal-close-btn" onclick="closeRoleModal()">✕</button>
       </div>
       <div class="modal-body" style="padding: 18px 20px;">
         <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:14px; line-height:1.5;" id="role-modal-subtitle" data-i18n="role_switch_subtitle">
-          Hệ thống chia làm 2 cấp bậc phân quyền rõ ràng: Người Dùng (User) để khám phá và Quản Trị Viên (Admin) để quản lý dữ liệu di sản.
+          Hệ thống phân chia 3 cấp bậc rõ ràng: Quản Lý (Manager), Khách Trải Nghiệm (Demo User), và Người Dùng Thực Tế (User GPS).
         </p>
 
         <!-- Current Role Banner -->
         <div id="role-current-banner" style="margin-bottom:14px; padding:8px 12px; background:var(--neutral-100); border-radius:8px; font-size:0.84rem; display:flex; justify-content:space-between; align-items:center;">
           <span data-i18n="role_current_label">Vai trò hiện tại:</span>
-          <strong id="role-current-name-display" style="color:var(--primary-dark);">Người Dùng (User)</strong>
+          <strong id="role-current-name-display" style="color:var(--primary-dark);">Người Dùng Thực Tế (User GPS)</strong>
         </div>
 
-        <!-- 2 Choice Cards -->
+        <!-- 3 Choice Cards -->
         <div class="role-cards-container">
-          <!-- Card User -->
-          <div class="role-choice-card" id="card-role-user">
-            <div class="role-card-header">
-              <span class="role-icon">👤</span>
-              <div>
-                <strong class="role-title">Người Dùng (User / Explorer)</strong>
-                <span class="role-status-badge" id="badge-status-user">Khách du lịch / Người khám phá</span>
-              </div>
-            </div>
-            <p class="role-desc" data-i18n="role_user_desc">Khám phá bản đồ, check-in và mở khóa giai thoại (Chỉ xem)</p>
-            <div class="role-privileges">
-              <span class="priv-tag ok">✓ Quét Radar & Check-in</span>
-              <span class="priv-tag ok">✓ Mở khóa Giai thoại</span>
-              <span class="priv-tag ok">✓ Thu thập Huy hiệu</span>
-              <span class="priv-tag lock">✕ Không thêm / sửa / xóa Pin</span>
-            </div>
-            <button type="button" class="btn-role-action" id="btn-activate-user" onclick="confirmSwitchToUser()" data-i18n="role_btn_switch_user">👤 Chuyển sang User</button>
-          </div>
-
-          <!-- Card Admin -->
-          <div class="role-choice-card" id="card-role-admin">
+          <!-- Card 1: Manager -->
+          <div class="role-choice-card" id="card-role-manager">
             <div class="role-card-header">
               <span class="role-icon">👑</span>
               <div>
-                <strong class="role-title">Quản Trị Viên (Admin / Content)</strong>
-                <span class="role-status-badge badge-admin" id="badge-status-admin">Toàn quyền hệ thống</span>
+                <strong class="role-title">Quản Lý (Manager)</strong>
+                <span class="role-status-badge badge-admin" id="badge-status-manager">Toàn quyền hệ thống & W-A-S-D</span>
               </div>
             </div>
-            <p class="role-desc" data-i18n="role_admin_desc">Toàn quyền thêm, chỉnh sửa và quản lý dữ liệu di sản</p>
+            <p class="role-desc" data-i18n="role_manager_desc">Toàn quyền thêm/sửa/xóa nội dung CMS và di chuyển tự do bằng phím W-A-S-D.</p>
             <div class="role-privileges">
-              <span class="priv-tag ok">✓ Thêm Pin Địa danh mới</span>
-              <span class="priv-tag ok">✓ Chỉnh sửa Tọa độ & Nội dung</span>
-              <span class="priv-tag ok">✓ Xóa Pin khỏi hệ thống</span>
-              <span class="priv-tag ok">✓ Toàn quyền quản trị CMS</span>
+              <span class="priv-tag ok">✓ Thêm / Sửa / Xóa dữ liệu CMS</span>
+              <span class="priv-tag move">⌨️ Di chuyển bằng phím W A S D</span>
+              <span class="priv-tag ok">✓ Toàn quyền quản trị & sao lưu</span>
             </div>
             
-            <!-- Admin Passcode Box -->
+            <!-- Manager Passcode Box -->
             <div id="admin-passcode-box" style="margin-top:12px; padding:10px; background:#FFFDF8; border:1px dashed var(--accent-gold); border-radius:8px; display:none;">
-              <label style="font-size:0.78rem; font-weight:600; color:var(--text-secondary); margin-bottom:4px; display:block;" data-i18n="role_pass_ph">Nhập mật khẩu Admin (mặc định: admin):</label>
+              <label style="font-size:0.78rem; font-weight:600; color:var(--text-secondary); margin-bottom:4px; display:block;" data-i18n="role_pass_ph">Nhập mật khẩu Manager (mặc định: admin):</label>
               <div style="display:flex; gap:6px;">
-                <input type="password" id="admin-passcode-input" class="form-input" style="font-size:0.85rem; padding:6px 10px;" placeholder="admin" onkeydown="if(event.key==='Enter') verifyAndSwitchToAdmin()" />
-                <button type="button" class="btn-primary" style="padding:6px 14px; font-size:0.82rem; white-space:nowrap;" onclick="verifyAndSwitchToAdmin()" data-i18n="role_btn_verify">Xác nhận</button>
+                <input type="password" id="admin-passcode-input" class="form-input" style="font-size:0.85rem; padding:6px 10px;" placeholder="admin" onkeydown="if(event.key==='Enter') verifyAndSwitchToManager()" />
+                <button type="button" class="btn-primary" style="padding:6px 14px; font-size:0.82rem; white-space:nowrap;" onclick="verifyAndSwitchToManager()" data-i18n="role_btn_verify">Xác nhận</button>
               </div>
               <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
                 <span style="font-size:0.74rem; color:var(--text-muted);">Mật khẩu: <code>admin</code></span>
-                <button type="button" class="btn-secondary" style="font-size:0.74rem; padding:3px 8px; border-color:var(--accent-gold); color:var(--primary-dark);" onclick="quickSwitchToAdminDemo()" data-i18n="role_btn_quick_demo">⚡ Bật Nhanh (Demo 1 chạm)</button>
+                <button type="button" class="btn-secondary" style="font-size:0.74rem; padding:3px 8px; border-color:var(--accent-gold); color:var(--primary-dark);" onclick="quickSwitchToManagerDemo()" data-i18n="role_btn_quick_demo">⚡ Bật Nhanh (Demo 1 chạm)</button>
               </div>
             </div>
-            <button type="button" class="btn-role-action" id="btn-activate-admin" onclick="showAdminPasscodeBox()" data-i18n="role_btn_switch_admin">👑 Đăng nhập Admin</button>
+            <button type="button" class="btn-role-action" id="btn-activate-admin" onclick="showManagerPasscodeBox()" data-i18n="role_btn_switch_manager">👑 Kích hoạt Manager</button>
+          </div>
+
+          <!-- Card 2: Demo User -->
+          <div class="role-choice-card" id="card-role-demo">
+            <div class="role-card-header">
+              <span class="role-icon">🎮</span>
+              <div>
+                <strong class="role-title">Khách Trải Nghiệm (Demo User)</strong>
+                <span class="role-status-badge badge-demo" id="badge-status-demo">Di chuyển W-A-S-D • Khóa sửa</span>
+              </div>
+            </div>
+            <p class="role-desc" data-i18n="role_demo_user_desc">Trải nghiệm khám phá bản đồ bằng phím W-A-S-D trên máy tính. Không sửa đổi dữ liệu.</p>
+            <div class="role-privileges">
+              <span class="priv-tag move">⌨️ Di chuyển bằng phím W A S D</span>
+              <span class="priv-tag ok">✓ Quét Radar & Thử nghiệm Check-in</span>
+              <span class="priv-tag ok">✓ Mở khóa Giai thoại & Huy hiệu</span>
+              <span class="priv-tag lock">✕ Không thêm / sửa / xóa nội dung</span>
+            </div>
+            <button type="button" class="btn-role-action" id="btn-activate-demo" onclick="confirmSwitchToDemoUser()" data-i18n="role_btn_switch_demo">🎮 Chuyển sang Dùng Thử</button>
+          </div>
+
+          <!-- Card 3: Real User -->
+          <div class="role-choice-card" id="card-role-user">
+            <div class="role-card-header">
+              <span class="role-icon">📍</span>
+              <div>
+                <strong class="role-title">Người Dùng Thực Tế (User GPS)</strong>
+                <span class="role-status-badge" id="badge-status-user">Thực địa GPS • Khóa W-A-S-D</span>
+              </div>
+            </div>
+            <p class="role-desc" data-i18n="role_user_desc">Khám phá thực địa ngoài đời bằng GPS điện thoại. Khóa phím W-A-S-D và khóa sửa nội dung.</p>
+            <div class="role-privileges">
+              <span class="priv-tag ok">📍 Dùng định vị GPS điện thoại thực tế</span>
+              <span class="priv-tag ok">✓ Quét Radar & Check-in ngoài đời</span>
+              <span class="priv-tag lock">🔒 Khóa phím di chuyển W-A-S-D</span>
+              <span class="priv-tag lock">✕ Không thêm / sửa / xóa nội dung</span>
+            </div>
+            <button type="button" class="btn-role-action" id="btn-activate-user" onclick="confirmSwitchToUser()" data-i18n="role_btn_switch_user">📍 Chuyển sang Người Dùng Thực</button>
           </div>
         </div>
       </div>

@@ -429,28 +429,40 @@ const TRANSLATIONS = {
     stat_tag_checked_in: "✓ Đã Check-in",
     stat_tag_unlocked: "🔓 Đã mở khóa",
     stat_tag_earned: "🏅 Đã đạt",
-    // Role & Permissions System
-    role_user: "Người Dùng",
-    role_admin: "Quản Trị Viên",
-    role_user_desc: "Khám phá bản đồ, check-in và mở khóa giai thoại (Chỉ xem)",
+    // Role & Permissions System (Manager, Demo User, User)
+    role_manager: "Quản Lý (Manager)",
+    role_demo_user: "Khách Trải Nghiệm (Demo User)",
+    role_user: "Người Dùng Thực Tế (User GPS)",
+    role_admin: "Quản Lý (Manager)",
+    role_manager_desc: "Toàn quyền thêm/sửa/xóa nội dung CMS và di chuyển tự do bằng phím W-A-S-D.",
+    role_demo_user_desc: "Trải nghiệm khám phá bản đồ bằng phím W-A-S-D trên máy tính. Không sửa đổi dữ liệu.",
+    role_user_desc: "Khám phá thực địa ngoài đời bằng GPS điện thoại. Khóa phím W-A-S-D và khóa sửa nội dung.",
     role_admin_desc: "Toàn quyền thêm, chỉnh sửa và quản lý dữ liệu di sản",
     role_switch_title: "🔐 Cấp Quyền & Vai Trò Hệ Thống",
-    role_switch_subtitle: "Hệ thống chia làm 2 cấp bậc phân quyền rõ ràng: Người Dùng (User) để khám phá và Quản Trị Viên (Admin) để quản lý dữ liệu di sản.",
+    role_switch_subtitle: "Hệ thống phân chia 3 cấp bậc rõ ràng: Quản Lý (Manager), Khách Trải Nghiệm (Demo User), và Người Dùng Thực Tế (User GPS).",
     role_current_label: "Vai trò hiện tại",
-    role_btn_switch_admin: "👑 Đăng nhập Admin",
-    role_btn_switch_user: "👤 Chuyển sang User",
-    role_pass_ph: "Nhập mật khẩu Admin (mặc định: admin)",
-    role_btn_verify: "Xác nhận Admin",
+    role_btn_switch_manager: "👑 Kích hoạt Manager",
+    role_btn_switch_demo: "🎮 Chuyển sang Dùng Thử",
+    role_btn_switch_user: "📍 Chuyển sang Người Dùng Thực",
+    role_btn_switch_admin: "👑 Đăng nhập Manager",
+    role_pass_ph: "Nhập mật khẩu Manager (mặc định: admin)",
+    role_btn_verify: "Xác nhận Manager",
     role_btn_quick_demo: "⚡ Bật Nhanh (Demo 1 chạm)",
-    role_err_pass: "Mật khẩu Admin không chính xác! (Gợi ý: 'admin')",
-    role_toast_admin: "👑 Bạn đã chuyển sang quyền Quản Trị Viên (Admin)!",
-    role_toast_user: "👤 Bạn đã chuyển sang quyền Người Dùng (User)!",
-    role_user_readonly_banner: "🔒 Chế độ Người Dùng: Chỉ được xem và check-in, không thể thêm hoặc sửa đổi ghim địa danh.",
-    role_admin_banner: "👑 Chế độ Quản Trị Viên: Bạn có toàn quyền thêm, sửa, xóa ghim địa danh và quản trị CMS.",
+    role_err_pass: "Mật khẩu Manager không chính xác! (Gợi ý: 'admin')",
+    role_toast_manager: "👑 Bạn đã kích hoạt quyền Quản Lý (Manager)!",
+    role_toast_demo: "🎮 Bạn đã chuyển sang chế độ Khách Trải Nghiệm (Di chuyển phím W-A-S-D)!",
+    role_toast_user: "📍 Bạn đã chuyển sang chế độ Người Dùng Thực Tế (Dùng GPS điện thoại)!",
+    role_toast_admin: "👑 Bạn đã kích hoạt quyền Quản Lý (Manager)!",
+    role_manager_banner: "👑 Chế độ Quản Lý: Toàn quyền thêm, sửa, xóa ghim địa danh và di chuyển tự do bằng phím W A S D.",
+    role_demo_banner: "🎮 Chế độ Dùng Thử: Bạn có thể di chuyển bằng phím W A S D để trải nghiệm radar, nhưng quyền sửa dữ liệu bị khóa.",
+    role_user_readonly_banner: "📍 Chế độ Thực Địa: Vui lòng sử dụng GPS điện thoại ngoài đời thực. Phím W A S D và quyền sửa dữ liệu bị khóa.",
+    role_admin_banner: "👑 Chế độ Quản Lý: Toàn quyền thêm, sửa, xóa ghim địa danh và di chuyển tự do bằng phím W A S D.",
     role_btn_edit_pin: "✏️ Sửa Ghim",
-    role_denied_toast: "🔒 Thao tác bị chặn: Bạn cần quyền Quản Trị Viên (Admin) để thêm, sửa hoặc xóa ghim!",
+    role_denied_toast: "🔒 Thao tác bị chặn: Bạn cần quyền Quản Lý (Manager) để thêm, sửa hoặc xóa ghim!",
     role_readonly_status: "🔒 Chỉ xem",
-    role_user_readonly_hint: "🔒 Chế độ Người Dùng: Chỉ xem & Check-in địa danh",
+    role_demo_readonly_hint: "🎮 Chế độ Dùng Thử: Chỉ xem & Check-in (Hỗ trợ phím W-A-S-D)",
+    role_user_readonly_hint: "📍 Chế độ Thực Địa: Chỉ xem & Check-in bằng GPS điện thoại",
+    role_wasd_blocked_toast: "🔒 Chế độ Người Dùng: Phím di chuyển bị khóa! Vui lòng dùng định vị GPS điện thoại ngoài đời thực.",
     // Snapshots & Checkpoints System
     cms_tab_backups: "💾 Điểm Phục Hồi & Bản Save",
     cms_btn_quick_save: "💾 Tạo Bản Save Ngay",
@@ -889,28 +901,40 @@ const TRANSLATIONS = {
     stat_tag_checked_in: "✓ Checked-in",
     stat_tag_unlocked: "🔓 Unlocked",
     stat_tag_earned: "🏅 Earned",
-    // Role & Permissions System
-    role_user: "User",
-    role_admin: "Administrator",
-    role_user_desc: "Explore radar, check in and unlock lore (Read-only)",
-    role_admin_desc: "Full privileges to add, edit, and manage heritage pins",
+    // Role & Permissions System (Manager, Demo User, User)
+    role_manager: "Manager",
+    role_demo_user: "Demo Explorer (Demo User)",
+    role_user: "Field Explorer (GPS User)",
+    role_admin: "Manager",
+    role_manager_desc: "Full privileges to add/edit/delete CMS content and freely move with W-A-S-D keys.",
+    role_demo_user_desc: "Explore map using W-A-S-D keys on computer. CMS modifications are locked.",
+    role_user_desc: "Explore outdoors in the real world via phone GPS. W-A-S-D keys and CMS edits are locked.",
+    role_admin_desc: "Full privileges to add/edit/delete CMS content and freely move with W-A-S-D keys.",
     role_switch_title: "🔐 System Role & Permissions",
-    role_switch_subtitle: "The platform has two defined roles: User (Explorer) for field check-in and Administrator for managing heritage data.",
+    role_switch_subtitle: "The platform has 3 clearly defined roles: Manager, Demo User (WASD Explorer), and Field Explorer (Phone GPS).",
     role_current_label: "Current Role",
-    role_btn_switch_admin: "👑 Log in as Admin",
-    role_btn_switch_user: "👤 Switch to User",
-    role_pass_ph: "Enter Admin passcode (default: admin)",
-    role_btn_verify: "Verify Admin",
+    role_btn_switch_manager: "👑 Activate Manager",
+    role_btn_switch_demo: "🎮 Switch to Demo User",
+    role_btn_switch_user: "📍 Switch to Field User",
+    role_btn_switch_admin: "👑 Activate Manager",
+    role_pass_ph: "Enter Manager passcode (default: admin)",
+    role_btn_verify: "Verify Manager",
     role_btn_quick_demo: "⚡ Quick Demo (1-Click)",
-    role_err_pass: "Incorrect Admin passcode! (Hint: 'admin')",
-    role_toast_admin: "👑 Switched to Administrator (Admin) role!",
-    role_toast_user: "👤 Switched to Explorer (User) role!",
-    role_user_readonly_banner: "🔒 User Mode: Read-only access. Pin creation and editing are restricted to Admins.",
-    role_admin_banner: "👑 Admin Mode: Full access to create, edit, delete pins and manage CMS.",
+    role_err_pass: "Incorrect Manager passcode! (Hint: 'admin')",
+    role_toast_manager: "👑 Switched to Manager role (CMS edit + W-A-S-D movement)!",
+    role_toast_demo: "🎮 Switched to Demo User role (W-A-S-D movement enabled, CMS locked)!",
+    role_toast_user: "📍 Switched to Field Explorer role (Phone GPS enabled, W-A-S-D locked)!",
+    role_toast_admin: "👑 Switched to Manager role (CMS edit + W-A-S-D movement)!",
+    role_manager_banner: "👑 Manager Mode: Full access to add, edit, delete pins and move freely with W A S D keys.",
+    role_demo_banner: "🎮 Demo Mode: You can move with W A S D keys to test radar, but data editing is locked.",
+    role_user_readonly_banner: "📍 Field Mode: Please use your phone GPS outdoors. W A S D movement and editing are locked.",
+    role_admin_banner: "👑 Manager Mode: Full access to add, edit, delete pins and move freely with W A S D keys.",
     role_btn_edit_pin: "✏️ Edit Pin",
-    role_denied_toast: "🔒 Access Denied: Administrator (Admin) privileges required for this action!",
+    role_denied_toast: "🔒 Access Denied: Manager privileges required to add, edit, or delete data!",
     role_readonly_status: "🔒 Read-only",
-    role_user_readonly_hint: "🔒 User Mode: Explore & Check-in only",
+    role_demo_readonly_hint: "🎮 Demo Mode: Explore & Check-in only (W-A-S-D enabled)",
+    role_user_readonly_hint: "📍 Field Mode: Explore & Check-in via phone GPS only",
+    role_wasd_blocked_toast: "🔒 Field User Mode: Key movement is locked! Please use your phone GPS outdoors.",
     // Snapshots & Checkpoints System
     cms_tab_backups: "💾 Snapshots & Backups",
     cms_btn_quick_save: "💾 Create Save Point",
@@ -1837,8 +1861,9 @@ async function saveToServerDataJSON() {
 }
 
 // Player coordinates (Default: Hanoi Old Quarter center)
-// System Role & Permission System (Default: 'user')
+// System Role & Permission System (Default: 'user', 'manager', 'demo_user')
 let currentUserRole = localStorage.getItem("legacy_keepers_user_role") || "user";
+if (currentUserRole === "admin") currentUserRole = "manager";
 let editingPinId = null;
 
 let userCoords = [21.0285, 105.8542];
@@ -1858,6 +1883,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initNavigation();
   initInputSubTabs();
   initLeafletMap();
+  initKeyboardMovement();
   initFigureStoryRows();
   initBadgeConditionRows();
   setLanguage(currentLang);
@@ -2046,89 +2072,156 @@ function initInputSubTabs() {
 // ==========================================================================
 
 // ==========================================================================
-// ROLE & PERMISSION ENGINE (ADMIN & USER)
+// ROLE & PERMISSION ENGINE (MANAGER, DEMO USER, USER)
 // ==========================================================================
+function isManager() {
+  return currentUserRole === "manager" || currentUserRole === "admin";
+}
+
+function isDemoUser() {
+  return currentUserRole === "demo_user";
+}
+
+function isRealUser() {
+  return currentUserRole === "user";
+}
+
+function canMoveWithKeys() {
+  return isManager() || isDemoUser();
+}
+
 function getCurrentUserRole() {
   return currentUserRole;
 }
 
 function updateRoleUI() {
-  const isAdm = currentUserRole === "admin";
-  const roleName = isAdm ? t("role_admin") : t("role_user");
+  const isMgr = isManager();
+  const isDemo = isDemoUser();
+  const isReal = isRealUser();
+
+  let roleName = t("role_user");
+  let roleIcon = "📍";
+  let mobLabel = "User GPS";
+
+  if (isMgr) {
+    roleName = t("role_manager");
+    roleIcon = "👑";
+    mobLabel = "Manager";
+  } else if (isDemo) {
+    roleName = t("role_demo_user");
+    roleIcon = "🎮";
+    mobLabel = "Demo";
+  }
 
   // 1. Sidebar Card
   const iconEl = document.getElementById("sidebar-role-icon");
   const nameEl = document.getElementById("sidebar-role-name");
   const cardEl = document.getElementById("sidebar-role-card");
-  if (iconEl) iconEl.innerText = isAdm ? "👑" : "👤";
+  if (iconEl) iconEl.innerText = roleIcon;
   if (nameEl) nameEl.innerText = roleName;
   if (cardEl) {
-    cardEl.classList.toggle("role-admin", isAdm);
-    cardEl.classList.toggle("role-user", !isAdm);
+    cardEl.classList.toggle("role-admin", isMgr);
+    cardEl.classList.toggle("role-demo", isDemo);
+    cardEl.classList.toggle("role-user", isReal);
   }
 
   // 2. Mobile Top Bar Pill
   const mobIcon = document.getElementById("mob-role-icon");
-  const mobLabel = document.getElementById("mob-role-label");
-  if (mobIcon) mobIcon.innerText = isAdm ? "👑" : "👤";
-  if (mobLabel) mobLabel.innerText = isAdm ? "Admin" : "User";
+  const mobLabelEl = document.getElementById("mob-role-label");
+  if (mobIcon) mobIcon.innerText = roleIcon;
+  if (mobLabelEl) mobLabelEl.innerText = mobLabel;
 
   // 3. Location Modal Admin Footer vs User Hint
   const modalAdmin = document.getElementById("modal-admin-actions");
   const modalUserHint = document.getElementById("modal-user-readonly-hint");
-  if (modalAdmin) modalAdmin.style.display = isAdm ? "flex" : "none";
-  if (modalUserHint) modalUserHint.style.display = isAdm ? "none" : "block";
+  if (modalAdmin) modalAdmin.style.display = isMgr ? "flex" : "none";
+  if (modalUserHint) {
+    modalUserHint.style.display = isMgr ? "none" : "block";
+    const userHintTxt = modalUserHint.querySelector("span:last-child") || modalUserHint;
+    if (userHintTxt) {
+      userHintTxt.innerText = isDemo ? t("role_demo_readonly_hint") : t("role_user_readonly_hint");
+    }
+  }
 
   // 4. CMS Role Banner
   const cmsBanner = document.getElementById("cms-role-banner");
   if (cmsBanner) {
-    if (isAdm) {
+    if (isMgr) {
       cmsBanner.innerHTML = `
         <div class="role-banner-admin">
           <div class="role-banner-icon">👑</div>
           <div style="flex:1;">
-            <strong>${t("role_admin_banner")}</strong>
-            <p style="margin-top:2px; font-size:0.8rem; color:rgba(255,255,255,0.85);">${currentLang === 'en' ? 'Administrator privileges active: Full control over landmarks, coordinates & lore.' : 'Đang kích hoạt quyền Quản Trị Viên: Toàn quyền thêm, sửa, xóa tọa độ & dữ liệu.'}</p>
+            <strong>${t("role_manager_banner")}</strong>
+            <p style="margin-top:2px; font-size:0.8rem; color:rgba(255,255,255,0.85);">${currentLang === 'en' ? 'Manager privileges active: Full control over landmarks, coordinates & lore + WASD movement.' : 'Đang kích hoạt quyền Quản Lý: Toàn quyền thêm, sửa, xóa tọa độ & dữ liệu + di chuyển phím W A S D.'}</p>
           </div>
-          <button type="button" class="btn-secondary" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.4); padding:6px 12px; font-size:0.78rem; white-space:nowrap; cursor:pointer;" onclick="confirmSwitchToUser()">${t("role_btn_switch_user")}</button>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" class="btn-secondary" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.4); padding:6px 12px; font-size:0.78rem; white-space:nowrap; cursor:pointer;" onclick="confirmSwitchToDemoUser()">${t("role_btn_switch_demo")}</button>
+            <button type="button" class="btn-secondary" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.4); padding:6px 12px; font-size:0.78rem; white-space:nowrap; cursor:pointer;" onclick="confirmSwitchToUser()">${t("role_btn_switch_user")}</button>
+          </div>
+        </div>
+      `;
+    } else if (isDemo) {
+      cmsBanner.innerHTML = `
+        <div class="role-banner-demo">
+          <div class="role-banner-icon">🎮</div>
+          <div style="flex:1;">
+            <strong>${t("role_demo_banner")}</strong>
+            <p style="margin-top:2px; font-size:0.8rem; color:rgba(255,255,255,0.9);">${currentLang === 'en' ? 'Demo Explorer Mode: Move with W A S D to test radar scanning. Content editing is locked.' : 'Chế độ Dùng Thử: Dùng phím W A S D để trải nghiệm quét radar. Chức năng sửa nội dung bị khóa.'}</p>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" class="btn-primary" style="background:var(--accent-gold); color:var(--primary-dark); padding:6px 12px; font-size:0.78rem; white-space:nowrap; cursor:pointer; border:none;" onclick="openRoleModal()">${t("role_btn_switch_manager")}</button>
+            <button type="button" class="btn-secondary" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.4); padding:6px 12px; font-size:0.78rem; white-space:nowrap; cursor:pointer;" onclick="confirmSwitchToUser()">${t("role_btn_switch_user")}</button>
+          </div>
         </div>
       `;
     } else {
       cmsBanner.innerHTML = `
         <div class="role-banner-user">
-          <div class="role-banner-icon">🔒</div>
+          <div class="role-banner-icon">📍</div>
           <div style="flex:1;">
             <strong>${t("role_user_readonly_banner")}</strong>
-            <p style="margin-top:2px; font-size:0.8rem; color:var(--text-secondary);">${currentLang === 'en' ? 'You are exploring in User mode. Pin modifications are locked.' : 'Bạn đang trải nghiệm ở chế độ Người Dùng. Chức năng sửa/thêm ghim bị khóa.'}</p>
+            <p style="margin-top:2px; font-size:0.8rem; color:var(--text-secondary);">${currentLang === 'en' ? 'Field Explorer Mode: Use your phone GPS outdoors. W A S D movement and CMS editing are locked.' : 'Chế độ Người Dùng Thực Tế: Vui lòng dùng GPS điện thoại ngoài đời thực. Phím W A S D và quyền sửa dữ liệu bị khóa.'}</p>
           </div>
-          <button type="button" class="btn-primary" style="padding:6px 14px; font-size:0.8rem; white-space:nowrap; cursor:pointer;" onclick="openRoleModal()">${t("role_btn_switch_admin")}</button>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" class="btn-secondary" style="padding:6px 12px; font-size:0.78rem; white-space:nowrap; cursor:pointer;" onclick="confirmSwitchToDemoUser()">${t("role_btn_switch_demo")}</button>
+            <button type="button" class="btn-primary" style="padding:6px 12px; font-size:0.78rem; white-space:nowrap; cursor:pointer;" onclick="openRoleModal()">${t("role_btn_switch_manager")}</button>
+          </div>
         </div>
       `;
     }
   }
 
-  // 5. Disable / Enable Pin Form Inputs for Users
-  const pinForm = document.getElementById("form-new-pin");
-  if (pinForm) {
-    const inputs = pinForm.querySelectorAll("input, select, textarea, button[type='submit']");
+  // 5. Disable / Enable Form Inputs for CMS (Pins, Figures, Badges)
+  const formsToToggle = ["form-new-pin", "form-new-figure", "form-new-badge"];
+  formsToToggle.forEach(formId => {
+    const f = document.getElementById(formId);
+    if (!f) return;
+    const inputs = f.querySelectorAll("input, select, textarea, button[type='submit']");
     inputs.forEach(el => {
-      if (!isAdm) {
+      if (!isMgr) {
         el.disabled = true;
         if (el.tagName === "BUTTON") {
-          el.innerText = `🔒 ${t("role_user_readonly_hint")}`;
+          const lockHint = isDemo ? t("role_demo_readonly_hint") : t("role_user_readonly_hint");
+          el.innerText = `🔒 ${lockHint}`;
           el.style.opacity = "0.65";
           el.style.cursor = "not-allowed";
         }
       } else {
         el.disabled = false;
         if (el.tagName === "BUTTON") {
-          el.innerText = editingPinId ? `💾 ${currentLang === 'en' ? 'Update Landmark Pin' : 'Cập Nhật Địa Danh Di Sản'}` : `💾 ${t("cms_btn_save_pin")}`;
+          if (formId === "form-new-pin") {
+            el.innerText = editingPinId ? `💾 ${currentLang === 'en' ? 'Update Landmark Pin' : 'Cập Nhật Địa Danh Di Sản'}` : `💾 ${t("cms_btn_save_pin")}`;
+          } else if (formId === "form-new-figure") {
+            el.innerText = `💾 ${t("cms_btn_save_figure")}`;
+          } else if (formId === "form-new-badge") {
+            el.innerText = `💾 ${t("cms_btn_save_badge")}`;
+          }
           el.style.opacity = "1";
           el.style.cursor = "pointer";
         }
       }
     });
-  }
+  });
 
   // 6. Refresh tables if on CMS
   const manageWrap = document.getElementById("manage-pins-table-wrap");
@@ -2142,16 +2235,26 @@ function openRoleModal() {
   if (!modal) return;
   modal.classList.add("active");
 
-  const isAdm = currentUserRole === "admin";
-  const userCard = document.getElementById("card-role-user");
-  const adminCard = document.getElementById("card-role-admin");
-  const currentNameDisplay = document.getElementById("role-current-name-display");
-  const passBox = document.getElementById("admin-passcode-box");
-  const passInput = document.getElementById("admin-passcode-input");
+  const isMgr = isManager();
+  const isDemo = isDemoUser();
+  const isReal = isRealUser();
 
-  if (userCard) userCard.classList.toggle("active", !isAdm);
-  if (adminCard) adminCard.classList.toggle("active", isAdm);
-  if (currentNameDisplay) currentNameDisplay.innerText = isAdm ? t("role_admin") : t("role_user");
+  const userCard = document.getElementById("card-role-user");
+  const demoCard = document.getElementById("card-role-demo");
+  const managerCard = document.getElementById("card-role-manager") || document.getElementById("card-role-admin");
+  const currentNameDisplay = document.getElementById("role-current-name-display");
+  const passBox = document.getElementById("manager-passcode-box") || document.getElementById("admin-passcode-box");
+  const passInput = document.getElementById("manager-passcode-input") || document.getElementById("admin-passcode-input");
+
+  if (managerCard) managerCard.classList.toggle("active", isMgr);
+  if (demoCard) demoCard.classList.toggle("active", isDemo);
+  if (userCard) userCard.classList.toggle("active", isReal);
+
+  let curTitle = t("role_user");
+  if (isMgr) curTitle = t("role_manager");
+  else if (isDemo) curTitle = t("role_demo_user");
+
+  if (currentNameDisplay) currentNameDisplay.innerText = curTitle;
   if (passBox) passBox.style.display = "none";
   if (passInput) passInput.value = "";
 }
@@ -2161,20 +2264,24 @@ function closeRoleModal() {
   if (modal) modal.classList.remove("active");
 }
 
-function showAdminPasscodeBox() {
-  if (currentUserRole === "admin") {
-    showToast(t("role_toast_admin"));
+function showManagerPasscodeBox() {
+  if (isManager()) {
+    showToast(t("role_toast_manager"));
     closeRoleModal();
     return;
   }
-  const passBox = document.getElementById("admin-passcode-box");
-  const passInput = document.getElementById("admin-passcode-input");
+  const passBox = document.getElementById("manager-passcode-box") || document.getElementById("admin-passcode-box");
+  const passInput = document.getElementById("manager-passcode-input") || document.getElementById("admin-passcode-input");
   if (passBox) {
     passBox.style.display = "block";
     setTimeout(() => {
       if (passInput) passInput.focus();
     }, 50);
   }
+}
+
+function showAdminPasscodeBox() {
+  showManagerPasscodeBox();
 }
 
 function confirmSwitchToUser() {
@@ -2185,38 +2292,159 @@ function confirmSwitchToUser() {
   showToast(t("role_toast_user"));
 }
 
-function verifyAndSwitchToAdmin() {
-  const passInput = document.getElementById("admin-passcode-input");
+function confirmSwitchToDemoUser() {
+  currentUserRole = "demo_user";
+  localStorage.setItem("legacy_keepers_user_role", "demo_user");
+  updateRoleUI();
+  closeRoleModal();
+  showToast(t("role_toast_demo"));
+}
+
+function verifyAndSwitchToManager() {
+  const passInput = document.getElementById("manager-passcode-input") || document.getElementById("admin-passcode-input");
   const val = passInput ? passInput.value.trim().toLowerCase() : "";
-  if (val === "admin" || val === "123456" || val === "admin123") {
-    currentUserRole = "admin";
-    localStorage.setItem("legacy_keepers_user_role", "admin");
+  if (val === "admin" || val === "manager" || val === "123456" || val === "admin123") {
+    currentUserRole = "manager";
+    localStorage.setItem("legacy_keepers_user_role", "manager");
     updateRoleUI();
     closeRoleModal();
-    showToast(t("role_toast_admin"));
+    showToast(t("role_toast_manager"));
   } else {
     showToast(t("role_err_pass"));
     if (passInput) passInput.select();
   }
 }
 
-function quickSwitchToAdminDemo() {
-  currentUserRole = "admin";
-  localStorage.setItem("legacy_keepers_user_role", "admin");
+function verifyAndSwitchToAdmin() {
+  verifyAndSwitchToManager();
+}
+
+function quickSwitchToManagerDemo() {
+  currentUserRole = "manager";
+  localStorage.setItem("legacy_keepers_user_role", "manager");
   updateRoleUI();
   closeRoleModal();
-  showToast(t("role_toast_admin"));
+  showToast(t("role_toast_manager"));
+}
+
+function quickSwitchToAdminDemo() {
+  quickSwitchToManagerDemo();
+}
+
+// ==========================================================================
+// KEYBOARD MOVEMENT ENGINE (W-A-S-D & ARROWS)
+// Pure keyboard listener — NO on-screen movement buttons
+// ==========================================================================
+let lastBlockedToastTime = 0;
+let isKeyMoving = false;
+
+function initKeyboardMovement() {
+  window.addEventListener("keydown", handleKeyboardMovement, { passive: false });
+}
+
+function handleKeyboardMovement(e) {
+  // 1. Guard: Ignore if user is currently typing inside form input, textarea, select or contenteditable
+  const activeEl = document.activeElement;
+  if (activeEl) {
+    const tag = activeEl.tagName ? activeEl.tagName.toLowerCase() : "";
+    if (tag === "input" || tag === "textarea" || tag === "select" || activeEl.isContentEditable) {
+      return;
+    }
+  }
+
+  // 2. Identify direction
+  const key = (e.key || "").toLowerCase();
+  let deltaLatSign = 0;
+  let deltaLngSign = 0;
+
+  if (key === "w" || key === "arrowup") {
+    deltaLatSign = 1;
+  } else if (key === "s" || key === "arrowdown") {
+    deltaLatSign = -1;
+  } else if (key === "a" || key === "arrowleft") {
+    deltaLngSign = -1;
+  } else if (key === "d" || key === "arrowright") {
+    deltaLngSign = 1;
+  } else {
+    return; // Not a movement key
+  }
+
+  // 3. Role Guard: If Real User, block movement and show reminder toast to use phone GPS
+  if (!canMoveWithKeys()) {
+    if (e.key && e.key.startsWith("Arrow")) e.preventDefault();
+    const now = Date.now();
+    if (now - lastBlockedToastTime > 2500) {
+      lastBlockedToastTime = now;
+      showToast(t("role_wasd_blocked_toast"));
+    }
+    return;
+  }
+
+  // Prevent arrow keys from scrolling the webpage
+  if (e.key && e.key.startsWith("Arrow")) e.preventDefault();
+
+  // 4. Calculate movement distance (default: 15m per press, 35m if Shift held)
+  const stepMeters = e.shiftKey ? 35 : 15;
+  const metersNorth = deltaLatSign * stepMeters;
+  const metersEast = deltaLngSign * stepMeters;
+
+  // Coordinate conversions:
+  // 1 degree latitude ≈ 111,139 meters
+  const deltaLat = metersNorth / 111139;
+  // 1 degree longitude at given latitude ≈ 111,139 * cos(lat in rad)
+  const latRad = userCoords[0] * Math.PI / 180;
+  const metersPerLngDeg = 111139 * Math.cos(latRad);
+  const deltaLng = metersEast / (metersPerLngDeg || 111139);
+
+  // Update userCoords
+  userCoords[0] = parseFloat((userCoords[0] + deltaLat).toFixed(7));
+  userCoords[1] = parseFloat((userCoords[1] + deltaLng).toFixed(7));
+
+  // 5. Update marker & accuracy circle smoothly
+  if (playerRadarMarker) {
+    playerRadarMarker.setLatLng(userCoords);
+  } else {
+    updatePlayerRadarMarker();
+  }
+  if (playerAccuracyCircle) {
+    playerAccuracyCircle.setLatLng(userCoords);
+  }
+
+  // Update GPS display coordinate text
+  const gpsCoordsDisplay = document.getElementById("gps-coords-display");
+  if (gpsCoordsDisplay) {
+    gpsCoordsDisplay.innerText = `${userCoords[0].toFixed(4)}, ${userCoords[1].toFixed(4)}`;
+  }
+
+  // Pan map smoothly to follow player
+  if (map) {
+    map.panTo(userCoords, { animate: true, duration: 0.15 });
+  }
+
+  // Throttled radar scan re-computation
+  if (!isKeyMoving) {
+    isKeyMoving = true;
+    requestAnimationFrame(() => {
+      renderPinsOnMap();
+      isKeyMoving = false;
+    });
+  }
 }
 
 function editSelectedPinFromModal() {
   if (!selectedPinForModal) return;
+  if (!isManager()) {
+    showToast(t("role_denied_toast"));
+    openRoleModal();
+    return;
+  }
   const pinId = selectedPinForModal.id;
   closeModal();
   loadPinToForm(pinId);
 }
 
 function loadPinToForm(pinId) {
-  if (currentUserRole !== "admin") {
+  if (!isManager()) {
     showToast(t("role_denied_toast"));
     openRoleModal();
     return;
@@ -2304,9 +2532,9 @@ function initLeafletMap() {
   // Create Player Marker with 10m Sweep Animation
   updatePlayerRadarMarker();
 
-  // Allow clicking on map to set coordinates in Input Form (Only for Admin)
+  // Allow clicking on map to set coordinates in Input Form (Only for Manager)
   map.on("click", (e) => {
-    if (currentUserRole !== 'admin') return;
+    if (!isManager()) return;
     const lat = e.latlng.lat.toFixed(7);
     const lng = e.latlng.lng.toFixed(7);
     const latEl = document.getElementById("pin-input-lat");
@@ -2314,7 +2542,7 @@ function initLeafletMap() {
     if (latEl && lngEl) {
       latEl.value = lat;
       lngEl.value = lng;
-      showToast(`📍 [Admin] ${currentLang === 'en' ? `Set coordinates from map: ${lat}, ${lng}` : `Đã lấy tọa độ từ bản đồ: ${lat}, ${lng}`}`);
+      showToast(`📍 [Manager] ${currentLang === 'en' ? `Set coordinates from map: ${lat}, ${lng}` : `Đã lấy tọa độ từ bản đồ: ${lat}, ${lng}`}`);
     }
   });
 
@@ -2699,8 +2927,14 @@ function openLocationModal(pin) {
   // Role visibility on location modal
   const modalAdminEl = document.getElementById("modal-admin-actions");
   const modalUserHintEl = document.getElementById("modal-user-readonly-hint");
-  if (modalAdminEl) modalAdminEl.style.display = currentUserRole === "admin" ? "flex" : "none";
-  if (modalUserHintEl) modalUserHintEl.style.display = currentUserRole === "admin" ? "none" : "block";
+  if (modalAdminEl) modalAdminEl.style.display = isManager() ? "flex" : "none";
+  if (modalUserHintEl) {
+    modalUserHintEl.style.display = isManager() ? "none" : "block";
+    const userHintTxt = modalUserHintEl.querySelector("span:last-child") || modalUserHintEl;
+    if (userHintTxt) {
+      userHintTxt.innerText = isDemoUser() ? t("role_demo_readonly_hint") : t("role_user_readonly_hint");
+    }
+  }
 
   document.getElementById("location-modal").classList.add("active");
 }
@@ -4270,7 +4504,7 @@ function openQuickInputModal() {
 
 function handleCreatePin(e) {
   e.preventDefault();
-  if (currentUserRole !== 'admin') {
+  if (!isManager()) {
     showToast(t('role_denied_toast'));
     openRoleModal();
     return;
@@ -4704,6 +4938,11 @@ async function handleStoryBgPicker(event) {
 
 function handleCreateFigure(e) {
   e.preventDefault();
+  if (!isManager()) {
+    showToast(t('role_denied_toast'));
+    openRoleModal();
+    return;
+  }
   const name = document.getElementById("fig-input-name").value.trim();
   const name_en = document.getElementById("fig-input-name-en") ? document.getElementById("fig-input-name-en").value.trim() : "";
   const role = document.getElementById("fig-input-role").value.trim();
@@ -5104,6 +5343,11 @@ function updateBadgeSummaryCriteriaAuto() {
 
 function handleCreateBadge(e) {
   e.preventDefault();
+  if (!isManager()) {
+    showToast(t('role_denied_toast'));
+    openRoleModal();
+    return;
+  }
   const name = document.getElementById("badge-input-name").value.trim();
   const name_en = document.getElementById("badge-input-name-en") ? document.getElementById("badge-input-name-en").value.trim() : "";
   const tier = document.getElementById("badge-input-tier").value;
@@ -5270,7 +5514,7 @@ function showToast(message) {
 
 // 1. Delete currently selected pin from map modal
 function deleteSelectedPin() {
-  if (currentUserRole !== 'admin') {
+  if (!isManager()) {
     showToast(t('role_denied_toast'));
     openRoleModal();
     return;
@@ -5293,7 +5537,7 @@ function deleteSelectedPin() {
 
 // 2. Delete single items by ID
 function deletePinById(id) {
-  if (currentUserRole !== 'admin') {
+  if (!isManager()) {
     showToast(t('role_denied_toast'));
     openRoleModal();
     return;
@@ -5314,6 +5558,11 @@ function deletePinById(id) {
 }
 
 function deleteFigureById(id) {
+  if (!isManager()) {
+    showToast(t('role_denied_toast'));
+    openRoleModal();
+    return;
+  }
   const fig = appState.figures.find(f => f.id === id);
   if (!fig) return;
   const fName = currentLang === 'en' ? (fig.name_en || fig.name) : fig.name;
@@ -5328,6 +5577,11 @@ function deleteFigureById(id) {
 }
 
 function deleteStoryById(id) {
+  if (!isManager()) {
+    showToast(t('role_denied_toast'));
+    openRoleModal();
+    return;
+  }
   const st = appState.stories.find(s => s.id === id);
   if (!st) return;
   const sTitle = currentLang === 'en' ? (st.name_en || st.name) : st.name;
@@ -5342,6 +5596,11 @@ function deleteStoryById(id) {
 }
 
 function deleteBadgeById(id) {
+  if (!isManager()) {
+    showToast(t('role_denied_toast'));
+    openRoleModal();
+    return;
+  }
   const bg = appState.badges.find(b => b.id === id);
   if (!bg) return;
   const bName = currentLang === 'en' ? (bg.name_en || bg.name) : bg.name;
@@ -5357,6 +5616,11 @@ function deleteBadgeById(id) {
 
 // 3. Reset all data to clean initial state (wipe out test items)
 function resetToInitialData() {
+  if (!isManager()) {
+    showToast(t('role_denied_toast'));
+    openRoleModal();
+    return;
+  }
   if (!confirm("⚠️ CẢNH BÁO: Thao tác này sẽ xóa sạch các dữ liệu bạn đã tạo thử và đưa ứng dụng về nguyên bản thiết kế mặc định ban đầu. Bạn có chắc chắn muốn khôi phục không?")) return;
   appState = JSON.parse(JSON.stringify(INITIAL_DATA));
   saveState();
@@ -5404,7 +5668,7 @@ function renderManageTables() {
             <td style="font-family:monospace; font-size:0.8rem;">${Number(pin.lat).toFixed(4)}, ${Number(pin.lng).toFixed(4)}</td>
             <td style="font-size:0.8rem;">${t('manage_radius_scan')} ${pin.discovery_radius}m / ${t('manage_radius_reach')} ${pin.interaction_radius}m</td>
             <td style="text-align:right;">
-              ${currentUserRole === 'admin'
+              ${isManager()
                 ? `<button type="button" class="btn-edit-row" onclick="loadPinToForm('${pin.id}')">✏️ ${t('role_btn_edit_pin')}</button><button type="button" class="btn-delete-row" onclick="deletePinById('${pin.id}')">${t('manage_tbl_delete')}</button>`
                 : `<span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">${t('role_readonly_status')}</span>`
               }
@@ -5452,7 +5716,10 @@ function renderManageTables() {
             <td>${roleName}</td>
             <td>${dynastyName}</td>
             <td style="text-align:right;">
-              <button class="btn-delete-row" onclick="deleteFigureById('${fig.id}')">${t('manage_tbl_delete')}</button>
+              ${isManager()
+                ? `<button class="btn-delete-row" onclick="deleteFigureById('${fig.id}')">${t('manage_tbl_delete')}</button>`
+                : `<span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">${t('role_readonly_status')}</span>`
+              }
             </td>
           </tr>
         `;
@@ -5501,7 +5768,10 @@ function renderManageTables() {
             <td>${pinName}</td>
             <td><span style="font-size:0.8rem; color:${st.is_locked ? '#e67e22' : '#27ae60'};">${st.is_locked ? t('manage_tbl_locked') : t('manage_tbl_unlocked')}</span></td>
             <td style="text-align:right;">
-              <button class="btn-delete-row" onclick="deleteStoryById('${st.id}')">${t('manage_tbl_delete')}</button>
+              ${isManager()
+                ? `<button class="btn-delete-row" onclick="deleteStoryById('${st.id}')">${t('manage_tbl_delete')}</button>`
+                : `<span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">${t('role_readonly_status')}</span>`
+              }
             </td>
           </tr>
         `;
@@ -5582,12 +5852,16 @@ function renderManageTables() {
               </div>
             </td>
             <td>
-              <button class="btn-secondary" style="font-size:0.76rem; padding:4px 10px; cursor:pointer;" onclick="toggleBadgeUnlock('${bg.id}')" title="${toggleTitle}">
-                ${toggleLabel}
-              </button>
+              ${isManager()
+                ? `<button class="btn-secondary" style="font-size:0.76rem; padding:4px 10px; cursor:pointer;" onclick="toggleBadgeUnlock('${bg.id}')" title="${toggleTitle}">${toggleLabel}</button>`
+                : `<span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">${bg.is_unlocked ? '✓ ' + (currentLang==='en'?'Owned':'Đã nhận') : '🔒 ' + (currentLang==='en'?'Locked':'Chưa nhận')}</span>`
+              }
             </td>
             <td style="text-align:right;">
-              <button class="btn-delete-row" onclick="deleteBadgeById('${bg.id}')">${t('manage_tbl_delete')}</button>
+              ${isManager()
+                ? `<button class="btn-delete-row" onclick="deleteBadgeById('${bg.id}')">${t('manage_tbl_delete')}</button>`
+                : `<span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">${t('role_readonly_status')}</span>`
+              }
             </td>
           </tr>
         `;
