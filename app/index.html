@@ -150,6 +150,9 @@
             <div class="pulse-led"></div>
             <span>Vị trí Radar: <b id="gps-coords-display">21.0285, 105.8542</b></span>
           </div>
+          <div class="gps-badge" id="map-role-status-badge" onclick="openRoleModal()" style="cursor:pointer; background:#FFFDF8; border-color:var(--accent-gold);" title="Bấm để đổi vai trò hoặc thoát">
+            <span id="map-role-status-text">👑 Quản Lý</span>
+          </div>
           <button class="filter-btn" id="btn-real-gps" onclick="toggleRealGPS()" style="padding:4px 12px; font-size:0.8rem;">📍 Dùng GPS Thực</button>
           <button class="filter-btn" id="btn-walk-sim" onclick="simulateWalk()" style="padding:4px 12px; font-size:0.8rem;">🚶 Đi tuần tra tới gần Pin</button>
         </div>
@@ -1284,6 +1287,9 @@
             <button type="button" class="btn-role-action" id="btn-activate-user" onclick="confirmSwitchToUser()" data-i18n="role_btn_switch_user">📍 Chuyển sang Người Dùng Thực</button>
           </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" style="padding: 7px 18px; font-size: 0.84rem; cursor: pointer;" onclick="closeRoleModal()" data-i18n="role_btn_close_modal">✕ Đóng / Giữ vai trò hiện tại</button>
       </div>
     </div>
   </div>

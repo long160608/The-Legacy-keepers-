@@ -463,6 +463,10 @@ const TRANSLATIONS = {
     role_demo_readonly_hint: "🎮 Chế độ Dùng Thử: Chỉ xem & Check-in (Hỗ trợ phím W-A-S-D)",
     role_user_readonly_hint: "📍 Chế độ Thực Địa: Chỉ xem & Check-in bằng GPS điện thoại",
     role_wasd_blocked_toast: "🔒 Chế độ Người Dùng: Phím di chuyển bị khóa! Vui lòng dùng định vị GPS điện thoại ngoài đời thực.",
+    role_btn_close_modal: "✕ Đóng / Giữ vai trò hiện tại",
+    role_status_active_mgr: "✓ Đang kích hoạt (Manager)",
+    role_status_active_demo: "✓ Đang kích hoạt (Dùng Thử)",
+    role_status_active_user: "✓ Đang kích hoạt (GPS Thực)",
     // Snapshots & Checkpoints System
     cms_tab_backups: "💾 Điểm Phục Hồi & Bản Save",
     cms_btn_quick_save: "💾 Tạo Bản Save Ngay",
@@ -935,6 +939,10 @@ const TRANSLATIONS = {
     role_demo_readonly_hint: "🎮 Demo Mode: Explore & Check-in only (W-A-S-D enabled)",
     role_user_readonly_hint: "📍 Field Mode: Explore & Check-in via phone GPS only",
     role_wasd_blocked_toast: "🔒 Field User Mode: Key movement is locked! Please use your phone GPS outdoors.",
+    role_btn_close_modal: "✕ Close / Keep Current Role",
+    role_status_active_mgr: "✓ Currently Active (Manager)",
+    role_status_active_demo: "✓ Currently Active (Demo User)",
+    role_status_active_user: "✓ Currently Active (GPS User)",
     // Snapshots & Checkpoints System
     cms_tab_backups: "💾 Snapshots & Backups",
     cms_btn_quick_save: "💾 Create Save Point",
@@ -1898,6 +1906,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Đóng modal khi bấm vào nền tối bên ngoài (backdrop overlay)
+  document.querySelectorAll(".modal-overlay").forEach(overlay => {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove("active");
+        if (overlay.id === "location-modal") selectedPinForModal = null;
+      }
+    });
+  });
+
+  // Đóng modal khi ấn phím Escape (Esc)
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      document.querySelectorAll(".modal-overlay.active").forEach(overlay => {
+        overlay.classList.remove("active");
+        if (overlay.id === "location-modal") selectedPinForModal = null;
+      });
+    }
+  });
+
   // Tự động kiểm tra file data.json nếu server đang chạy
   reloadFromDataJSON(false);
 });
@@ -2228,6 +2256,15 @@ function updateRoleUI() {
   if (manageWrap && manageWrap.offsetParent !== null) {
     renderManageTables();
   }
+
+  // 7. Toggle Walk Sim Button on Map (Locked for real users)
+  const walkBtn = document.getElementById("btn-walk-sim");
+  if (walkBtn) {
+    walkBtn.style.display = isReal ? "none" : "inline-block";
+  }
+
+  // 8. Re-render pins on map according to role visibility rules
+  renderPinsOnMap();
 }
 
 function openRoleModal() {
@@ -2249,6 +2286,14 @@ function openRoleModal() {
   if (managerCard) managerCard.classList.toggle("active", isMgr);
   if (demoCard) demoCard.classList.toggle("active", isDemo);
   if (userCard) userCard.classList.toggle("active", isReal);
+
+  // Cập nhật text trạng thái nút trên từng thẻ
+  const btnMgr = document.getElementById("btn-activate-admin");
+  const btnDemo = document.getElementById("btn-activate-demo");
+  const btnUser = document.getElementById("btn-activate-user");
+  if (btnMgr) btnMgr.innerText = isMgr ? t("role_status_active_mgr") : t("role_btn_switch_manager");
+  if (btnDemo) btnDemo.innerText = isDemo ? t("role_status_active_demo") : t("role_btn_switch_demo");
+  if (btnUser) btnUser.innerText = isReal ? t("role_status_active_user") : t("role_btn_switch_user");
 
   let curTitle = t("role_user");
   if (isMgr) curTitle = t("role_manager");
@@ -2675,6 +2720,29 @@ function getPixelRadius(lat, lng, radiusMeters) {
 }
 
 /**
+ * Kiểm tra quy tắc hiển thị Pin trên bản đồ theo vai trò:
+ * - Manager: Thấy tất cả pin trên bản đồ (toàn quốc, mọi khoảng cách)
+ * - Demo User: Không thấy pin ở xa (chỉ thấy trong tầm radar discovery_radius, hoặc đã check-in)
+ * - Real User: Không thấy pin đâu (chỉ thấy khi đã đến tận nơi trong interaction_radius hoặc đã check-in)
+ */
+function isPinVisibleForRole(pin, distToPin, isCheckedIn) {
+  if (isManager()) {
+    return true; // Manager: Thấy tất cả pin
+  }
+  if (isDemoUser()) {
+    const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
+    const discoveryRadius = pin.discovery_radius || spec.discoveryRadius || 2000;
+    return isCheckedIn || distToPin <= discoveryRadius;
+  }
+  if (isRealUser()) {
+    const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
+    const interactionRadius = pin.interaction_radius || spec.interactionRadius || 100;
+    return isCheckedIn || distToPin <= interactionRadius;
+  }
+  return false;
+}
+
+/**
  * Hiển thị các Pin với vòng tròn địa lý chuẩn tỷ lệ mét (L.circle) và Huy hiệu Di sản (Heritage Seal)
  * Các đường tròn đồng tâm tỏa ra từ tâm con dấu đến đúng viền phạm vi check-in!
  */
@@ -2687,8 +2755,7 @@ function renderPinsOnMap(filter = "all") {
   activePinCircles = [];
 
   const filtered = filter === "all" ? appState.pins : appState.pins.filter(p => p.category === filter);
-  const countAll = document.getElementById("count-all");
-  if (countAll) countAll.innerText = appState.pins.length;
+  let visibleCount = 0;
 
   filtered.forEach(pin => {
     const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
@@ -2696,8 +2763,16 @@ function renderPinsOnMap(filter = "all") {
 
     // Khoảng cách thực tế từ người chơi đến Pin
     const distToPin = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
-    const isWithinCheckinReach = distToPin <= interactionRadius;
     const isCheckedIn = Array.isArray(appState.profile?.checked_in_pins) && appState.profile.checked_in_pins.includes(pin.id);
+
+    // Lọc theo vai trò & khoảng cách:
+    // Manager: thấy hết
+    // Demo user: ở xa không thấy
+    // User GPS: không thấy pin đâu trừ khi đứng ngay điểm check-in hoặc đã check-in
+    if (!isPinVisibleForRole(pin, distToPin, isCheckedIn)) {
+      return;
+    }
+    visibleCount++;
 
     // Tính chính xác bán kính pixel của phạm vi check-in ở mức zoom hiện tại
     const checkinPx = getPixelRadius(pin.lat, pin.lng, interactionRadius);
@@ -2756,6 +2831,24 @@ function renderPinsOnMap(filter = "all") {
     m.on("click", () => openLocationModal(pin));
     activePinMarkers.push(m);
   });
+
+  // Cập nhật số đếm pin hiển thị theo vai trò
+  const countAll = document.getElementById("count-all");
+  if (countAll) {
+    countAll.innerText = isManager() ? appState.pins.length : visibleCount;
+  }
+
+  // Cập nhật badge trạng thái vai trò & pin trên thanh điều khiển map
+  const mapRoleStatus = document.getElementById("map-role-status-text");
+  if (mapRoleStatus) {
+    if (isManager()) {
+      mapRoleStatus.innerText = `👑 Manager: Thấy tất cả ${appState.pins.length} pin`;
+    } else if (isDemoUser()) {
+      mapRoleStatus.innerText = `🎮 Dùng Thử: Thấy ${visibleCount}/${appState.pins.length} pin radar (ở xa ẩn)`;
+    } else {
+      mapRoleStatus.innerText = `📍 User GPS: Khám phá thực địa (${visibleCount} pin gần/đã mở)`;
+    }
+  }
 }
 
 // ==========================================================================
@@ -3063,6 +3156,10 @@ function simulatePlayAudio() {
 
 // Walk simulation: Di chuyển người chơi đến sát Pin đầu tiên
 function simulateWalk() {
+  if (!canMoveWithKeys()) {
+    showToast(t("role_wasd_blocked_toast"));
+    return;
+  }
   if (!appState.pins || appState.pins.length === 0) return;
   const target = selectedPinForModal || appState.pins[0];
   userCoords = [target.lat + 0.00015, target.lng + 0.00015];
