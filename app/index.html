@@ -149,8 +149,10 @@
           <div class="gps-badge" id="map-role-status-badge" onclick="openRoleModal()" style="cursor:pointer; background:#FFFDF8; border-color:var(--accent-gold);" title="Bấm để đổi vai trò hoặc thoát">
             <span id="map-role-status-text">👑 Quản Lý</span>
           </div>
-          <button class="filter-btn" id="btn-real-gps" onclick="toggleRealGPS()" style="padding:4px 12px; font-size:0.8rem;">📍 Dùng GPS Thực</button>
-          <button class="filter-btn" id="btn-walk-sim" onclick="simulateWalk()" style="padding:4px 12px; font-size:0.8rem;">🚶 Đi tuần tra tới gần Pin</button>
+          <div class="map-bottom-btns-row">
+            <button class="filter-btn" id="btn-real-gps" onclick="toggleRealGPS()">📍 Dùng GPS Thực</button>
+            <button class="filter-btn" id="btn-walk-sim" onclick="simulateWalk()">🚶 Đi tuần tra</button>
+          </div>
         </div>
       </div>
     </section>
