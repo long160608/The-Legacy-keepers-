@@ -40,7 +40,7 @@
   --map-road-main: #D7BA9A;
 
   /* UI Metrics */
-  --sidebar-w: 290px;
+  --sidebar-w: 260px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 18px;
@@ -241,7 +241,7 @@ body {
 }
 
 .content-wrapper {
-  padding: 28px 36px;
+  padding: 18px 22px 32px 22px;
   height: 100%;
   overflow-y: auto;
 }
@@ -4882,24 +4882,24 @@ body.simulator-mode .figures-detail-pane {
    AUTHENTIC SECTION HEADER BANNER (EXACT FIGMA OPC UI.PDF MATCH)
    ========================================================================== */
 .section-header-banner {
-  background: linear-gradient(180deg, #FDFBF7 0%, #F8EFE0 100%);
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  border-radius: 14px;
-  padding: 16px 22px 14px 24px;
+  background: linear-gradient(180deg, #FBF8F2 0%, #F5EDE1 100%);
+  border: 1px solid #DFCFBC;
+  border-radius: 12px;
+  padding: 12px 20px 10px 22px;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   box-shadow: 0 4px 18px rgba(84, 51, 27, 0.05);
-  min-height: 98px;
+  min-height: 94px;
 }
 
 .header-corner-ornament {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 4px;
+  left: 4px;
   z-index: 1;
   pointer-events: none;
   opacity: 0.85;
@@ -4907,52 +4907,73 @@ body.simulator-mode .figures-detail-pane {
 
 .header-banner-text {
   position: relative;
-  z-index: 2;
-  padding-left: 18px;
-  max-width: 520px;
+  z-index: 3;
+  padding-left: 16px;
+  max-width: 480px;
 }
 
 .header-banner-text .section-title {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Times New Roman", serif;
-  font-size: 1.55rem;
+  font-family: 'Cinzel', 'Playfair Display', 'Merriweather', 'Georgia', 'Times New Roman', serif;
+  font-size: 1.45rem;
   font-weight: 800;
   color: #331A0B;
   line-height: 1.25;
   margin: 0;
   letter-spacing: 0.2px;
+  white-space: nowrap;
 }
 
 .header-title-divider {
-  width: 50px;
+  width: 48px;
   height: 3px;
-  background: #EBC8A7;
+  background: #E0C1A0;
   border-radius: 2px;
-  margin: 5px 0 6px 0;
+  margin: 4px 0 5px 0;
 }
 
 .header-banner-text .section-desc {
-  font-size: 0.88rem;
-  color: #674B35;
-  line-height: 1.4;
+  font-size: 0.84rem;
+  color: #6E533F;
+  line-height: 1.35;
   margin: 0;
 }
 
 .header-banner-artwork-wrap {
   position: absolute;
-  left: 54%;
+  left: 55%;
   transform: translateX(-50%);
-  bottom: -4px;
-  z-index: 1;
+  bottom: 0;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   pointer-events: none;
+  z-index: 1;
+}
+
+.section-header-clouds {
+  position: absolute;
+  bottom: 0;
+  height: 94px;
+  width: auto;
+  max-width: 560px;
+  object-fit: contain;
+  opacity: 0.82;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .header-banner-artwork-wrap .section-header-artwork {
-  height: 82px;
+  position: relative;
+  bottom: 0;
+  height: 84px;
   width: auto;
+  max-width: 460px;
   object-fit: contain;
-  opacity: 0.95;
+  opacity: 0.98;
   display: block;
-  filter: drop-shadow(0 2px 8px rgba(84, 51, 27, 0.1));
+  z-index: 2;
+  filter: drop-shadow(0 2px 8px rgba(84, 51, 27, 0.12));
 }
 
 .header-banner-actions {
@@ -4969,17 +4990,17 @@ body.simulator-mode .figures-detail-pane {
 .header-banner-top-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .btn-simulator-toggle {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #FFFDF8;
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: #FFFFFF;
+  border: 1px solid #DDBE9B;
   border-radius: 20px;
-  padding: 5px 13px;
+  padding: 5px 14px;
   font-size: 0.8rem;
   font-weight: 600;
   color: #331A0B;
@@ -4998,28 +5019,28 @@ body.simulator-mode .figures-detail-pane {
 .header-lang-pill {
   display: inline-flex;
   align-items: center;
-  background: #EDE2D3;
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: #FAF7F2;
+  border: 1px solid #DDBE9B;
   border-radius: 20px;
-  padding: 2.5px;
+  padding: 2px;
   gap: 2px;
 }
 
 .header-lang-btn {
   border: none;
   background: transparent;
-  padding: 4px 11px;
+  padding: 4px 10px;
   border-radius: 14px;
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: #674B35;
+  color: #6E533F;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .header-lang-btn.active {
   background: #4A3319;
-  color: #FDDB9B;
+  color: #FFFFFF;
   box-shadow: 0 2px 4px rgba(51, 26, 11, 0.25);
 }
 
@@ -5028,14 +5049,14 @@ body.simulator-mode .figures-detail-pane {
   align-items: center;
   gap: 6px;
   background: #4A3319;
-  color: #FFF;
-  border: 1px solid rgba(253, 219, 155, 0.4);
+  color: #FFFFFF;
+  border: 1px solid rgba(253, 219, 155, 0.3);
   border-radius: 8px;
-  padding: 7px 16px;
-  font-size: 0.84rem;
+  padding: 8px 18px;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 3px 8px rgba(51, 26, 11, 0.16);
+  box-shadow: 0 3px 8px rgba(51, 26, 11, 0.18);
   transition: all 0.2s ease;
 }
 
@@ -5043,7 +5064,7 @@ body.simulator-mode .figures-detail-pane {
   background: #331A0B;
   border-color: var(--accent-gold);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(51, 26, 11, 0.22);
+  box-shadow: 0 4px 12px rgba(51, 26, 11, 0.25);
 }
 
 .btn-plus {
@@ -5051,7 +5072,61 @@ body.simulator-mode .figures-detail-pane {
   line-height: 1;
 }
 
+@media (max-width: 1200px) {
+  .header-banner-text .section-title {
+    font-size: 1.3rem;
+  }
+  .header-banner-text .section-desc {
+    font-size: 0.8rem;
+    max-width: 360px;
+  }
+  .header-banner-artwork-wrap {
+    left: 54%;
+  }
+  .section-header-clouds {
+    height: 84px;
+  }
+  .header-banner-artwork-wrap .section-header-artwork {
+    height: 78px;
+  }
+}
+
 @media (max-width: 1050px) {
+  .header-banner-text .section-title {
+    font-size: 1.18rem;
+  }
+  .header-banner-text .section-desc {
+    font-size: 0.76rem;
+    max-width: 300px;
+  }
+  .header-banner-artwork-wrap {
+    left: 51%;
+  }
+  .section-header-clouds {
+    height: 76px;
+    opacity: 0.72;
+  }
+  .header-banner-artwork-wrap .section-header-artwork {
+    height: 72px;
+  }
+}
+
+@media (max-width: 820px) {
+  .header-banner-artwork-wrap {
+    left: auto;
+    right: 170px;
+    transform: none;
+    opacity: 0.35;
+  }
+  .section-header-clouds {
+    height: 60px;
+  }
+  .header-banner-artwork-wrap .section-header-artwork {
+    height: 58px;
+  }
+}
+
+@media (max-width: 600px) {
   .header-banner-artwork-wrap {
     display: none;
   }
