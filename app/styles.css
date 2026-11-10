@@ -4950,10 +4950,10 @@ body.simulator-mode .figures-detail-pane {
 .section-header-clouds {
   position: absolute;
   bottom: 0;
-  right: 18px;
+  right: 0px;
   height: 92px;
   width: auto;
-  max-width: 560px;
+  max-width: 600px;
   object-fit: contain;
   opacity: 0.95;
   pointer-events: none;
