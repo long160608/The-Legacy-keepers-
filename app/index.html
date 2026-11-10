@@ -53,7 +53,7 @@
         <!-- Mobile Top App Bar -->
         <header class="mobile-top-bar" id="mobile-top-bar">
           <div class="mob-brand">
-            <span class="mob-brand-icon">📜</span>
+            <img src="media/design_assets/logo_legacy_keepers.png" class="brand-logo-img" alt="The Legacy Keepers">
             <span class="mob-brand-name" data-i18n="brand_title">The Legacy Keepers</span>
           </div>
           <div class="mob-top-actions">
@@ -70,7 +70,9 @@
   <!-- ==================== SIDEBAR ==================== -->
   <aside class="sidebar">
     <div class="brand">
-      <div class="brand-icon">📜</div>
+      <div class="brand-icon">
+        <img src="media/design_assets/logo_legacy_keepers.png" class="brand-logo-img" alt="The Legacy Keepers">
+      </div>
       <div class="brand-title">
         <h1 data-i18n="brand_title">The Legacy Keepers</h1>
         <p data-i18n="brand_sub">Hành trình Di sản Việt Nam</p>
@@ -167,7 +169,10 @@
             <h2 class="section-title" data-i18n="figures_title">Danh Nhân Lịch Sử & Hồ Sơ Di Sản</h2>
             <p class="section-desc" data-i18n="figures_desc">Khám phá chân dung các bậc anh hùng hào kiệt và mở khóa kho tàng giai thoại oanh liệt gắn liền với non sông.</p>
           </div>
-          <button class="btn-primary" onclick="switchToInputTab('subtab-figures')" data-i18n="btn_add_figure">+ Thêm Danh nhân mới</button>
+          <div class="section-header-right">
+            <button class="btn-primary" onclick="switchToInputTab('subtab-figures')" data-i18n="btn_add_figure">+ Thêm Danh nhân mới</button>
+            <img src="media/design_assets/ancient_temple_header.png" class="section-header-artwork" alt="Cổng Đền Cổ">
+          </div>
         </div>
 
         <!-- TWO COLUMN SPLIT VIEW CONTAINER -->
@@ -204,7 +209,10 @@
             <h2 class="section-title" data-i18n="badges_title">Bộ Sưu Tập Huy Hiệu Di Sản</h2>
             <p class="section-desc" data-i18n="badges_desc">Khám phá các di tích, giải mã câu chuyện và tham gia sự kiện để sưu tầm huy hiệu ánh kim danh giá.</p>
           </div>
-          <button class="btn-primary" onclick="switchToInputTab('subtab-badges')" data-i18n="btn_add_badge">+ Thêm Huy hiệu mới</button>
+          <div class="section-header-right">
+            <button class="btn-primary" onclick="switchToInputTab('subtab-badges')" data-i18n="btn_add_badge">+ Thêm Huy hiệu mới</button>
+            <img src="media/design_assets/ancient_temple_header.png" class="section-header-artwork" alt="Cổng Đền Cổ">
+          </div>
         </div>
 
         <!-- Bộ lọc huy hiệu -->
@@ -227,12 +235,18 @@
             <h2 class="section-title">Hồ Sơ Nhà Thám Hiểm</h2>
             <p class="section-desc">Theo dõi tiến trình chu du non sông và mở khóa di sản lịch sử dân tộc.</p>
           </div>
+          <div class="section-header-right">
+            <img src="media/design_assets/ancient_temple_header.png" class="section-header-artwork" alt="Cổng Đền Cổ">
+          </div>
         </div>
 
         <!-- Banner Hồ sơ -->
         <div class="profile-banner">
-          <div class="profile-avatar-large">🧙‍♂️</div>
-          <div style="flex:1;">
+          <img src="media/design_assets/vietnam_map_watermark.png" class="profile-map-watermark" alt="Bản đồ Việt Nam">
+          <div class="profile-avatar-large">
+            <img src="media/design_assets/avatar_explorer_hat.png" class="profile-avatar-img" alt="Nhà Thám Hiểm">
+          </div>
+          <div style="flex:1; position:relative; z-index:2;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <h3 style="font-size:1.6rem; color:var(--primary-dark);" id="profile-display-name">Người Giữ Gìn Di Sản #001</h3>
               <span class="badge-tag badge-gold" id="profile-level-badge">CẤP 2 • KỴ SĨ DI SẢN</span>

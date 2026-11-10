@@ -4865,3 +4865,110 @@ body.simulator-mode .figures-detail-pane {
   background: var(--accent-gold);
   color: #fff;
 }
+
+/* ==========================================================================
+   AUTHENTIC DESIGN REVAMP ASSETS (MATCHING OPC UI.PDF)
+   ========================================================================== */
+.brand-logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.45));
+  display: block;
+}
+
+.mob-brand .brand-logo-img {
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 1px 4px rgba(212, 175, 55, 0.35));
+}
+
+.section-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.section-header-artwork {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 900px) {
+  .section-header-artwork {
+    display: none;
+  }
+}
+
+.profile-banner {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FFFDF8 0%, #FBF6EC 60%, #F5ECDB 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.profile-map-watermark {
+  position: absolute;
+  right: -25px;
+  top: -25px;
+  height: 150%;
+  width: auto;
+  opacity: 0.14;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+}
+
+.profile-avatar-large {
+  position: relative;
+  z-index: 2;
+  border: 2px solid var(--accent-gold);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  background: #FFF;
+  overflow: hidden;
+}
+
+.profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.badge-icon-box {
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px auto;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(245, 236, 219, 0.6) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.3);
+}
+
+.badge-icon-img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.22));
+  transition: transform 0.25s ease;
+}
+
+.badge-card:hover .badge-icon-img {
+  transform: scale(1.12) rotate(4deg);
+}
+
+.badge-emoji-fallback {
+  font-size: 2.2rem;
+}
+

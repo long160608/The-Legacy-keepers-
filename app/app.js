@@ -1869,8 +1869,8 @@ async function saveToServerDataJSON() {
 }
 
 // Player coordinates (Default: Hanoi Old Quarter center)
-// System Role & Permission System (Default: 'user', 'manager', 'demo_user')
-let currentUserRole = localStorage.getItem("legacy_keepers_user_role") || "user";
+// System Role & Permission System (Default: 'demo_user' for new visitors so pins are visible, 'manager', 'user')
+let currentUserRole = localStorage.getItem("legacy_keepers_user_role") || "demo_user";
 if (currentUserRole === "admin") currentUserRole = "manager";
 let editingPinId = null;
 
@@ -2621,7 +2621,7 @@ const calculateDistance = getDistanceMeters;
 // Discovery Radius (tầm phủ sóng để Pin xuất hiện trên radar) & Interaction Radius (tầm check-in)
 const RARITY_SPECS = {
   common: {
-    discoveryRadius: 1500,     // 1.5 km
+    discoveryRadius: 5000,     // 5.0 km - Phủ kín trung tâm Thăng Long & Đống Đa
     interactionRadius: 150,    // 150 mét
     color: '#CEA884',
     fillColor: '#E8DED0',
@@ -3951,7 +3951,14 @@ function openBadgeDetailsModal(badgeId) {
   if (hero) {
     hero.className = `badge-modal-hero tier-${tier}`;
   }
-  document.getElementById("badge-modal-icon").innerText = badge.icon || '🎖️';
+  const modalIconEl = document.getElementById("badge-modal-icon");
+  if (modalIconEl) {
+    if (badge.image_url) {
+      modalIconEl.innerHTML = `<img src="${badge.image_url}" alt="${bName}" style="width:68px; height:68px; object-fit:contain; filter:drop-shadow(0 4px 10px rgba(0,0,0,0.3));">`;
+    } else {
+      modalIconEl.innerText = badge.icon || '🎖️';
+    }
+  }
   document.getElementById("badge-modal-title").innerText = bName;
   document.getElementById("badge-modal-tier-tag").innerText = `${tier.toUpperCase()} TIER`;
   document.getElementById("badge-modal-tier-tag").className = `badge-tag badge-${tier}`;
@@ -4132,8 +4139,12 @@ function renderBadgesGrid() {
     card.onclick = () => openBadgeDetailsModal(b.id);
     card.title = t('badge_click_hint');
 
+    const badgeIconHtml = b.image_url 
+      ? `<img src="${b.image_url}" alt="${bName}" class="badge-icon-img">`
+      : `<span class="badge-emoji-fallback">${b.icon || '🎖️'}</span>`;
+
     card.innerHTML = `
-      <div class="badge-icon-box">${b.icon || '🎖️'}</div>
+      <div class="badge-icon-box">${badgeIconHtml}</div>
       <span class="badge-tag ${tierClass}">${(b.tier || 'bronze').toUpperCase()} TIER</span>
       <h3 class="badge-card-title">${bName}</h3>
       <p class="badge-card-category">${bCat}</p>
