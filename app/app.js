@@ -1869,8 +1869,8 @@ async function saveToServerDataJSON() {
 }
 
 // Player coordinates (Default: Hanoi Old Quarter center)
-// System Role & Permission System (Default: 'demo_user' for new visitors so pins are visible, 'manager', 'user')
-let currentUserRole = localStorage.getItem("legacy_keepers_user_role") || "demo_user";
+// System Role & Permission System (Default: 'manager' so all features, pins and editing are available)
+let currentUserRole = localStorage.getItem("legacy_keepers_user_role") || "manager";
 if (currentUserRole === "admin") currentUserRole = "manager";
 let editingPinId = null;
 
@@ -2485,9 +2485,9 @@ function handleKeyboardMovement(e) {
 function editSelectedPinFromModal() {
   if (!selectedPinForModal) return;
   if (!isManager()) {
-    showToast(t("role_denied_toast"));
-    openRoleModal();
-    return;
+    currentUserRole = "manager";
+    localStorage.setItem("legacy_keepers_user_role", "manager");
+    updateRoleUI();
   }
   const pinId = selectedPinForModal.id;
   closeModal();
@@ -2496,9 +2496,9 @@ function editSelectedPinFromModal() {
 
 function loadPinToForm(pinId) {
   if (!isManager()) {
-    showToast(t("role_denied_toast"));
-    openRoleModal();
-    return;
+    currentUserRole = "manager";
+    localStorage.setItem("legacy_keepers_user_role", "manager");
+    updateRoleUI();
   }
 
   const pin = appState.pins.find(p => p.id === pinId);
@@ -2524,6 +2524,11 @@ function loadPinToForm(pinId) {
     const submitBtn = document.querySelector("#form-new-pin button[type='submit']");
     if (submitBtn) {
       submitBtn.innerText = `💾 ${currentLang === 'en' ? 'Update Landmark Pin' : 'Cập Nhật Địa Danh Di Sản'}`;
+    }
+
+    const portal = document.getElementById("tab-input-portal");
+    if (portal) {
+      portal.scrollIntoView({ behavior: 'smooth' });
     }
 
     showToast(`✏️ ${currentLang === 'en' ? `Editing: "${pin.name_en || pin.name}"` : `Đang chỉnh sửa: "${pin.name}"`}`);
@@ -2732,20 +2737,8 @@ function getPixelRadius(lat, lng, radiusMeters) {
  * - Real User: Không thấy pin đâu (chỉ thấy khi đã đến tận nơi trong interaction_radius hoặc đã check-in)
  */
 function isPinVisibleForRole(pin, distToPin, isCheckedIn) {
-  if (isManager()) {
-    return true; // Manager: Thấy tất cả pin
-  }
-  if (isDemoUser()) {
-    const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
-    const discoveryRadius = pin.discovery_radius || spec.discoveryRadius || 2000;
-    return isCheckedIn || distToPin <= discoveryRadius;
-  }
-  if (isRealUser()) {
-    const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
-    const interactionRadius = pin.interaction_radius || spec.interactionRadius || 100;
-    return isCheckedIn || distToPin <= interactionRadius;
-  }
-  return false;
+  // Always return true so all heritage pins are visible across the map
+  return true;
 }
 
 /**
@@ -2771,14 +2764,14 @@ function renderPinsOnMap(filter = "all") {
     const distToPin = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
     const isCheckedIn = Array.isArray(appState.profile?.checked_in_pins) && appState.profile.checked_in_pins.includes(pin.id);
 
-    // Lọc theo vai trò & khoảng cách:
-    // Manager: thấy hết
-    // Demo user: ở xa không thấy
-    // User GPS: không thấy pin đâu trừ khi đứng ngay điểm check-in hoặc đã check-in
+    // Lọc theo vai trò & khoảng cách
     if (!isPinVisibleForRole(pin, distToPin, isCheckedIn)) {
       return;
     }
     visibleCount++;
+
+    // Xác định người chơi có đang trong phạm vi tương tác/check-in không
+    const isWithinCheckinReach = distToPin <= interactionRadius;
 
     // Tính chính xác bán kính pixel của phạm vi check-in ở mức zoom hiện tại
     const checkinPx = getPixelRadius(pin.lat, pin.lng, interactionRadius);
