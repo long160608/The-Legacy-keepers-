@@ -164,14 +164,47 @@
     <!-- TAB 2: FIGURES & STORIES SCREEN (SPLIT VIEW: MỤC 1 BÊN - NỘI DUNG 1 BÊN) -->
     <section id="tab-figures" class="tab-pane">
       <div class="content-wrapper figures-content-wrapper">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title" data-i18n="figures_title">Danh Nhân Lịch Sử & Hồ Sơ Di Sản</h2>
-            <p class="section-desc" data-i18n="figures_desc">Khám phá chân dung các bậc anh hùng hào kiệt và mở khóa kho tàng giai thoại oanh liệt gắn liền với non sông.</p>
+        <!-- SECTION HEADER BANNER (CHÍNH XÁC THEO BẢN THIẾT KẾ FIGMA) -->
+        <div class="section-header-banner">
+          <!-- Góc Triện Hoa Văn Cổ (Top-Left Oriental Corner Knot Ornament) -->
+          <div class="header-corner-ornament" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 42V14C3 7.92487 7.92487 3 14 3H42" stroke="#CEA884" stroke-width="2"/>
+              <path d="M9 42V16C9 12.134 12.134 9 16 9H42" stroke="#DDBE9B" stroke-width="1.2"/>
+              <rect x="6" y="6" width="6" height="6" fill="#CEA884" opacity="0.7"/>
+            </svg>
           </div>
-          <div class="section-header-right">
-            <button class="btn-primary" onclick="switchToInputTab('subtab-figures')" data-i18n="btn_add_figure">+ Thêm Danh nhân mới</button>
+
+          <!-- Nhóm Tiêu Đề & Lời Dẫn -->
+          <div class="header-banner-text">
+            <h2 class="section-title" data-i18n="figures_title">Tra Cứu Danh Nhân Hào Kiệt</h2>
+            <div class="header-title-divider"></div>
+            <p class="section-desc" data-i18n="figures_desc">Tìm hiểu cuộc đời, sự nghiệp và giai thoại hào hùng của các vị anh hùng dân tộc.</p>
+          </div>
+
+          <!-- Hình Minh Họa Cổng Đền Cổ ở Giữa/Phải -->
+          <div class="header-banner-artwork-wrap" aria-hidden="true">
             <img src="media/design_assets/ancient_temple_header.png" class="section-header-artwork" alt="Cổng Đền Cổ">
+          </div>
+
+          <!-- Nhóm Nút Bấm Hành Động (Không Bao Giờ Bị Chèn Lên Nhau!) -->
+          <div class="header-banner-actions">
+            <div class="header-banner-top-row">
+              <button type="button" class="btn-simulator-toggle" onclick="toggleMobileSimulator()" title="Thử nghiệm giao diện điện thoại">
+                <span class="sim-icon">📱</span>
+                <span data-i18n="sim_toggle_btn">Thử giao diện Điện thoại</span>
+              </button>
+              <div class="header-lang-pill">
+                <button type="button" class="header-lang-btn active" id="hdr-fig-vi" onclick="setLanguage('vi')">VI</button>
+                <button type="button" class="header-lang-btn" id="hdr-fig-en" onclick="setLanguage('en')">EN</button>
+              </div>
+            </div>
+            <div class="header-banner-bottom-row">
+              <button type="button" class="btn-primary-heritage" onclick="switchToInputTab('subtab-figures')">
+                <span class="btn-plus">+</span>
+                <span data-i18n="btn_add_figure">Thêm Danh nhân mới</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -204,14 +237,40 @@
     <!-- TAB 3: BADGES SCREEN -->
     <section id="tab-badges" class="tab-pane">
       <div class="content-wrapper">
-        <div class="section-header">
-          <div>
+        <!-- SECTION HEADER BANNER (CHÍNH XÁC THEO BẢN THIẾT KẾ FIGMA) -->
+        <div class="section-header-banner">
+          <div class="header-corner-ornament" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 42V14C3 7.92487 7.92487 3 14 3H42" stroke="#CEA884" stroke-width="2"/>
+              <path d="M9 42V16C9 12.134 12.134 9 16 9H42" stroke="#DDBE9B" stroke-width="1.2"/>
+              <rect x="6" y="6" width="6" height="6" fill="#CEA884" opacity="0.7"/>
+            </svg>
+          </div>
+          <div class="header-banner-text">
             <h2 class="section-title" data-i18n="badges_title">Bộ Sưu Tập Huy Hiệu Di Sản</h2>
+            <div class="header-title-divider"></div>
             <p class="section-desc" data-i18n="badges_desc">Khám phá các di tích, giải mã câu chuyện và tham gia sự kiện để sưu tầm huy hiệu ánh kim danh giá.</p>
           </div>
-          <div class="section-header-right">
-            <button class="btn-primary" onclick="switchToInputTab('subtab-badges')" data-i18n="btn_add_badge">+ Thêm Huy hiệu mới</button>
+          <div class="header-banner-artwork-wrap" aria-hidden="true">
             <img src="media/design_assets/ancient_temple_header.png" class="section-header-artwork" alt="Cổng Đền Cổ">
+          </div>
+          <div class="header-banner-actions">
+            <div class="header-banner-top-row">
+              <button type="button" class="btn-simulator-toggle" onclick="toggleMobileSimulator()" title="Thử nghiệm giao diện điện thoại">
+                <span class="sim-icon">📱</span>
+                <span data-i18n="sim_toggle_btn">Thử giao diện Điện thoại</span>
+              </button>
+              <div class="header-lang-pill">
+                <button type="button" class="header-lang-btn active" id="hdr-bdg-vi" onclick="setLanguage('vi')">VI</button>
+                <button type="button" class="header-lang-btn" id="hdr-bdg-en" onclick="setLanguage('en')">EN</button>
+              </div>
+            </div>
+            <div class="header-banner-bottom-row">
+              <button type="button" class="btn-primary-heritage" onclick="switchToInputTab('subtab-badges')">
+                <span class="btn-plus">+</span>
+                <span data-i18n="btn_add_badge">Thêm Huy hiệu mới</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -230,13 +289,34 @@
     <!-- TAB 4: PORTFOLIO SCREEN -->
     <section id="tab-profile" class="tab-pane">
       <div class="content-wrapper">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Hồ Sơ Nhà Thám Hiểm</h2>
-            <p class="section-desc">Theo dõi tiến trình chu du non sông và mở khóa di sản lịch sử dân tộc.</p>
+        <!-- SECTION HEADER BANNER (CHÍNH XÁC THEO BẢN THIẾT KẾ FIGMA) -->
+        <div class="section-header-banner">
+          <div class="header-corner-ornament" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 42V14C3 7.92487 7.92487 3 14 3H42" stroke="#CEA884" stroke-width="2"/>
+              <path d="M9 42V16C9 12.134 12.134 9 16 9H42" stroke="#DDBE9B" stroke-width="1.2"/>
+              <rect x="6" y="6" width="6" height="6" fill="#CEA884" opacity="0.7"/>
+            </svg>
           </div>
-          <div class="section-header-right">
+          <div class="header-banner-text">
+            <h2 class="section-title" data-i18n="profile_title">Hồ Sơ Nhà Thám Hiểm</h2>
+            <div class="header-title-divider"></div>
+            <p class="section-desc" data-i18n="profile_desc">Theo dõi tiến trình chu du non sông và mở khóa di sản lịch sử dân tộc.</p>
+          </div>
+          <div class="header-banner-artwork-wrap" aria-hidden="true">
             <img src="media/design_assets/ancient_temple_header.png" class="section-header-artwork" alt="Cổng Đền Cổ">
+          </div>
+          <div class="header-banner-actions">
+            <div class="header-banner-top-row">
+              <button type="button" class="btn-simulator-toggle" onclick="toggleMobileSimulator()" title="Thử nghiệm giao diện điện thoại">
+                <span class="sim-icon">📱</span>
+                <span data-i18n="sim_toggle_btn">Thử giao diện Điện thoại</span>
+              </button>
+              <div class="header-lang-pill">
+                <button type="button" class="header-lang-btn active" id="hdr-prf-vi" onclick="setLanguage('vi')">VI</button>
+                <button type="button" class="header-lang-btn" id="hdr-prf-en" onclick="setLanguage('en')">EN</button>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -4879,8 +4879,202 @@ body.simulator-mode .figures-detail-pane {
 }
 
 /* ==========================================================================
-   AUTHENTIC DESIGN REVAMP ASSETS (MATCHING OPC UI.PDF)
+   AUTHENTIC SECTION HEADER BANNER (EXACT FIGMA OPC UI.PDF MATCH)
    ========================================================================== */
+.section-header-banner {
+  background: linear-gradient(180deg, #FDFBF7 0%, #F8EFE0 100%);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 14px;
+  padding: 16px 22px 14px 24px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 18px rgba(84, 51, 27, 0.05);
+  min-height: 98px;
+}
+
+.header-corner-ornament {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.header-banner-text {
+  position: relative;
+  z-index: 2;
+  padding-left: 18px;
+  max-width: 520px;
+}
+
+.header-banner-text .section-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Times New Roman", serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #331A0B;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+.header-title-divider {
+  width: 50px;
+  height: 3px;
+  background: #EBC8A7;
+  border-radius: 2px;
+  margin: 5px 0 6px 0;
+}
+
+.header-banner-text .section-desc {
+  font-size: 0.88rem;
+  color: #674B35;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.header-banner-artwork-wrap {
+  position: absolute;
+  left: 54%;
+  transform: translateX(-50%);
+  bottom: -4px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.header-banner-artwork-wrap .section-header-artwork {
+  height: 82px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.95;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(84, 51, 27, 0.1));
+}
+
+.header-banner-actions {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.header-banner-top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-simulator-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFDF8;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 20px;
+  padding: 5px 13px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #331A0B;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(84, 51, 27, 0.05);
+  transition: all 0.2s ease;
+}
+
+.btn-simulator-toggle:hover {
+  background: #FAF5EB;
+  border-color: #CEA884;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(84, 51, 27, 0.1);
+}
+
+.header-lang-pill {
+  display: inline-flex;
+  align-items: center;
+  background: #EDE2D3;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 20px;
+  padding: 2.5px;
+  gap: 2px;
+}
+
+.header-lang-btn {
+  border: none;
+  background: transparent;
+  padding: 4px 11px;
+  border-radius: 14px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #674B35;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header-lang-btn.active {
+  background: #4A3319;
+  color: #FDDB9B;
+  box-shadow: 0 2px 4px rgba(51, 26, 11, 0.25);
+}
+
+.btn-primary-heritage {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #4A3319;
+  color: #FFF;
+  border: 1px solid rgba(253, 219, 155, 0.4);
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(51, 26, 11, 0.16);
+  transition: all 0.2s ease;
+}
+
+.btn-primary-heritage:hover {
+  background: #331A0B;
+  border-color: var(--accent-gold);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(51, 26, 11, 0.22);
+}
+
+.btn-plus {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (max-width: 1050px) {
+  .header-banner-artwork-wrap {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-header-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .header-banner-text {
+    padding-left: 10px;
+    max-width: 100%;
+  }
+  .header-banner-actions {
+    width: 100%;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
 .brand-logo-img {
   width: 36px;
   height: 36px;

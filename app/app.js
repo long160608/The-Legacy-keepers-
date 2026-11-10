@@ -984,8 +984,8 @@ function setLanguage(lang) {
   document.documentElement.lang = lang;
 
   // Update button active classes
-  document.querySelectorAll('.lang-btn, .mob-lang-btn').forEach(btn => {
-    if (btn.id.includes(lang)) {
+  document.querySelectorAll('.lang-btn, .mob-lang-btn, .header-lang-btn').forEach(btn => {
+    if (btn.id.includes(lang) || btn.innerText.trim().toLowerCase() === lang) {
       btn.classList.add('active');
     } else {
       btn.classList.remove('active');
@@ -1949,6 +1949,12 @@ function switchTab(targetTab) {
   document.querySelectorAll(".tab-pane").forEach(pane => {
     pane.classList.toggle("active", pane.id === targetTab);
   });
+
+  // Floating top bar only visible on map screen (content banners have their own actions)
+  const floatBar = document.getElementById("desktop-floating-bar");
+  if (floatBar) {
+    floatBar.style.display = (targetTab === "tab-map") ? "flex" : "none";
+  }
 
   // Refresh tab-specific views & invalidate map
   if (targetTab === "tab-map" && map) {
