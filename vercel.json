@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/", "destination": "/app/index.html" },
+    { "source": "/styles.css", "destination": "/app/styles.css" },
+    { "source": "/app.js", "destination": "/app/app.js" },
+    { "source": "/data.json", "destination": "/app/data.json" },
+    { "source": "/media/(.*)", "destination": "/app/media/$1" },
+    { "source": "/vendor/(.*)", "destination": "/app/vendor/$1" },
+    { "source": "/((?!app/).*)", "destination": "/app/$1" }
+  ]
+}

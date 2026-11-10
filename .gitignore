@@ -10,4 +10,6 @@ node_modules/
 dist/
 .DS_Store
 Thumbs.db
+# Backups and raw design extracts
 _backups/
+design/extracted_assets/
