@@ -2625,13 +2625,7 @@ body {
 }
 
 .floating-top-bar {
-  position: fixed;
-  top: 14px;
-  right: 18px;
-  z-index: 1500;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: none !important;
 }
 
 .device-toggle-btn {
@@ -4944,31 +4938,32 @@ body.simulator-mode .figures-detail-pane {
 
 .header-banner-artwork-wrap {
   position: absolute;
-  right: 18px;
+  right: 0;
   bottom: 0;
   height: 100%;
-  display: flex;
-  align-items: flex-end;
+  width: 580px;
   pointer-events: none;
   z-index: 1;
+  overflow: hidden;
 }
 
 .section-header-clouds {
   position: absolute;
   bottom: 0;
-  right: 180px;
-  height: 88px;
+  right: 18px;
+  height: 92px;
   width: auto;
-  max-width: 520px;
+  max-width: 560px;
   object-fit: contain;
-  opacity: 0.92;
+  opacity: 0.95;
   pointer-events: none;
   z-index: 1;
 }
 
 .header-banner-artwork-wrap .section-header-artwork {
-  position: relative;
+  position: absolute;
   bottom: 0;
+  right: 18px;
   height: 86px;
   width: auto;
   max-width: 480px;
@@ -4976,7 +4971,7 @@ body.simulator-mode .figures-detail-pane {
   opacity: 0.98;
   display: block;
   z-index: 2;
-  filter: drop-shadow(0 2px 8px rgba(84, 51, 27, 0.1));
+  filter: drop-shadow(0 2px 8px rgba(84, 51, 27, 0.08));
 }
 
 @media (max-width: 1200px) {

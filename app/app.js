@@ -1950,10 +1950,10 @@ function switchTab(targetTab) {
     pane.classList.toggle("active", pane.id === targetTab);
   });
 
-  // Floating top bar only visible on map screen (content banners have their own actions)
+  // Floating top bar removed per user specification
   const floatBar = document.getElementById("desktop-floating-bar");
   if (floatBar) {
-    floatBar.style.display = (targetTab === "tab-map") ? "flex" : "none";
+    floatBar.style.display = "none";
   }
 
   // Refresh tab-specific views & invalidate map
