@@ -6,8 +6,8 @@
       "name_en": "Imperial Citadel of Thang Long",
       "category": "landmark",
       "rarity": "legendary",
-      "lat": 21.0345600,
-      "lng": 105.8407400,
+      "lat": 21.03456,
+      "lng": 105.84074,
       "discovery_radius": 25000,
       "interaction_radius": 50,
       "icon": "🏛️",
@@ -22,8 +22,8 @@
       "name_en": "Bach Dang Victory Historic Site",
       "category": "battlefield",
       "rarity": "legendary",
-      "lat": 20.9168000,
-      "lng": 106.6667000,
+      "lat": 20.9168,
+      "lng": 106.6667,
       "discovery_radius": 25000,
       "interaction_radius": 100,
       "icon": "⚔️",
@@ -38,8 +38,8 @@
       "name_en": "Secret Underground Weapons Depot of Saigon Commandos",
       "category": "living_history",
       "rarity": "uncommon",
-      "lat": 10.7769000,
-      "lng": 106.6953000,
+      "lat": 10.7769,
+      "lng": 106.6953,
       "discovery_radius": 6000,
       "interaction_radius": 80,
       "icon": "🎙️",
@@ -54,8 +54,8 @@
       "name_en": "Nha Rong Wharf - Ho Chi Minh Museum",
       "category": "landmark",
       "rarity": "legendary",
-      "lat": 10.7684000,
-      "lng": 106.7068000,
+      "lat": 10.7684,
+      "lng": 106.7068,
       "discovery_radius": 20000,
       "interaction_radius": 50,
       "icon": "🏛️",
@@ -70,8 +70,8 @@
       "name_en": "Dong Da Cultural Park",
       "category": "battlefield",
       "rarity": "uncommon",
-      "lat": 21.0152000,
-      "lng": 105.8239000,
+      "lat": 21.0152,
+      "lng": 105.8239,
       "discovery_radius": 7000,
       "interaction_radius": 80,
       "icon": "⚔️",
@@ -86,8 +86,8 @@
       "name_en": "Hai Ba Trung Temple (Hat Mon)",
       "category": "landmark",
       "rarity": "legendary",
-      "lat": 21.1354000,
-      "lng": 105.5786000,
+      "lat": 21.1354,
+      "lng": 105.5786,
       "discovery_radius": 15000,
       "interaction_radius": 60,
       "icon": "🏛️",
@@ -97,8 +97,27 @@
       "hasLivingHistory": false
     }
   ],
-
   "figures": [
+    {
+      "id": "fig-haibatrung",
+      "name": "Hai Bà Trưng (Trưng Trắc & Trưng Nhị)",
+      "name_en": "The Trung Sisters (Trung Trac & Trung Nhi)",
+      "role": "Nữ vương phất cờ độc lập",
+      "role_en": "Revolutionary Queens of Independence",
+      "dynasty": "Nhà Trưng",
+      "dynasty_en": "Trung Dynasty",
+      "years": "Năm 40 – 43 SCN",
+      "avatar": "🛡️",
+      "image_url": "media/design_assets/hai_ba_trung_portrait.jpg",
+      "background_image": "media/design_assets/hero_banner_bg.jpg",
+      "quote": "Một xin rửa sạch nước thù / Hai xin đem lại nghiệp xưa họ Hùng!",
+      "quote_en": "First, avenge our country's grievance; Second, restore the ancient heritage of the Hung Kings!",
+      "bio": "Hai nữ anh hùng dân tộc đầu tiên phất cờ khởi nghĩa, thu phục 65 thành trì, đánh đuổi thái thú Tô Định, giành lại độc lập tự chủ cho non sông sau hơn 200 năm Bắc thuộc.",
+      "bio_en": "The first female national heroes to raise the banner of rebellion, liberating 65 citadels and driving out the foreign governor To Dinh to reclaim national sovereignty after more than two centuries of northern domination.",
+      "related_pins": [
+        "pin-hatmon"
+      ]
+    },
     {
       "id": "fig-tranquoctuan",
       "name": "Hưng Đạo Đại Vương - Trần Quốc Tuấn",
@@ -115,7 +134,10 @@
       "quote_en": "If your Majesty wishes to surrender, please cut off my head first!",
       "bio": "Anh hùng dân tộc, thiên tài quân sự kiệt xuất ba lần chỉ huy quân dân Đại Việt đánh tan quân Nguyên Mông hung hãn, tác giả của bản 'Hịch Tướng Sĩ' truyền đời non sông.",
       "bio_en": "Legendary national hero and military genius who led the Dai Viet army and people to defeat the fierce Mongol Yuan invasions three times, and authored the immortal martial proclamation 'Hich Tuong Si'.",
-      "related_pins": ["pin-bachdang", "pin-thanglong"]
+      "related_pins": [
+        "pin-bachdang",
+        "pin-thanglong"
+      ]
     },
     {
       "id": "fig-quangtrung",
@@ -133,28 +155,11 @@
       "quote_en": "Fight to keep our long hair, fight to keep our black teeth, fight so that not a single enemy chariot returns, nor a piece of armor remains whole!",
       "bio": "Người anh hùng áo vải cờ đào kiệt xuất, đánh tan 5 vạn quân Xiêm rạch Gầm Xoài Mút và thần tốc vượt hơn 600km quét sạch 29 vạn quân Mãn Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
       "bio_en": "Brilliant peasant-turned-emperor who crushed 50,000 Siamese invaders at Rach Gam - Xoai Mut and executed an unprecedented 600km lightning march to route 290,000 Qing imperial troops in the Spring of 1789.",
-      "related_pins": ["pin-dongda"]
-    },
-    {
-      "id": "fig-haibatrung",
-      "name": "Hai Bà Trưng (Trưng Trắc & Trưng Nhị)",
-      "name_en": "The Trung Sisters (Trung Trac & Trung Nhi)",
-      "role": "Nữ vương phất cờ độc lập",
-      "role_en": "Revolutionary Queens of Independence",
-      "dynasty": "Nhà Trưng",
-      "dynasty_en": "Trung Dynasty",
-      "years": "Năm 40 – 43 SCN",
-      "avatar": "🛡️",
-      "image_url": "media/design_assets/hai_ba_trung_portrait.jpg",
-      "background_image": "media/design_assets/hero_banner_bg.jpg",
-      "quote": "Một xin rửa sạch nước thù / Hai xin đem lại nghiệp xưa họ Hùng!",
-      "quote_en": "First, avenge our country's grievance; Second, restore the ancient heritage of the Hung Kings!",
-      "bio": "Hai nữ anh hùng dân tộc đầu tiên phất cờ khởi nghĩa, thu phục 65 thành trì, đánh đuổi thái thú Tô Định, giành lại độc lập tự chủ cho non sông sau hơn 200 năm Bắc thuộc.",
-      "bio_en": "The first female national heroes to raise the banner of rebellion, liberating 65 citadels and driving out the foreign governor To Dinh to reclaim national sovereignty after more than two centuries of northern domination.",
-      "related_pins": ["pin-hatmon"]
+      "related_pins": [
+        "pin-dongda"
+      ]
     }
   ],
-
   "stories": [
     {
       "id": "story-camcoc",
@@ -212,7 +217,6 @@
       "content_en": "Prior to marching into battle at the mouth of the Hat River, Trung Trac proclaimed the four historic oaths:\n\n'First, cleanse our land of the enemy's stain,\nSecond, restore the Hung clan's ancestral reign,\nThird, avenge the wrongful death of my spouse,\nFourth, fulfill this vow that we hereby espouse.'"
     }
   ],
-
   "badges": [
     {
       "id": "badge-bachdang",
