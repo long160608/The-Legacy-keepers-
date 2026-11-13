@@ -1,99 +1,122 @@
 {
   "pins": [
     {
-      "id": "pin-thanglong",
-      "name": "Hoàng thành Thăng Long",
-      "name_en": "Imperial Citadel of Thang Long",
+      "id": "pin-1794545263467",
+      "name": "Hầm B – Cơ sở in ấn của Hội Ủng hộ Vệ quốc đoàn",
+      "name_en": "B Bunker – Secret Printing Base of the National Defense Guard Support Association",
       "category": "landmark",
-      "rarity": "legendary",
-      "lat": 21.03456,
-      "lng": 105.84074,
-      "discovery_radius": 25000,
-      "interaction_radius": 50,
+      "rarity": "uncommon",
+      "lat": 10.76451,
+      "lng": 106.67025,
+      "discovery_radius": 6500,
+      "interaction_radius": 80,
+      "image_url": "",
+      "desc": "\"Năm 1952, Sài Gòn đầy mạng lưới an ninh chìm của đối phương. Hội Ủng hộ Vệ quốc đoàn cần một nơi bí mật để in tài liệu, truyền đơn và họp. Hội mua một căn nhà ở vị trí dễ quan sát xung quanh rồi biến nó thành cơ sở làm đàn: ngày nào thợ cũng đục đẽo như một xưởng đàn bình thường. Bên dưới, các chiến sĩ đào một căn hầm đủ chứa 30 người.\nKhó nhất là đất đào lên không thể đổ đâu cũng được. Theo lời ông Lê Văn Quang (Ba Quang), người trực tiếp tham gia, chi bộ của Hội nghĩ ra cách nhờ một chiếc xe tải ký gửi ở nhà để mỗi đêm chở đất đi. Gần bốn tháng, hơn 70 m³ đất được đưa ra ngoài mà không bị phát hiện. Từ tháng 7/1952, hầm được dùng để in ấn và hội họp, và đến cuối năm 1957 thì ngừng hoạt động vì an ninh, khi một cơ sở khác của Hội bị lộ. Hầm sau đó bị lấp đất (1959) và được giữ nguyên trạng đến khi khai quật. Ngày 9/1/1955, hầm còn là nơi diễn ra đám cưới của hai đồng chí. Năm 1988, hầm được công nhận là di tích quốc gia.\n\"",
+      "desc_en": "In 1952, amid tight covert enemy surveillance in Saigon, the National Defense Guard Support Association established a secret base disguised as a musical instrument workshop. Beneath the floor, soldiers excavated a hidden bunker capable of sheltering 30 people, discreetly removing over 70 m³ of soil over nearly four months using a parked truck. Operating from July 1952 for clandestine printing and meetings until late 1957, the site even hosted a comrade wedding on January 9, 1955. It was sealed in 1959, later preserved, and officially recognized as a National Historical Relic in 1988.",
+      "media_url": "",
       "icon": "🏛️",
-      "image_url": "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=800&q=80",
-      "desc": "Di tích quốc gia đặc biệt, nơi phát hiệu ứng hào quang Aura Pulse toàn vùng. Trung tâm quyền lực suốt hơn 13 thế kỷ từ thời Tiền Thăng Long đến triều Lý, Trần, Lê.",
-      "desc_en": "A UNESCO World Heritage Site and Special National Relic, emitting an aura across the realm. The epic political power center for over 13 consecutive centuries through the Ly, Tran, and Le dynasties.",
       "hasLivingHistory": false
     },
     {
-      "id": "pin-bachdang",
-      "name": "Khu di tích Chiến thắng Bạch Đằng",
-      "name_en": "Bach Dang Victory Historic Site",
-      "category": "battlefield",
-      "rarity": "legendary",
-      "lat": 20.9168,
-      "lng": 106.6667,
-      "discovery_radius": 25000,
-      "interaction_radius": 100,
-      "icon": "⚔️",
-      "image_url": "https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=800&q=80",
-      "desc": "Chiến trường xưa với 3 lần đánh bại quân xâm lược phương Bắc bằng kế sách cắm cọc hiểm yếu dưới lòng sông của Ngô Quyền, Lê Hoàn và Trần Hưng Đạo.",
-      "desc_en": "Legendary historical battlefield where northern invaders were crushed three times using ingenious sunken wooden stake traps in the riverbed by Ngo Quyen, Le Hoan, and Tran Hung Dao.",
-      "hasLivingHistory": true
-    },
-    {
-      "id": "pin-ham-bietdong",
-      "name": "Căn hầm bí mật chứa vũ khí Biệt động Sài Gòn",
-      "name_en": "Secret Underground Weapons Depot of Saigon Commandos",
-      "category": "living_history",
-      "rarity": "uncommon",
-      "lat": 10.7769,
-      "lng": 106.6953,
-      "discovery_radius": 6000,
-      "interaction_radius": 80,
-      "icon": "🎙️",
-      "image_url": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
-      "desc": "Nơi cất giấu gần 2 tấn súng đạn, chất nổ của lực lượng Biệt động Sài Gòn ngay giữa lòng đô thành phục vụ cuộc Tổng tiến công Tết Mậu Thân 1968.",
-      "desc_en": "The secret hideout storing nearly 2 tons of firearms and explosives used by the Saigon Special Action Commandos right in the heart of Saigon during the 1968 Tet Offensive.",
-      "hasLivingHistory": true
-    },
-    {
-      "id": "pin-ben-nharong",
-      "name": "Bến Nhà Rồng - Bảo tàng Hồ Chí Minh",
-      "name_en": "Nha Rong Wharf - Ho Chi Minh Museum",
+      "id": "pin-1794548816329",
+      "name": "Hầm bí mật chứa vũ khí – Nhà ông Đỗ Văn Căn",
+      "name_en": "Secret Weapons Cache – Residence of Do Van Can",
       "category": "landmark",
       "rarity": "legendary",
-      "lat": 10.7684,
-      "lng": 106.7068,
-      "discovery_radius": 20000,
-      "interaction_radius": 50,
-      "icon": "🏛️",
-      "image_url": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=800&q=80",
-      "desc": "Nơi người thanh niên yêu nước Nguyễn Tất Thành ra đi tìm đường cứu nước vào ngày 5/6/1911 trên con tàu Amiral Latouche-Tréville.",
-      "desc_en": "The historic riverfront where the patriotic young man Nguyen Tat Thanh embarked on his journey across the world aboard the Amiral Latouche-Treville on June 5, 1911 to seek national salvation.",
-      "hasLivingHistory": true
-    },
-    {
-      "id": "pin-dongda",
-      "name": "Công viên Văn hóa Đống Đa",
-      "name_en": "Dong Da Cultural Park",
-      "category": "battlefield",
-      "rarity": "uncommon",
-      "lat": 21.0152,
-      "lng": 105.8239,
-      "discovery_radius": 7000,
+      "lat": 10.77255,
+      "lng": 106.67412,
+      "discovery_radius": 6500,
       "interaction_radius": 80,
-      "icon": "⚔️",
       "image_url": "",
-      "desc": "Địa danh ghi dấu chiến công vang dội của Hoàng đế Quang Trung đại phá 29 vạn quân Mãn Thanh mùa xuân năm Kỷ Dậu 1789.",
-      "desc_en": "The historic battleground marking Emperor Quang Trung's thunderous victory, completely routing 290,000 Qing imperial invaders during the Spring of 1789 (Year of the Rooster).",
+      "desc": "\"Giữa năm 1964, đơn vị bảo đảm chiến đấu của Biệt động thành (J9 – T700) chọn một căn nhà nhỏ trong hẻm đường 3/2 làm cơ sở. Vị trí này gần nhiều cơ quan đầu não và khu quân sự của Mỹ và chính quyền Sài Gòn, thuận lợi cho việc chuẩn bị nhiệm vụ. Theo phân công, ông Đỗ Văn Căn (Ba Mủ), người làm nghề ép đế giày, đưa cả gia đình về ở. Ban ngày tiếng máy ép đế giày vang đều khiến căn nhà trông như một cơ sở sản xuất bình thường.\nBan đêm, ông Ba Mủ cùng đồng đội đào hầm ngay dưới nền phòng khách, đất được đưa ra ngoài từng ít một để tránh bị chú ý. Sau 25 đêm, tháng 5/1965 hầm hoàn thành; lối xuống nằm dưới bộ bàn ghế giữa phòng. Từ tháng 7/1965, vũ khí được chuyển về liên tục: 7 khẩu AK, khoảng 21.000 viên đạn, 50 quả lựu đạn, 50 kg thuốc nổ cùng nhiều quân trang và vật tư y tế. Số vũ khí này được chuẩn bị cho các hoạt động của Biệt động Sài Gòn, và hầm được giữ bí mật đến Chiến dịch Hồ Chí Minh tháng 4/1975. Năm 1998, hầm được xếp hạng di tích quốc gia.\n\"",
+      "desc_en": "In mid-1964, the J9–T700 combat support unit of the Saigon Commandos acquired a discreet house in an alley off 3/2 Street. Commando soldier Do Van Can (Ba Mu) moved his family in, masking clandestine operations under the sound of a shoe-sole pressing machine. Over 25 nights, they excavated a secret bunker beneath the living room floor, completed in May 1965. Starting in July 1965, it held extensive arsenals—including AK rifles, 21,000 rounds of ammunition, grenades, and 50 kg of explosives—safeguarded until the April 1975 victory. It was designated a National Historical Relic in 1998.",
+      "media_url": "",
+      "icon": "🏛️",
       "hasLivingHistory": false
     },
     {
-      "id": "pin-hatmon",
-      "name": "Đền thờ Hai Bà Trưng (Hát Môn)",
-      "name_en": "Hai Ba Trung Temple (Hat Mon)",
+      "id": "pin-1794548888256",
+      "name": "Việt Nam Quốc Tự",
+      "name_en": "Vietnam National Buddhist Temple (Viet Nam Quoc Tu)",
+      "category": "landmark",
+      "rarity": "common",
+      "lat": 10.77115,
+      "lng": 106.67322,
+      "discovery_radius": 25000,
+      "interaction_radius": 50,
+      "image_url": "",
+      "desc": "Việt Nam Quốc Tự của Giáo hội Phật giáo Việt Nam Thống Nhất được xây dựng vào khoảng 1963–1964, trên khu đất rộng hơn 4 ha. Sau năm 1975, phần lớn khuôn viên được dùng cho những mục đích khác, trong đó có khu vực Kỳ Hòa gồm nhà hát và trụ sở ủy ban quận. Năm 1993, đơn đề nghị trả lại đất được chấp thuận, nhưng diện tích còn lại chỉ khoảng 3.712 m². Sau nhiều năm trùng tu, chùa được khánh thành lại vào tháng 11/2017. Điểm nhấn của chùa là bảo tháp 13 tầng cao 63 m, được mô tả là cao nhất TP.HCM.",
+      "desc_en": "Built between 1963 and 1964 by the Unified Buddhist Sangha of Vietnam across more than 4 hectares, Viet Nam Quoc Tu served as a prominent religious center. Following 1975, parts of its grounds were repurposed, and after reclaiming land in 1993 with around 3,712 m², the temple underwent major reconstruction, inaugurating anew in November 2017. Its standout architectural landmark is the 13-story, 63-meter-tall stupa, recognized as the tallest Buddhist stupa in Ho Chi Minh City.",
+      "media_url": "",
+      "icon": "🏛️",
+      "hasLivingHistory": false
+    },
+    {
+      "id": "pin-1794549001001",
+      "name": "Chùa Ấn Quang",
+      "name_en": "An Quang Pagoda",
+      "category": "landmark",
+      "rarity": "uncommon",
+      "lat": 10.76585,
+      "lng": 106.67179,
+      "discovery_radius": 25000,
+      "interaction_radius": 50,
+      "image_url": "",
+      "desc": "Chùa Ấn Quang được xây dựng năm 1948 (một số danh sách ghi 1949). Chùa là một trung tâm quan trọng của Phật giáo hiện đại ở miền Nam, từng là nơi đặt trường đào tạo Phật học và cơ quan lãnh đạo của Giáo hội Phật giáo Việt Nam Thống Nhất. Ngày 12/7/2005, UBND TP.HCM công nhận chùa là di tích lịch sử – văn hóa cấp thành phố theo Quyết định 120/2005/QĐ-UBND.",
+      "desc_en": "Constructed in 1948, An Quang Pagoda became a leading center for modern Southern Vietnamese Buddhism, housing Buddhist education institutes and key leadership headquarters of the Unified Buddhist Sangha of Vietnam. On July 12, 2005, the People's Committee of Ho Chi Minh City recognized the pagoda as a City-level Historical and Cultural Relic under Decision No. 120/2005/QD-UBND.",
+      "media_url": "",
+      "icon": "🏛️",
+      "hasLivingHistory": false
+    },
+    {
+      "id": "pin-1794549062917",
+      "name": "Công viên Lê Thị Riêng",
+      "name_en": "Le Thi Rieng Park",
+      "category": "landmark",
+      "rarity": "common",
+      "lat": 10.7851,
+      "lng": 106.6644,
+      "discovery_radius": 25000,
+      "interaction_radius": 50,
+      "image_url": "",
+      "desc": "\"Công viên Lê Thị Riêng được xây trên nền nghĩa địa Đô Thành, thường gọi là nghĩa địa Chí Hòa – Chợ Quán. Đây từng là nơi chôn cất phần lớn người bình dân của Sài Gòn – Gia Định, cùng nhiều nấm mồ không tên của lính chết trận không người thân nhận xác. Nghĩa địa rộng khoảng 25–30 ha tùy nguồn; từ năm 1978 đến năm 1983, khu này được giải tỏa, quy hoạch để xây dựng công viên.\nNơi này gắn với Tổng Bí thư Trần Phú. Ông bị bắt ngày 18/4/1931 và mất ngày 6/9/1931 tại Nhà thương Chợ Quán. Gần 68 năm sau, ngày 5/1/1999, hài cốt ông được khai quật tại công viên này; ngày 12/1/1999, sau lễ truy điệu, hài cốt được đưa về an táng ở Đức Thọ, Hà Tĩnh.\nNăm 2026, công viên trở thành nơi tìm kiếm, quy tập hài cốt liệt sĩ hy sinh trong Tổng tiến công và nổi dậy Tết Mậu Thân 1968. Sau hội thảo xác minh ngày 8/6, lực lượng chức năng bắt đầu tìm kiếm từ ngày 23/6, và lễ triển khai chính thức diễn ra ngày 6/7. Đợt 1 (23/6–14/10) quy tập được 731 hài cốt (698 hài cốt riêng lẻ và 33 hài cốt trong một mộ tập thể), được an táng tại Nghĩa trang Liệt sĩ TP.HCM ngày 14/10/2026. Đợt 2 bắt đầu từ ngày 15/10; tính đến hết ngày 28/10/2026, tổng số hài cốt đã quy tập được là 852 và công việc vẫn đang tiếp diễn.\n\"",
+      "desc_en": "Established on the former grounds of the 25–30-hectare Do Thanh Cemetery (Chi Hoa – Cho Quan), Le Thi Rieng Park was cleared and developed between 1978 and 1983. The site is intimately linked to General Secretary Tran Phu, whose remains were excavated here on January 5, 1999, before being reinterred in his hometown. In 2026, the park became a major site for searching and repatriating martyrs' remains from the 1968 Tet Offensive, gathering over 850 remains.",
+      "media_url": "",
+      "icon": "🏛️",
+      "hasLivingHistory": false
+    },
+    {
+      "id": "pin-1794549129587",
+      "name": "Dinh Độc Lập",
+      "name_en": "Independence Palace",
+      "category": "landmark",
+      "rarity": "common",
+      "lat": 10.77694,
+      "lng": 106.69528,
+      "discovery_radius": 25000,
+      "interaction_radius": 50,
+      "image_url": "",
+      "desc": "\"Dinh Độc Lập nằm trên khu đất rộng 12 ha giữa trung tâm Sài Gòn. Từ năm 1868, người Pháp xây tại đây dinh của Thống đốc Nam Kỳ, về sau gọi là Dinh Norodom rồi Dinh Toàn quyền Đông Dương. Năm 1954, dinh được bàn giao cho chính quyền Sài Gòn; từ năm 1955, dinh mang tên Dinh Độc Lập. Ngày 27/2/1962, hai phi công của chính quyền này ném bom làm hư hại nặng dinh cũ. Công trình bị san bằng, và dinh mới do kiến trúc sư Ngô Viết Thụ thiết kế được khởi công ngày 1/7/1962, khánh thành ngày 31/10/1966. Mặt bằng dinh gợi hình chữ “Cát” (tốt lành), kết hợp kiến trúc hiện đại với tinh thần truyền thống phương Đông.\nTrưa 30/4/1975, xe tăng của quân giải phóng húc cổng dinh, lá cờ Mặt trận Dân tộc Giải phóng được kéo lên nóc dinh và Tổng thống Dương Văn Minh tuyên bố đầu hàng, đánh dấu sự kết thúc cuộc chiến tranh. Từ 16 đến 21/11/1975, Hội nghị Hiệp thương chính trị thống nhất hai miền diễn ra tại đây, nên dinh được đổi tên thành Hội trường Thống Nhất. Năm 2009, Thủ tướng Chính phủ xếp hạng dinh là di tích quốc gia đặc biệt.\n\"",
+      "desc_en": "Spanning 12 hectares in central Saigon, the site originally housed Norodom Palace (built 1868) and was renamed Independence Palace in 1955. Following heavy bombing damage in 1962, the current landmark designed by architect Ngo Viet Thu was constructed between 1962 and 1966, subtly shaped in Chinese calligraphy to symbolize good fortune. On April 30, 1975, liberation tanks breached its gates, marking the end of the war. Designated a Special National Relic in 2009, it remains a premier historical symbol.",
+      "media_url": "",
+      "icon": "🏛️",
+      "hasLivingHistory": false
+    },
+    {
+      "id": "pin-1794549267676",
+      "name": "Dinh Độc Lập",
+      "name_en": "Independence Palace",
       "category": "landmark",
       "rarity": "legendary",
-      "lat": 21.1354,
-      "lng": 105.5786,
-      "discovery_radius": 15000,
-      "interaction_radius": 60,
-      "icon": "🏛️",
+      "lat": 10.77694,
+      "lng": 106.69528,
+      "discovery_radius": 25000,
+      "interaction_radius": 50,
       "image_url": "",
-      "desc": "Nơi Hai Bà Trưng tế cờ khởi nghĩa và đọc 4 lời thề cứu nước son sắt trước khi xuất quân trừng trị giặc Tô Định.",
-      "desc_en": "The sacred shrine where the Trung Sisters raised the rebellion flag and declared the four solemn patriotic oaths before marching off to defeat the Han colonial governor To Dinh.",
+      "desc": "Dinh Độc Lập nằm trên khu đất rộng 12 ha giữa trung tâm Sài Gòn. Từ năm 1868, người Pháp xây tại đây dinh của Thống đốc Nam Kỳ, về sau gọi là Dinh Norodom rồi Dinh Toàn quyền Đông Dương. Năm 1954, dinh được bàn giao cho chính quyền Sài Gòn; từ năm 1955, dinh mang tên Dinh Độc Lập. Ngày 27/2/1962, hai phi công của chính quyền này ném bom làm hư hại nặng dinh cũ. Công trình bị san bằng, và dinh mới do kiến trúc sư Ngô Viết Thụ thiết kế được khởi công ngày 1/7/1962, khánh thành ngày 31/10/1966. Mặt bằng dinh gợi hình chữ “Cát” (tốt lành), kết hợp kiến trúc hiện đại với tinh thần truyền thống phương Đông.\nTrưa 30/4/1975, xe tăng của quân giải phóng húc cổng dinh, lá cờ Mặt trận Dân tộc Giải phóng được kéo lên nóc dinh và Tổng thống Dương Văn Minh tuyên bố đầu hàng, đánh dấu sự kết thúc cuộc chiến tranh. Từ 16 đến 21/11/1975, Hội nghị Hiệp thương chính trị thống nhất hai miền diễn ra tại đây, nên dinh được đổi tên thành Hội trường Thống Nhất. Năm 2009, Thủ tướng Chính phủ xếp hạng dinh là di tích quốc gia đặc biệt.",
+      "desc_en": "Spanning 12 hectares in central Saigon, the site originally housed Norodom Palace (built 1868) and was renamed Independence Palace in 1955. Following heavy bombing damage in 1962, the current landmark designed by architect Ngo Viet Thu was constructed between 1962 and 1966, subtly shaped in Chinese calligraphy to symbolize good fortune. On April 30, 1975, liberation tanks breached its gates, marking the end of the war. Designated a Special National Relic in 2009, it remains a premier historical symbol.",
+      "media_url": "",
+      "icon": "🏛️",
       "hasLivingHistory": false
     }
   ],
@@ -233,18 +256,17 @@
       "criteria_en": "Check in at Bach Dang Historic Site and unlock the timber stakes strategy.",
       "conditions": [
         {
-          "id": "c-bachdang-1",
+          "id": "c-badge-bachdang-1",
           "type": "specific_pins",
+          "desc": "Check-in thực địa tại Khu di tích Bạch Đằng",
+          "desc_en": "On-site check-in at Bach Dang Historic Relic",
           "target_pins": [
             "pin-bachdang"
           ],
-          "min_count": 1,
-          "desc": "Check-in thực địa tại Khu di tích Bạch Đằng",
-          "desc_en": "On-site check-in at Bach Dang Historic Relic"
+          "min_count": 1
         }
       ],
-      "is_unlocked": true,
-      "unlocked_date": "05/11/2026"
+      "is_unlocked": true
     },
     {
       "id": "badge-thanglong",
@@ -261,14 +283,14 @@
       "criteria_en": "Visit the Imperial Citadel of Thang Long and discover the Dien Hong Conference.",
       "conditions": [
         {
-          "id": "c-thanglong-1",
+          "id": "c-badge-thanglong-1",
           "type": "specific_pins",
+          "desc": "Ghé thăm và check-in tại Hoàng thành Thăng Long",
+          "desc_en": "Visit and check in at the Imperial Citadel of Thang Long",
           "target_pins": [
             "pin-thanglong"
           ],
-          "min_count": 1,
-          "desc": "Ghé thăm và check-in tại Hoàng thành Thăng Long",
-          "desc_en": "Visit and check in at the Imperial Citadel of Thang Long"
+          "min_count": 1
         }
       ],
       "is_unlocked": false
@@ -288,14 +310,14 @@
       "criteria_en": "Check in at Nha Rong Wharf and listen to the 1911 salvation journey recordings.",
       "conditions": [
         {
-          "id": "c-bacho-1",
+          "id": "c-badge-bacho-1",
           "type": "specific_pins",
+          "desc": "Check-in thực địa tại Bến Nhà Rồng",
+          "desc_en": "On-site check-in at Nha Rong Wharf",
           "target_pins": [
             "pin-ben-nharong"
           ],
-          "min_count": 1,
-          "desc": "Check-in thực địa tại Bến Nhà Rồng",
-          "desc_en": "On-site check-in at Nha Rong Wharf"
+          "min_count": 1
         }
       ],
       "is_unlocked": false
@@ -306,6 +328,7 @@
       "name_en": "Heart of Saigon",
       "tier": "bronze",
       "icon": "🎙️",
+      "image_url": "",
       "category": "Nhân chứng sống",
       "category_en": "Living Witnesses",
       "lore": "Tôn vinh lòng quả cảm phi thường của lực lượng Biệt động Sài Gòn, những người đã mưu trí đào hầm cất giấu vũ khí ngay giữa lòng địch chuẩn bị cho cuộc Tổng tiến công Tết Mậu Thân 1968.",
@@ -314,14 +337,14 @@
       "criteria_en": "Check in at Saigon Commandos secret bunker and hear witness testimonies.",
       "conditions": [
         {
-          "id": "c-saigon-1",
+          "id": "c-badge-saigon-1",
           "type": "specific_pins",
+          "desc": "Ghé thăm Căn hầm bí mật Biệt động Sài Gòn",
+          "desc_en": "Visit the Saigon Commandos secret weapons bunker",
           "target_pins": [
             "pin-ham-bietdong"
           ],
-          "min_count": 1,
-          "desc": "Ghé thăm Căn hầm bí mật Biệt động Sài Gòn",
-          "desc_en": "Visit the Saigon Commandos secret weapons bunker"
+          "min_count": 1
         }
       ],
       "is_unlocked": false
@@ -332,6 +355,7 @@
       "name_en": "Gathering of Heroes",
       "tier": "silver",
       "icon": "👑",
+      "image_url": "",
       "category": "Hào Khí Danh Nhân",
       "category_en": "Heroic Spirits",
       "lore": "Minh chứng cho người lữ khách đã giải mã và học hỏi tấm gương của 2 vị anh hùng dân tộc, tiếp nối khí phách quật cường của tiền nhân.",
@@ -340,14 +364,15 @@
       "criteria_en": "Discover and unlock any 2 legendary historical figures.",
       "conditions": [
         {
-          "id": "c-hoi-ngo-1",
+          "id": "c-badge-anh-hung-hoi-ngo-1",
           "type": "figures_count",
-          "target_num": 2,
           "desc": "Mở khóa 2 Danh nhân lịch sử bất kỳ",
-          "desc_en": "Unlock any 2 historical heroes"
+          "desc_en": "Unlock any 2 historical heroes",
+          "min_count": 2
         }
       ],
-      "is_unlocked": false
+      "is_unlocked": true,
+      "unlocked_date": "13/11/2026"
     },
     {
       "id": "badge-su-thi-bach-nien",
@@ -355,6 +380,7 @@
       "name_en": "Chronicles of Dai Nam",
       "tier": "gold",
       "icon": "📜",
+      "image_url": "",
       "category": "Hào Khí Danh Nhân",
       "category_en": "Heroic Spirits",
       "lore": "Bản trường ca lịch sử sống động được khắc ghi khi người chơi thấu suốt trọn vẹn cả 3 vị đại anh hùng dân tộc: Hưng Đạo Đại Vương Trần Quốc Tuấn, Hoàng đế Quang Trung và Hai Bà Trưng.",
@@ -363,16 +389,16 @@
       "criteria_en": "Discover all 3 heroes: Tran Hung Dao, Emperor Quang Trung, and the Trung Sisters.",
       "conditions": [
         {
-          "id": "c-su-thi-1",
+          "id": "c-badge-su-thi-bach-nien-1",
           "type": "specific_figures",
+          "desc": "Khám phá 3 Danh nhân: Trần Quốc Tuấn, Quang Trung và Hai Bà Trưng",
+          "desc_en": "Discover 3 Heroes: Tran Quoc Tuan, Quang Trung, and Hai Ba Trung",
           "target_figures": [
             "fig-tranquoctuan",
             "fig-quangtrung",
             "fig-haibatrung"
           ],
-          "min_count": 3,
-          "desc": "Khám phá 3 Danh nhân: Trần Quốc Tuấn, Quang Trung và Hai Bà Trưng",
-          "desc_en": "Discover 3 Heroes: Tran Quoc Tuan, Quang Trung, and Hai Ba Trung"
+          "min_count": 3
         }
       ],
       "is_unlocked": false
@@ -383,6 +409,7 @@
       "name_en": "Keeper of History's Flame",
       "tier": "silver",
       "icon": "🎙️",
+      "image_url": "",
       "category": "Nhân Chứng Sống",
       "category_en": "Living Witnesses",
       "lore": "Ghi nhận sự kết nối thiêng liêng giữa thế hệ hôm nay với các nhân chứng lịch sử và cựu chiến binh, những người trực tiếp trải qua khói lửa để giữ gìn nền độc lập non sông.",
@@ -391,14 +418,14 @@
       "criteria_en": "Meet and interview 1 living witness / war veteran.",
       "conditions": [
         {
-          "id": "c-giu-lua-1",
+          "id": "c-badge-nguoi-giu-lua-1",
           "type": "people_count",
-          "target_num": 1,
           "desc": "Check-in điểm có tư liệu Nhân chứng sống / Cựu chiến binh",
-          "desc_en": "Check in at a site with Living Witness / War Veteran testimony"
+          "desc_en": "Check in at a site with Living Witness / War Veteran testimony",
+          "target_num": 1
         }
       ],
-      "is_unlocked": false
+      "is_unlocked": true
     },
     {
       "id": "badge-tieng-vong-thoi-gian",
@@ -406,6 +433,7 @@
       "name_en": "Echoes of Time",
       "tier": "gold",
       "icon": "🎖️",
+      "image_url": "",
       "category": "Nhân Chứng Sống",
       "category_en": "Living Witnesses",
       "lore": "Vinh danh nhà thám hiểm đã giao lưu và lắng nghe ký ức chân thực nhất từ 2 nhân chứng lịch sử sống, đưa những ký ức vô giá vượt thời gian đến với đời sau.",
@@ -414,11 +442,11 @@
       "criteria_en": "Check-in and listen to testimonies from 2 living history witnesses.",
       "conditions": [
         {
-          "id": "c-tieng-vong-1",
+          "id": "c-badge-tieng-vong-thoi-gian-1",
           "type": "people_count",
-          "target_num": 2,
           "desc": "Check-in tại 2 điểm có Nhân chứng sống / Ký ức cựu chiến binh",
-          "desc_en": "Check in at 2 sites with Living Witnesses / Veteran memories"
+          "desc_en": "Check in at 2 sites with Living Witnesses / Veteran memories",
+          "target_num": 2
         }
       ],
       "is_unlocked": false
@@ -429,6 +457,7 @@
       "name_en": "Realm Explorer",
       "tier": "bronze",
       "icon": "🗺️",
+      "image_url": "",
       "category": "Khám Phá Di Sản",
       "category_en": "Heritage Explorer",
       "lore": "Chiếc huân chương đồng trao tặng cho bước chân kiên trì chu du khắp 3 địa danh lịch sử, nối dài dải đất hình chữ S bằng niềm tự hào dân tộc.",
@@ -437,18 +466,20 @@
       "criteria_en": "Journey to and check in at 3 historical heritage landmarks.",
       "conditions": [
         {
-          "id": "c-dau-chan-1",
+          "id": "c-badge-dau-chan-di-san-1",
           "type": "pins_count",
-          "target_num": 3,
           "desc": "Check-in tại 3 Địa danh / Di tích bất kỳ",
-          "desc_en": "Check in at any 3 historical landmarks"
+          "desc_en": "Check in at any 3 historical landmarks",
+          "min_count": 3
         }
       ],
-      "is_unlocked": false
+      "is_unlocked": true,
+      "unlocked_date": "13/11/2026"
     }
   ],
   "profile": {
     "name": "Người Giữ Gìn Di Sản #001",
+    "username": "@heritage_seeker",
     "level": 2,
     "exp": 250,
     "maxExp": 500,
@@ -459,6 +490,9 @@
       "fig-tranquoctuan"
     ],
     "logs": [
+      "13/11/2026: 🏅 Mở khóa Huy hiệu mới: 'Nhà Thám Hiểm Non Sông'!",
+      "13/11/2026: 🏅 Mở khóa Huy hiệu mới: 'Hội Ngộ Hào Kiệt'!",
+      "13/11/2026: 🏅 Mở khóa Huy hiệu mới: 'Người Giữ Lửa Lịch Sử'!",
       "05/11/2026: Check-in thành công tại 'Khu di tích Chiến thắng Bạch Đằng' (+100 EXP)",
       "05/11/2026: Mở khóa giai thoại 'Kế sách cắm cọc sông Bạch Đằng'",
       "05/11/2026: Mở khóa Huy hiệu 'Kỵ Sĩ Sông Bạch Đằng'"
