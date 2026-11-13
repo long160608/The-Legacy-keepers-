@@ -1926,6 +1926,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Reset handler cho form Ghim (hủy chế độ chỉnh sửa)
+  const pinForm = document.getElementById("form-new-pin");
+  if (pinForm) {
+    pinForm.addEventListener("reset", () => {
+      editingPinId = null;
+      const submitBtn = pinForm.querySelector("button[type='submit']");
+      if (submitBtn) {
+        submitBtn.innerText = `💾 ${currentLang === 'en' ? 'Save Radar Pin & Sync' : 'Lưu Ghim Bản Đồ & Đồng Bộ'}`;
+      }
+      const previewBox = document.getElementById("pin-image-preview-box");
+      if (previewBox) previewBox.style.display = "none";
+    });
+  }
+
   // Tự động kiểm tra file data.json nếu server đang chạy
   reloadFromDataJSON(false);
 });
@@ -2507,13 +2521,13 @@ function loadPinToForm(pinId) {
   editingPinId = pin.id;
   switchToInputTab("subtab-pins");
 
-  setTimeout(() => {
+  const fillValues = () => {
     if (document.getElementById("pin-input-name")) document.getElementById("pin-input-name").value = pin.name || "";
     if (document.getElementById("pin-input-name-en")) document.getElementById("pin-input-name-en").value = pin.name_en || "";
     if (document.getElementById("pin-input-type")) document.getElementById("pin-input-type").value = pin.category || "landmark";
     if (document.getElementById("pin-input-rarity")) document.getElementById("pin-input-rarity").value = pin.rarity || "common";
-    if (document.getElementById("pin-input-lat")) document.getElementById("pin-input-lat").value = pin.lat || "";
-    if (document.getElementById("pin-input-lng")) document.getElementById("pin-input-lng").value = pin.lng || "";
+    if (document.getElementById("pin-input-lat")) document.getElementById("pin-input-lat").value = (pin.lat !== undefined && pin.lat !== null) ? pin.lat : "";
+    if (document.getElementById("pin-input-lng")) document.getElementById("pin-input-lng").value = (pin.lng !== undefined && pin.lng !== null) ? pin.lng : "";
     if (document.getElementById("pin-input-discovery-radius")) document.getElementById("pin-input-discovery-radius").value = pin.discovery_radius || 2000;
     if (document.getElementById("pin-input-interaction-radius")) document.getElementById("pin-input-interaction-radius").value = pin.interaction_radius || 100;
     if (document.getElementById("pin-input-image")) document.getElementById("pin-input-image").value = pin.image_url || "";
@@ -2521,18 +2535,34 @@ function loadPinToForm(pinId) {
     if (document.getElementById("pin-input-desc-en")) document.getElementById("pin-input-desc-en").value = pin.desc_en || "";
     if (document.getElementById("pin-input-media")) document.getElementById("pin-input-media").value = pin.media_url || "";
 
+    const previewBox = document.getElementById("pin-image-preview-box");
+    const previewThumb = document.getElementById("pin-image-preview-thumb");
+    if (previewBox && previewThumb) {
+      if (pin.image_url) {
+        previewThumb.src = pin.image_url;
+        previewBox.style.display = "flex";
+      } else {
+        previewBox.style.display = "none";
+      }
+    }
+
     const submitBtn = document.querySelector("#form-new-pin button[type='submit']");
     if (submitBtn) {
       submitBtn.innerText = `💾 ${currentLang === 'en' ? 'Update Landmark Pin' : 'Cập Nhật Địa Danh Di Sản'}`;
     }
+  };
 
+  // Populate immediately so values are ready synchronously
+  fillValues();
+
+  setTimeout(() => {
+    fillValues();
     const portal = document.getElementById("tab-input-portal");
     if (portal) {
       portal.scrollIntoView({ behavior: 'smooth' });
     }
-
     showToast(`✏️ ${currentLang === 'en' ? `Editing: "${pin.name_en || pin.name}"` : `Đang chỉnh sửa: "${pin.name}"`}`);
-  }, 120);
+  }, 100);
 }
 
 function initLeafletMap() {
@@ -4620,8 +4650,8 @@ function handleCreatePin(e) {
   const name_en = document.getElementById("pin-input-name-en") ? document.getElementById("pin-input-name-en").value.trim() : "";
   const category = document.getElementById("pin-input-type").value;
   const rarity = document.getElementById("pin-input-rarity").value;
-  const lat = parseFloat(document.getElementById("pin-input-lat").value);
-  const lng = parseFloat(document.getElementById("pin-input-lng").value);
+  const inputLat = parseFloat(document.getElementById("pin-input-lat").value);
+  const inputLng = parseFloat(document.getElementById("pin-input-lng").value);
   const discovery = parseInt(document.getElementById("pin-input-discovery-radius").value) || 2000;
   const interaction = parseInt(document.getElementById("pin-input-interaction-radius").value) || 100;
   const image_url = document.getElementById("pin-input-image").value.trim();
@@ -4637,38 +4667,106 @@ function handleCreatePin(e) {
     culture: "🎨"
   };
 
-  const newPin = {
-    id: `pin-${Date.now()}`,
-    name,
-    name_en: name_en || name,
-    category,
-    rarity,
-    lat,
-    lng,
-    discovery_radius: discovery,
-    interaction_radius: interaction,
-    image_url: image_url,
-    desc,
-    desc_en: desc_en || desc,
-    media_url: media,
-    icon: iconMap[category] || "📍",
-    hasLivingHistory: category === "living_history" || media.length > 0
-  };
+  let finalLat = inputLat;
+  let finalLng = inputLng;
 
-  appState.pins.push(newPin);
+  if (editingPinId) {
+    const targetIndex = appState.pins.findIndex(p => p.id === editingPinId);
+    if (targetIndex !== -1) {
+      const oldPin = appState.pins[targetIndex];
+      finalLat = !isNaN(inputLat) ? inputLat : (oldPin.lat || 21.0285);
+      finalLng = !isNaN(inputLng) ? inputLng : (oldPin.lng || 105.8542);
+      appState.pins[targetIndex] = {
+        ...oldPin,
+        name,
+        name_en: name_en || name,
+        category,
+        rarity,
+        lat: finalLat,
+        lng: finalLng,
+        discovery_radius: discovery,
+        interaction_radius: interaction,
+        image_url: image_url,
+        desc,
+        desc_en: desc_en || desc,
+        media_url: media,
+        icon: iconMap[category] || oldPin.icon || "📍",
+        hasLivingHistory: category === "living_history" || media.length > 0
+      };
+      showToast(currentLang === 'en' ? `✓ Successfully updated landmark pin: "${name_en || name}"!` : `✓ Đã cập nhật Ghim: "${name}" thành công!`);
+    } else {
+      finalLat = !isNaN(inputLat) ? inputLat : 21.0285;
+      finalLng = !isNaN(inputLng) ? inputLng : 105.8542;
+      const newPin = {
+        id: editingPinId,
+        name,
+        name_en: name_en || name,
+        category,
+        rarity,
+        lat: finalLat,
+        lng: finalLng,
+        discovery_radius: discovery,
+        interaction_radius: interaction,
+        image_url: image_url,
+        desc,
+        desc_en: desc_en || desc,
+        media_url: media,
+        icon: iconMap[category] || "📍",
+        hasLivingHistory: category === "living_history" || media.length > 0
+      };
+      appState.pins.push(newPin);
+      showToast(currentLang === 'en' ? `✓ Successfully added landmark pin: "${name_en || name}"!` : `✓ Đã thêm Ghim mới: "${name}" thành công!`);
+    }
+    editingPinId = null;
+  } else {
+    if (isNaN(inputLat) || isNaN(inputLng)) {
+      showToast(currentLang === 'en' ? "⚠️ Please enter valid coordinates (Latitude & Longitude)!" : "⚠️ Vui lòng nhập đúng tọa độ Vĩ độ và Kinh độ!");
+      return;
+    }
+    finalLat = inputLat;
+    finalLng = inputLng;
+    const newPin = {
+      id: `pin-${Date.now()}`,
+      name,
+      name_en: name_en || name,
+      category,
+      rarity,
+      lat: finalLat,
+      lng: finalLng,
+      discovery_radius: discovery,
+      interaction_radius: interaction,
+      image_url: image_url,
+      desc,
+      desc_en: desc_en || desc,
+      media_url: media,
+      icon: iconMap[category] || "📍",
+      hasLivingHistory: category === "living_history" || media.length > 0
+    };
+
+    appState.pins.push(newPin);
+    showToast(currentLang === 'en' ? `✓ Successfully added new landmark pin: "${name_en || name}"!` : `✓ Đã thêm Ghim mới: "${name}" thành công!`);
+  }
+
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
 
-  showToast(currentLang === 'en' ? `✓ Successfully added new landmark pin: "${name_en || name}"!` : `✓ Đã thêm Ghim mới: "${name}" thành công!`);
   e.target.reset();
+
+  const submitBtn = document.querySelector("#form-new-pin button[type='submit']");
+  if (submitBtn) {
+    submitBtn.innerText = `💾 ${currentLang === 'en' ? 'Save Radar Pin & Sync' : 'Lưu Ghim Bản Đồ & Đồng Bộ'}`;
+  }
 
   const previewBox = document.getElementById("pin-image-preview-box");
   if (previewBox) previewBox.style.display = "none";
 
   // Switch to Map to view immediately
-  document.querySelector('[data-tab="tab-map"]').click();
-  map.setView([lat, lng], 14);
+  const mapTabBtn = document.querySelector('[data-tab="tab-map"]');
+  if (mapTabBtn) mapTabBtn.click();
+  if (window.map && typeof map.setView === 'function' && !isNaN(finalLat) && !isNaN(finalLng)) {
+    map.setView([finalLat, finalLng], 14);
+  }
 }
 
 // ==========================================================================
@@ -5635,6 +5733,11 @@ function deleteSelectedPin() {
   if (!confirm(confirmMsg)) return;
 
   appState.pins = appState.pins.filter(p => p.id !== pin.id);
+  if (editingPinId === pin.id) {
+    editingPinId = null;
+    const pinForm = document.getElementById("form-new-pin");
+    if (pinForm) pinForm.reset();
+  }
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
@@ -5658,6 +5761,11 @@ function deletePinById(id) {
   if (!confirm(confirmMsg)) return;
 
   appState.pins = appState.pins.filter(p => p.id !== id);
+  if (editingPinId === id) {
+    editingPinId = null;
+    const pinForm = document.getElementById("form-new-pin");
+    if (pinForm) pinForm.reset();
+  }
   saveState();
   saveToServerDataJSON();
   refreshAllViews();
