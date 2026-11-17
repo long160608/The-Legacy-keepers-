@@ -1765,6 +1765,18 @@ function loadState() {
         saveState();
       }
 
+      // One-time automatic migration for realistic radar radii and demo_user role
+      const RADAR_MIGRATE_FLAG = "legacy_keepers_realistic_radar_v3";
+      if (localStorage.getItem(RADAR_MIGRATE_FLAG) !== "done") {
+        if (appState.profile) {
+          appState.profile.discovered_pins = [...(appState.profile.checked_in_pins || [])];
+        }
+        currentUserRole = "demo_user";
+        localStorage.setItem("legacy_keepers_user_role", "demo_user");
+        localStorage.setItem(RADAR_MIGRATE_FLAG, "done");
+        saveState();
+      }
+
       // Auto-migrate: Synchronize and enrich badges from INITIAL_DATA
       if (!Array.isArray(appState.badges) || appState.badges.length === 0) {
         appState.badges = JSON.parse(JSON.stringify(INITIAL_DATA.badges));
@@ -1912,8 +1924,8 @@ async function saveToServerDataJSON() {
 }
 
 // Player coordinates (Default: Centered around active heritage landmarks)
-// System Role & Permission System (Default: 'manager' so all features, pins and editing are available)
-let currentUserRole = localStorage.getItem("legacy_keepers_user_role") || "manager";
+// System Role & Permission System (Default: 'demo_user' so players immediately experience realistic radar discovery)
+let currentUserRole = localStorage.getItem("legacy_keepers_user_role") || "demo_user";
 if (currentUserRole === "admin") currentUserRole = "manager";
 let editingPinId = null;
 
@@ -2701,33 +2713,33 @@ function getDistanceMeters(lat1, lon1, lat2, lon2) {
 }
 const calculateDistance = getDistanceMeters;
 
-// Standards Rarity Distances matching Thiết kế.docx
+// Standards Rarity Distances matching thực tế đi bộ & khám phá đô thị:
 // Discovery Radius (tầm phủ sóng để Pin xuất hiện trên radar) & Interaction Radius (tầm check-in)
 const RARITY_SPECS = {
   common: {
-    discoveryRadius: 5000,     // 5.0 km - Phủ kín trung tâm Thăng Long & Đống Đa
-    interactionRadius: 150,    // 150 mét
+    discoveryRadius: 600,      // 600m - Khoảng cách đi bộ 1-2 dãy phố
+    interactionRadius: 60,     // 60m - Đứng trước cổng / vỉa hè
     color: '#CEA884',
     fillColor: '#E8DED0',
     pulseColor: '#CEA884'
   },
   uncommon: {
-    discoveryRadius: 6500,     // 6.5 km
-    interactionRadius: 80,     // 80 mét
+    discoveryRadius: 1000,     // 1.0 km - Khoảng cách 3-4 ngã tư
+    interactionRadius: 80,     // 80m - Vỉa hè / khuôn viên di tích
     color: '#5B92A8',
     fillColor: '#C1D1D7',
     pulseColor: '#5B92A8'
   },
   legendary: {
-    discoveryRadius: 25000,    // 25 km
-    interactionRadius: 40,     // 40 mét
+    discoveryRadius: 1800,     // 1.8 km - Tầm phủ rộng kết nối các phường lân cận
+    interactionRadius: 120,    // 120m - Phù hợp khuôn viên di tích lớn (Dinh Độc Lập)
     color: '#FBD071',
     fillColor: '#FDDB9B',
     pulseColor: '#FFA800'
   },
   event: {
-    discoveryRadius: 50000,    // 50 km
-    interactionRadius: 60,     // 60 mét
+    discoveryRadius: 2500,     // 2.5 km
+    interactionRadius: 100,    // 100m
     color: '#E74C3C',
     fillColor: '#F5B7B1',
     pulseColor: '#E74C3C'
