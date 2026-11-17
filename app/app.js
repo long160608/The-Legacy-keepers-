@@ -1392,7 +1392,7 @@ const INITIAL_DATA = {
       name_en: "The Sunken Wooden Stakes Strategy on Bach Dang River",
       figure_id: "fig-tranquoctuan",
       required_pin_id: "pin-bachdang",
-      is_locked: false,
+      is_locked: true,
       background_image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
       content: `Năm 1288, trước thế giặc Nguyên Mông hung hãn rút lui bằng đường thủy, Trần Quốc Tuấn đã lợi dụng con nước thủy triều hiểm yếu của sông Bạch Đằng.\n\nÔng cho đẵn gỗ lim, vót nhọn bịt sắt rồi cắm xuống lòng sông. Nhân lúc nước triều dâng che khuất bãi cọc, quân ta nhử thuyền giặc vào sâu. Khi nước triều rút mạnh, thuyền địch mắc cạn vào cọc nhọn vỡ toác hàng loạt, toàn bộ hạm đội giặc bị tiêu diệt vang dội non sông.`,
       content_en: `In 1288, faced with the retreating Mongol-Yuan navy, Tran Quoc Tuan masterminded an ambush along the Bach Dang River.\n\nHe had sharpened iron-capped ironwood stakes driven into the riverbed. At high tide, our light boats lured the enemy fleet past the submerged stakes. When the tide rapidly ebbed, the massive enemy warships were impaled and trapped upon the timber spikes, leading to the complete annihilation of the invading armada.`
@@ -1466,8 +1466,7 @@ const INITIAL_DATA = {
           desc_en: "On-site check-in at Bach Dang Historic Relic"
         }
       ],
-      is_unlocked: true,
-      unlocked_date: "05/11/2026"
+      is_unlocked: false
     },
     {
       id: "badge-thanglong",
@@ -1662,16 +1661,14 @@ const INITIAL_DATA = {
   profile: {
     name: "Người Giữ Gìn Di Sản #001",
     username: "@heritage_seeker",
-    level: 2,
-    exp: 250,
-    maxExp: 500,
-    checked_in_pins: ["pin-bachdang"],
-    discovered_figures: ["fig-tranquoctuan"],
-    logs: [
-      "05/11/2026: Check-in thành công tại 'Khu di tích Chiến thắng Bạch Đằng' (+100 EXP)",
-      "05/11/2026: Mở khóa giai thoại 'Kế sách cắm cọc sông Bạch Đằng'",
-      "05/11/2026: Nhận huy hiệu Vàng 'Kỵ Sĩ Sông Bạch Đằng' 🎖️"
-    ]
+    level: 0,
+    exp: 0,
+    maxExp: 100,
+    km_traveled: 0,
+    checked_in_pins: [],
+    discovered_figures: [],
+    check_in_history: {},
+    logs: []
   }
 };
 
@@ -1722,13 +1719,45 @@ function loadState() {
         }
       });
 
-      // Auto-migrate: Ensure profile arrays exist
+      // Auto-migrate: Ensure profile arrays and objects exist cleanly
       if (!appState.profile) appState.profile = {};
       if (!Array.isArray(appState.profile.checked_in_pins)) {
-        appState.profile.checked_in_pins = INITIAL_DATA.profile.checked_in_pins || ["pin-bachdang"];
+        appState.profile.checked_in_pins = [];
       }
       if (!Array.isArray(appState.profile.discovered_figures)) {
-        appState.profile.discovered_figures = INITIAL_DATA.profile.discovered_figures || ["fig-tranquoctuan"];
+        appState.profile.discovered_figures = [];
+      }
+      if (!appState.profile.check_in_history) {
+        appState.profile.check_in_history = {};
+      }
+      if (!Array.isArray(appState.profile.logs)) {
+        appState.profile.logs = [];
+      }
+
+      // One-time automatic reset of character stats & level to 0 for existing clients
+      const RESET_FLAG = "legacy_keepers_reset_zero_v3";
+      if (localStorage.getItem(RESET_FLAG) !== "done") {
+        appState.profile = {
+          name: appState.profile.name || "Người Giữ Gìn Di Sản #001",
+          username: appState.profile.username || "@heritage_seeker",
+          level: 0,
+          exp: 0,
+          maxExp: 100,
+          km_traveled: 0,
+          checked_in_pins: [],
+          discovered_figures: [],
+          check_in_history: {},
+          logs: []
+        };
+        (appState.badges || []).forEach(b => {
+          b.is_unlocked = false;
+          delete b.unlocked_date;
+        });
+        (appState.stories || []).forEach(s => {
+          s.is_locked = true;
+        });
+        localStorage.setItem(RESET_FLAG, "done");
+        saveState();
       }
 
       // Auto-migrate: Synchronize and enrich badges from INITIAL_DATA
@@ -1795,13 +1824,19 @@ async function reloadFromDataJSON(showToastMsg = true) {
           });
         }
         if (data.profile) {
-          appState.profile = { ...appState.profile, ...data.profile };
+          appState.profile = { ...data.profile };
         }
         if (!Array.isArray(appState.profile.checked_in_pins)) {
-          appState.profile.checked_in_pins = ["pin-bachdang"];
+          appState.profile.checked_in_pins = [];
         }
         if (!Array.isArray(appState.profile.discovered_figures)) {
-          appState.profile.discovered_figures = ["fig-tranquoctuan"];
+          appState.profile.discovered_figures = [];
+        }
+        if (!appState.profile.check_in_history) {
+          appState.profile.check_in_history = {};
+        }
+        if (!Array.isArray(appState.profile.logs)) {
+          appState.profile.logs = [];
         }
         evaluateAndUnlockBadges();
         saveState();
@@ -4208,29 +4243,52 @@ function renderBadgesGrid() {
 }
 
 function renderProfileStats() {
-  const p = appState.profile;
-  document.getElementById("profile-display-name").innerText = p.name;
+  const p = appState.profile || {};
+  const nameEl = document.getElementById("profile-display-name");
+  if (nameEl) nameEl.innerText = p.name || (currentLang === 'en' ? "Heritage Explorer #001" : "Người Giữ Gìn Di Sản #001");
+
   const levelTitle = currentLang === 'en' ? 'HERITAGE KNIGHT' : 'KỴ SĨ DI SẢN';
   const levelPrefix = currentLang === 'en' ? 'LEVEL' : 'CẤP';
-  document.getElementById("profile-level-badge").innerText = `${levelPrefix} ${p.level} • ${levelTitle}`;
-  document.getElementById("profile-exp-text").innerText = `${p.exp} / ${p.maxExp} EXP`;
+  const levelVal = (p.level !== undefined && p.level !== null) ? p.level : 0;
+  const levelBadge = document.getElementById("profile-level-badge");
+  if (levelBadge) levelBadge.innerText = `${levelPrefix} ${levelVal} • ${levelTitle}`;
+
+  const expVal = p.exp || 0;
+  const maxExpVal = p.maxExp || 100;
+  const expText = document.getElementById("profile-exp-text");
+  if (expText) expText.innerText = `${expVal} / ${maxExpVal} EXP`;
   
-  const pct = Math.min(100, Math.round((p.exp / p.maxExp) * 100));
-  document.getElementById("profile-exp-bar").style.width = `${pct}%`;
+  const pct = maxExpVal > 0 ? Math.min(100, Math.round((expVal / maxExpVal) * 100)) : 0;
+  const expBar = document.getElementById("profile-exp-bar");
+  if (expBar) expBar.style.width = `${pct}%`;
 
   const unlockedStories = (appState.stories || []).filter(s => !s.is_locked).length;
   const unlockedBadges = (appState.badges || []).filter(b => b.is_unlocked).length;
-  const checkedInCount = (appState.profile.checked_in_pins && appState.profile.checked_in_pins.length) || 
-    (appState.profile.logs || []).filter(l => l.includes("Check-in")).length;
+  const checkedInCount = (p.checked_in_pins && p.checked_in_pins.length) || 0;
 
-  document.getElementById("stat-pins-scanned").innerText = checkedInCount;
-  document.getElementById("stat-stories-unlocked").innerText = unlockedStories;
-  document.getElementById("stat-badges-owned").innerText = unlockedBadges;
+  const statPins = document.getElementById("stat-pins-scanned");
+  if (statPins) statPins.innerText = checkedInCount;
+
+  const statStories = document.getElementById("stat-stories-unlocked");
+  if (statStories) statStories.innerText = unlockedStories;
+
+  const statBadges = document.getElementById("stat-badges-owned");
+  if (statBadges) statBadges.innerText = unlockedBadges;
+
+  const kmVal = (p.km_traveled !== undefined && p.km_traveled !== null) ? p.km_traveled : 0;
+  const statKm = document.getElementById("stat-km-traveled");
+  if (statKm) statKm.innerText = kmVal === 0 ? "0" : kmVal.toFixed(1);
 
   const logList = document.getElementById("activity-log-list");
-  logList.innerHTML = (p.logs || []).map(item => `
-    <li style="padding:6px 0; border-bottom:1px dashed var(--neutral-200);">${item}</li>
-  `).join("");
+  if (logList) {
+    if (!p.logs || p.logs.length === 0) {
+      logList.innerHTML = `<li style="padding:14px 0; color:var(--text-muted); font-size:0.88rem; text-align:center; list-style:none;">${currentLang === 'en' ? 'No expedition activities recorded yet. Start exploring the map!' : 'Chưa có hoạt động thám hiểm nào. Hãy bắt đầu khám phá bản đồ!'}</li>`;
+    } else {
+      logList.innerHTML = p.logs.map(item => `
+        <li style="padding:6px 0; border-bottom:1px dashed var(--neutral-200);">${item}</li>
+      `).join("");
+    }
+  }
 }
 
 // ==========================================================================
@@ -4455,9 +4513,9 @@ function openProfileStatModal(statType) {
 
   } else if (statType === 'km') {
     // 4. Km đã thám hiểm & Hành trình
-    const p = appState.profile;
-    const km = p.km_traveled || 12.5;
-    const checkedCount = (p.checked_in_pins && p.checked_in_pins.length) || 3;
+    const p = appState.profile || {};
+    const km = (p.km_traveled !== undefined && p.km_traveled !== null) ? p.km_traveled : 0;
+    const checkedCount = (p.checked_in_pins && p.checked_in_pins.length) || 0;
     const storyCount = (appState.stories || []).filter(s => !s.is_locked).length;
     const badgeCount = (appState.badges || []).filter(b => b.is_unlocked).length;
     const levelTitle = currentLang === 'en' ? 'HERITAGE KNIGHT' : 'KỴ SĨ DI SẢN';

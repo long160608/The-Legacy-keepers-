@@ -93,8 +93,8 @@
       "rarity": "legendary",
       "lat": 10.77694,
       "lng": 106.69528,
-      "discovery_radius": 25000,
-      "interaction_radius": 50,
+      "discovery_radius": 250000,
+      "interaction_radius": 500,
       "image_url": "",
       "desc": "\"Dinh Độc Lập nằm trên khu đất rộng 12 ha giữa trung tâm Sài Gòn. Từ năm 1868, người Pháp xây tại đây dinh của Thống đốc Nam Kỳ, về sau gọi là Dinh Norodom rồi Dinh Toàn quyền Đông Dương. Năm 1954, dinh được bàn giao cho chính quyền Sài Gòn; từ năm 1955, dinh mang tên Dinh Độc Lập. Ngày 27/2/1962, hai phi công của chính quyền này ném bom làm hư hại nặng dinh cũ. Công trình bị san bằng, và dinh mới do kiến trúc sư Ngô Viết Thụ thiết kế được khởi công ngày 1/7/1962, khánh thành ngày 31/10/1966. Mặt bằng dinh gợi hình chữ “Cát” (tốt lành), kết hợp kiến trúc hiện đại với tinh thần truyền thống phương Đông.\nTrưa 30/4/1975, xe tăng của quân giải phóng húc cổng dinh, lá cờ Mặt trận Dân tộc Giải phóng được kéo lên nóc dinh và Tổng thống Dương Văn Minh tuyên bố đầu hàng, đánh dấu sự kết thúc cuộc chiến tranh. Từ 16 đến 21/11/1975, Hội nghị Hiệp thương chính trị thống nhất hai miền diễn ra tại đây, nên dinh được đổi tên thành Hội trường Thống Nhất. Năm 2009, Thủ tướng Chính phủ xếp hạng dinh là di tích quốc gia đặc biệt.\n\"",
       "desc_en": "Spanning 12 hectares in central Saigon, the site originally housed Norodom Palace (built 1868) and was renamed Independence Palace in 1955. Following heavy bombing damage in 1962, the current landmark designed by architect Ngo Viet Thu was constructed between 1962 and 1966, subtly shaped in Chinese calligraphy to symbolize good fortune. On April 30, 1975, liberation tanks breached its gates, marking the end of the war. Designated a Special National Relic in 2009, it remains a premier historical symbol.",
@@ -173,7 +173,7 @@
       "name_en": "The Sunken Wooden Stakes Strategy on Bach Dang River",
       "figure_id": "fig-tranquoctuan",
       "required_pin_id": "pin-bachdang",
-      "is_locked": false,
+      "is_locked": true,
       "background_image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
       "content": "Năm 1288, trước thế giặc Nguyên Mông hung hãn rút lui bằng đường thủy, Trần Quốc Tuấn đã lợi dụng con nước thủy triều hiểm yếu của sông Bạch Đằng.\n\nÔng cho đẵn gỗ lim, vót nhọn bịt sắt rồi cắm xuống lòng sông. Nhân lúc nước triều dâng che khuất bãi cọc, quân ta nhử thuyền giặc vào sâu. Khi nước triều rút mạnh, thuyền địch mắc cạn vào cọc nhọn vỡ toác hàng loạt, toàn bộ hạm đội giặc bị tiêu diệt vang dội non sông.",
       "content_en": "In 1288, faced with the retreating Mongol-Yuan navy, Tran Quoc Tuan masterminded an ambush along the Bach Dang River.\n\nHe had sharpened iron-capped ironwood stakes driven into the riverbed. At high tide, our light boats lured the enemy fleet past the submerged stakes. When the tide rapidly ebbed, the massive enemy warships were impaled and trapped upon the timber spikes, leading to the complete annihilation of the invading armada."
@@ -249,7 +249,7 @@
           "min_count": 1
         }
       ],
-      "is_unlocked": true
+      "is_unlocked": false
     },
     {
       "id": "badge-thanglong",
@@ -354,8 +354,8 @@
           "min_count": 2
         }
       ],
-      "is_unlocked": true,
-      "unlocked_date": "13/11/2026"
+      "is_unlocked": false,
+      "unlocked_date": null
     },
     {
       "id": "badge-su-thi-bach-nien",
@@ -384,7 +384,8 @@
           "min_count": 3
         }
       ],
-      "is_unlocked": false
+      "is_unlocked": false,
+      "unlocked_date": null
     },
     {
       "id": "badge-nguoi-giu-lua",
@@ -408,7 +409,7 @@
           "target_num": 1
         }
       ],
-      "is_unlocked": true
+      "is_unlocked": false
     },
     {
       "id": "badge-tieng-vong-thoi-gian",
@@ -456,29 +457,20 @@
           "min_count": 3
         }
       ],
-      "is_unlocked": true,
-      "unlocked_date": "13/11/2026"
+      "is_unlocked": false,
+      "unlocked_date": null
     }
   ],
   "profile": {
     "name": "Người Giữ Gìn Di Sản #001",
     "username": "@heritage_seeker",
-    "level": 2,
-    "exp": 250,
-    "maxExp": 500,
-    "checked_in_pins": [
-      "pin-bachdang"
-    ],
-    "discovered_figures": [
-      "fig-tranquoctuan"
-    ],
-    "logs": [
-      "13/11/2026: 🏅 Mở khóa Huy hiệu mới: 'Nhà Thám Hiểm Non Sông'!",
-      "13/11/2026: 🏅 Mở khóa Huy hiệu mới: 'Hội Ngộ Hào Kiệt'!",
-      "13/11/2026: 🏅 Mở khóa Huy hiệu mới: 'Người Giữ Lửa Lịch Sử'!",
-      "05/11/2026: Check-in thành công tại 'Khu di tích Chiến thắng Bạch Đằng' (+100 EXP)",
-      "05/11/2026: Mở khóa giai thoại 'Kế sách cắm cọc sông Bạch Đằng'",
-      "05/11/2026: Mở khóa Huy hiệu 'Kỵ Sĩ Sông Bạch Đằng'"
-    ]
+    "level": 0,
+    "exp": 0,
+    "maxExp": 100,
+    "km_traveled": 0,
+    "checked_in_pins": [],
+    "discovered_figures": [],
+    "check_in_history": {},
+    "logs": []
   }
 }
