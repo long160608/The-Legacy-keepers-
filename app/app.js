@@ -4034,11 +4034,11 @@ function openBadgeDetailsModal(badgeId) {
   const statusProg = document.getElementById("badge-modal-status-progress");
   if (isUnlocked) {
     statusBanner.className = "badge-modal-status-banner unlocked";
-    statusText.innerText = `✓ ${t('badge_unlocked_status')} (${badge.unlocked_date || (currentLang === 'en' ? 'Recently' : 'Gần đây')})`;
+    statusText.innerText = `${t('badge_unlocked_status')} (${badge.unlocked_date || (currentLang === 'en' ? 'Recently' : 'Gần đây')})`;
     statusProg.innerText = currentLang === 'en' ? 'Completed 100%' : 'Hoàn thành 100%';
   } else {
     statusBanner.className = "badge-modal-status-banner locked";
-    statusText.innerText = `🔒 ${t('badge_locked_status')} (${prog.percent}%)`;
+    statusText.innerText = `${t('badge_locked_status')} (${prog.percent}%)`;
     statusProg.innerText = currentLang === 'en' 
       ? `${prog.current}/${prog.max} conditions met`
       : `Đạt ${prog.current}/${prog.max} điều kiện`;
@@ -4100,7 +4100,7 @@ function openBadgeDetailsModal(badgeId) {
     const btnMap = document.createElement("button");
     btnMap.className = "btn-secondary";
     btnMap.style.fontSize = "0.82rem";
-    btnMap.innerHTML = `🧭 ${t('badge_btn_map')}`;
+    btnMap.innerHTML = t('badge_btn_map');
     btnMap.onclick = () => {
       closeBadgeDetailsModal();
       document.querySelector('[data-tab="tab-map"]').click();
@@ -4118,7 +4118,7 @@ function openBadgeDetailsModal(badgeId) {
     const btnFig = document.createElement("button");
     btnFig.className = "btn-secondary";
     btnFig.style.fontSize = "0.82rem";
-    btnFig.innerHTML = `⚔️ ${t('badge_btn_figure')}`;
+    btnFig.innerHTML = t('badge_btn_figure');
     btnFig.onclick = () => {
       closeBadgeDetailsModal();
       document.querySelector('[data-tab="tab-figures"]').click();
@@ -4215,7 +4215,7 @@ function renderBadgesGrid() {
 
       <div class="badge-req-box">
         <div class="badge-req-header">
-          <span>🎯 ${t('badge_req_title')}</span>
+          <span>${t('badge_req_title')}</span>
           <span style="font-size:0.75rem; font-weight:700; color:${isUnlocked ? '#27ae60' : 'var(--primary-dark)'};">
             ${isUnlocked ? (currentLang === 'en' ? 'COMPLETED' : 'HOÀN THÀNH') : `${prog.percent}%`}
           </span>
@@ -4231,8 +4231,8 @@ function renderBadgesGrid() {
       </div>
 
       ${isUnlocked 
-        ? `<div class="badge-status-pill unlocked">✓ ${t('badge_unlocked_status')} (${b.unlocked_date || (currentLang === 'en' ? 'Recently' : 'Gần đây')})</div>` 
-        : `<div class="badge-status-pill locked">🔒 ${t('badge_locked_status')} (${prog.percent}%)</div>`}
+        ? `<div class="badge-status-pill unlocked">${t('badge_unlocked_status')} (${b.unlocked_date || (currentLang === 'en' ? 'Recently' : 'Gần đây')})</div>` 
+        : `<div class="badge-status-pill locked">${t('badge_locked_status')} (${prog.percent}%)</div>`}
 
       <div style="font-size:0.75rem; color:var(--accent-camel); margin-top:8px; display:flex; align-items:center; gap:4px; font-weight:600;">
         🔍 ${t('badge_click_hint')}
