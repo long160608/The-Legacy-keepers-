@@ -1766,7 +1766,7 @@ function loadState() {
       }
 
       // One-time automatic migration for realistic radar radii and demo_user role
-      const RADAR_MIGRATE_FLAG = "legacy_keepers_realistic_radar_v3";
+      const RADAR_MIGRATE_FLAG = "legacy_keepers_radar_clean_v5";
       if (localStorage.getItem(RADAR_MIGRATE_FLAG) !== "done") {
         if (appState.profile) {
           appState.profile.discovered_pins = [...(appState.profile.checked_in_pins || [])];
@@ -2418,6 +2418,15 @@ function confirmSwitchToDemoUser() {
   updateRoleUI();
   closeRoleModal();
   showToast(t("role_toast_demo"));
+}
+
+function resetDiscoveredPins() {
+  if (appState.profile) {
+    appState.profile.discovered_pins = [...(appState.profile.checked_in_pins || [])];
+  }
+  saveState();
+  renderPinsOnMap();
+  showToast(currentLang === 'en' ? '🔄 Radar scan history reset! Far-away pins hidden.' : '🔄 Đã đặt lại lịch sử quét Radar! Các pin ở xa đã được ẩn.');
 }
 
 function verifyAndSwitchToManager() {
