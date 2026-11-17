@@ -315,7 +315,7 @@ const TRANSLATIONS = {
     modal_checkin_radius_lbl: "Phạm vi Check-in cho phép:",
     modal_checkin_radius_unit: "mét",
     modal_btn_checkin_ready: "Check-in Khám Phá & Mở Khóa Giai Thoại Ngay!",
-    modal_btn_checkin_dist: "Check-in (Khoảng cách còn ",
+    modal_btn_checkin_dist: "Chưa thể Check-in (còn cách ",
     modal_btn_checkin_done: "✓ Đã Check-in Khám Phá",
     modal_already_checked_title: "✓ Đã Check-in Khám Phá",
     modal_already_checked_desc: "Bạn đã lưu dấu ấn tại di tích lịch sử này và mở khóa giai thoại thành công!",
@@ -791,7 +791,7 @@ const TRANSLATIONS = {
     modal_checkin_radius_lbl: "Allowed Check-in Radius:",
     modal_checkin_radius_unit: "meters",
     modal_btn_checkin_ready: "Check-in Now to Discover & Unlock Tales!",
-    modal_btn_checkin_dist: "Check-in (Distance remaining: ",
+    modal_btn_checkin_dist: "Cannot Check-in Yet (remaining ",
     modal_btn_checkin_done: "✓ Already Checked In",
     modal_already_checked_title: "✓ Explored & Checked In",
     modal_already_checked_desc: "You have visited this historical site and successfully unlocked its tales!",
@@ -1666,6 +1666,7 @@ const INITIAL_DATA = {
     maxExp: 100,
     km_traveled: 0,
     checked_in_pins: [],
+    discovered_pins: [],
     discovered_figures: [],
     check_in_history: {},
     logs: []
@@ -1724,6 +1725,9 @@ function loadState() {
       if (!Array.isArray(appState.profile.checked_in_pins)) {
         appState.profile.checked_in_pins = [];
       }
+      if (!Array.isArray(appState.profile.discovered_pins)) {
+        appState.profile.discovered_pins = [];
+      }
       if (!Array.isArray(appState.profile.discovered_figures)) {
         appState.profile.discovered_figures = [];
       }
@@ -1745,6 +1749,7 @@ function loadState() {
           maxExp: 100,
           km_traveled: 0,
           checked_in_pins: [],
+          discovered_pins: [],
           discovered_figures: [],
           check_in_history: {},
           logs: []
@@ -1829,6 +1834,9 @@ async function reloadFromDataJSON(showToastMsg = true) {
         if (!Array.isArray(appState.profile.checked_in_pins)) {
           appState.profile.checked_in_pins = [];
         }
+        if (!Array.isArray(appState.profile.discovered_pins)) {
+          appState.profile.discovered_pins = [];
+        }
         if (!Array.isArray(appState.profile.discovered_figures)) {
           appState.profile.discovered_figures = [];
         }
@@ -1903,13 +1911,13 @@ async function saveToServerDataJSON() {
   }
 }
 
-// Player coordinates (Default: Hanoi Old Quarter center)
+// Player coordinates (Default: Centered around active heritage landmarks)
 // System Role & Permission System (Default: 'manager' so all features, pins and editing are available)
 let currentUserRole = localStorage.getItem("legacy_keepers_user_role") || "manager";
 if (currentUserRole === "admin") currentUserRole = "manager";
 let editingPinId = null;
 
-let userCoords = [21.0285, 105.8542];
+let userCoords = [10.7712, 106.6732];
 let map, playerRadarMarker, playerAccuracyCircle;
 let activePinMarkers = [];
 let selectedPinForModal = null;
@@ -2797,13 +2805,48 @@ function getPixelRadius(lat, lng, radiusMeters) {
 
 /**
  * Kiểm tra quy tắc hiển thị Pin trên bản đồ theo vai trò:
- * - Manager: Thấy tất cả pin trên bản đồ (toàn quốc, mọi khoảng cách)
- * - Demo User: Không thấy pin ở xa (chỉ thấy trong tầm radar discovery_radius, hoặc đã check-in)
- * - Real User: Không thấy pin đâu (chỉ thấy khi đã đến tận nơi trong interaction_radius hoặc đã check-in)
+ * - Manager: Thấy tất cả pin trên bản đồ (toàn quốc, mọi khoảng cách để quản trị)
+ * - Người chơi (Demo User & Real User):
+ *   + Pin đã check-in: Luôn luôn hiển thị
+ *   + Pin đã từng được phát hiện (từng đi qua hoặc từng ở gần): Vẫn tiếp tục hiển thị
+ *   + Pin trong tầm quét (discovery_radius): Tự động phát hiện, lưu lại và hiển thị
+ *   + Pin ở xa (ngoài discovery_radius) chưa từng phát hiện: Hoàn toàn ẩn khỏi bản đồ
  */
 function isPinVisibleForRole(pin, distToPin, isCheckedIn) {
-  // Always return true so all heritage pins are visible across the map
-  return true;
+  // 1. Quản lý: Thấy tất cả pin toàn quốc
+  if (isManager()) {
+    return true;
+  }
+
+  // 2. Pin đã check-in: Luôn luôn hiển thị
+  if (isCheckedIn) {
+    return true;
+  }
+
+  // Đảm bảo mảng discovered_pins tồn tại trong profile
+  if (!appState.profile) appState.profile = {};
+  if (!Array.isArray(appState.profile.discovered_pins)) {
+    appState.profile.discovered_pins = [];
+  }
+
+  // 3. Pin đã từng được phát hiện trước đó (người chơi từng đi qua hoặc từng ở gần):
+  // Giữ lại hiển thị trên bản đồ để người chơi nhớ vị trí, dù đã đi xa
+  if (appState.profile.discovered_pins.includes(pin.id)) {
+    return true;
+  }
+
+  // 4. Nếu chưa từng phát hiện: Kiểm tra khoảng cách hiện tại có nằm trong bán kính phát hiện (discovery_radius) không
+  const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
+  const discoveryRadius = pin.discovery_radius || spec.discoveryRadius || 5000;
+
+  if (distToPin <= discoveryRadius) {
+    // Vừa phát hiện pin mới trên radar! Ghi nhận vào danh sách đã phát hiện
+    appState.profile.discovered_pins.push(pin.id);
+    return true;
+  }
+
+  // 5. Pin ở xa ngoài bán kính quét và chưa từng phát hiện: Ẩn hoàn toàn trên bản đồ
+  return false;
 }
 
 /**
@@ -2818,6 +2861,7 @@ function renderPinsOnMap(filter = "all") {
   activePinCircles.forEach(c => map.removeLayer(c));
   activePinCircles = [];
 
+  const prevDiscoveredCount = (appState.profile?.discovered_pins || []).length;
   const filtered = filter === "all" ? appState.pins : appState.pins.filter(p => p.category === filter);
   let visibleCount = 0;
 
@@ -2895,6 +2939,11 @@ function renderPinsOnMap(filter = "all") {
     m.on("click", () => openLocationModal(pin));
     activePinMarkers.push(m);
   });
+
+  // Tự động lưu trạng thái nếu có pin mới vừa được phát hiện
+  if ((appState.profile?.discovered_pins || []).length !== prevDiscoveredCount) {
+    saveState();
+  }
 
   // Cập nhật số đếm pin hiển thị theo vai trò
   const countAll = document.getElementById("count-all");
@@ -3070,14 +3119,14 @@ function openLocationModal(pin) {
 
     if (canCheckIn) {
       btn.className = "btn-checkin-action ready";
+      btn.removeAttribute("aria-disabled");
       if (iconEl) iconEl.innerText = "🚩";
       label.innerText = t('modal_btn_checkin_ready');
     } else {
       btn.className = "btn-checkin-action distance-out";
+      btn.setAttribute("aria-disabled", "true");
       if (iconEl) iconEl.innerText = "📍";
-      label.innerText = currentLang === 'en'
-        ? `Check-in (${distText} remaining)`
-        : `${t('modal_btn_checkin_dist')}${distText})`;
+      label.innerText = `${t('modal_btn_checkin_dist')}${distText})`;
     }
   }
 
@@ -3112,15 +3161,22 @@ function performCheckIn() {
     return;
   }
 
-  // 2. Chống hack khoảng cách (phải nằm trong bán kính interaction_radius)
+  // 2. Chống hack khoảng cách (phải nằm trong bán kính interaction_radius + 5m đệm sai số GPS)
   const dist = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
-  if (dist > (pin.interaction_radius || 50)) {
+  const maxReach = (pin.interaction_radius || 50) + 5;
+  if (dist > maxReach) {
     showToast(t('modal_toast_out_of_range'));
     return;
   }
 
   // 3. Ghi nhận check-in vào profile và lịch sử chi tiết
   appState.profile.checked_in_pins.push(pin.id);
+  if (!Array.isArray(appState.profile.discovered_pins)) {
+    appState.profile.discovered_pins = [];
+  }
+  if (!appState.profile.discovered_pins.includes(pin.id)) {
+    appState.profile.discovered_pins.push(pin.id);
+  }
   if (!appState.profile.check_in_history) appState.profile.check_in_history = {};
   const now = new Date();
   appState.profile.check_in_history[pin.id] = {
@@ -3244,6 +3300,7 @@ function toggleRealGPS() {
         userCoords = [pos.coords.latitude, pos.coords.longitude];
         updatePlayerRadarMarker();
         map.setView(userCoords, 16);
+        renderPinsOnMap();
         showToast("📍 Đã định vị thành công vị trí GPS thực của bạn!");
       },
       (err) => {

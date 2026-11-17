@@ -469,6 +469,7 @@
     "maxExp": 100,
     "km_traveled": 0,
     "checked_in_pins": [],
+    "discovered_pins": [],
     "discovered_figures": [],
     "check_in_history": {},
     "logs": []
