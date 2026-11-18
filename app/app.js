@@ -86,7 +86,9 @@ const TRANSLATIONS = {
     role_btn_change: "Đổi ➜",
     radar_tuner_btn: "Chỉnh Radar",
     radar_tuner_tooltip: "Tùy chỉnh khoảng cách vòng quét Radar",
-    radar_tuner_title: "🎚️ Chỉnh Khoảng Cách Radar",
+    radar_tuner_title: "🎚️ Chỉnh Khoảng Cách Radar (Chỉ Manager)",
+    radar_tuner_cms_sub: "Thử nghiệm các bán kính quét & check-in để tìm thông số tối ưu. Ẩn hoàn toàn với người chơi thường.",
+    radar_tuner_view_map: "🧭 Xem trên Bản đồ",
     radar_discovery_lbl: "Vòng quét hiện Pin",
     radar_interaction_lbl: "Vòng cố định Check-in",
     radar_tuner_reset: "↺ Mặc định",
@@ -574,7 +576,9 @@ const TRANSLATIONS = {
     role_btn_change: "Switch ➜",
     radar_tuner_btn: "Tune Radar",
     radar_tuner_tooltip: "Adjust Radar scan & check-in distances",
-    radar_tuner_title: "🎚️ Radar Distance Tuner",
+    radar_tuner_title: "🎚️ Radar Distance Tuner (Manager Only)",
+    radar_tuner_cms_sub: "Test different discovery & check-in radii to find optimal balance. Completely hidden from players.",
+    radar_tuner_view_map: "🧭 View on Map",
     radar_discovery_lbl: "Discovery Scan Ring",
     radar_interaction_lbl: "Fixed Check-in Ring",
     radar_tuner_reset: "↺ Default",
@@ -2320,6 +2324,15 @@ function updateRoleUI() {
     }
   }
 
+  // 4b. Manager-Only Radar Distance Tuner Card inside CMS Portal
+  const cmsRadarTuner = document.getElementById("cms-manager-radar-tuner");
+  if (cmsRadarTuner) {
+    cmsRadarTuner.style.display = isMgr ? "block" : "none";
+    if (isMgr && typeof syncRadarTunerUI === "function") {
+      syncRadarTunerUI();
+    }
+  }
+
   // 5. Disable / Enable Form Inputs for CMS (Pins, Figures, Badges)
   const formsToToggle = ["form-new-pin", "form-new-figure", "form-new-badge"];
   formsToToggle.forEach(formId => {
@@ -2836,7 +2849,7 @@ function getEffectiveInteractionRadius(pin) {
   return pin?.interaction_radius || spec.interactionRadius || DEFAULT_PLAYER_INTERACTION_RADIUS;
 }
 
-function syncRadarTunerUI(visibleCount = null) {
+function syncRadarTunerUI() {
   const discSlider = document.getElementById("slider-radar-discovery");
   const discVal = document.getElementById("radar-discovery-val");
   const interSlider = document.getElementById("slider-radar-interaction");
@@ -2849,25 +2862,25 @@ function syncRadarTunerUI(visibleCount = null) {
   if (interVal) interVal.innerText = formatMetersLabel(radarTuning.interactionRadius);
 
   if (liveCountEl) {
-    const total = (appState.pins || []).length;
-    const shown = visibleCount !== null ? visibleCount : activePinMarkers.length;
+    const pins = appState.pins || [];
+    const checkedIds = Array.isArray(appState.profile?.checked_in_pins) ? appState.profile.checked_in_pins : [];
+    const playerVisibleCount = pins.filter(pin => {
+      if (checkedIds.includes(pin.id)) return true;
+      const d = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
+      return d <= getEffectiveDiscoveryRadius(pin);
+    }).length;
+
     liveCountEl.innerText = currentLang === 'en'
-      ? `Visible: ${shown} / ${total} pins`
-      : `Đang thấy: ${shown} / ${total} pin`;
+      ? `Player view at current location: ${playerVisibleCount} / ${pins.length} pins visible`
+      : `Góc nhìn người chơi tại vị trí hiện tại: thấy ${playerVisibleCount} / ${pins.length} pin`;
   }
 }
 
-function toggleRadarTuner(forceState) {
-  const panel = document.getElementById("radar-tuner-panel");
-  const btn = document.getElementById("btn-radar-tuner");
-  if (!panel) return;
-  const shouldOpen = typeof forceState === 'boolean' ? forceState : !panel.classList.contains("open");
-  panel.classList.toggle("open", shouldOpen);
-  if (btn) btn.classList.toggle("active", shouldOpen);
-  if (shouldOpen) syncRadarTunerUI();
-}
-
 function onRadarSliderChange(type, rawVal) {
+  if (!isManager()) {
+    showToast(t('role_denied_toast'));
+    return;
+  }
   const val = parseInt(rawVal, 10);
   if (isNaN(val)) return;
 
@@ -2876,9 +2889,10 @@ function onRadarSliderChange(type, rawVal) {
     if (radarTuning.interactionRadius > radarTuning.discoveryRadius) {
       radarTuning.interactionRadius = Math.max(20, Math.min(300, radarTuning.discoveryRadius));
     }
-    // Khi kéo thanh thử khoảng cách phát hiện: quét lại trực tiếp để thấy ngay pin ẩn/hiện theo mức mới
+    // Quét lại danh sách pin đã phát hiện theo bán kính mới
     if (appState.profile) {
       appState.profile.discovered_pins = [...(appState.profile.checked_in_pins || [])];
+      saveState();
     }
   } else if (type === 'interaction') {
     radarTuning.interactionRadius = Math.min(300, Math.max(20, val));
@@ -2896,6 +2910,10 @@ function setRadarPreset(type, val) {
 }
 
 function resetRadarTuning() {
+  if (!isManager()) {
+    showToast(t('role_denied_toast'));
+    return;
+  }
   radarTuning = {
     discoveryRadius: DEFAULT_PLAYER_DISCOVERY_RADIUS,
     interactionRadius: DEFAULT_PLAYER_INTERACTION_RADIUS,

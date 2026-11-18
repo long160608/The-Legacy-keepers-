@@ -634,104 +634,63 @@ body {
 }
 
 /* ==========================================================================
-   COLLAPSIBLE RADAR DISTANCE TUNER PANEL (LIVE RANGE TESTING)
+   MANAGER-ONLY RADAR DISTANCE TUNER CARD (INSIDE CMS PORTAL)
    ========================================================================== */
-.radar-tuner-wrap {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 1005;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-}
-
-.radar-tuner-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 24px;
-  background: rgba(254, 250, 244, 0.96);
-  border: 1.5px solid var(--accent-gold);
-  color: var(--primary-dark);
-  font-size: 0.82rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(51, 26, 11, 0.14);
-  backdrop-filter: blur(6px);
-  transition: all 0.2s ease;
-}
-
-.radar-tuner-toggle:hover,
-.radar-tuner-toggle.active {
-  background: var(--primary-dark);
-  color: #FFFDF8;
-  border-color: var(--primary-dark);
-  transform: translateY(-1px);
-}
-
-.radar-tuner-panel {
-  display: none;
-  width: 286px;
-  background: rgba(254, 250, 244, 0.98);
+.cms-radar-tuner-card {
+  background: linear-gradient(180deg, #FFFDF8 0%, #FAF3E7 100%);
   border: 1.5px solid #DFCFBC;
-  border-radius: 16px;
-  padding: 14px 15px;
-  box-shadow: 0 12px 32px rgba(51, 26, 11, 0.2);
-  backdrop-filter: blur(10px);
-  animation: radar-panel-pop 0.18s ease-out;
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 16px rgba(84, 51, 27, 0.06);
 }
 
-.radar-tuner-panel.open {
-  display: block;
-}
-
-@keyframes radar-panel-pop {
-  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.radar-tuner-header {
+.cms-radar-tuner-head {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
   border-bottom: 1px dashed var(--neutral-200);
 }
 
+.cms-radar-tuner-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.cms-radar-tuner-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cms-radar-tuner-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 10px;
+}
+
 .radar-tuner-title {
-  font-size: 0.84rem;
+  font-size: 0.92rem;
   font-weight: 800;
   color: var(--primary-dark);
 }
 
-.radar-tuner-close {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 6px;
-}
-
-.radar-tuner-close:hover {
-  background: var(--neutral-200);
-  color: var(--primary-dark);
-}
-
 .radar-tuner-group {
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .radar-tuner-label-row {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 6px;
@@ -790,12 +749,12 @@ body {
 }
 
 .radar-preset-chip {
-  padding: 3px 8px;
+  padding: 3px 9px;
   border-radius: 10px;
   border: 1px solid #DFCFBC;
   background: #F7EFE3;
   color: var(--primary-dark);
-  font-size: 0.71rem;
+  font-size: 0.72rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -817,7 +776,7 @@ body {
 }
 
 .radar-tuner-live-count {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--primary);
 }
@@ -839,33 +798,15 @@ body {
 }
 
 @media (max-width: 768px) {
-  .radar-tuner-wrap {
-    top: 56px !important;
-    right: 10px !important;
-  }
-  .radar-tuner-toggle {
-    padding: 6px 11px !important;
-    font-size: 0.74rem !important;
-  }
-  .radar-tuner-panel {
-    width: min(272px, calc(100vw - 24px)) !important;
-    padding: 12px !important;
+  .cms-radar-tuner-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
   }
 }
 
-body.simulator-mode .radar-tuner-wrap {
-  top: 56px !important;
-  right: 10px !important;
-}
-
-body.simulator-mode .radar-tuner-toggle {
-  padding: 6px 11px !important;
-  font-size: 0.74rem !important;
-}
-
-body.simulator-mode .radar-tuner-panel {
-  width: 266px !important;
-  padding: 12px !important;
+body.simulator-mode .cms-radar-tuner-grid {
+  grid-template-columns: 1fr !important;
+  gap: 14px !important;
 }
 
 /* ==========================================================================
