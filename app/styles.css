@@ -987,9 +987,9 @@ body.simulator-mode .cms-radar-tuner-grid {
   }
 }
 
-/* Khi đã check-in: sóng đồng tâm đổi sang nâu đồng cổ êm dịu */
+/* Khi đã check-in: sóng đồng tâm đổi sang xanh lá êm dịu */
 .heritage-pin-container.is-checked-in .concentric-wave {
-  border-color: #8C5A2B !important;
+  border-color: #2E7D32 !important;
   animation-duration: 3.6s;
 }
 
@@ -1090,10 +1090,10 @@ body.simulator-mode .cms-radar-tuner-grid {
   border-color: #E74C3C;
 }
 
-/* Check-in ready pulse (Warm Burnished Copper-Bronze Glow) */
+/* Check-in ready pulse (Xanh lá nổi bật khi đi vào vùng Pin) */
 .heritage-pin-container.checkin-ready .heritage-pin-seal {
-  border-color: #9C5221 !important;
-  box-shadow: 0 0 14px rgba(184, 101, 42, 0.72), 0 2px 8px rgba(58, 30, 12, 0.32) !important;
+  border-color: #2E7D32 !important;
+  box-shadow: 0 0 14px rgba(46, 125, 50, 0.8), 0 2px 8px rgba(0, 0, 0, 0.28) !important;
   animation: ready-seal-bounce 1.5s infinite ease-in-out;
 }
 @keyframes ready-seal-bounce {
@@ -1109,7 +1109,7 @@ body.simulator-mode .cms-radar-tuner-grid {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #7A4B2A;
+  background: #2E7D32;
   color: #FFFDF8;
   border: 1.5px solid #FFFDF8;
   display: flex;
@@ -1117,18 +1117,18 @@ body.simulator-mode .cms-radar-tuner-grid {
   justify-content: center;
   font-size: 0.65rem;
   font-weight: 800;
-  box-shadow: 0 1px 4px rgba(58, 30, 12, 0.35);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   z-index: 12;
 }
 
 .heritage-pin-container.is-checked-in .heritage-pin-seal {
-  border-color: #7A4B2A !important;
-  box-shadow: 0 0 10px rgba(122, 75, 42, 0.35), 0 2px 6px rgba(84, 51, 27, 0.2) !important;
+  border-color: #2E7D32 !important;
+  box-shadow: 0 0 10px rgba(46, 125, 50, 0.4), 0 2px 6px rgba(84, 51, 27, 0.2) !important;
 }
 
 .heritage-pin-container.is-checked-in .heritage-pin-caption {
-  border-color: #D6B792;
-  color: #5C3618;
+  border-color: #A5D6A7;
+  color: #1B5E20;
 }
 
 .geo-pin-checkin-circle.pin-already-checked-circle {
