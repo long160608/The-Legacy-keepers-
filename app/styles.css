@@ -584,19 +584,79 @@ body {
   transition: width 0.18s ease-out, height 0.18s ease-out;
 }
 
-/* Center Player Navigator Jewel */
+/* Center Player GPS Navigator Beacon (Modern Apple/Google Maps + Heritage Craft) */
+.player-navigator-beacon {
+  position: relative;
+  z-index: 25;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Soft Directional View Cone pointing in player's walking direction */
+.player-heading-cone {
+  position: absolute;
+  inset: 0;
+  transform: rotate(var(--player-heading, 0deg));
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.player-heading-cone::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 50% 100%, rgba(37, 99, 235, 0.55) 0%, rgba(59, 130, 246, 0.18) 55%, transparent 78%);
+  clip-path: polygon(50% 100%, 8% 0%, 92% 0%);
+  filter: blur(0.4px);
+}
+
+/* Crisp directional triangle pointer right outside the white ring */
+.player-heading-cone::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 7px solid #2563EB;
+  filter: drop-shadow(0 1px 2px rgba(15, 23, 42, 0.35));
+}
+
+/* Subtle breathing sapphire aura */
+.player-beacon-halo {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.26);
+  animation: player-beacon-breathe 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Crisp Sapphire Core Orb with Pure White Rim */
 .player-core-dot {
   position: relative;
   z-index: 10;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #8A532B 0%, #4A2A14 75%, #2E180A 100%);
-  border: 2.5px solid #FFFDF8;
+  background: radial-gradient(circle at 35% 30%, #60A5FA 0%, #2563EB 55%, #1D4ED8 100%);
+  border: 3px solid #FFFFFF;
   box-shadow:
-    0 0 0 2px #D9A243,
-    0 0 14px rgba(217, 162, 67, 0.72),
-    0 2px 6px rgba(51, 26, 11, 0.45);
+    0 0 0 1.5px rgba(37, 99, 235, 0.45),
+    0 3px 10px rgba(29, 78, 216, 0.5),
+    0 1px 3px rgba(15, 23, 42, 0.35);
   pointer-events: none;
 }
 
@@ -608,7 +668,18 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(255, 245, 220, 0.85);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+@keyframes player-beacon-breathe {
+  0%, 100% {
+    transform: scale(0.92);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.42);
+    opacity: 0.18;
+  }
 }
 
 @keyframes radar-sonar-expand {

@@ -1960,7 +1960,8 @@ if (currentUserRole === "admin") currentUserRole = "manager";
 let editingPinId = null;
 
 let userCoords = [10.7712, 106.6732];
-let map, playerRadarMarker, playerAccuracyCircle, playerDiscoveryCircle;
+let playerHeadingDeg = 0;
+let map, playerRadarMarker, playerCoreMarker, playerAccuracyCircle, playerDiscoveryCircle;
 let activePinMarkers = [];
 let selectedPinForModal = null;
 let selectedFigureId = null;
@@ -2579,15 +2580,24 @@ function handleKeyboardMovement(e) {
   const metersPerLngDeg = 111139 * Math.cos(latRad);
   const deltaLng = metersEast / (metersPerLngDeg || 111139);
 
-  // Update userCoords
+  // Update userCoords & directional heading
   userCoords[0] = parseFloat((userCoords[0] + deltaLat).toFixed(7));
   userCoords[1] = parseFloat((userCoords[1] + deltaLng).toFixed(7));
+  if (deltaLatSign > 0) playerHeadingDeg = 0;
+  else if (deltaLngSign > 0) playerHeadingDeg = 90;
+  else if (deltaLatSign < 0) playerHeadingDeg = 180;
+  else if (deltaLngSign < 0) playerHeadingDeg = 270;
 
-  // 5. Update marker & accuracy circle smoothly
+  // 5. Update marker, core beacon & circles smoothly
   if (playerRadarMarker) {
     playerRadarMarker.setLatLng(userCoords);
   } else {
     updatePlayerRadarMarker();
+  }
+  if (playerCoreMarker) {
+    playerCoreMarker.setLatLng(userCoords);
+    const coneEl = document.querySelector('.player-heading-cone');
+    if (coneEl) coneEl.style.setProperty('--player-heading', `${playerHeadingDeg}deg`);
   }
   if (playerAccuracyCircle) {
     playerAccuracyCircle.setLatLng(userCoords);
@@ -3035,6 +3045,10 @@ function updatePlayerRadarMarker() {
     map.removeLayer(playerRadarMarker);
     playerRadarMarker = null;
   }
+  if (playerCoreMarker) {
+    map.removeLayer(playerCoreMarker);
+    playerCoreMarker = null;
+  }
   if (playerAccuracyCircle) {
     map.removeLayer(playerAccuracyCircle);
     playerAccuracyCircle = null;
@@ -3116,9 +3130,6 @@ function updatePlayerRadarMarker() {
 
         <!-- Vòng cố định bên trong: Phạm vi đi vô để Check-in -->
         <div class="radar-fixed-reach-halo"></div>
-
-        <!-- Viên ngọc tâm định vị người chơi -->
-        <div class="player-core-dot"></div>
       </div>
     `,
     iconSize: [sweepDiameter, sweepDiameter],
@@ -3126,10 +3137,31 @@ function updatePlayerRadarMarker() {
   });
 
   // interactive: false để vòng radar KHÔNG bao giờ chắn thao tác bấm vào các Pin bên trong!
+  // Đặt lớp radar dưới chân Pin (zIndexOffset: 100)
   playerRadarMarker = L.marker(userCoords, {
     icon: radarIcon,
     interactive: false,
-    zIndexOffset: 200
+    zIndexOffset: 100
+  }).addTo(map);
+
+  // Lớp dấu định vị người chơi riêng (zIndexOffset: 650) luôn nổi sắc nét phía trên các vòng tròn & Pin gần!
+  const coreBeaconIcon = L.divIcon({
+    className: 'player-radar-leaflet-icon',
+    html: `
+      <div class="player-navigator-beacon">
+        <div class="player-heading-cone" style="--player-heading: ${playerHeadingDeg}deg;"></div>
+        <div class="player-beacon-halo"></div>
+        <div class="player-core-dot"></div>
+      </div>
+    `,
+    iconSize: [44, 44],
+    iconAnchor: [22, 22]
+  });
+
+  playerCoreMarker = L.marker(userCoords, {
+    icon: coreBeaconIcon,
+    interactive: false,
+    zIndexOffset: 650
   }).addTo(map);
 
   const gpsCoordsDisplay = document.getElementById("gps-coords-display");
@@ -3261,18 +3293,17 @@ function renderPinsOnMap(filter = "all") {
     const pinName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
     const pulseColor = isCheckedIn ? '#2E7D32' : (isWithinCheckinReach ? '#27AE60' : (spec.pulseColor || spec.color));
 
-    // Phóng to kích thước Pin mượt mà theo mức zoom (zoom vô càng gần Pin càng rõ & dễ bấm)
+    // Phóng to kích thước Pin cân đối theo mức zoom (vừa mắt, không quá nhỏ cũng không quá to)
     const curZoom = map ? map.getZoom() : 14;
-    let pinSize = 46;
-    let captionSize = '0.78rem';
-    if (curZoom <= 12) { pinSize = 36; captionSize = '0.72rem'; }
-    else if (curZoom === 13) { pinSize = 40; captionSize = '0.74rem'; }
-    else if (curZoom === 14) { pinSize = 46; captionSize = '0.78rem'; }
-    else if (curZoom === 15) { pinSize = 54; captionSize = '0.82rem'; }
-    else if (curZoom === 16) { pinSize = 62; captionSize = '0.86rem'; }
-    else if (curZoom === 17) { pinSize = 70; captionSize = '0.90rem'; }
-    else if (curZoom === 18) { pinSize = 78; captionSize = '0.94rem'; }
-    else if (curZoom >= 19) { pinSize = 86; captionSize = '0.98rem'; }
+    let pinSize = 38;
+    let captionSize = '0.74rem';
+    if (curZoom <= 13) { pinSize = 34; captionSize = '0.72rem'; }
+    else if (curZoom === 14) { pinSize = 38; captionSize = '0.74rem'; }
+    else if (curZoom === 15) { pinSize = 42; captionSize = '0.76rem'; }
+    else if (curZoom === 16) { pinSize = 46; captionSize = '0.78rem'; }
+    else if (curZoom === 17) { pinSize = 50; captionSize = '0.81rem'; }
+    else if (curZoom === 18) { pinSize = 54; captionSize = '0.84rem'; }
+    else if (curZoom >= 19) { pinSize = 58; captionSize = '0.86rem'; }
     const pinHalf = Math.round(pinSize / 2);
 
     const heritageIcon = L.divIcon({
