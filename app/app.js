@@ -3272,15 +3272,14 @@ function renderPinsOnMap(filter = "all") {
     // Tính chính xác bán kính pixel của phạm vi check-in ở mức zoom hiện tại
     const checkinPx = getPixelRadius(pin.lat, pin.lng, interactionRadius);
 
-    // 1. VÒNG RANH GIỚI CHECK-IN (INTERACTION RADIUS) - CHUẨN TỶ LỆ MÉT THỰC TẾ
-    // Dùng L.circle để vẽ đường viền ranh giới cố định của phạm vi check-in (40m - 150m)
+    // 1. VÒNG RANH GIỚI CHECK-IN (INTERACTION RADIUS) - Tông Nâu Đồng Cổ & Hổ Phách hài hòa
     const interactionCircle = L.circle([pin.lat, pin.lng], {
       radius: interactionRadius,
-      color: isCheckedIn ? '#2E7D32' : (isWithinCheckinReach ? '#27AE60' : spec.color),
-      weight: isCheckedIn ? 2 : (isWithinCheckinReach ? 2.5 : 1.8),
+      color: isCheckedIn ? '#7A4B2A' : (isWithinCheckinReach ? '#A65E2E' : spec.color),
+      weight: isCheckedIn ? 1.8 : (isWithinCheckinReach ? 2.2 : 1.6),
       dashArray: (isCheckedIn || isWithinCheckinReach) ? 'none' : '4, 4',
-      fillColor: isCheckedIn ? '#C8E6C9' : (isWithinCheckinReach ? '#A5D6A7' : spec.fillColor),
-      fillOpacity: isCheckedIn ? 0.22 : (isWithinCheckinReach ? 0.35 : 0.14),
+      fillColor: isCheckedIn ? '#DFC7AA' : (isWithinCheckinReach ? '#E8C59B' : spec.fillColor),
+      fillOpacity: isCheckedIn ? 0.16 : (isWithinCheckinReach ? 0.26 : 0.12),
       className: `geo-pin-checkin-circle ${isCheckedIn ? 'pin-already-checked-circle' : (isWithinCheckinReach ? 'in-range-pulse' : '')}`,
       interactive: true
     }).addTo(map);
@@ -3291,7 +3290,7 @@ function renderPinsOnMap(filter = "all") {
     const rarityClass = `pin-rarity-${pin.rarity || 'common'}`;
     const pulseClass = isCheckedIn ? 'already-explored' : (isWithinCheckinReach ? 'checkin-ready' : 'within-radar');
     const pinName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
-    const pulseColor = isCheckedIn ? '#2E7D32' : (isWithinCheckinReach ? '#27AE60' : (spec.pulseColor || spec.color));
+    const pulseColor = isCheckedIn ? '#8C5A2B' : (isWithinCheckinReach ? '#B8652A' : (spec.pulseColor || spec.color));
 
     // Phóng to kích thước Pin cân đối theo mức zoom (vừa mắt, không quá nhỏ cũng không quá to)
     const curZoom = map ? map.getZoom() : 14;

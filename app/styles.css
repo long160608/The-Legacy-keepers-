@@ -502,7 +502,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #27ae60;
+  background: #C88A2E;
   flex-shrink: 0;
   animation: pulse-dot 1.5s infinite;
 }
@@ -571,15 +571,15 @@ body {
   animation-delay: 1.9s;
 }
 
-/* Inner Fixed Check-in / Interaction Reach Halo */
+/* Inner Fixed Check-in / Interaction Reach Halo (Warm Walnut-Bronze Tone) */
 .radar-fixed-reach-halo {
   position: absolute;
   width: var(--reach-diameter, 36px);
   height: var(--reach-diameter, 36px);
   border-radius: 50%;
-  border: 2px solid rgba(46, 155, 94, 0.85);
-  background: radial-gradient(circle, rgba(46, 155, 94, 0.16) 0%, rgba(46, 155, 94, 0.06) 72%, rgba(46, 155, 94, 0.14) 100%);
-  box-shadow: 0 0 0 4px rgba(46, 155, 94, 0.12), inset 0 0 12px rgba(46, 155, 94, 0.14);
+  border: 1.8px solid rgba(112, 66, 32, 0.72);
+  background: radial-gradient(circle, rgba(168, 114, 62, 0.14) 0%, rgba(168, 114, 62, 0.04) 70%, rgba(112, 66, 32, 0.11) 100%);
+  box-shadow: 0 0 0 3px rgba(138, 86, 46, 0.10), inset 0 0 10px rgba(112, 66, 32, 0.10);
   pointer-events: none;
   transition: width 0.18s ease-out, height 0.18s ease-out;
 }
@@ -780,8 +780,8 @@ body {
 }
 
 .radar-dot-legend.interaction {
-  background: #2E9B5E;
-  box-shadow: 0 0 0 2px rgba(46, 155, 94, 0.25);
+  background: #7A4921;
+  box-shadow: 0 0 0 2px rgba(122, 73, 33, 0.24);
 }
 
 .radar-tuner-val {
@@ -795,8 +795,8 @@ body {
 }
 
 .radar-tuner-val.interaction-val {
-  color: #1F7A46;
-  background: rgba(46, 155, 94, 0.14);
+  color: #6B3D1A;
+  background: rgba(122, 73, 33, 0.14);
 }
 
 .radar-slider {
@@ -810,7 +810,7 @@ body {
 }
 
 .radar-slider.interaction-slider {
-  accent-color: #2E9B5E;
+  accent-color: #7A4921;
 }
 
 .radar-presets-row {
@@ -987,9 +987,9 @@ body.simulator-mode .cms-radar-tuner-grid {
   }
 }
 
-/* Khi đã check-in: sóng đồng tâm đổi sang xanh ngọc êm dịu */
+/* Khi đã check-in: sóng đồng tâm đổi sang nâu đồng cổ êm dịu */
 .heritage-pin-container.is-checked-in .concentric-wave {
-  border-color: #2E7D32 !important;
+  border-color: #8C5A2B !important;
   animation-duration: 3.6s;
 }
 
@@ -1090,15 +1090,15 @@ body.simulator-mode .cms-radar-tuner-grid {
   border-color: #E74C3C;
 }
 
-/* Check-in ready pulse */
+/* Check-in ready pulse (Warm Burnished Copper-Bronze Glow) */
 .heritage-pin-container.checkin-ready .heritage-pin-seal {
-  border-color: #2E7D32 !important;
-  box-shadow: 0 0 14px rgba(46, 125, 50, 0.85), 0 2px 8px rgba(0,0,0,0.3) !important;
+  border-color: #9C5221 !important;
+  box-shadow: 0 0 14px rgba(184, 101, 42, 0.72), 0 2px 8px rgba(58, 30, 12, 0.32) !important;
   animation: ready-seal-bounce 1.5s infinite ease-in-out;
 }
 @keyframes ready-seal-bounce {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.14); }
+  50% { transform: scale(1.12); }
 }
 
 /* Checked-in Pin Marker Badge */
@@ -1109,26 +1109,26 @@ body.simulator-mode .cms-radar-tuner-grid {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #2E7D32;
-  color: #fff;
-  border: 1.5px solid #fff;
+  background: #7A4B2A;
+  color: #FFFDF8;
+  border: 1.5px solid #FFFDF8;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.65rem;
   font-weight: 800;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+  box-shadow: 0 1px 4px rgba(58, 30, 12, 0.35);
   z-index: 12;
 }
 
 .heritage-pin-container.is-checked-in .heritage-pin-seal {
-  border-color: #2E7D32 !important;
-  box-shadow: 0 0 10px rgba(46, 125, 50, 0.4), 0 2px 6px rgba(84, 51, 27, 0.2) !important;
+  border-color: #7A4B2A !important;
+  box-shadow: 0 0 10px rgba(122, 75, 42, 0.35), 0 2px 6px rgba(84, 51, 27, 0.2) !important;
 }
 
 .heritage-pin-container.is-checked-in .heritage-pin-caption {
-  border-color: #A5D6A7;
-  color: #1B5E20;
+  border-color: #D6B792;
+  color: #5C3618;
 }
 
 .geo-pin-checkin-circle.pin-already-checked-circle {
