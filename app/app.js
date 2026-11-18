@@ -2035,6 +2035,12 @@ document.addEventListener("DOMContentLoaded", () => {
 function switchTab(targetTab) {
   if (!targetTab) return;
 
+  // Guard: Cổng Nhập Liệu & CMS chỉ dành cho Quản Lý (Manager/Admin)
+  if (targetTab === "tab-input-portal" && !isManager()) {
+    showToast(t('role_denied_toast'));
+    targetTab = "tab-map";
+  }
+
   // Sync active classes on both Desktop sidebar (.nav-item) and Mobile bottom bar (.mobile-nav-item)
   document.querySelectorAll(".nav-item, .mobile-nav-item").forEach(item => {
     if (item.getAttribute("data-tab") === targetTab) {
@@ -2322,6 +2328,15 @@ function updateRoleUI() {
         </div>
       `;
     }
+  }
+
+  // 4a. Ẩn/Hiện mục Cổng Nhập Liệu & CMS (cả thanh Desktop và thanh đáy Mobile) nếu không phải Manager/Admin
+  document.querySelectorAll('[data-tab="tab-input-portal"]').forEach(el => {
+    el.style.display = isMgr ? "" : "none";
+  });
+  const cmsTabPane = document.getElementById("tab-input-portal");
+  if (!isMgr && cmsTabPane && cmsTabPane.classList.contains("active")) {
+    switchTab("tab-map");
   }
 
   // 4b. Manager-Only Radar Distance Tuner Card inside CMS Portal
