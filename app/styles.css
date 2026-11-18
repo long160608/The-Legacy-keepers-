@@ -613,12 +613,12 @@ body {
   width: 28px;
   height: 28px;
   transform: translateX(-50%);
-  background: radial-gradient(circle at 50% 100%, rgba(37, 99, 235, 0.55) 0%, rgba(59, 130, 246, 0.18) 55%, transparent 78%);
+  background: radial-gradient(circle at 50% 100%, rgba(110, 62, 29, 0.44) 0%, rgba(154, 102, 54, 0.16) 55%, transparent 78%);
   clip-path: polygon(50% 100%, 8% 0%, 92% 0%);
   filter: blur(0.4px);
 }
 
-/* Crisp directional triangle pointer right outside the white ring */
+/* Crisp directional triangle pointer right outside the ivory ring */
 .player-heading-cone::after {
   content: "";
   position: absolute;
@@ -629,34 +629,34 @@ body {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 7px solid #2563EB;
-  filter: drop-shadow(0 1px 2px rgba(15, 23, 42, 0.35));
+  border-bottom: 7px solid #54331B;
+  filter: drop-shadow(0 1px 2px rgba(51, 26, 11, 0.35));
 }
 
-/* Subtle breathing sapphire aura */
+/* Subtle breathing warm bronze aura */
 .player-beacon-halo {
   position: absolute;
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: rgba(37, 99, 235, 0.26);
+  background: rgba(138, 86, 46, 0.25);
   animation: player-beacon-breathe 2.2s ease-in-out infinite;
   pointer-events: none;
 }
 
-/* Crisp Sapphire Core Orb with Pure White Rim */
+/* Warm Heritage Espresso-Brown Core Orb with Ivory Rim */
 .player-core-dot {
   position: relative;
   z-index: 10;
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #60A5FA 0%, #2563EB 55%, #1D4ED8 100%);
-  border: 3px solid #FFFFFF;
+  background: radial-gradient(circle at 35% 30%, #9E6337 0%, #633719 56%, #3A1E0C 100%);
+  border: 3px solid #FFFDF8;
   box-shadow:
-    0 0 0 1.5px rgba(37, 99, 235, 0.45),
-    0 3px 10px rgba(29, 78, 216, 0.5),
-    0 1px 3px rgba(15, 23, 42, 0.35);
+    0 0 0 1.5px rgba(84, 51, 27, 0.48),
+    0 3px 10px rgba(58, 30, 12, 0.42),
+    0 1px 3px rgba(51, 26, 11, 0.32);
   pointer-events: none;
 }
 
