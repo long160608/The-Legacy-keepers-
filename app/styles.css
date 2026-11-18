@@ -5574,44 +5574,101 @@ body.simulator-mode .figures-detail-pane {
   }
 }
 
-/* Mobile Phone & Phone Simulator Mode */
-@container section-banner (max-width: 420px) {
+/* Mobile Phone & Phone Simulator Mode — Centered Heritage Pagoda Stage */
+@container section-banner (max-width: 440px) {
   .header-corner-ornament {
+    top: 5px;
+    left: 5px;
     transform: scale(0.75);
     transform-origin: top left;
+    opacity: 0.88;
   }
   .header-banner-text {
-    max-width: calc(100% - 136px);
-    padding-left: 8px;
+    width: 100%;
+    max-width: 100%;
+    padding: 4px 16px 66px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .header-banner-text .section-title {
-    font-size: 1.0rem !important;
+    font-size: 1.08rem !important;
     line-height: 1.25 !important;
-  }
-  .header-banner-text .section-desc {
-    font-size: 0.72rem !important;
-    line-height: 1.32 !important;
+    letter-spacing: -0.25px;
+    text-align: center;
   }
   .header-title-divider {
-    width: 32px;
+    width: 60px;
     height: 2.5px;
-    margin: 4px 0;
+    margin: 7px auto 7px auto;
+    background: linear-gradient(90deg, transparent 0%, #D4A46A 22%, #B57636 50%, #D4A46A 78%, transparent 100%);
+    border-radius: 999px;
+  }
+  .header-banner-text .section-desc {
+    font-size: 0.76rem !important;
+    line-height: 1.38 !important;
+    max-width: 292px;
+    margin: 0 auto;
+    text-align: center;
+    color: #6B503B !important;
   }
   .header-banner-artwork-wrap {
-    width: 132px;
-    max-width: 38%;
-    opacity: 0.95;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    opacity: 1;
+  }
+  /* Warm golden sunrise aura cradling the centered temple gate */
+  .header-banner-artwork-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 72% 54% at 50% 100%, rgba(226, 179, 108, 0.34) 0%, rgba(242, 215, 175, 0.14) 52%, transparent 78%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  /* Symmetrical Top-Right Oriental Corner Ornament */
+  .header-banner-artwork-wrap::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 33px;
+    height: 33px;
+    background-image: url("data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 42V14C3 7.92487 7.92487 3 14 3H42' stroke='%23CEA884' stroke-width='2'/%3E%3Cpath d='M9 42V16C9 12.134 12.134 9 16 9H42' stroke='%23DDBE9B' stroke-width='1.2'/%3E%3Crect x='6' y='6' width='6' height='6' fill='%23CEA884' opacity='0.7'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: scaleX(-1);
+    opacity: 0.88;
+    pointer-events: none;
+    z-index: 1;
   }
   .section-header-clouds {
-    right: -8px;
-    height: 44px;
-    opacity: 0.58;
+    left: 50%;
+    right: auto;
+    bottom: -2px;
+    height: 82px;
+    width: auto;
+    max-width: none;
+    transform: translateX(-61%);
+    opacity: 0.78;
+    z-index: 1;
   }
   .header-banner-artwork-wrap .section-header-artwork {
-    height: 45px;
-    max-width: 122px;
-    bottom: -3px;
-    right: 6px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    height: 66px;
+    max-width: 88%;
+    width: auto;
+    bottom: -5px;
+    opacity: 0.98;
+    z-index: 2;
+    filter: drop-shadow(0 2px 6px rgba(84, 51, 27, 0.1));
   }
 }
 
