@@ -82,7 +82,7 @@ const TRANSLATIONS = {
     stat_km: "Km đã thám hiểm",
     recent_logs: "Nhật Ký Hành Trình Gần Đây",
     map_radar_pos_lbl: "Vị trí Radar:",
-    map_nearest_pin_lbl: "Pin gần nhất (chưa quét):",
+    map_nearest_pin_lbl: "Pin gần nhất (chưa check-in):",
     role_btn_change: "Đổi ➜",
     // CMS
     cms_title: "Cổng Nhập Liệu Thủ Công (Game CMS)",
@@ -564,7 +564,7 @@ const TRANSLATIONS = {
     stat_km: "Km Explored",
     recent_logs: "Recent Journey Logs",
     map_radar_pos_lbl: "Radar Position:",
-    map_nearest_pin_lbl: "Nearest Pin (unscanned):",
+    map_nearest_pin_lbl: "Nearest Pin (not checked in):",
     role_btn_change: "Switch ➜",
     // CMS
     cms_title: "Manual Data Input Portal (CMS)",
@@ -2778,7 +2778,7 @@ const PLAYER_DISCOVERY_SCAN_RADIUS = 600;     // 600m: Vòng quét xoay phát hi
 const PLAYER_INTERACTION_REACH_RADIUS = 60;   // 60m: Vòng cố định bên trong = phạm vi đi vô để check-in/quét
 
 /**
- * Tính hướng la bàn (8 hướng) từ tọa độ người chơi tới địa danh
+ * Tính hướng (8 hướng chính) từ tọa độ người chơi tới địa danh
  */
 function getCompassDirection(lat1, lng1, lat2, lng2) {
   const dLng = (lng2 - lng1) * Math.PI / 180;
@@ -2787,14 +2787,14 @@ function getCompassDirection(lat1, lng1, lat2, lng2) {
   const y = Math.sin(dLng) * Math.cos(rLat2);
   const x = Math.cos(rLat1) * Math.sin(rLat2) - Math.sin(rLat1) * Math.cos(rLat2) * Math.cos(dLng);
   const bearing = ((Math.atan2(y, x) * 180 / Math.PI) + 360) % 360;
-  const dirsVi = ['B', 'ĐB', 'Đ', 'ĐN', 'N', 'TN', 'T', 'TB'];
-  const dirsEn = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  const dirsVi = ['Bắc', 'Đông Bắc', 'Đông', 'Đông Nam', 'Nam', 'Tây Nam', 'Tây', 'Tây Bắc'];
+  const dirsEn = ['North', 'Northeast', 'East', 'Southeast', 'South', 'Southwest', 'West', 'Northwest'];
   const idx = Math.round(bearing / 45) % 8;
   return currentLang === 'en' ? dirsEn[idx] : dirsVi[idx];
 }
 
 /**
- * Cập nhật hiển thị vị trí Pin gần nhất (chưa quét / chưa check-in) trên thanh Radar đáy bản đồ
+ * Cập nhật hiển thị khoảng cách & hướng tới Pin gần nhất chưa check-in trên thanh đáy bản đồ
  */
 function updateNearestUnscannedPinDisplay() {
   const displayEl = document.getElementById("nearest-unscanned-pin-display");
@@ -2807,16 +2807,16 @@ function updateNearestUnscannedPinDisplay() {
   }
 
   const checkedInIds = Array.isArray(appState.profile?.checked_in_pins) ? appState.profile.checked_in_pins : [];
-  const unscannedPins = pins.filter(p => !checkedInIds.includes(p.id));
+  const uncheckedPins = pins.filter(p => !checkedInIds.includes(p.id));
 
-  if (unscannedPins.length === 0) {
-    displayEl.innerText = currentLang === 'en' ? '✓ All landmarks scanned!' : '✓ Đã quét hết tất cả di tích!';
+  if (uncheckedPins.length === 0) {
+    displayEl.innerText = currentLang === 'en' ? '✓ All places checked in!' : '✓ Đã check-in hết tất cả!';
     return;
   }
 
   let nearest = null;
   let minDist = Infinity;
-  unscannedPins.forEach(pin => {
+  uncheckedPins.forEach(pin => {
     const d = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
     if (d < minDist) {
       minDist = d;
@@ -2828,14 +2828,10 @@ function updateNearestUnscannedPinDisplay() {
 
   const distLabel = minDist >= 1000 ? `${(minDist / 1000).toFixed(1)} km` : `${minDist} m`;
   const dirLabel = getCompassDirection(userCoords[0], userCoords[1], nearest.lat, nearest.lng);
-  const coordsLabel = `${nearest.lat.toFixed(4)}, ${nearest.lng.toFixed(4)}`;
-  const discoveredIds = Array.isArray(appState.profile?.discovered_pins) ? appState.profile.discovered_pins : [];
-  const isKnown = isManager() || discoveredIds.includes(nearest.id) || minDist <= (nearest.discovery_radius || PLAYER_DISCOVERY_SCAN_RADIUS);
-  const pinLabel = isKnown
-    ? (currentLang === 'en' ? (nearest.name_en || nearest.name) : nearest.name)
-    : (currentLang === 'en' ? 'Undiscovered Site' : 'Di tích chưa lộ diện');
 
-  displayEl.innerText = `${pinLabel} • ${distLabel} (${dirLabel}) • ${coordsLabel}`;
+  displayEl.innerText = currentLang === 'en'
+    ? `${distLabel} • ${dirLabel}`
+    : `${distLabel} • Hướng ${dirLabel}`;
 }
 
 /**
