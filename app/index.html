@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Local Leaflet fallback + CDN -->
   <link rel="stylesheet" href="vendor/leaflet.css" />
-  <link rel="stylesheet" href="styles.css?v=20261118_2">
+  <link rel="stylesheet" href="styles.css?v=20261118_3">
 </head>
 <body>
   <!-- Desktop Simulator Control Bar (Active when in Simulator Mode) -->
@@ -139,6 +139,61 @@
 
         <!-- Bản đồ Leaflet -->
         <div id="map"></div>
+
+        <!-- Collapsible Radar Distance Tuner (Top-Right Floating Control) -->
+        <div class="radar-tuner-wrap" id="radar-tuner-wrap">
+          <button type="button" class="radar-tuner-toggle" id="btn-radar-tuner" onclick="toggleRadarTuner()" data-i18n-title="radar_tuner_tooltip" title="Tùy chỉnh khoảng cách vòng quét Radar">
+            <span>🎚️</span>
+            <span data-i18n="radar_tuner_btn">Chỉnh Radar</span>
+          </button>
+
+          <div class="radar-tuner-panel" id="radar-tuner-panel">
+            <div class="radar-tuner-header">
+              <span class="radar-tuner-title" data-i18n="radar_tuner_title">🎚️ Chỉnh Khoảng Cách Radar</span>
+              <button type="button" class="radar-tuner-close" onclick="toggleRadarTuner(false)" aria-label="Close">✕</button>
+            </div>
+
+            <!-- 1. Discovery Radar Sweep Distance -->
+            <div class="radar-tuner-group">
+              <div class="radar-tuner-label-row">
+                <span class="radar-dot-legend discovery"></span>
+                <span data-i18n="radar_discovery_lbl">Vòng quét hiện Pin</span>
+                <strong class="radar-tuner-val" id="radar-discovery-val">600 m</strong>
+              </div>
+              <input type="range" id="slider-radar-discovery" class="radar-slider discovery-slider" min="100" max="3000" step="50" value="600" oninput="onRadarSliderChange('discovery', this.value)">
+              <div class="radar-presets-row">
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('discovery', 200)">200m</button>
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('discovery', 500)">500m</button>
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('discovery', 800)">800m</button>
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('discovery', 1200)">1.2km</button>
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('discovery', 2000)">2km</button>
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('discovery', 3000)">3km</button>
+              </div>
+            </div>
+
+            <!-- 2. Inner Fixed Check-in Reach Distance -->
+            <div class="radar-tuner-group">
+              <div class="radar-tuner-label-row">
+                <span class="radar-dot-legend interaction"></span>
+                <span data-i18n="radar_interaction_lbl">Vòng cố định Check-in</span>
+                <strong class="radar-tuner-val interaction-val" id="radar-interaction-val">60 m</strong>
+              </div>
+              <input type="range" id="slider-radar-interaction" class="radar-slider interaction-slider" min="20" max="300" step="10" value="60" oninput="onRadarSliderChange('interaction', this.value)">
+              <div class="radar-presets-row">
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('interaction', 30)">30m</button>
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('interaction', 60)">60m</button>
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('interaction', 100)">100m</button>
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('interaction', 150)">150m</button>
+                <button type="button" class="radar-preset-chip" onclick="setRadarPreset('interaction', 250)">250m</button>
+              </div>
+            </div>
+
+            <div class="radar-tuner-footer">
+              <span class="radar-tuner-live-count" id="radar-tuner-live-count">Đang thấy: 4 / 6 pin</span>
+              <button type="button" class="radar-reset-btn" onclick="resetRadarTuning()" data-i18n="radar_tuner_reset">↺ Mặc định</button>
+            </div>
+          </div>
+        </div>
 
         <!-- Radar Position & Nearest Unscanned Pin Bar -->
         <div class="map-bottom-controls">
@@ -1249,7 +1304,7 @@
 
   <!-- Scripts (Local Leaflet for instant offline loading) -->
   <script src="vendor/leaflet.js"></script>
-  <script src="app.js?v=20261118_2"></script>
+  <script src="app.js?v=20261118_3"></script>
 
   <!-- ==================== ROLE SWITCHER MODAL ==================== -->
   <div class="modal-overlay" id="role-modal">

@@ -84,6 +84,12 @@ const TRANSLATIONS = {
     map_radar_pos_lbl: "Vị trí Radar:",
     map_nearest_pin_lbl: "Pin gần nhất (chưa check-in):",
     role_btn_change: "Đổi ➜",
+    radar_tuner_btn: "Chỉnh Radar",
+    radar_tuner_tooltip: "Tùy chỉnh khoảng cách vòng quét Radar",
+    radar_tuner_title: "🎚️ Chỉnh Khoảng Cách Radar",
+    radar_discovery_lbl: "Vòng quét hiện Pin",
+    radar_interaction_lbl: "Vòng cố định Check-in",
+    radar_tuner_reset: "↺ Mặc định",
     // CMS
     cms_title: "Cổng Nhập Liệu Thủ Công (Game CMS)",
     cms_desc: "Bạn có thể tự tay tạo mới Ghim bản đồ, Danh nhân, Giai thoại lịch sử hoặc Huy hiệu. Dữ liệu sẽ lưu ngay vào ứng dụng và đồng bộ lên Cogover!",
@@ -566,6 +572,12 @@ const TRANSLATIONS = {
     map_radar_pos_lbl: "Radar Position:",
     map_nearest_pin_lbl: "Nearest Pin (not checked in):",
     role_btn_change: "Switch ➜",
+    radar_tuner_btn: "Tune Radar",
+    radar_tuner_tooltip: "Adjust Radar scan & check-in distances",
+    radar_tuner_title: "🎚️ Radar Distance Tuner",
+    radar_discovery_lbl: "Discovery Scan Ring",
+    radar_interaction_lbl: "Fixed Check-in Ring",
+    radar_tuner_reset: "↺ Default",
     // CMS
     cms_title: "Manual Data Input Portal (CMS)",
     cms_desc: "Add custom Radar Pins, Historical Heroes, Lore Tales, or Badges. Data is instantly saved and synchronized!",
@@ -2774,8 +2786,153 @@ const RARITY_SPECS = {
   }
 };
 
-const PLAYER_DISCOVERY_SCAN_RADIUS = 600;     // 600m: Vòng quét xoay phát hiện di tích mới
-const PLAYER_INTERACTION_REACH_RADIUS = 60;   // 60m: Vòng cố định bên trong = phạm vi đi vô để check-in/quét
+const DEFAULT_PLAYER_DISCOVERY_RADIUS = 600;   // 600m: Mặc định vòng quét xoay phát hiện di tích
+const DEFAULT_PLAYER_INTERACTION_RADIUS = 60;  // 60m: Mặc định vòng cố định bên trong (phạm vi check-in)
+
+const RADAR_TUNING_STORAGE_KEY = "legacy_keepers_radar_tuning_v1";
+let radarTuning = {
+  discoveryRadius: DEFAULT_PLAYER_DISCOVERY_RADIUS,
+  interactionRadius: DEFAULT_PLAYER_INTERACTION_RADIUS,
+  useCustomOverride: false
+};
+
+function loadRadarTuning() {
+  try {
+    const raw = localStorage.getItem(RADAR_TUNING_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed.discoveryRadius === 'number' && typeof parsed.interactionRadius === 'number') {
+        radarTuning.discoveryRadius = Math.min(3000, Math.max(100, parsed.discoveryRadius));
+        radarTuning.interactionRadius = Math.min(300, Math.max(20, parsed.interactionRadius));
+        radarTuning.useCustomOverride = !!parsed.useCustomOverride;
+      }
+    }
+  } catch (e) {}
+}
+
+function saveRadarTuning() {
+  try {
+    localStorage.setItem(RADAR_TUNING_STORAGE_KEY, JSON.stringify(radarTuning));
+  } catch (e) {}
+}
+
+function formatMetersLabel(m) {
+  return m >= 1000 ? `${(m / 1000).toFixed(m % 1000 === 0 ? 0 : 1)} km` : `${m} m`;
+}
+
+function getEffectiveDiscoveryRadius(pin) {
+  if (radarTuning.useCustomOverride) {
+    return radarTuning.discoveryRadius;
+  }
+  const spec = RARITY_SPECS[pin?.rarity] || RARITY_SPECS.common;
+  return pin?.discovery_radius || spec.discoveryRadius || DEFAULT_PLAYER_DISCOVERY_RADIUS;
+}
+
+function getEffectiveInteractionRadius(pin) {
+  if (radarTuning.useCustomOverride) {
+    return radarTuning.interactionRadius;
+  }
+  const spec = RARITY_SPECS[pin?.rarity] || RARITY_SPECS.common;
+  return pin?.interaction_radius || spec.interactionRadius || DEFAULT_PLAYER_INTERACTION_RADIUS;
+}
+
+function syncRadarTunerUI(visibleCount = null) {
+  const discSlider = document.getElementById("slider-radar-discovery");
+  const discVal = document.getElementById("radar-discovery-val");
+  const interSlider = document.getElementById("slider-radar-interaction");
+  const interVal = document.getElementById("radar-interaction-val");
+  const liveCountEl = document.getElementById("radar-tuner-live-count");
+
+  if (discSlider) discSlider.value = radarTuning.discoveryRadius;
+  if (discVal) discVal.innerText = formatMetersLabel(radarTuning.discoveryRadius);
+  if (interSlider) interSlider.value = radarTuning.interactionRadius;
+  if (interVal) interVal.innerText = formatMetersLabel(radarTuning.interactionRadius);
+
+  if (liveCountEl) {
+    const total = (appState.pins || []).length;
+    const shown = visibleCount !== null ? visibleCount : activePinMarkers.length;
+    liveCountEl.innerText = currentLang === 'en'
+      ? `Visible: ${shown} / ${total} pins`
+      : `Đang thấy: ${shown} / ${total} pin`;
+  }
+}
+
+function toggleRadarTuner(forceState) {
+  const panel = document.getElementById("radar-tuner-panel");
+  const btn = document.getElementById("btn-radar-tuner");
+  if (!panel) return;
+  const shouldOpen = typeof forceState === 'boolean' ? forceState : !panel.classList.contains("open");
+  panel.classList.toggle("open", shouldOpen);
+  if (btn) btn.classList.toggle("active", shouldOpen);
+  if (shouldOpen) syncRadarTunerUI();
+}
+
+function onRadarSliderChange(type, rawVal) {
+  const val = parseInt(rawVal, 10);
+  if (isNaN(val)) return;
+
+  if (type === 'discovery') {
+    radarTuning.discoveryRadius = Math.min(3000, Math.max(100, val));
+    if (radarTuning.interactionRadius > radarTuning.discoveryRadius) {
+      radarTuning.interactionRadius = Math.max(20, Math.min(300, radarTuning.discoveryRadius));
+    }
+    // Khi kéo thanh thử khoảng cách phát hiện: quét lại trực tiếp để thấy ngay pin ẩn/hiện theo mức mới
+    if (appState.profile) {
+      appState.profile.discovered_pins = [...(appState.profile.checked_in_pins || [])];
+    }
+  } else if (type === 'interaction') {
+    radarTuning.interactionRadius = Math.min(300, Math.max(20, val));
+  }
+
+  radarTuning.useCustomOverride = true;
+  saveRadarTuning();
+  syncRadarTunerUI();
+  updatePlayerRadarMarker();
+  renderPinsOnMap();
+}
+
+function setRadarPreset(type, val) {
+  onRadarSliderChange(type, val);
+}
+
+function resetRadarTuning() {
+  radarTuning = {
+    discoveryRadius: DEFAULT_PLAYER_DISCOVERY_RADIUS,
+    interactionRadius: DEFAULT_PLAYER_INTERACTION_RADIUS,
+    useCustomOverride: false
+  };
+  saveRadarTuning();
+  if (appState.profile) {
+    appState.profile.discovered_pins = [...(appState.profile.checked_in_pins || [])];
+    saveState();
+  }
+  syncRadarTunerUI();
+  updatePlayerRadarMarker();
+  renderPinsOnMap();
+  showToast(currentLang === 'en'
+    ? '↺ Radar distances reset to default (600m / 60m)'
+    : '↺ Đã đặt lại khoảng cách Radar về mặc định (600m / 60m)');
+}
+
+loadRadarTuning();
+
+/**
+ * Tạo 36 vạch chia độ la bàn đồng cổ (SVG ticks) siêu sắc nét cho mặt Radar
+ */
+function buildRadarCompassTicksSVG() {
+  let ticks = '';
+  for (let i = 0; i < 36; i++) {
+    const angle = i * 10;
+    const isCardinal = angle % 90 === 0;
+    const isOctant = angle % 45 === 0 && !isCardinal;
+    const y2 = isCardinal ? 16 : (isOctant ? 12 : 9);
+    const strokeW = isCardinal ? 2 : (isOctant ? 1.4 : 0.9);
+    const opacity = isCardinal ? 0.78 : (isOctant ? 0.52 : 0.3);
+    ticks += `<line x1="200" y1="4" x2="200" y2="${y2}" stroke="#B8822E" stroke-width="${strokeW}" stroke-opacity="${opacity}" transform="rotate(${angle} 200 200)" />`;
+  }
+  return ticks;
+}
+const RADAR_COMPASS_TICKS_SVG = buildRadarCompassTicksSVG();
 
 /**
  * Tính hướng (8 hướng chính) từ tọa độ người chơi tới địa danh
@@ -2835,64 +2992,99 @@ function updateNearestUnscannedPinDisplay() {
 }
 
 /**
- * Cập nhật vị trí người chơi với 2 vòng địa lý chuẩn tỷ lệ:
- * - Vòng ngoài xoay 360° (Discovery Radar Sweep): Quét phát hiện pin xung quanh (600m)
- * - Vòng cố định bên trong (Interaction Reach): Phạm vi đi vô để quét / check-in (60m)
+ * Cập nhật vị trí người chơi với SVG Heritage Radar mượt mà, chuẩn tỷ lệ địa lý:
+ * - Vòng ngoài xoay 360° + 2 lớp sóng sonar: Quét phát hiện pin (chỉnh tay 100m - 3000m)
+ * - Vòng cố định bên trong màu ngọc lục bảo: Phạm vi đi vào để check-in (chỉnh tay 20m - 300m)
  */
 function updatePlayerRadarMarker() {
   if (!map) return;
   if (playerRadarMarker) {
     map.removeLayer(playerRadarMarker);
+    playerRadarMarker = null;
   }
   if (playerAccuracyCircle) {
     map.removeLayer(playerAccuracyCircle);
+    playerAccuracyCircle = null;
   }
   if (playerDiscoveryCircle) {
     map.removeLayer(playerDiscoveryCircle);
+    playerDiscoveryCircle = null;
   }
 
-  // 1. VÒNG NGOÀI (DISCOVERY RADAR RIM) - Chuẩn tỷ lệ mét địa lý thực (600m)
-  playerDiscoveryCircle = L.circle(userCoords, {
-    radius: PLAYER_DISCOVERY_SCAN_RADIUS,
-    color: '#C8923A',
-    weight: 1.5,
-    dashArray: '8, 6',
-    fillColor: '#FBD071',
-    fillOpacity: 0.035,
-    interactive: false
-  }).addTo(map);
+  const discoveryMeters = radarTuning.discoveryRadius;
+  const reachMeters = radarTuning.interactionRadius;
 
-  // 2. VÒNG CỐ ĐỊNH BÊN TRONG (PHẠM VI ĐI VÔ ĐỂ QUÉT / CHECK-IN) - Chuẩn tỷ lệ mét (60m)
-  playerAccuracyCircle = L.circle(userCoords, {
-    radius: PLAYER_INTERACTION_REACH_RADIUS,
-    color: '#2E7D32',
-    fillColor: '#81C784',
-    fillOpacity: 0.16,
-    weight: 2,
-    dashArray: '4, 4',
-    interactive: false
-  }).addTo(map);
+  const discoveryPx = getPixelRadius(userCoords[0], userCoords[1], discoveryMeters);
+  const reachPx = getPixelRadius(userCoords[0], userCoords[1], reachMeters);
 
-  // 3. VÒNG QUÉT XOAY 360° & SÓNG PHÁT HIỆN đồng bộ theo mức zoom hiện tại
-  const discoveryPx = getPixelRadius(userCoords[0], userCoords[1], PLAYER_DISCOVERY_SCAN_RADIUS);
-  const reachPx = getPixelRadius(userCoords[0], userCoords[1], PLAYER_INTERACTION_REACH_RADIUS);
-  const sweepDiameter = Math.min(Math.max(discoveryPx * 2, 92), 820);
-  const reachDiameter = Math.min(Math.max(reachPx * 2, 26), Math.round(sweepDiameter * 0.45));
+  // Giữ kích thước SVG mượt 60fps; nếu zoom cực sát (>1100px) thì vẽ thêm viền địa lý Leaflet chuẩn xác
+  const rawDiameter = discoveryPx * 2;
+  const isClampedLarge = rawDiameter > 1100;
+  const sweepDiameter = Math.min(Math.max(rawDiameter, 96), 1100);
+  const reachDiameter = Math.min(Math.max(reachPx * 2, 22), Math.max(24, sweepDiameter - 12));
   const halfSweep = Math.round(sweepDiameter / 2);
+
+  if (isClampedLarge) {
+    playerDiscoveryCircle = L.circle(userCoords, {
+      radius: discoveryMeters,
+      color: '#C89138',
+      weight: 1.5,
+      dashArray: '6, 6',
+      fillOpacity: 0,
+      interactive: false
+    }).addTo(map);
+  }
 
   const radarIcon = L.divIcon({
     className: 'player-radar-leaflet-icon',
     html: `
       <div class="player-radar-container" style="--radar-diameter: ${sweepDiameter}px; --reach-diameter: ${reachDiameter}px;">
-        <!-- Vòng lưới hiệu chuẩn đồng tâm -->
-        <div class="radar-grid-rings"></div>
-        <!-- Sóng lan tỏa quét phát hiện di tích -->
-        <div class="radar-sweep-wave"></div>
-        <!-- Vệt quét radar xoay 360 độ làm hiện di tích -->
-        <div class="radar-scan-beam"></div>
-        <!-- Vòng cố định bên trong (phạm vi đi vô để quét) -->
-        <div class="radar-inner-reach-ring"></div>
-        <!-- Tâm người chơi -->
+        <!-- 2 lớp sóng Sonar lan tỏa mềm mại (Pokémon GO / MH Now style) -->
+        <div class="radar-sonar-wave"></div>
+        <div class="radar-sonar-wave wave-delay"></div>
+
+        <!-- Mặt Radar La Bàn SVG Sắc Nét + Tia Quét Xoay 360° -->
+        <svg class="player-radar-svg" viewBox="0 0 400 400" aria-hidden="true">
+          <defs>
+            <radialGradient id="radarBgGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FBD071" stop-opacity="0.10" />
+              <stop offset="68%" stop-color="#E8B24B" stop-opacity="0.04" />
+              <stop offset="100%" stop-color="#C89138" stop-opacity="0.09" />
+            </radialGradient>
+            <linearGradient id="radarSweepFill" x1="200" y1="200" x2="355" y2="95" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#E5A83B" stop-opacity="0.34" />
+              <stop offset="55%" stop-color="#F5CA6D" stop-opacity="0.14" />
+              <stop offset="100%" stop-color="#FBD071" stop-opacity="0.0" />
+            </linearGradient>
+            <linearGradient id="radarRayGrad" x1="200" y1="200" x2="200" y2="4" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FBD071" stop-opacity="0.2" />
+              <stop offset="70%" stop-color="#D99B30" stop-opacity="0.85" />
+              <stop offset="100%" stop-color="#FFF2CC" stop-opacity="1" />
+            </linearGradient>
+          </defs>
+
+          <!-- Nền ánh vàng siêu mỏng giúp đọc rõ tên đường bên dưới -->
+          <circle cx="200" cy="200" r="196" fill="url(#radarBgGlow)" />
+
+          <!-- Vòng viền ngoài sắc nét + vòng chia 50% tinh tế -->
+          <circle class="radar-outer-rim" cx="200" cy="200" r="196" fill="none" stroke="#C89138" stroke-width="1.6" stroke-opacity="0.72" />
+          <circle cx="200" cy="200" r="100" fill="none" stroke="#B8822E" stroke-width="0.9" stroke-opacity="0.22" stroke-dasharray="3 5" />
+
+          <!-- 36 vạch chia độ la bàn đồng cổ -->
+          <g>${RADAR_COMPASS_TICKS_SVG}</g>
+
+          <!-- Chùm tia quét xoay 360° mượt mà -->
+          <g class="radar-svg-beam-group">
+            <path d="M200,200 L200,4 A196,196 0 0,1 384,132 Z" fill="url(#radarSweepFill)" />
+            <line x1="200" y1="200" x2="200" y2="4" stroke="url(#radarRayGrad)" stroke-width="2.2" stroke-linecap="round" />
+            <circle cx="200" cy="5" r="3.2" fill="#FFF3CF" stroke="#D99B30" stroke-width="1.2" />
+          </g>
+        </svg>
+
+        <!-- Vòng cố định bên trong: Phạm vi đi vô để Check-in -->
+        <div class="radar-fixed-reach-halo"></div>
+
+        <!-- Viên ngọc tâm định vị người chơi -->
         <div class="player-core-dot"></div>
       </div>
     `,
@@ -2900,7 +3092,7 @@ function updatePlayerRadarMarker() {
     iconAnchor: [halfSweep, halfSweep]
   });
 
-  // interactive: false để vòng radar lớn KHÔNG bao giờ chắn thao tác bấm vào các Pin bên trong!
+  // interactive: false để vòng radar KHÔNG bao giờ chắn thao tác bấm vào các Pin bên trong!
   playerRadarMarker = L.marker(userCoords, {
     icon: radarIcon,
     interactive: false,
@@ -2912,6 +3104,7 @@ function updatePlayerRadarMarker() {
     gpsCoordsDisplay.innerText = `${userCoords[0].toFixed(4)}, ${userCoords[1].toFixed(4)}`;
   }
 
+  syncRadarTunerUI();
   updateNearestUnscannedPinDisplay();
 }
 
@@ -2966,8 +3159,7 @@ function isPinVisibleForRole(pin, distToPin, isCheckedIn) {
   }
 
   // 4. Nếu chưa từng phát hiện: Kiểm tra khoảng cách hiện tại có nằm trong bán kính phát hiện (discovery_radius) không
-  const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
-  const discoveryRadius = pin.discovery_radius || spec.discoveryRadius || 5000;
+  const discoveryRadius = getEffectiveDiscoveryRadius(pin);
 
   if (distToPin <= discoveryRadius) {
     // Vừa phát hiện pin mới trên radar! Ghi nhận vào danh sách đã phát hiện
@@ -2997,7 +3189,7 @@ function renderPinsOnMap(filter = "all") {
 
   filtered.forEach(pin => {
     const spec = RARITY_SPECS[pin.rarity] || RARITY_SPECS.common;
-    const interactionRadius = pin.interaction_radius || spec.interactionRadius;
+    const interactionRadius = getEffectiveInteractionRadius(pin);
 
     // Khoảng cách thực tế từ người chơi đến Pin
     const distToPin = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
@@ -3081,8 +3273,9 @@ function renderPinsOnMap(filter = "all") {
     countAll.innerText = isManager() ? appState.pins.length : visibleCount;
   }
 
-  // Cập nhật hiển thị Pin gần nhất chưa quét
+  // Cập nhật hiển thị Pin gần nhất chưa quét & bộ đếm live trong bảng chỉnh Radar
   updateNearestUnscannedPinDisplay();
+  syncRadarTunerUI(visibleCount);
 
   // Cập nhật badge trạng thái vai trò & pin trên thanh điều khiển map
   const mapRoleStatus = document.getElementById("map-role-status-text");
@@ -3128,7 +3321,7 @@ function openLocationModal(pin) {
   document.getElementById("modal-title").innerText = `${pin.icon || '📍'} ${displayName}`;
   document.getElementById("modal-desc").innerText = displayDesc;
   document.getElementById("modal-distance").innerText = `${t('modal_dist_prefix')}${distText}`;
-  document.getElementById("modal-checkin-radius").innerText = `${pin.interaction_radius || 50} ${t('modal_checkin_radius_unit')}`;
+  document.getElementById("modal-checkin-radius").innerText = `${getEffectiveInteractionRadius(pin)} ${t('modal_checkin_radius_unit')}`;
   
   // Rarity Tag Styling
   const rarityMap = {
@@ -3230,7 +3423,7 @@ function openLocationModal(pin) {
   const btn = document.getElementById("btn-modal-checkin");
   const label = document.getElementById("btn-checkin-label");
   const iconEl = document.getElementById("btn-checkin-icon");
-  const canCheckIn = dist <= (pin.interaction_radius || 50);
+  const canCheckIn = dist <= getEffectiveInteractionRadius(pin);
 
   if (isAlreadyCheckedIn) {
     if (checkedBanner) {
@@ -3296,7 +3489,7 @@ function performCheckIn() {
 
   // 2. Chống hack khoảng cách (phải nằm trong bán kính interaction_radius + 5m đệm sai số GPS)
   const dist = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
-  const maxReach = (pin.interaction_radius || 50) + 5;
+  const maxReach = getEffectiveInteractionRadius(pin) + 5;
   if (dist > maxReach) {
     showToast(t('modal_toast_out_of_range'));
     return;

@@ -514,7 +514,7 @@ body {
 }
 
 /* ==========================================================================
-   RADAR ANIMATIONS: OUTER DISCOVERY SWEEP + INNER FIXED SCAN REACH
+   PREMIUM SVG HERITAGE RADAR ANIMATION (POKEMON GO / MH NOW INSPIRED)
    ========================================================================== */
 
 .player-radar-leaflet-icon {
@@ -522,123 +522,350 @@ body {
   overflow: visible !important;
 }
 
-/* Outer Radar Container scaled dynamically to true geographic discovery radius */
 .player-radar-container {
   position: relative;
-  width: var(--radar-diameter, 180px);
-  height: var(--radar-diameter, 180px);
+  width: var(--radar-diameter, 220px);
+  height: var(--radar-diameter, 220px);
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  will-change: transform;
 }
 
-/* Subtle Concentric Calibration Grid Rings inside Discovery Radar */
-.radar-grid-rings {
+/* Precision SVG Dial Layer */
+.player-radar-svg {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  border: 1.5px solid rgba(200, 146, 58, 0.35);
-  box-shadow: inset 0 0 24px rgba(251, 208, 113, 0.14);
+  width: 100%;
+  height: 100%;
+  overflow: visible;
   pointer-events: none;
 }
 
-.radar-grid-rings::before,
-.radar-grid-rings::after {
-  content: "";
+/* GPU-accelerated 360-degree rotating luminous sweep beam */
+.radar-svg-beam-group {
+  transform-origin: 200px 200px;
+  animation: radar-beam-rotate 4.8s linear infinite;
+  will-change: transform;
+}
+
+/* Slow ambient decorative outer compass ring subtle breath */
+.radar-outer-rim {
+  filter: drop-shadow(0 0 4px rgba(212, 155, 53, 0.35));
+}
+
+/* Dual Staggered Smooth Expanding Sonar Ripples */
+.radar-sonar-wave {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 2%;
   border-radius: 50%;
-  border: 1px dashed rgba(168, 118, 48, 0.22);
+  border: 1.5px solid rgba(212, 155, 53, 0.72);
+  background: radial-gradient(circle, rgba(251, 208, 113, 0.08) 0%, rgba(251, 208, 113, 0.02) 70%, transparent 100%);
+  animation: radar-sonar-expand 3.8s cubic-bezier(0.16, 0.62, 0.32, 1) infinite;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
-.radar-grid-rings::before {
-  width: 66%;
-  height: 66%;
+.radar-sonar-wave.wave-delay {
+  animation-delay: 1.9s;
 }
 
-.radar-grid-rings::after {
-  width: 34%;
-  height: 34%;
-}
-
-/* Expanding Discovery Scan Pulse Wave (from center to outer discovery rim) */
-.radar-sweep-wave {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid rgba(212, 155, 53, 0.65);
-  background: radial-gradient(circle, rgba(253, 219, 155, 0.18) 0%, rgba(251, 208, 113, 0.04) 68%, transparent 100%);
-  animation: radar-discovery-pulse 3.4s infinite cubic-bezier(0.18, 0.55, 0.35, 1);
-  pointer-events: none;
-}
-
-/* 360-Degree Rotating Golden Radar Sweep Beam (Discovery Scanner) */
-.radar-scan-beam {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    rgba(212, 155, 53, 0) 0deg,
-    rgba(212, 155, 53, 0) 275deg,
-    rgba(251, 208, 113, 0.16) 325deg,
-    rgba(212, 155, 53, 0.42) 356deg,
-    rgba(168, 98, 22, 0.85) 359deg,
-    rgba(212, 155, 53, 0) 360deg
-  );
-  animation: radar-beam-rotate 4.2s linear infinite;
-  pointer-events: none;
-}
-
-/* Inner Fixed Interaction-Reach Ring visual fallback (synced with true L.circle) */
-.radar-inner-reach-ring {
+/* Inner Fixed Check-in / Interaction Reach Halo */
+.radar-fixed-reach-halo {
   position: absolute;
   width: var(--reach-diameter, 36px);
   height: var(--reach-diameter, 36px);
   border-radius: 50%;
-  border: 2px solid rgba(46, 125, 50, 0.72);
-  background: radial-gradient(circle, rgba(129, 199, 132, 0.24) 0%, rgba(129, 199, 132, 0.08) 100%);
-  box-shadow: 0 0 10px rgba(46, 125, 50, 0.22);
+  border: 2px solid rgba(46, 155, 94, 0.85);
+  background: radial-gradient(circle, rgba(46, 155, 94, 0.16) 0%, rgba(46, 155, 94, 0.06) 72%, rgba(46, 155, 94, 0.14) 100%);
+  box-shadow: 0 0 0 4px rgba(46, 155, 94, 0.12), inset 0 0 12px rgba(46, 155, 94, 0.14);
   pointer-events: none;
+  transition: width 0.18s ease-out, height 0.18s ease-out;
 }
 
-/* Player Center Core Dot */
+/* Center Player Navigator Jewel */
 .player-core-dot {
   position: relative;
   z-index: 10;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: var(--primary);
-  border: 3px solid var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(254, 250, 244, 0.9), 0 0 14px rgba(84, 51, 27, 0.65);
-  pointer-events: auto;
+  background: radial-gradient(circle at 35% 35%, #8A532B 0%, #4A2A14 75%, #2E180A 100%);
+  border: 2.5px solid #FFFDF8;
+  box-shadow:
+    0 0 0 2px #D9A243,
+    0 0 14px rgba(217, 162, 67, 0.72),
+    0 2px 6px rgba(51, 26, 11, 0.45);
+  pointer-events: none;
 }
 
-@keyframes radar-discovery-pulse {
+.player-core-dot::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 245, 220, 0.85);
+}
+
+@keyframes radar-sonar-expand {
   0% {
-    transform: scale(0.12);
-    opacity: 0.9;
-    border-color: rgba(212, 155, 53, 0.85);
+    transform: scale(0.08);
+    opacity: 0;
   }
-  65% {
-    opacity: 0.42;
-    border-color: rgba(251, 208, 113, 0.55);
+  12% {
+    opacity: 0.78;
+  }
+  72% {
+    opacity: 0.26;
   }
   100% {
-    transform: scale(1.02);
+    transform: scale(1);
     opacity: 0;
-    border-color: transparent;
   }
 }
 
 @keyframes radar-beam-rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   COLLAPSIBLE RADAR DISTANCE TUNER PANEL (LIVE RANGE TESTING)
+   ========================================================================== */
+.radar-tuner-wrap {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1005;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.radar-tuner-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 24px;
+  background: rgba(254, 250, 244, 0.96);
+  border: 1.5px solid var(--accent-gold);
+  color: var(--primary-dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(51, 26, 11, 0.14);
+  backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
+}
+
+.radar-tuner-toggle:hover,
+.radar-tuner-toggle.active {
+  background: var(--primary-dark);
+  color: #FFFDF8;
+  border-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.radar-tuner-panel {
+  display: none;
+  width: 286px;
+  background: rgba(254, 250, 244, 0.98);
+  border: 1.5px solid #DFCFBC;
+  border-radius: 16px;
+  padding: 14px 15px;
+  box-shadow: 0 12px 32px rgba(51, 26, 11, 0.2);
+  backdrop-filter: blur(10px);
+  animation: radar-panel-pop 0.18s ease-out;
+}
+
+.radar-tuner-panel.open {
+  display: block;
+}
+
+@keyframes radar-panel-pop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.radar-tuner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--neutral-200);
+}
+
+.radar-tuner-title {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.radar-tuner-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.radar-tuner-close:hover {
+  background: var(--neutral-200);
+  color: var(--primary-dark);
+}
+
+.radar-tuner-group {
+  margin-bottom: 12px;
+}
+
+.radar-tuner-label-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.radar-dot-legend {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.radar-dot-legend.discovery {
+  background: #D9A243;
+  box-shadow: 0 0 0 2px rgba(217, 162, 67, 0.28);
+}
+
+.radar-dot-legend.interaction {
+  background: #2E9B5E;
+  box-shadow: 0 0 0 2px rgba(46, 155, 94, 0.25);
+}
+
+.radar-tuner-val {
+  margin-left: auto;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #9A6315;
+  background: rgba(217, 162, 67, 0.16);
+  padding: 1px 8px;
+  border-radius: 10px;
+}
+
+.radar-tuner-val.interaction-val {
+  color: #1F7A46;
+  background: rgba(46, 155, 94, 0.14);
+}
+
+.radar-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  accent-color: #C89138;
+  margin-bottom: 7px;
+}
+
+.radar-slider.interaction-slider {
+  accent-color: #2E9B5E;
+}
+
+.radar-presets-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.radar-preset-chip {
+  padding: 3px 8px;
+  border-radius: 10px;
+  border: 1px solid #DFCFBC;
+  background: #F7EFE3;
+  color: var(--primary-dark);
+  font-size: 0.71rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.radar-preset-chip:hover {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: var(--primary-dark);
+}
+
+.radar-tuner-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 9px;
+  border-top: 1px dashed var(--neutral-200);
+}
+
+.radar-tuner-live-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.radar-reset-btn {
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--neutral-300);
+  background: #FFFDF8;
+  color: var(--primary-dark);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.radar-reset-btn:hover {
+  background: var(--neutral-200);
+}
+
+@media (max-width: 768px) {
+  .radar-tuner-wrap {
+    top: 56px !important;
+    right: 10px !important;
+  }
+  .radar-tuner-toggle {
+    padding: 6px 11px !important;
+    font-size: 0.74rem !important;
+  }
+  .radar-tuner-panel {
+    width: min(272px, calc(100vw - 24px)) !important;
+    padding: 12px !important;
+  }
+}
+
+body.simulator-mode .radar-tuner-wrap {
+  top: 56px !important;
+  right: 10px !important;
+}
+
+body.simulator-mode .radar-tuner-toggle {
+  padding: 6px 11px !important;
+  font-size: 0.74rem !important;
+}
+
+body.simulator-mode .radar-tuner-panel {
+  width: 266px !important;
+  padding: 12px !important;
 }
 
 /* ==========================================================================
