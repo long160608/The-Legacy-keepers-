@@ -40,9 +40,15 @@ function copyRecursive(src, dest, ignoreDirs = ['node_modules', '.git', '_backup
   }
 }
 
+function formatHumanDateTime(d) {
+  const pad = n => String(n).padStart(2, '0');
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} — ${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+}
+
 function createSnapshot(customNote = '') {
   const now = new Date();
   const stamp = formatTimestamp(now);
+  const humanDateTime = formatHumanDateTime(now);
   const backupFolder = path.join(BACKUP_BASE_DIR, `backup_${stamp}`);
 
   console.log('================================================================');
@@ -93,12 +99,15 @@ function createSnapshot(customNote = '') {
     gitCommit = execSync('git rev-parse --short HEAD', { cwd: PROJECT_DIR, stdio: ['pipe', 'pipe', 'ignore'] }).toString().trim();
   } catch (e) {}
 
-  // 6. Write manifest
+  // 6. Write manifest (luôn ghi rõ ngày và giờ lưu)
+  const baseNote = (customNote || 'Bản save thủ công').trim();
+  const finalNote = baseNote.includes(humanDateTime.slice(0, 5)) ? baseNote : `${baseNote} [${humanDateTime}]`;
   const manifest = {
+    id: `backup_${stamp}`,
     timestamp: now.toISOString(),
-    humanTime: now.toLocaleString('vi-VN'),
+    humanTime: humanDateTime,
     folderName: `backup_${stamp}`,
-    note: customNote || 'Ban save thu cong',
+    note: finalNote,
     gitCommit,
     dataSummary
   };

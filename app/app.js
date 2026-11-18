@@ -3261,10 +3261,24 @@ function renderPinsOnMap(filter = "all") {
     const pinName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
     const pulseColor = isCheckedIn ? '#2E7D32' : (isWithinCheckinReach ? '#27AE60' : (spec.pulseColor || spec.color));
 
+    // Phóng to kích thước Pin mượt mà theo mức zoom (zoom vô càng gần Pin càng rõ & dễ bấm)
+    const curZoom = map ? map.getZoom() : 14;
+    let pinSize = 46;
+    let captionSize = '0.78rem';
+    if (curZoom <= 12) { pinSize = 36; captionSize = '0.72rem'; }
+    else if (curZoom === 13) { pinSize = 40; captionSize = '0.74rem'; }
+    else if (curZoom === 14) { pinSize = 46; captionSize = '0.78rem'; }
+    else if (curZoom === 15) { pinSize = 54; captionSize = '0.82rem'; }
+    else if (curZoom === 16) { pinSize = 62; captionSize = '0.86rem'; }
+    else if (curZoom === 17) { pinSize = 70; captionSize = '0.90rem'; }
+    else if (curZoom === 18) { pinSize = 78; captionSize = '0.94rem'; }
+    else if (curZoom >= 19) { pinSize = 86; captionSize = '0.98rem'; }
+    const pinHalf = Math.round(pinSize / 2);
+
     const heritageIcon = L.divIcon({
       className: 'heritage-pin-leaflet-icon',
       html: `
-        <div class="heritage-pin-container ${rarityClass} ${pulseClass} ${isCheckedIn ? 'is-checked-in' : ''}" style="--checkin-px: ${checkinPx}px; --pulse-color: ${pulseColor};">
+        <div class="heritage-pin-container ${rarityClass} ${pulseClass} ${isCheckedIn ? 'is-checked-in' : ''}" style="--checkin-px: ${checkinPx}px; --pulse-color: ${pulseColor}; --pin-size: ${pinSize}px; --pin-caption-size: ${captionSize};">
           <!-- 3 VÒNG TRÒN ĐỒNG TÂM TỎA RA TỪ TÂM ĐẾN ĐÚNG VIỀN PHẠM VI CHECK-IN -->
           <div class="concentric-wave wave-1"></div>
           <div class="concentric-wave wave-2"></div>
@@ -3278,8 +3292,8 @@ function renderPinsOnMap(filter = "all") {
           <div class="heritage-pin-caption">${isCheckedIn ? '✓ ' : ''}${pinName}</div>
         </div>
       `,
-      iconSize: [36, 36],
-      iconAnchor: [18, 18]
+      iconSize: [pinSize, pinSize],
+      iconAnchor: [pinHalf, pinHalf]
     });
 
     const m = L.marker([pin.lat, pin.lng], { icon: heritageIcon, zIndexOffset: isCheckedIn ? 150 : 250 }).addTo(map);
@@ -6715,6 +6729,13 @@ function saveLocalSnapshots(list) {
   }
 }
 
+function formatSnapshotDateTime(dateInput) {
+  const d = dateInput ? new Date(dateInput) : new Date();
+  if (isNaN(d.getTime())) return String(dateInput || '');
+  const pad = n => String(n).padStart(2, '0');
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} — ${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+}
+
 async function renderSnapshotsList() {
   const container = document.getElementById("snapshots-table-wrap");
   const countBadge = document.getElementById("snapshot-count-badge");
@@ -6773,24 +6794,29 @@ async function renderSnapshotsList() {
   `;
 
   combinedList.forEach(snap => {
-    const dateObj = new Date(snap.timestamp);
-    const formattedDate = !isNaN(dateObj.getTime()) ? dateObj.toLocaleString(currentLang === 'vi' ? 'vi-VN' : 'en-US') : snap.timestamp;
-    const counts = snap.counts || {
-      pins: snap.data?.pins?.length || (snap.folder_name ? '✓' : 0),
-      figures: snap.data?.figures?.length || (snap.folder_name ? '✓' : 0),
-      stories: snap.data?.stories?.length || (snap.folder_name ? '✓' : 0),
-      badges: snap.data?.badges?.length || (snap.folder_name ? '✓' : 0)
-    };
+    const formattedDate = formatSnapshotDateTime(snap.timestamp) || snap.humanTime || snap.timestamp;
+    const snapId = snap.id || snap.folderName || snap.folder_name || '';
+    const counts = snap.counts || (snap.dataSummary ? {
+      pins: snap.dataSummary.pinsCount || 0,
+      figures: snap.dataSummary.figuresCount || 0,
+      stories: snap.dataSummary.storiesCount || 0,
+      badges: snap.dataSummary.badgesCount || 0
+    } : {
+      pins: snap.data?.pins?.length || (snapId ? '✓' : 0),
+      figures: snap.data?.figures?.length || (snapId ? '✓' : 0),
+      stories: snap.data?.stories?.length || (snapId ? '✓' : 0),
+      badges: snap.data?.badges?.length || (snapId ? '✓' : 0)
+    });
 
     html += `
       <tr style="border-bottom:1px solid var(--neutral-200); font-size:0.86rem;">
         <td style="padding:12px 14px; color:var(--text-muted); font-size:0.82rem; font-family:monospace;">
-          <b>${formattedDate}</b>
+          <b style="color:var(--primary-dark);">🕒 ${formattedDate}</b>
           <div style="margin-top:3px;"><span style="font-size:0.7rem; padding:2px 6px; border-radius:4px; font-weight:600; background:${snap.source === 'server' ? '#E8F5E9' : '#FFF9C4'}; color:${snap.source === 'server' ? '#2E7D32' : '#F57F17'};">${snap.source === 'server' ? '📁 Ổ Đĩa (_backups)' : '🌐 Bộ Nhớ Web'}</span></div>
         </td>
         <td style="padding:12px 14px;">
           <strong style="color:var(--primary-dark); font-size:0.94rem;">${escapeHTML(snap.note || 'Bản Snapshot')}</strong>
-          <div style="font-size:0.76rem; color:var(--text-muted); margin-top:3px; font-family:monospace;">Mã: ${escapeHTML(snap.id || snap.folder_name)}</div>
+          <div style="font-size:0.76rem; color:var(--text-muted); margin-top:3px; font-family:monospace;">Mã: ${escapeHTML(snapId)}</div>
         </td>
         <td style="padding:12px 14px;">
           <div style="display:flex; gap:6px; flex-wrap:wrap; font-size:0.75rem;">
@@ -6802,13 +6828,13 @@ async function renderSnapshotsList() {
         </td>
         <td style="padding:12px 14px; text-align:center;">
           <div style="display:flex; gap:6px; justify-content:center;">
-            <button type="button" class="btn-primary" style="padding:5px 10px; font-size:0.8rem; background:#388E3C; border-color:#2E7D32;" onclick="restoreAppSnapshot('${snap.id}')" title="${t('snap_btn_restore')}">
+            <button type="button" class="btn-primary" style="padding:5px 10px; font-size:0.8rem; background:#388E3C; border-color:#2E7D32;" onclick="restoreAppSnapshot('${snapId}')" title="${t('snap_btn_restore')}">
               ${t('snap_btn_restore')}
             </button>
-            <button type="button" class="btn-secondary" style="padding:5px 8px; font-size:0.8rem;" onclick="downloadSnapshotJSON('${snap.id}')" title="${t('snap_btn_download')}">
+            <button type="button" class="btn-secondary" style="padding:5px 8px; font-size:0.8rem;" onclick="downloadSnapshotJSON('${snapId}')" title="${t('snap_btn_download')}">
               📥
             </button>
-            <button type="button" class="btn-secondary" style="padding:5px 8px; font-size:0.8rem; color:#d32f2f;" onclick="deleteAppSnapshot('${snap.id}')" title="Xóa bản save">
+            <button type="button" class="btn-secondary" style="padding:5px 8px; font-size:0.8rem; color:#d32f2f;" onclick="deleteAppSnapshot('${snapId}')" title="Xóa bản save">
               🗑️
             </button>
           </div>
@@ -6823,12 +6849,16 @@ async function renderSnapshotsList() {
 
 async function createAppSnapshot(customNote = "") {
   const noteInput = document.getElementById("snapshot-note-input");
-  const note = customNote || (noteInput ? noteInput.value.trim() : "") || `Bản checkpoint ${new Date().toLocaleTimeString('vi-VN')}`;
+  const now = new Date();
+  const stampLabel = formatSnapshotDateTime(now);
+  const rawNote = customNote || (noteInput ? noteInput.value.trim() : "") || "Bản checkpoint";
+  const note = rawNote.includes(stampLabel.slice(0, 5)) ? rawNote : `${rawNote} [${stampLabel}]`;
 
   const snapshotId = `snapshot_${Date.now()}`;
   const snapshotData = {
     id: snapshotId,
-    timestamp: new Date().toISOString(),
+    timestamp: now.toISOString(),
+    humanTime: stampLabel,
     note: note,
     counts: {
       pins: appState.pins.length,
@@ -6868,7 +6898,8 @@ async function createAppSnapshot(customNote = "") {
 }
 
 function triggerQuickSave() {
-  const defaultNote = `Lưu nhanh trước chỉnh sửa (${new Date().toLocaleTimeString('vi-VN')})`;
+  const stampLabel = formatSnapshotDateTime(new Date());
+  const defaultNote = `Lưu nhanh [${stampLabel}]`;
   createAppSnapshot(defaultNote);
 }
 
