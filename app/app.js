@@ -3901,7 +3901,6 @@ function renderFigureDetailPane(figId) {
         <div class="figure-section">
           <div class="figure-section-title" style="justify-content:space-between;">
             <span>📖 ${currentLang === 'en' ? 'Historic Tales & Lore Collection' : 'Kho Tàng Giai Thoại & Cốt Truyện'} (${figureStories.length})</span>
-            <button class="btn-primary" style="font-size:0.82rem; padding:5px 12px;" onclick="openQuickStoryModal('${fig.id}')">${currentLang === 'en' ? '+ Add New Tale' : '+ Thêm Giai Thoại Mới'}</button>
           </div>
           <div class="figure-stories-container">
             ${figureStories.map(st => {
@@ -3967,9 +3966,8 @@ function renderFigureDetailPane(figId) {
         <div class="figure-section">
           <div class="figure-section-title" style="justify-content:space-between;">
             <span>📖 ${currentLang === 'en' ? 'Historic Tales & Lore Collection (0)' : 'Kho Tàng Giai Thoại & Cốt Truyện (0)'}</span>
-            <button class="btn-primary" style="font-size:0.82rem; padding:5px 12px;" onclick="openQuickStoryModal('${fig.id}')">${currentLang === 'en' ? '+ Add First Tale' : '+ Thêm Giai Thoại Đầu Tiên'}</button>
           </div>
-          <p style="font-size:0.88rem; color:var(--text-muted); font-style:italic;">${currentLang === 'en' ? 'No tales linked to this hero yet. Click the button above to add one!' : 'Chưa có giai thoại nào liên kết với danh nhân này. Bạn có thể bấm nút trên để thêm mới!'}</p>
+          <p style="font-size:0.88rem; color:var(--text-muted); font-style:italic;">${currentLang === 'en' ? 'No tales linked to this hero yet.' : 'Chưa có giai thoại nào liên kết với danh nhân này.'}</p>
         </div>
       `;
     }
@@ -3978,15 +3976,6 @@ function renderFigureDetailPane(figId) {
     const hasHeroBg = fig.background_image && fig.background_image.trim().length > 0;
     const heroHeaderMarkup = hasHeroBg ? `
       <div class="figure-hero-backdrop" style="background-image: url('${fig.background_image.trim()}');">
-        <div class="hero-backdrop-actions">
-          <label class="btn-hero-bg-action" title="${currentLang === 'en' ? 'Choose new background cover from computer' : 'Bấm để chọn ảnh nền bối cảnh mới từ máy tính'}">
-            📷 ${currentLang === 'en' ? 'Change Backdrop' : 'Đổi ảnh nền'}
-            <input type="file" accept="image/*" onchange="changeFigureBackgroundDirect(event, '${fig.id}')" style="display:none;">
-          </label>
-          <button type="button" class="btn-hero-bg-action-remove" title="${currentLang === 'en' ? 'Remove this background' : 'Xóa ảnh nền này'}" onclick="removeFigureBackgroundDirect('${fig.id}')">
-            ✕ ${currentLang === 'en' ? 'Remove' : 'Xóa nền'}
-          </button>
-        </div>
         <div class="figure-hero-backdrop-content">
           <div class="figure-detail-avatar-box">
             ${avatarMarkup}
@@ -4004,12 +3993,6 @@ function renderFigureDetailPane(figId) {
       </div>
     ` : `
       <div class="figure-detail-hero" style="position:relative;">
-        <div class="hero-backdrop-actions" style="top:0; right:0;">
-          <label class="btn-hero-bg-action" style="background:var(--bg-secondary); color:var(--primary-dark); border-color:var(--accent-gold);" title="${currentLang === 'en' ? 'Add heroic background cover for this figure' : 'Bấm để thêm ảnh nền bối cảnh hào hùng cho danh nhân này'}">
-            🖼️ + ${currentLang === 'en' ? 'Add Backdrop Cover' : 'Thêm ảnh nền bối cảnh'}
-            <input type="file" accept="image/*" onchange="changeFigureBackgroundDirect(event, '${fig.id}')" style="display:none;">
-          </label>
-        </div>
         <div class="figure-detail-avatar-box">
           ${avatarMarkup}
         </div>
@@ -4046,10 +4029,9 @@ function renderFigureDetailPane(figId) {
       <!-- Section 3: Giai thoại mở khóa -->
       ${storiesMarkup}
 
-      <!-- Actions Footer -->
+      <!-- Footer -->
       <div style="margin-top:20px; padding-top:16px; border-top:1px dashed var(--neutral-300); display:flex; justify-content:space-between; align-items:center;">
         <span style="font-size:0.8rem; color:var(--text-muted);">${currentLang === 'en' ? 'Hero ID:' : 'Mã danh nhân:'} ${fig.id}</span>
-        <button class="btn-secondary" style="color:#e53e3e; border-color:#feb2b2; font-size:0.82rem; padding:5px 12px; cursor:pointer;" onclick="deleteFigureById('${fig.id}')">🗑️ ${currentLang === 'en' ? 'Delete This Hero' : 'Xóa Danh Nhân Này'}</button>
       </div>
     `;
   } catch (err) {
