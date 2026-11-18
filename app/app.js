@@ -4710,8 +4710,16 @@ function renderProfileStats() {
   const expBar = document.getElementById("profile-exp-bar");
   if (expBar) expBar.style.width = `${pct}%`;
 
+  const totalStoriesCount = (appState.stories || []).length;
   const unlockedStories = (appState.stories || []).filter(s => !s.is_locked).length;
+  const remainingStoriesCount = Math.max(0, totalStoriesCount - unlockedStories);
+  const storiesPct = totalStoriesCount > 0 ? Math.min(100, Math.round((unlockedStories / totalStoriesCount) * 100)) : 0;
+
+  const totalBadgesCount = (appState.badges || []).length;
   const unlockedBadges = (appState.badges || []).filter(b => b.is_unlocked).length;
+  const remainingBadgesCount = Math.max(0, totalBadgesCount - unlockedBadges);
+  const badgesPct = totalBadgesCount > 0 ? Math.min(100, Math.round((unlockedBadges / totalBadgesCount) * 100)) : 0;
+
   const totalPinsCount = (appState.pins || []).length;
   const checkedInCount = (p.checked_in_pins && p.checked_in_pins.length) || 0;
   const remainingPinsCount = Math.max(0, totalPinsCount - checkedInCount);
@@ -4745,8 +4753,52 @@ function renderProfileStats() {
   const statStories = document.getElementById("stat-stories-unlocked");
   if (statStories) statStories.innerText = unlockedStories;
 
+  const statStoriesTotal = document.getElementById("stat-stories-total");
+  if (statStoriesTotal) statStoriesTotal.innerText = `/ ${totalStoriesCount}`;
+
+  const statStoriesBar = document.getElementById("stat-stories-progress-bar");
+  if (statStoriesBar) statStoriesBar.style.width = `${storiesPct}%`;
+
+  const statStoriesPct = document.getElementById("stat-stories-pct");
+  if (statStoriesPct) statStoriesPct.innerText = `${storiesPct}%`;
+
+  const statStoriesRem = document.getElementById("stat-stories-remaining");
+  if (statStoriesRem) {
+    if (totalStoriesCount === 0) {
+      statStoriesRem.innerText = currentLang === 'en' ? 'No tales' : 'Chưa có truyện';
+    } else if (remainingStoriesCount === 0) {
+      statStoriesRem.innerText = currentLang === 'en' ? '✓ All unlocked!' : '✓ Đã hoàn thành!';
+    } else {
+      statStoriesRem.innerText = currentLang === 'en'
+        ? `${remainingStoriesCount} left`
+        : `Còn ${remainingStoriesCount} truyện`;
+    }
+  }
+
   const statBadges = document.getElementById("stat-badges-owned");
   if (statBadges) statBadges.innerText = unlockedBadges;
+
+  const statBadgesTotal = document.getElementById("stat-badges-total");
+  if (statBadgesTotal) statBadgesTotal.innerText = `/ ${totalBadgesCount}`;
+
+  const statBadgesBar = document.getElementById("stat-badges-progress-bar");
+  if (statBadgesBar) statBadgesBar.style.width = `${badgesPct}%`;
+
+  const statBadgesPct = document.getElementById("stat-badges-pct");
+  if (statBadgesPct) statBadgesPct.innerText = `${badgesPct}%`;
+
+  const statBadgesRem = document.getElementById("stat-badges-remaining");
+  if (statBadgesRem) {
+    if (totalBadgesCount === 0) {
+      statBadgesRem.innerText = currentLang === 'en' ? 'No badges' : 'Chưa có huy hiệu';
+    } else if (remainingBadgesCount === 0) {
+      statBadgesRem.innerText = currentLang === 'en' ? '✓ All collected!' : '✓ Đã hoàn thành!';
+    } else {
+      statBadgesRem.innerText = currentLang === 'en'
+        ? `${remainingBadgesCount} left`
+        : `Còn ${remainingBadgesCount} huy hiệu`;
+    }
+  }
 
   const kmVal = (p.km_traveled !== undefined && p.km_traveled !== null) ? p.km_traveled : 0;
   const statKm = document.getElementById("stat-km-traveled");
@@ -4893,15 +4945,34 @@ function openProfileStatModal(statType) {
 
   } else if (statType === 'stories') {
     // 2. Giai thoại đã mở khóa
+    const totalStories = (appState.stories || []).length;
     const unlockedStories = (appState.stories || []).filter(s => !s.is_locked);
+    const remainingStories = Math.max(0, totalStories - unlockedStories.length);
+    const storiesPct = totalStories > 0 ? Math.min(100, Math.round((unlockedStories.length / totalStories) * 100)) : 0;
 
     if (tagEl) tagEl.innerText = currentLang === 'en' ? '📖 UNLOCKED STORIES' : '📖 GIAI THOẠI ĐÃ MỞ KHÓA';
-    if (titleEl) titleEl.innerText = `${t('stat_modal_stories_title')} (${unlockedStories.length})`;
+    if (titleEl) titleEl.innerText = `${t('stat_modal_stories_title')} (${unlockedStories.length}/${totalStories})`;
     if (descEl) descEl.innerText = t('stat_modal_stories_desc');
 
+    const storiesProgressBannerHtml = `
+      <div class="profile-modal-progress-banner">
+        <div class="profile-modal-progress-header">
+          <span>${currentLang === 'en'
+            ? `Unlock Progress: <b>${unlockedStories.length} / ${totalStories}</b> tales (<b>${storiesPct}%</b>)`
+            : `Tiến độ mở khóa: <b>${unlockedStories.length} / ${totalStories}</b> giai thoại (<b>${storiesPct}%</b>)`}</span>
+          <span style="color:var(--accent-camel);">${remainingStories === 0
+            ? (currentLang === 'en' ? '✓ All unlocked!' : '✓ Đã mở khóa tất cả!')
+            : (currentLang === 'en' ? `${remainingStories} tales remaining` : `Còn ${remainingStories} giai thoại nữa`)}</span>
+        </div>
+        <div class="profile-modal-progress-track">
+          <div class="profile-modal-progress-fill" style="width:${storiesPct}%;"></div>
+        </div>
+      </div>
+    `;
+
     if (unlockedStories.length === 0) {
-      listEl.innerHTML = `
-        <div style="text-align:center; padding:36px 16px;">
+      listEl.innerHTML = storiesProgressBannerHtml + `
+        <div style="text-align:center; padding:28px 16px;">
           <div style="font-size:2.8rem; margin-bottom:10px;">📜</div>
           <strong style="color:var(--primary-dark); font-size:1.05rem;">${t('stat_modal_empty_stories')}</strong>
           <p style="color:var(--text-muted); font-size:0.85rem; margin-top:8px;">
@@ -4913,7 +4984,7 @@ function openProfileStatModal(statType) {
         </div>
       `;
     } else {
-      listEl.innerHTML = unlockedStories.map(story => {
+      listEl.innerHTML = storiesProgressBannerHtml + unlockedStories.map(story => {
         const sTitle = currentLang === 'en' ? (story.title_en || story.title) : story.title;
         const sContent = currentLang === 'en' ? (story.content_en || story.content) : story.content;
         const sExcerpt = sContent ? (sContent.slice(0, 110) + '...') : '';
@@ -4951,15 +5022,34 @@ function openProfileStatModal(statType) {
 
   } else if (statType === 'badges') {
     // 3. Huy hiệu sở hữu
+    const totalBadges = (appState.badges || []).length;
     const unlockedBadges = (appState.badges || []).filter(b => b.is_unlocked);
+    const remainingBadges = Math.max(0, totalBadges - unlockedBadges.length);
+    const badgesPct = totalBadges > 0 ? Math.min(100, Math.round((unlockedBadges.length / totalBadges) * 100)) : 0;
 
     if (tagEl) tagEl.innerText = currentLang === 'en' ? '🏅 EARNED BADGES' : '🏅 HUY HIỆU SỞ HỮU';
-    if (titleEl) titleEl.innerText = `${t('stat_modal_badges_title')} (${unlockedBadges.length})`;
+    if (titleEl) titleEl.innerText = `${t('stat_modal_badges_title')} (${unlockedBadges.length}/${totalBadges})`;
     if (descEl) descEl.innerText = t('stat_modal_badges_desc');
 
+    const badgesProgressBannerHtml = `
+      <div class="profile-modal-progress-banner">
+        <div class="profile-modal-progress-header">
+          <span>${currentLang === 'en'
+            ? `Collection Progress: <b>${unlockedBadges.length} / ${totalBadges}</b> badges (<b>${badgesPct}%</b>)`
+            : `Tiến độ sưu tầm: <b>${unlockedBadges.length} / ${totalBadges}</b> huy hiệu (<b>${badgesPct}%</b>)`}</span>
+          <span style="color:var(--accent-camel);">${remainingBadges === 0
+            ? (currentLang === 'en' ? '✓ All collected!' : '✓ Đã sở hữu tất cả!')
+            : (currentLang === 'en' ? `${remainingBadges} badges remaining` : `Còn ${remainingBadges} huy hiệu nữa`)}</span>
+        </div>
+        <div class="profile-modal-progress-track">
+          <div class="profile-modal-progress-fill" style="width:${badgesPct}%;"></div>
+        </div>
+      </div>
+    `;
+
     if (unlockedBadges.length === 0) {
-      listEl.innerHTML = `
-        <div style="text-align:center; padding:36px 16px;">
+      listEl.innerHTML = badgesProgressBannerHtml + `
+        <div style="text-align:center; padding:28px 16px;">
           <div style="font-size:2.8rem; margin-bottom:10px;">🏅</div>
           <strong style="color:var(--primary-dark); font-size:1.05rem;">${t('stat_modal_empty_badges')}</strong>
           <p style="color:var(--text-muted); font-size:0.85rem; margin-top:8px;">
@@ -4971,7 +5061,7 @@ function openProfileStatModal(statType) {
         </div>
       `;
     } else {
-      listEl.innerHTML = unlockedBadges.map(b => {
+      listEl.innerHTML = badgesProgressBannerHtml + unlockedBadges.map(b => {
         const bName = currentLang === 'en' ? (b.name_en || b.name) : b.name;
         const bLore = currentLang === 'en' ? (b.lore_en || b.lore || b.desc_en || b.desc) : (b.lore || b.desc);
         const bTier = getBadgeTierLabel(b.tier);
