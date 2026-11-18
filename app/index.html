@@ -88,7 +88,7 @@
           <div class="role-card-val" id="sidebar-role-name">Người Dùng</div>
         </div>
       </div>
-      <button class="role-card-btn" id="sidebar-role-btn">Đổi ➜</button>
+      <button class="role-card-btn" id="sidebar-role-btn" data-i18n="role_btn_change">Đổi ➜</button>
     </div>
 
     <ul class="nav-links">
@@ -140,18 +140,16 @@
         <!-- Bản đồ Leaflet -->
         <div id="map"></div>
 
-        <!-- GPS Navigator & Walk Simulator Control -->
+        <!-- Radar Position & Nearest Unscanned Pin Bar -->
         <div class="map-bottom-controls">
           <div class="gps-badge">
             <div class="pulse-led"></div>
-            <span>Vị trí Radar: <b id="gps-coords-display">21.0285, 105.8542</b></span>
+            <span><span data-i18n="map_radar_pos_lbl">Vị trí Radar:</span> <b id="gps-coords-display">10.7712, 106.6732</b></span>
           </div>
-          <div class="gps-badge" id="map-role-status-badge" onclick="openRoleModal()" style="cursor:pointer; background:#FFFDF8; border-color:var(--accent-gold);" title="Bấm để đổi vai trò hoặc thoát">
-            <span id="map-role-status-text">👑 Quản Lý</span>
-          </div>
-          <div class="map-bottom-btns-row">
-            <button class="filter-btn" id="btn-real-gps" onclick="toggleRealGPS()">📍 Dùng GPS Thực</button>
-            <button class="filter-btn" id="btn-walk-sim" onclick="simulateWalk()">🚶 Đi tuần tra</button>
+          <div class="map-bottom-divider" aria-hidden="true"></div>
+          <div class="gps-badge nearest-pin-badge" id="nearest-unscanned-pin-badge">
+            <span class="nearest-pin-icon">🎯</span>
+            <span><span data-i18n="map_nearest_pin_lbl">Pin gần nhất (chưa quét):</span> <b id="nearest-unscanned-pin-display">--</b></span>
           </div>
         </div>
       </div>
@@ -275,18 +273,18 @@
           <div class="profile-avatar-large">
             <img src="media/design_assets/avatar_explorer_hat.png" class="profile-avatar-img" alt="Nhà Thám Hiểm">
           </div>
-          <div style="flex:1; position:relative; z-index:2;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="flex:1; position:relative; z-index:2; min-width:0;">
+            <div class="profile-name-row" style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
               <h3 style="font-size:1.6rem; color:var(--primary-dark);" id="profile-display-name">Người Giữ Gìn Di Sản #001</h3>
               <span class="badge-tag badge-gold" id="profile-level-badge">CẤP 0 • KỴ SĨ DI SẢN</span>
             </div>
-            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:2px;">@heritage_seeker • Khu vực: Thăng Long / Nam Bộ</p>
-            <p style="font-style:italic; color:var(--text-secondary); margin-top:8px;">"Dân ta phải biết sử ta, cho tường gốc tích nước nhà Việt Nam."</p>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:2px;" id="profile-region-subtitle" data-i18n="profile_region_sub">@heritage_seeker • Khu vực: Thăng Long / Nam Bộ</p>
+            <p style="font-style:italic; color:var(--text-secondary); margin-top:8px;" id="profile-quote-text" data-i18n="profile_quote">"Dân ta phải biết sử ta, cho tường gốc tích nước nhà Việt Nam."</p>
             
             <!-- EXP Bar -->
             <div style="margin-top:14px;">
               <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--text-muted); margin-bottom:4px;">
-                <span>Điểm kinh nghiệm khám phá</span>
+                <span data-i18n="profile_exp">Điểm kinh nghiệm khám phá</span>
                 <span id="profile-exp-text">0 / 100 EXP</span>
               </div>
               <div style="height:10px; background:var(--neutral-200); border-radius:5px; overflow:hidden;">
@@ -298,9 +296,21 @@
 
         <!-- Grid 4 Chỉ số (Tương tác bấm mở chi tiết từng mục) -->
         <div class="profile-stats-grid">
-          <div class="stat-box" onclick="openProfileStatModal('pins')" title="Bấm để xem danh sách địa danh đã check-in">
-            <div class="stat-val" id="stat-pins-scanned">0</div>
+          <div class="stat-box stat-box-progress" onclick="openProfileStatModal('pins')" data-i18n-title="stat_pins_tooltip" title="Bấm để xem danh sách địa danh đã check-in">
+            <div class="stat-val-row">
+              <span class="stat-val" id="stat-pins-scanned">0</span>
+              <span class="stat-val-total" id="stat-pins-total">/ 6</span>
+            </div>
             <div class="stat-label" data-i18n="stat_pins">Địa danh đã check-in</div>
+            <div class="stat-mini-progress-wrap">
+              <div class="stat-mini-progress-track">
+                <div class="stat-mini-progress-fill" id="stat-pins-progress-bar" style="width: 0%;"></div>
+              </div>
+              <div class="stat-mini-progress-meta">
+                <span class="stat-pct-pill" id="stat-pins-pct">0%</span>
+                <span class="stat-rem-text" id="stat-pins-remaining">Còn 6 nơi</span>
+              </div>
+            </div>
             <span class="stat-hint-pill" data-i18n="stat_hint_view">Bấm xem danh sách ➜</span>
           </div>
           <div class="stat-box" onclick="openProfileStatModal('stories')" title="Bấm để xem kho giai thoại đã mở khóa">

@@ -72,12 +72,18 @@ const TRANSLATIONS = {
     profile_title: "Hồ Sơ Nhà Thám Hiểm",
     profile_desc: "Theo dõi tiến trình chu du non sông và mở khóa di sản lịch sử dân tộc.",
     profile_rank: "KỴ SĨ DI SẢN",
+    profile_region_sub: "@heritage_seeker • Khu vực: Thăng Long / Nam Bộ",
+    profile_quote: "\"Dân ta phải biết sử ta, cho tường gốc tích nước nhà Việt Nam.\"",
     profile_exp: "Điểm kinh nghiệm khám phá",
     stat_pins: "Địa danh đã check-in",
+    stat_pins_tooltip: "Bấm để xem danh sách địa danh đã check-in",
     stat_stories: "Giai thoại đã mở khóa",
     stat_badges: "Huy hiệu sở hữu",
     stat_km: "Km đã thám hiểm",
     recent_logs: "Nhật Ký Hành Trình Gần Đây",
+    map_radar_pos_lbl: "Vị trí Radar:",
+    map_nearest_pin_lbl: "Pin gần nhất (chưa quét):",
+    role_btn_change: "Đổi ➜",
     // CMS
     cms_title: "Cổng Nhập Liệu Thủ Công (Game CMS)",
     cms_desc: "Bạn có thể tự tay tạo mới Ghim bản đồ, Danh nhân, Giai thoại lịch sử hoặc Huy hiệu. Dữ liệu sẽ lưu ngay vào ứng dụng và đồng bộ lên Cogover!",
@@ -548,12 +554,18 @@ const TRANSLATIONS = {
     profile_title: "Explorer Profile",
     profile_desc: "Track your expedition across Vietnam and your journey of discovering cultural heritage.",
     profile_rank: "HERITAGE SEEKER",
+    profile_region_sub: "@heritage_seeker • Region: Thang Long / Southern Vietnam",
+    profile_quote: "\"Our people must know our history, to deeply understand the origins of Vietnam.\"",
     profile_exp: "Exploration Experience Points",
     stat_pins: "Places Checked In",
+    stat_pins_tooltip: "Click to view checked-in locations",
     stat_stories: "Tales Unlocked",
     stat_badges: "Badges Owned",
     stat_km: "Km Explored",
     recent_logs: "Recent Journey Logs",
+    map_radar_pos_lbl: "Radar Position:",
+    map_nearest_pin_lbl: "Nearest Pin (unscanned):",
+    role_btn_change: "Switch ➜",
     // CMS
     cms_title: "Manual Data Input Portal (CMS)",
     cms_desc: "Add custom Radar Pins, Historical Heroes, Lore Tales, or Badges. Data is instantly saved and synchronized!",
@@ -1056,6 +1068,8 @@ function setLanguage(lang) {
   // Re-render views
   refreshAllViews();
   updateRoleUI();
+  if (map) updatePlayerRadarMarker();
+  updateNearestUnscannedPinDisplay();
 }
 
 function applyCMSTranslations() {
@@ -1930,7 +1944,7 @@ if (currentUserRole === "admin") currentUserRole = "manager";
 let editingPinId = null;
 
 let userCoords = [10.7712, 106.6732];
-let map, playerRadarMarker, playerAccuracyCircle;
+let map, playerRadarMarker, playerAccuracyCircle, playerDiscoveryCircle;
 let activePinMarkers = [];
 let selectedPinForModal = null;
 let selectedFigureId = null;
@@ -2538,12 +2552,16 @@ function handleKeyboardMovement(e) {
   if (playerAccuracyCircle) {
     playerAccuracyCircle.setLatLng(userCoords);
   }
+  if (playerDiscoveryCircle) {
+    playerDiscoveryCircle.setLatLng(userCoords);
+  }
 
-  // Update GPS display coordinate text
+  // Update GPS display coordinate text & nearest unscanned pin
   const gpsCoordsDisplay = document.getElementById("gps-coords-display");
   if (gpsCoordsDisplay) {
     gpsCoordsDisplay.innerText = `${userCoords[0].toFixed(4)}, ${userCoords[1].toFixed(4)}`;
   }
+  updateNearestUnscannedPinDisplay();
 
   // Pan map smoothly to follow player
   if (map) {
@@ -2670,6 +2688,7 @@ function initLeafletMap() {
   };
   map.on('zoomend', () => {
     updateZoomClass();
+    updatePlayerRadarMarker(); // Đồng bộ kích thước vòng quét Radar & vòng tương tác theo mức zoom
     renderPinsOnMap(); // Cập nhật lại bán kính pixel của các vòng tròn đồng tâm khi zoom thay đổi
   });
   updateZoomClass();
@@ -2755,55 +2774,149 @@ const RARITY_SPECS = {
   }
 };
 
+const PLAYER_DISCOVERY_SCAN_RADIUS = 600;     // 600m: Vòng quét xoay phát hiện di tích mới
+const PLAYER_INTERACTION_REACH_RADIUS = 60;   // 60m: Vòng cố định bên trong = phạm vi đi vô để check-in/quét
+
 /**
- * Cập nhật vị trí người chơi và vòng quét Radar 10m xung quanh (chuẩn tỷ lệ địa lý thực)
+ * Tính hướng la bàn (8 hướng) từ tọa độ người chơi tới địa danh
+ */
+function getCompassDirection(lat1, lng1, lat2, lng2) {
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const rLat1 = lat1 * Math.PI / 180;
+  const rLat2 = lat2 * Math.PI / 180;
+  const y = Math.sin(dLng) * Math.cos(rLat2);
+  const x = Math.cos(rLat1) * Math.sin(rLat2) - Math.sin(rLat1) * Math.cos(rLat2) * Math.cos(dLng);
+  const bearing = ((Math.atan2(y, x) * 180 / Math.PI) + 360) % 360;
+  const dirsVi = ['B', 'ĐB', 'Đ', 'ĐN', 'N', 'TN', 'T', 'TB'];
+  const dirsEn = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  const idx = Math.round(bearing / 45) % 8;
+  return currentLang === 'en' ? dirsEn[idx] : dirsVi[idx];
+}
+
+/**
+ * Cập nhật hiển thị vị trí Pin gần nhất (chưa quét / chưa check-in) trên thanh Radar đáy bản đồ
+ */
+function updateNearestUnscannedPinDisplay() {
+  const displayEl = document.getElementById("nearest-unscanned-pin-display");
+  if (!displayEl) return;
+
+  const pins = appState.pins || [];
+  if (pins.length === 0) {
+    displayEl.innerText = currentLang === 'en' ? 'No landmarks' : 'Chưa có địa danh';
+    return;
+  }
+
+  const checkedInIds = Array.isArray(appState.profile?.checked_in_pins) ? appState.profile.checked_in_pins : [];
+  const unscannedPins = pins.filter(p => !checkedInIds.includes(p.id));
+
+  if (unscannedPins.length === 0) {
+    displayEl.innerText = currentLang === 'en' ? '✓ All landmarks scanned!' : '✓ Đã quét hết tất cả di tích!';
+    return;
+  }
+
+  let nearest = null;
+  let minDist = Infinity;
+  unscannedPins.forEach(pin => {
+    const d = getDistanceMeters(userCoords[0], userCoords[1], pin.lat, pin.lng);
+    if (d < minDist) {
+      minDist = d;
+      nearest = pin;
+    }
+  });
+
+  if (!nearest) return;
+
+  const distLabel = minDist >= 1000 ? `${(minDist / 1000).toFixed(1)} km` : `${minDist} m`;
+  const dirLabel = getCompassDirection(userCoords[0], userCoords[1], nearest.lat, nearest.lng);
+  const coordsLabel = `${nearest.lat.toFixed(4)}, ${nearest.lng.toFixed(4)}`;
+  const discoveredIds = Array.isArray(appState.profile?.discovered_pins) ? appState.profile.discovered_pins : [];
+  const isKnown = isManager() || discoveredIds.includes(nearest.id) || minDist <= (nearest.discovery_radius || PLAYER_DISCOVERY_SCAN_RADIUS);
+  const pinLabel = isKnown
+    ? (currentLang === 'en' ? (nearest.name_en || nearest.name) : nearest.name)
+    : (currentLang === 'en' ? 'Undiscovered Site' : 'Di tích chưa lộ diện');
+
+  displayEl.innerText = `${pinLabel} • ${distLabel} (${dirLabel}) • ${coordsLabel}`;
+}
+
+/**
+ * Cập nhật vị trí người chơi với 2 vòng địa lý chuẩn tỷ lệ:
+ * - Vòng ngoài xoay 360° (Discovery Radar Sweep): Quét phát hiện pin xung quanh (600m)
+ * - Vòng cố định bên trong (Interaction Reach): Phạm vi đi vô để quét / check-in (60m)
  */
 function updatePlayerRadarMarker() {
+  if (!map) return;
   if (playerRadarMarker) {
     map.removeLayer(playerRadarMarker);
   }
   if (playerAccuracyCircle) {
     map.removeLayer(playerAccuracyCircle);
   }
+  if (playerDiscoveryCircle) {
+    map.removeLayer(playerDiscoveryCircle);
+  }
 
-  // Vòng quét radar chuẩn tỷ lệ thực 10 mét xung quanh người chơi
-  // Dùng L.circle của Leaflet để khi zoom to/nhỏ thì kích thước vòng co giãn chính xác 100% theo thước đo bản đồ!
-  playerAccuracyCircle = L.circle(userCoords, {
-    radius: 10, // Đúng 10m bán kính thực tế theo yêu cầu
-    color: '#54331B',
-    fillColor: '#FDDB9B',
-    fillOpacity: 0.22,
-    weight: 2,
-    dashArray: '3, 4'
+  // 1. VÒNG NGOÀI (DISCOVERY RADAR RIM) - Chuẩn tỷ lệ mét địa lý thực (600m)
+  playerDiscoveryCircle = L.circle(userCoords, {
+    radius: PLAYER_DISCOVERY_SCAN_RADIUS,
+    color: '#C8923A',
+    weight: 1.5,
+    dashArray: '8, 6',
+    fillColor: '#FBD071',
+    fillOpacity: 0.035,
+    interactive: false
   }).addTo(map);
 
-  // DivIcon với animation quét sóng và vệt quét xoay 360 độ quanh tâm
+  // 2. VÒNG CỐ ĐỊNH BÊN TRONG (PHẠM VI ĐI VÔ ĐỂ QUÉT / CHECK-IN) - Chuẩn tỷ lệ mét (60m)
+  playerAccuracyCircle = L.circle(userCoords, {
+    radius: PLAYER_INTERACTION_REACH_RADIUS,
+    color: '#2E7D32',
+    fillColor: '#81C784',
+    fillOpacity: 0.16,
+    weight: 2,
+    dashArray: '4, 4',
+    interactive: false
+  }).addTo(map);
+
+  // 3. VÒNG QUÉT XOAY 360° & SÓNG PHÁT HIỆN đồng bộ theo mức zoom hiện tại
+  const discoveryPx = getPixelRadius(userCoords[0], userCoords[1], PLAYER_DISCOVERY_SCAN_RADIUS);
+  const reachPx = getPixelRadius(userCoords[0], userCoords[1], PLAYER_INTERACTION_REACH_RADIUS);
+  const sweepDiameter = Math.min(Math.max(discoveryPx * 2, 92), 820);
+  const reachDiameter = Math.min(Math.max(reachPx * 2, 26), Math.round(sweepDiameter * 0.45));
+  const halfSweep = Math.round(sweepDiameter / 2);
+
   const radarIcon = L.divIcon({
     className: 'player-radar-leaflet-icon',
     html: `
-      <div class="player-radar-container">
-        <!-- Vòng sóng lan tỏa 10m -->
+      <div class="player-radar-container" style="--radar-diameter: ${sweepDiameter}px; --reach-diameter: ${reachDiameter}px;">
+        <!-- Vòng lưới hiệu chuẩn đồng tâm -->
+        <div class="radar-grid-rings"></div>
+        <!-- Sóng lan tỏa quét phát hiện di tích -->
         <div class="radar-sweep-wave"></div>
-        <!-- Vệt quét radar xoay tròn 360 độ -->
+        <!-- Vệt quét radar xoay 360 độ làm hiện di tích -->
         <div class="radar-scan-beam"></div>
+        <!-- Vòng cố định bên trong (phạm vi đi vô để quét) -->
+        <div class="radar-inner-reach-ring"></div>
         <!-- Tâm người chơi -->
         <div class="player-core-dot"></div>
       </div>
     `,
-    iconSize: [80, 80],
-    iconAnchor: [40, 40]
+    iconSize: [sweepDiameter, sweepDiameter],
+    iconAnchor: [halfSweep, halfSweep]
   });
 
-  playerRadarMarker = L.marker(userCoords, { icon: radarIcon, zIndexOffset: 1000 }).addTo(map);
-  playerRadarMarker.bindTooltip("<b>Vị trí của bạn</b><br><span style='font-size:0.8rem; color:#674B35;'>Radar quét bán kính thực 10 mét xung quanh</span>", {
-    direction: "top",
-    offset: [0, -20]
-  });
+  // interactive: false để vòng radar lớn KHÔNG bao giờ chắn thao tác bấm vào các Pin bên trong!
+  playerRadarMarker = L.marker(userCoords, {
+    icon: radarIcon,
+    interactive: false,
+    zIndexOffset: 200
+  }).addTo(map);
 
   const gpsCoordsDisplay = document.getElementById("gps-coords-display");
   if (gpsCoordsDisplay) {
     gpsCoordsDisplay.innerText = `${userCoords[0].toFixed(4)}, ${userCoords[1].toFixed(4)}`;
   }
+
+  updateNearestUnscannedPinDisplay();
 }
 
 let activePinCircles = [];
@@ -2971,6 +3084,9 @@ function renderPinsOnMap(filter = "all") {
   if (countAll) {
     countAll.innerText = isManager() ? appState.pins.length : visibleCount;
   }
+
+  // Cập nhật hiển thị Pin gần nhất chưa quét
+  updateNearestUnscannedPinDisplay();
 
   // Cập nhật badge trạng thái vai trò & pin trên thanh điều khiển map
   const mapRoleStatus = document.getElementById("map-role-status-text");
@@ -4323,7 +4439,13 @@ function renderBadgesGrid() {
 function renderProfileStats() {
   const p = appState.profile || {};
   const nameEl = document.getElementById("profile-display-name");
-  if (nameEl) nameEl.innerText = p.name || (currentLang === 'en' ? "Heritage Explorer #001" : "Người Giữ Gìn Di Sản #001");
+  if (nameEl) {
+    const rawName = (p.name || "").trim();
+    const isDefaultName = !rawName || rawName === "Người Giữ Gìn Di Sản #001" || rawName === "Heritage Keeper #001" || rawName === "Heritage Explorer #001";
+    nameEl.innerText = isDefaultName
+      ? (currentLang === 'en' ? "Heritage Keeper #001" : "Người Giữ Gìn Di Sản #001")
+      : rawName;
+  }
 
   const levelTitle = currentLang === 'en' ? 'HERITAGE KNIGHT' : 'KỴ SĨ DI SẢN';
   const levelPrefix = currentLang === 'en' ? 'LEVEL' : 'CẤP';
@@ -4342,10 +4464,35 @@ function renderProfileStats() {
 
   const unlockedStories = (appState.stories || []).filter(s => !s.is_locked).length;
   const unlockedBadges = (appState.badges || []).filter(b => b.is_unlocked).length;
+  const totalPinsCount = (appState.pins || []).length;
   const checkedInCount = (p.checked_in_pins && p.checked_in_pins.length) || 0;
+  const remainingPinsCount = Math.max(0, totalPinsCount - checkedInCount);
+  const pinsPct = totalPinsCount > 0 ? Math.min(100, Math.round((checkedInCount / totalPinsCount) * 100)) : 0;
 
   const statPins = document.getElementById("stat-pins-scanned");
   if (statPins) statPins.innerText = checkedInCount;
+
+  const statPinsTotal = document.getElementById("stat-pins-total");
+  if (statPinsTotal) statPinsTotal.innerText = `/ ${totalPinsCount}`;
+
+  const statPinsBar = document.getElementById("stat-pins-progress-bar");
+  if (statPinsBar) statPinsBar.style.width = `${pinsPct}%`;
+
+  const statPinsPct = document.getElementById("stat-pins-pct");
+  if (statPinsPct) statPinsPct.innerText = `${pinsPct}%`;
+
+  const statPinsRem = document.getElementById("stat-pins-remaining");
+  if (statPinsRem) {
+    if (totalPinsCount === 0) {
+      statPinsRem.innerText = currentLang === 'en' ? 'No sites' : 'Chưa có mốc';
+    } else if (remainingPinsCount === 0) {
+      statPinsRem.innerText = currentLang === 'en' ? '✓ All explored!' : '✓ Đã hoàn thành!';
+    } else {
+      statPinsRem.innerText = currentLang === 'en'
+        ? `${remainingPinsCount} left`
+        : `Còn ${remainingPinsCount} nơi`;
+    }
+  }
 
   const statStories = document.getElementById("stat-stories-unlocked");
   if (statStories) statStories.innerText = unlockedStories;
@@ -4422,19 +4569,38 @@ function openProfileStatModal(statType) {
   if (statType === 'pins') {
     // 1. Địa danh đã check-in
     const checkedPinIds = (appState.profile && appState.profile.checked_in_pins) || [];
+    const totalPins = (appState.pins || []).length;
     const visitedPins = (appState.pins || []).filter(p => checkedPinIds.includes(p.id) || p.isVisited);
+    const remainingPins = Math.max(0, totalPins - visitedPins.length);
+    const exploredPct = totalPins > 0 ? Math.min(100, Math.round((visitedPins.length / totalPins) * 100)) : 0;
 
     if (tagEl) tagEl.innerText = currentLang === 'en' ? '🏛️ CHECKED-IN LOCATIONS' : '🏛️ ĐỊA DANH ĐÃ CHECK-IN';
-    if (titleEl) titleEl.innerText = `${t('stat_modal_pins_title')} (${visitedPins.length})`;
+    if (titleEl) titleEl.innerText = `${t('stat_modal_pins_title')} (${visitedPins.length}/${totalPins})`;
     if (descEl) descEl.innerText = t('stat_modal_pins_desc');
 
+    const progressBannerHtml = `
+      <div class="profile-modal-progress-banner">
+        <div class="profile-modal-progress-header">
+          <span>${currentLang === 'en'
+            ? `Exploration Progress: <b>${visitedPins.length} / ${totalPins}</b> places (<b>${exploredPct}%</b>)`
+            : `Tiến độ khám phá: <b>${visitedPins.length} / ${totalPins}</b> địa điểm (<b>${exploredPct}%</b>)`}</span>
+          <span style="color:var(--accent-camel);">${remainingPins === 0
+            ? (currentLang === 'en' ? '✓ All completed!' : '✓ Đã hoàn thành tất cả!')
+            : (currentLang === 'en' ? `${remainingPins} places remaining` : `Còn ${remainingPins} địa điểm nữa`)}</span>
+        </div>
+        <div class="profile-modal-progress-track">
+          <div class="profile-modal-progress-fill" style="width:${exploredPct}%;"></div>
+        </div>
+      </div>
+    `;
+
     if (visitedPins.length === 0) {
-      listEl.innerHTML = `
-        <div style="text-align:center; padding:36px 16px;">
+      listEl.innerHTML = progressBannerHtml + `
+        <div style="text-align:center; padding:28px 16px;">
           <div style="font-size:2.8rem; margin-bottom:10px;">🗺️</div>
           <strong style="color:var(--primary-dark); font-size:1.05rem;">${t('stat_modal_empty_pins')}</strong>
           <p style="color:var(--text-muted); font-size:0.85rem; margin-top:8px;">
-            ${currentLang === 'en' ? 'Patrol the map and walk near pins to check-in and unlock history!' : 'Hãy bật Radar và di chuyển tới gần các mốc di tích để check-in và mở khóa lịch sử!'}
+            ${currentLang === 'en' ? 'Move around the map and get close to heritage pins to check-in and unlock history!' : 'Hãy bật Radar và di chuyển tới gần các mốc di tích để check-in và mở khóa lịch sử!'}
           </p>
           <button class="btn-primary" style="margin-top:14px;" onclick="closeProfileStatModal(); switchTab('tab-map');">
             🧭 ${t('nav_map')}
@@ -4442,7 +4608,7 @@ function openProfileStatModal(statType) {
         </div>
       `;
     } else {
-      listEl.innerHTML = visitedPins.map(pin => {
+      listEl.innerHTML = progressBannerHtml + visitedPins.map(pin => {
         const pinName = currentLang === 'en' ? (pin.name_en || pin.name) : pin.name;
         const pinDesc = currentLang === 'en' ? (pin.desc_en || pin.desc) : pin.desc;
         const catIcon = getPinCategoryIcon(pin.category);
