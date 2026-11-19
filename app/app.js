@@ -481,6 +481,29 @@ const TRANSLATIONS = {
     role_status_active_mgr: "✓ Đang kích hoạt (Manager)",
     role_status_active_demo: "✓ Đang kích hoạt (Dùng Thử)",
     role_status_active_user: "✓ Đang kích hoạt (GPS Thực)",
+    // Bảng Đăng Nhập & Chào Mừng (Welcome & Login Gate)
+    gate_title: "Hành Trình Di Sản Việt Nam",
+    gate_subtitle: "Chào mừng Nhà thám hiểm! Hãy nhập danh xưng và chọn vai trò để bắt đầu hành trình khám phá.",
+    gate_name_label: "Tên Nhà Thám Hiểm:",
+    gate_name_ph: "Nhập tên của bạn (VD: Minh Khang, Tuệ Nhi, Lê Lợi...)",
+    gate_role_title: "Chọn Vai Trò Tham Gia:",
+    gate_role_mgr_name: "Quản Lý (Manager)",
+    gate_role_mgr_tag: "Nhập Mã Code",
+    gate_role_mgr_desc: "Toàn quyền quản trị nội dung CMS, thấy mọi pin trên bản đồ, bộ chỉnh Radar.",
+    gate_role_mgr_btn: "👑 Nhập Code & Đăng Nhập Quản Lý",
+    gate_role_mgr_btn_active: "✓ Xác Nhận & Vào Quản Lý",
+    gate_role_mgr_code_ph: "Nhập mã code Manager (mặc định: admin)",
+    gate_role_demo_name: "Khách Trải Nghiệm (Demo User)",
+    gate_role_demo_tag: "Vào Chơi Ngay • W-A-S-D",
+    gate_role_demo_desc: "Di chuyển tự do bằng phím W-A-S-D hoặc mũi tên, quét Radar mô phỏng, trải nghiệm game.",
+    gate_role_demo_btn: "🎮 Vào Chơi Ngay (W-A-S-D) ➜",
+    gate_role_user_name: "Người Dùng Thực Tế (User GPS)",
+    gate_role_user_tag: "Yêu Cầu Vị Trí GPS",
+    gate_role_user_desc: "Khám phá thực địa ngoài đời qua GPS điện thoại. Khóa phím W-A-S-D.",
+    gate_role_user_btn: "📍 Cấp Quyền GPS & Vào Chơi ➜",
+    gate_gps_requesting: "📡 Đang yêu cầu quyền vị trí GPS từ trình duyệt...",
+    gate_gps_denied: "⚠️ Trình duyệt chưa được cấp quyền vị trí hoặc thiết bị không có GPS. Bạn có thể cho phép lại trong cài đặt, hoặc chọn 'Khách Trải Nghiệm' để chơi ngay bằng bàn phím.",
+    gate_code_err: "Mã bảo mật Manager không đúng! (Gợi ý: admin)",
     // Snapshots & Checkpoints System
     cms_tab_backups: "💾 Điểm Phục Hồi & Bản Save",
     cms_btn_quick_save: "💾 Tạo Bản Save Ngay",
@@ -971,6 +994,29 @@ const TRANSLATIONS = {
     role_status_active_mgr: "✓ Currently Active (Manager)",
     role_status_active_demo: "✓ Currently Active (Demo User)",
     role_status_active_user: "✓ Currently Active (GPS User)",
+    // Welcome & Login Gate System
+    gate_title: "Vietnam Heritage Expedition",
+    gate_subtitle: "Welcome Explorer! Enter your moniker and select your role to embark on the journey.",
+    gate_name_label: "Explorer Name:",
+    gate_name_ph: "Enter your name (e.g. Leo, Alex, Heritage Keeper...)",
+    gate_role_title: "Select Starting Role:",
+    gate_role_mgr_name: "Manager",
+    gate_role_mgr_tag: "Passcode Required",
+    gate_role_mgr_desc: "Full CMS content management, inspect all map pins, and tune radar parameters.",
+    gate_role_mgr_btn: "👑 Enter Code & Login as Manager",
+    gate_role_mgr_btn_active: "✓ Verify & Enter as Manager",
+    gate_role_mgr_code_ph: "Enter Manager passcode (default: admin)",
+    gate_role_demo_name: "Demo User",
+    gate_role_demo_tag: "Play Instantly • W-A-S-D",
+    gate_role_demo_desc: "Freely explore the map using W-A-S-D or arrow keys, test radar & unlock history.",
+    gate_role_demo_btn: "🎮 Start Playing Now (W-A-S-D) ➜",
+    gate_role_user_name: "Field Explorer (GPS)",
+    gate_role_user_tag: "Requires GPS Access",
+    gate_role_user_desc: "Explore outdoors in real life using smartphone GPS. W-A-S-D movement locked.",
+    gate_role_user_btn: "📍 Grant GPS & Begin Expedition ➜",
+    gate_gps_requesting: "📡 Requesting GPS location permission from browser...",
+    gate_gps_denied: "⚠️ GPS permission denied or unavailable. Please allow location access or choose 'Demo User' to play with keyboard.",
+    gate_code_err: "Incorrect Manager passcode! (Hint: admin)",
     // Snapshots & Checkpoints System
     cms_tab_backups: "💾 Snapshots & Backups",
     cms_btn_quick_save: "💾 Create Save Point",
@@ -1704,8 +1750,39 @@ const INITIAL_DATA = {
 };
 
 // ==========================================================================
-// STATE MANAGEMENT
+// STATE MANAGEMENT & DATA RESET
 // ==========================================================================
+function resetAllPlayerDataToZero(silent = false) {
+  if (!appState.profile) appState.profile = {};
+  appState.profile.level = 0;
+  appState.profile.exp = 0;
+  appState.profile.maxExp = 100;
+  appState.profile.km_traveled = 0;
+  appState.profile.checked_in_pins = [];
+  appState.profile.discovered_pins = [];
+  appState.profile.discovered_figures = [];
+  appState.profile.check_in_history = {};
+  appState.profile.logs = [];
+
+  (appState.badges || []).forEach(b => {
+    b.is_unlocked = false;
+    delete b.unlocked_date;
+  });
+  (appState.stories || []).forEach(s => {
+    s.is_locked = true;
+  });
+  (appState.pins || []).forEach(p => {
+    p.isVisited = false;
+    p.visited = false;
+  });
+
+  saveState();
+  if (!silent) {
+    if (typeof refreshAllViews === "function") refreshAllViews();
+    if (typeof renderProfileStats === "function") renderProfileStats();
+  }
+}
+
 let appState = {
   pins: [],
   figures: [],
@@ -1793,6 +1870,13 @@ function loadState() {
         });
         localStorage.setItem(RESET_FLAG, "done");
         saveState();
+      }
+
+      // Force reset of player progression data to 0 per user requirement
+      const RESET_ZERO_FLAG = "legacy_keepers_reset_zero_v5";
+      if (localStorage.getItem(RESET_ZERO_FLAG) !== "done") {
+        resetAllPlayerDataToZero(true);
+        localStorage.setItem(RESET_ZERO_FLAG, "done");
       }
 
       // One-time automatic migration for realistic radar radii and demo_user role
@@ -1996,6 +2080,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".modal-overlay").forEach(overlay => {
     overlay.addEventListener("click", (e) => {
       if (e.target === overlay) {
+        if (overlay.id === "welcome-login-modal") return; // Bảng đăng nhập không tự tắt khi click ra ngoài
         overlay.classList.remove("active");
         if (overlay.id === "location-modal") selectedPinForModal = null;
       }
@@ -2028,6 +2113,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Tự động kiểm tra file data.json nếu server đang chạy
   reloadFromDataJSON(false);
+
+  // Tự động bật bảng đăng nhập & chọn vai trò khi vào trang web
+  setTimeout(() => {
+    openWelcomeGateModal();
+  }, 180);
 });
 
 // ==========================================================================
@@ -2397,41 +2487,189 @@ function updateRoleUI() {
   renderPinsOnMap();
 }
 
-function openRoleModal() {
-  const modal = document.getElementById("role-modal");
+// ==========================================================================
+// WELCOME & LOGIN GATE MODAL CONTROLLER
+// Bảng đăng nhập xuất hiện khi vào trang web: Nhập tên + Chọn vai trò (Manager / Demo / User GPS)
+// ==========================================================================
+function openWelcomeGateModal() {
+  const modal = document.getElementById("welcome-login-modal");
   if (!modal) return;
   modal.classList.add("active");
 
-  const isMgr = isManager();
-  const isDemo = isDemoUser();
-  const isReal = isRealUser();
+  const nameInput = document.getElementById("gate-player-name-input");
+  if (nameInput) {
+    const rawName = (appState.profile && appState.profile.name) ? appState.profile.name.trim() : "";
+    const isDefault = !rawName || rawName === "Người Giữ Gìn Di Sản #001" || rawName === "Heritage Keeper #001" || rawName === "Nhà Thám Hiểm Di Sản";
+    nameInput.value = isDefault ? "" : rawName;
+    setTimeout(() => {
+      try { nameInput.focus(); } catch (e) {}
+    }, 120);
+  }
 
-  const userCard = document.getElementById("card-role-user");
-  const demoCard = document.getElementById("card-role-demo");
-  const managerCard = document.getElementById("card-role-manager") || document.getElementById("card-role-admin");
-  const currentNameDisplay = document.getElementById("role-current-name-display");
-  const passBox = document.getElementById("manager-passcode-box") || document.getElementById("admin-passcode-box");
-  const passInput = document.getElementById("manager-passcode-input") || document.getElementById("admin-passcode-input");
+  // Reset Manager code section
+  const codeBox = document.getElementById("gate-manager-code-box");
+  const codeInput = document.getElementById("gate-manager-code-input");
+  const codeErr = document.getElementById("gate-manager-err-msg");
+  const btnMgr = document.getElementById("gate-btn-manager");
+  if (codeBox) codeBox.style.display = "none";
+  if (codeInput) codeInput.value = "";
+  if (codeErr) codeErr.style.display = "none";
+  if (btnMgr) btnMgr.innerText = t("gate_role_mgr_btn");
 
-  if (managerCard) managerCard.classList.toggle("active", isMgr);
-  if (demoCard) demoCard.classList.toggle("active", isDemo);
-  if (userCard) userCard.classList.toggle("active", isReal);
+  // Reset GPS Status Box
+  const gpsBox = document.getElementById("gate-gps-status-box");
+  const btnUser = document.getElementById("gate-btn-user");
+  if (gpsBox) {
+    gpsBox.style.display = "none";
+    gpsBox.innerHTML = "";
+    gpsBox.className = "gate-gps-status-box";
+  }
+  if (btnUser) btnUser.disabled = false;
 
-  // Cập nhật text trạng thái nút trên từng thẻ
-  const btnMgr = document.getElementById("btn-activate-admin");
-  const btnDemo = document.getElementById("btn-activate-demo");
-  const btnUser = document.getElementById("btn-activate-user");
-  if (btnMgr) btnMgr.innerText = isMgr ? t("role_status_active_mgr") : t("role_btn_switch_manager");
-  if (btnDemo) btnDemo.innerText = isDemo ? t("role_status_active_demo") : t("role_btn_switch_demo");
-  if (btnUser) btnUser.innerText = isReal ? t("role_status_active_user") : t("role_btn_switch_user");
+  // Highlight currently active role card
+  const cards = document.querySelectorAll(".gate-role-card");
+  cards.forEach(c => c.classList.remove("selected"));
+  if (isManager()) {
+    const cMgr = document.getElementById("gate-card-manager");
+    if (cMgr) cMgr.classList.add("selected");
+  } else if (isRealUser()) {
+    const cUser = document.getElementById("gate-card-user");
+    if (cUser) cUser.classList.add("selected");
+  } else {
+    const cDemo = document.getElementById("gate-card-demo");
+    if (cDemo) cDemo.classList.add("selected");
+  }
+}
 
-  let curTitle = t("role_user");
-  if (isMgr) curTitle = t("role_manager");
-  else if (isDemo) curTitle = t("role_demo_user");
+function closeWelcomeGateModal() {
+  const modal = document.getElementById("welcome-login-modal");
+  if (modal) modal.classList.remove("active");
+}
 
-  if (currentNameDisplay) currentNameDisplay.innerText = curTitle;
-  if (passBox) passBox.style.display = "none";
-  if (passInput) passInput.value = "";
+function handleGateRoleClick(role) {
+  if (role === "manager") {
+    const codeBox = document.getElementById("gate-manager-code-box");
+    const codeInput = document.getElementById("gate-manager-code-input");
+    const btnMgr = document.getElementById("gate-btn-manager");
+    if (!codeBox || codeBox.style.display === "none") {
+      if (codeBox) codeBox.style.display = "block";
+      if (btnMgr) btnMgr.innerText = t("gate_role_mgr_btn_active");
+      if (codeInput) {
+        setTimeout(() => codeInput.focus(), 50);
+      }
+    } else {
+      submitGateLogin("manager");
+    }
+    return;
+  }
+  if (role === "demo_user") {
+    submitGateLogin("demo_user");
+    return;
+  }
+  if (role === "user") {
+    submitGateLogin("user");
+    return;
+  }
+}
+
+function submitGateLogin(role) {
+  const nameInput = document.getElementById("gate-player-name-input");
+  let enteredName = nameInput ? nameInput.value.trim() : "";
+  if (!enteredName) {
+    if (role === "manager") {
+      enteredName = currentLang === "en" ? "Heritage Manager" : "Quản Lý Di Sản";
+    } else if (role === "user") {
+      enteredName = currentLang === "en" ? "Field Explorer" : "Nhà Thám Hiểm Thực Địa";
+    } else {
+      enteredName = currentLang === "en" ? "Heritage Explorer" : "Nhà Thám Hiểm Di Sản";
+    }
+  }
+
+  if (role === "manager") {
+    const codeInput = document.getElementById("gate-manager-code-input");
+    const codeErr = document.getElementById("gate-manager-err-msg");
+    const val = codeInput ? codeInput.value.trim().toLowerCase() : "";
+    if (val === "admin" || val === "manager" || val === "123456" || val === "admin123") {
+      applyGateLoginSuccess(enteredName, "manager");
+    } else {
+      if (codeErr) codeErr.style.display = "block";
+      if (codeInput) {
+        codeInput.focus();
+        codeInput.select();
+      }
+      showToast(t("gate_code_err"));
+    }
+    return;
+  }
+
+  if (role === "demo_user") {
+    applyGateLoginSuccess(enteredName, "demo_user");
+    return;
+  }
+
+  if (role === "user") {
+    const statusBox = document.getElementById("gate-gps-status-box");
+    const btnUser = document.getElementById("gate-btn-user");
+    if (statusBox) {
+      statusBox.style.display = "block";
+      statusBox.className = "gate-gps-status-box loading";
+      statusBox.innerHTML = `<span>${t("gate_gps_requesting")}</span>`;
+    }
+    if (btnUser) btnUser.disabled = true;
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          if (btnUser) btnUser.disabled = false;
+          userCoords = [pos.coords.latitude, pos.coords.longitude];
+          if (typeof updatePlayerRadarMarker === "function") updatePlayerRadarMarker();
+          if (map) map.setView(userCoords, 16);
+          if (typeof renderPinsOnMap === "function") renderPinsOnMap();
+          applyGateLoginSuccess(enteredName, "user", true);
+        },
+        (err) => {
+          if (btnUser) btnUser.disabled = false;
+          if (statusBox) {
+            statusBox.className = "gate-gps-status-box error";
+            statusBox.innerHTML = `<span>${t("gate_gps_denied")}</span>`;
+          }
+          showToast(currentLang === 'en' ? '⚠️ GPS access denied' : '⚠️ Chưa cấp quyền vị trí GPS');
+        },
+        { enableHighAccuracy: true, timeout: 8000 }
+      );
+    } else {
+      if (btnUser) btnUser.disabled = false;
+      if (statusBox) {
+        statusBox.className = "gate-gps-status-box error";
+        statusBox.innerHTML = `<span>${currentLang === 'en' ? 'Device does not support GPS. Please select Demo User.' : 'Thiết bị không hỗ trợ GPS. Vui lòng chọn Khách Trải Nghiệm.'}</span>`;
+      }
+    }
+    return;
+  }
+}
+
+function applyGateLoginSuccess(name, role, gpsActive = false) {
+  if (!appState.profile) appState.profile = {};
+  appState.profile.name = name;
+  currentUserRole = role;
+  localStorage.setItem("legacy_keepers_user_role", role);
+  saveState();
+  updateRoleUI();
+  renderProfileStats();
+  renderPinsOnMap();
+  closeWelcomeGateModal();
+
+  if (role === "manager") {
+    showToast(currentLang === 'en' ? `👑 Welcome Manager ${name}! Full admin mode activated.` : `👑 Chào mừng Quản lý ${name}! Đã kích hoạt toàn quyền hệ thống.`);
+  } else if (role === "user") {
+    showToast(currentLang === 'en' ? `📍 Welcome ${name}! Field GPS expedition mode activated.` : `📍 Chào mừng ${name}! Đã kích hoạt chế độ thám hiểm thực địa GPS.`);
+  } else {
+    showToast(currentLang === 'en' ? `🎮 Welcome ${name}! Use W-A-S-D keys to explore the heritage map.` : `🎮 Chào mừng ${name}! Dùng phím W-A-S-D để di chuyển trên bản đồ.`);
+  }
+}
+
+function openRoleModal() {
+  openWelcomeGateModal();
 }
 
 function closeRoleModal() {

@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Local Leaflet fallback + CDN -->
   <link rel="stylesheet" href="vendor/leaflet.css" />
-  <link rel="stylesheet" href="styles.css?v=20261119_01">
+  <link rel="stylesheet" href="styles.css?v=20261119_03">
 </head>
 <body>
   <!-- Desktop Simulator Control Bar (Active when in Simulator Mode) -->
@@ -1316,20 +1316,6 @@
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
-  <div class="toast-container" id="toast-container"></div>
-
-      </div> <!-- /phone-screen -->
-
-      <!-- Phone Home Indicator for Simulator mode -->
-      <div class="phone-home-indicator" id="phone-home-indicator"></div>
-    </div> <!-- /phone-chassis -->
-  </div> <!-- /phone-wrapper -->
-
-  <!-- Scripts (Local Leaflet for instant offline loading) -->
-  <script src="vendor/leaflet.js"></script>
-  <script src="app.js?v=20261118_14"></script>
-
   <!-- ==================== ROLE SWITCHER MODAL ==================== -->
   <div class="modal-overlay" id="role-modal">
     <div class="modal-box" style="max-width:580px;">
@@ -1427,5 +1413,121 @@
     </div>
   </div>
 
+  <!-- ==================== WELCOME & LOGIN GATE MODAL ==================== -->
+  <div class="modal-overlay" id="welcome-login-modal" style="z-index: 2500;">
+    <div class="modal-box welcome-gate-box">
+      <!-- Decorative Ornaments -->
+      <div class="welcome-gate-ornament top-left" aria-hidden="true"></div>
+      <div class="welcome-gate-ornament top-right" aria-hidden="true"></div>
+
+      <!-- Header with Heritage Seal & Title -->
+      <div class="welcome-gate-header">
+        <div class="welcome-gate-icon-halo">
+          <span class="welcome-gate-icon">🏛️</span>
+        </div>
+        <h2 class="welcome-gate-title" data-i18n="gate_title">Hành Trình Di Sản Việt Nam</h2>
+        <div class="welcome-gate-divider"></div>
+        <p class="welcome-gate-subtitle" data-i18n="gate_subtitle">Chào mừng Nhà thám hiểm! Hãy nhập danh xưng và chọn vai trò để bắt đầu hành trình khám phá.</p>
+      </div>
+
+      <div class="welcome-gate-body">
+        <!-- Field 1: Player Name -->
+        <div class="gate-input-card">
+          <label class="gate-input-label" for="gate-player-name-input">
+            <span class="gate-label-icon">👤</span>
+            <span data-i18n="gate_name_label">Tên Nhà Thám Hiểm:</span>
+          </label>
+          <input type="text" id="gate-player-name-input" class="gate-text-input" 
+                 placeholder="Nhập tên của bạn (VD: Minh Khang, Tuệ Nhi, Lê Lợi...)" 
+                 maxlength="32" autocomplete="off" />
+        </div>
+
+        <!-- Field 2: Select Role Title -->
+        <div class="gate-roles-label">
+          <span class="gate-label-icon">🧭</span>
+          <span data-i18n="gate_role_title">Chọn Vai Trò Tham Gia:</span>
+        </div>
+
+        <!-- 3 Role Options -->
+        <div class="gate-role-cards-grid">
+          <!-- 1. Manager Role -->
+          <div class="gate-role-card" id="gate-card-manager">
+            <div class="gate-role-header">
+              <span class="gate-role-icon">👑</span>
+              <div class="gate-role-info">
+                <strong class="gate-role-name" data-i18n="gate_role_mgr_name">Quản Lý (Manager)</strong>
+                <span class="gate-role-tag tag-manager" data-i18n="gate_role_mgr_tag">Nhập Mã Code</span>
+              </div>
+            </div>
+            <p class="gate-role-desc" data-i18n="gate_role_mgr_desc">Toàn quyền quản trị nội dung CMS, thấy mọi pin trên bản đồ, bộ chỉnh Radar.</p>
+            
+            <!-- Manager Code Input Section -->
+            <div class="gate-manager-code-box" id="gate-manager-code-box" style="display:none;">
+              <label class="gate-code-label" for="gate-manager-code-input" data-i18n="gate_role_mgr_code_ph">Nhập mã code Manager (mặc định: admin):</label>
+              <div class="gate-code-row">
+                <input type="password" id="gate-manager-code-input" class="gate-code-input" 
+                       placeholder="admin" 
+                       onkeydown="if(event.key==='Enter') submitGateLogin('manager')" />
+                <button type="button" class="btn-gate-verify" onclick="submitGateLogin('manager')">✓</button>
+              </div>
+              <div id="gate-manager-err-msg" class="gate-error-text" style="display:none;" data-i18n="gate_code_err">Mã bảo mật Manager không đúng! (Gợi ý: admin)</div>
+            </div>
+
+            <button type="button" class="gate-role-btn btn-gate-manager" id="gate-btn-manager" onclick="handleGateRoleClick('manager')" data-i18n="gate_role_mgr_btn">
+              👑 Nhập Code & Đăng Nhập Quản Lý
+            </button>
+          </div>
+
+          <!-- 2. Demo User Role -->
+          <div class="gate-role-card" id="gate-card-demo">
+            <div class="gate-role-header">
+              <span class="gate-role-icon">🎮</span>
+              <div class="gate-role-info">
+                <strong class="gate-role-name" data-i18n="gate_role_demo_name">Khách Trải Nghiệm (Demo User)</strong>
+                <span class="gate-role-tag tag-demo" data-i18n="gate_role_demo_tag">Vào Chơi Ngay • W-A-S-D</span>
+              </div>
+            </div>
+            <p class="gate-role-desc" data-i18n="gate_role_demo_desc">Di chuyển tự do bằng phím W-A-S-D hoặc mũi tên, quét Radar mô phỏng, trải nghiệm game.</p>
+            <button type="button" class="gate-role-btn btn-gate-demo" id="gate-btn-demo" onclick="submitGateLogin('demo_user')" data-i18n="gate_role_demo_btn">
+              🎮 Vào Chơi Ngay (W-A-S-D) ➜
+            </button>
+          </div>
+
+          <!-- 3. Real User Role (GPS) -->
+          <div class="gate-role-card" id="gate-card-user">
+            <div class="gate-role-header">
+              <span class="gate-role-icon">📍</span>
+              <div class="gate-role-info">
+                <strong class="gate-role-name" data-i18n="gate_role_user_name">Người Dùng Thực Tế (User GPS)</strong>
+                <span class="gate-role-tag tag-user" data-i18n="gate_role_user_tag">Yêu Cầu Vị Trí GPS</span>
+              </div>
+            </div>
+            <p class="gate-role-desc" data-i18n="gate_role_user_desc">Khám phá thực địa ngoài đời qua GPS điện thoại. Khóa phím W-A-S-D.</p>
+
+            <!-- GPS Feedback / Error Notice -->
+            <div id="gate-gps-status-box" class="gate-gps-status-box" style="display:none;"></div>
+
+            <button type="button" class="gate-role-btn btn-gate-user" id="gate-btn-user" onclick="submitGateLogin('user')" data-i18n="gate_role_user_btn">
+              📍 Cấp Quyền GPS & Vào Chơi ➜
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+      </div> <!-- /phone-screen -->
+
+      <!-- Phone Home Indicator for Simulator mode -->
+      <div class="phone-home-indicator" id="phone-home-indicator"></div>
+    </div> <!-- /phone-chassis -->
+  </div> <!-- /phone-wrapper -->
+
+  <!-- Scripts (Local Leaflet for instant offline loading) -->
+  <script src="vendor/leaflet.js"></script>
+  <script src="app.js?v=20261119_03"></script>
 </body>
 </html>

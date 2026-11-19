@@ -5821,3 +5821,392 @@ body.simulator-mode .gps-badge {
   font-size: 2.2rem;
 }
 
+/* ==========================================================================
+   WELCOME & LOGIN GATE MODAL (HERITAGE ORIENTAL ONBOARDING)
+   ========================================================================== */
+.welcome-gate-box {
+  max-width: 540px !important;
+  width: calc(100% - 28px) !important;
+  background: linear-gradient(180deg, #FFFDF8 0%, #FAF3E8 100%) !important;
+  border: 2px solid var(--accent-gold) !important;
+  border-radius: 18px !important;
+  padding: 24px 26px !important;
+  box-shadow: 0 20px 60px rgba(51, 26, 11, 0.45) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  scrollbar-width: thin;
+}
+
+.welcome-gate-ornament {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 42V14C3 7.92487 7.92487 3 14 3H42' stroke='%23CEA884' stroke-width='2'/%3E%3Cpath d='M9 42V16C9 12.134 12.134 9 16 9H42' stroke='%23DDBE9B' stroke-width='1.2'/%3E%3Crect x='6' y='6' width='6' height='6' fill='%23CEA884' opacity='0.7'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.welcome-gate-ornament.top-left {
+  top: 6px;
+  left: 6px;
+}
+
+.welcome-gate-ornament.top-right {
+  top: 6px;
+  right: 6px;
+  transform: scaleX(-1);
+}
+
+.welcome-gate-header {
+  text-align: center;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.welcome-gate-icon-halo {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFFDF8 0%, #F5ECE0 100%);
+  border: 1.5px solid var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(84, 51, 27, 0.1);
+}
+
+.welcome-gate-icon {
+  font-size: 2.0rem;
+  line-height: 1;
+}
+
+.welcome-gate-title {
+  font-size: 1.45rem !important;
+  font-weight: 800 !important;
+  color: var(--primary-dark) !important;
+  line-height: 1.25 !important;
+  margin: 0 0 6px 0 !important;
+  letter-spacing: -0.3px;
+}
+
+.welcome-gate-divider {
+  width: 64px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-gold) 50%, transparent 100%);
+  margin: 8px auto 10px auto;
+  border-radius: 99px;
+}
+
+.welcome-gate-subtitle {
+  font-size: 0.84rem !important;
+  color: var(--text-secondary) !important;
+  line-height: 1.42 !important;
+  margin: 0 auto !important;
+  max-width: 440px;
+}
+
+.gate-input-card {
+  background: #FFF;
+  border: 1.5px solid var(--neutral-300);
+  border-radius: 12px;
+  padding: 11px 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(51, 26, 11, 0.04);
+  transition: all 0.2s ease;
+}
+
+.gate-input-card:focus-within {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.gate-input-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 6px;
+}
+
+.gate-text-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.gate-text-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.88rem;
+}
+
+.gate-roles-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.gate-role-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gate-role-card {
+  background: #FFF;
+  border: 1.5px solid var(--neutral-200);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(51, 26, 11, 0.03);
+}
+
+.gate-role-card:hover {
+  border-color: var(--accent-gold);
+  box-shadow: 0 4px 14px rgba(84, 51, 27, 0.08);
+}
+
+.gate-role-card.selected {
+  border-color: var(--accent-gold);
+  background: #FFFDF8;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+}
+
+.gate-role-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.gate-role-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.gate-role-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.gate-role-name {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.gate-role-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.gate-role-tag.tag-manager {
+  background: rgba(212, 175, 55, 0.2);
+  color: #8A6D1C;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.gate-role-tag.tag-demo {
+  background: rgba(52, 152, 219, 0.15);
+  color: #2980b9;
+  border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.gate-role-tag.tag-user {
+  background: rgba(39, 174, 96, 0.15);
+  color: #27ae60;
+  border: 1px solid rgba(39, 174, 96, 0.3);
+}
+
+.gate-role-desc {
+  font-size: 0.77rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  margin: 0 0 9px 0;
+}
+
+.gate-role-btn {
+  width: 100%;
+  padding: 8px 14px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-gate-manager {
+  background: linear-gradient(135deg, #7A4921 0%, #54331B 100%);
+  color: #FFF;
+}
+.btn-gate-manager:hover {
+  filter: brightness(1.12);
+}
+
+.btn-gate-demo {
+  background: linear-gradient(135deg, #D4AF37 0%, #C89138 100%);
+  color: #331A0B;
+}
+.btn-gate-demo:hover {
+  filter: brightness(1.08);
+}
+
+.btn-gate-user {
+  background: linear-gradient(135deg, #2E7D32 0%, #27AE60 100%);
+  color: #FFF;
+}
+.btn-gate-user:hover {
+  filter: brightness(1.08);
+}
+.btn-gate-user:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.gate-manager-code-box {
+  margin: 8px 0 10px 0;
+  padding: 10px;
+  background: #FBF8F2;
+  border: 1px dashed var(--accent-gold);
+  border-radius: 8px;
+}
+
+.gate-code-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.gate-code-row {
+  display: flex;
+  gap: 6px;
+}
+
+.gate-code-input {
+  flex: 1;
+  padding: 7px 10px;
+  font-size: 0.88rem;
+  border: 1px solid var(--neutral-300);
+  border-radius: 6px;
+  outline: none;
+  background: #FFF;
+  color: var(--primary-dark);
+}
+.gate-code-input:focus {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.btn-gate-verify {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background: var(--accent-gold);
+  color: var(--primary-dark);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-gate-verify:hover {
+  background: #B58A1C;
+  color: #FFF;
+}
+
+.gate-error-text {
+  color: #C0392B;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.gate-gps-status-box {
+  margin: 6px 0 8px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.gate-gps-status-box.loading {
+  background: rgba(52, 152, 219, 0.12);
+  color: #2980b9;
+  border: 1px solid rgba(52, 152, 219, 0.3);
+}
+.gate-gps-status-box.error {
+  background: rgba(231, 76, 60, 0.12);
+  color: #c0392b;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+#welcome-login-modal {
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px !important;
+  z-index: 2500 !important;
+}
+
+body.simulator-mode #welcome-login-modal {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 28px 10px 14px 10px !important;
+}
+
+body.simulator-mode #welcome-login-modal .welcome-gate-box,
+@media (max-width: 480px) {
+  #welcome-login-modal {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px 8px !important;
+  }
+  #welcome-login-modal .welcome-gate-box {
+    max-height: calc(100% - 24px) !important;
+    overflow-y: auto !important;
+    padding: 16px 14px !important;
+    border-radius: 16px !important;
+    margin: auto !important;
+  }
+  .welcome-gate-title {
+    font-size: 1.25rem !important;
+  }
+}
+
+
