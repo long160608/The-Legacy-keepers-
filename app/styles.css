@@ -3883,7 +3883,7 @@ body.simulator-mode .mobile-bottom-nav {
   }
 
   .map-bottom-controls {
-    bottom: calc(58px + env(safe-area-inset-bottom, 0px) + 6px) !important; /* Low and snug above bottom nav */
+    bottom: 10px !important; /* Snug above mobile bottom nav */
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: calc(100% - 24px) !important;
@@ -4499,7 +4499,7 @@ body.simulator-mode {
   }
 
   .map-bottom-controls {
-    bottom: calc(58px + env(safe-area-inset-bottom, 0px) + 6px) !important; /* Low and snug above bottom nav */
+    bottom: 10px !important; /* Snug above mobile bottom nav */
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: calc(100% - 24px) !important;
