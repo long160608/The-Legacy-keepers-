@@ -1072,6 +1072,24 @@ body.simulator-mode .cms-radar-tuner-grid {
   border-color: #5B92A8;
 }
 
+.heritage-pin-container.pin-rarity-rare .heritage-pin-seal {
+  border-color: #9B59B6;
+  background: linear-gradient(135deg, #FAF4FC 0%, #E8DAEF 100%);
+  box-shadow: 0 0 11px rgba(155, 89, 182, 0.6);
+}
+.heritage-pin-container.pin-rarity-rare .concentric-wave {
+  border-color: #9B59B6;
+}
+
+.heritage-pin-container.pin-rarity-epic .heritage-pin-seal {
+  border-color: #D81B60;
+  background: linear-gradient(135deg, #FDE8EF 0%, #F8BBD0 100%);
+  box-shadow: 0 0 12px rgba(216, 27, 96, 0.7);
+}
+.heritage-pin-container.pin-rarity-epic .concentric-wave {
+  border-color: #E91E63;
+}
+
 .heritage-pin-container.pin-rarity-legendary .heritage-pin-seal {
   border-color: #FBD071;
   background: linear-gradient(135deg, #FFF8E7 0%, #FDDB9B 100%);
@@ -2572,6 +2590,16 @@ body.simulator-mode .cms-radar-tuner-grid {
 .modal-header-hero.hero-uncommon {
   background: linear-gradient(135deg, #2D586B 0%, #152B34 100%);
   border-bottom-color: #A8D1E2;
+}
+
+.modal-header-hero.hero-rare {
+  background: linear-gradient(135deg, #512E5F 0%, #280C33 100%);
+  border-bottom-color: #BB8FCE;
+}
+
+.modal-header-hero.hero-epic {
+  background: linear-gradient(135deg, #78281F 0%, #4A0E17 100%);
+  border-bottom-color: #F1948A;
 }
 
 .modal-header-hero.hero-event {

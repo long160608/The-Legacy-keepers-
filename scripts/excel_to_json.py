@@ -4,6 +4,7 @@ from pathlib import Path
 import openpyxl
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
+EXCEL_PATH_TPHCM = PROJECT_DIR / "Data_TPHCM_ChiTiet.xlsx"
 EXCEL_PATH_V3 = PROJECT_DIR / "Du_Lieu_Di_San_Cap_Nhat_v3.xlsx"
 EXCEL_PATH = PROJECT_DIR / "Du_Lieu_Di_San.xlsx"
 DESKTOP_EXCEL_PATH = Path(os.path.expanduser("~/Desktop")) / "Du_Lieu_Di_San.xlsx"
@@ -11,7 +12,7 @@ DATA_JSON_PATH = PROJECT_DIR / "app" / "data.json"
 COPY_JSON_PATH = PROJECT_DIR / "data_output_copy.json"
 
 # Check available Excel files and pick the newest
-candidates = [EXCEL_PATH_V3, EXCEL_PATH, DESKTOP_EXCEL_PATH]
+candidates = [EXCEL_PATH_TPHCM, EXCEL_PATH_V3, EXCEL_PATH, DESKTOP_EXCEL_PATH]
 existing_candidates = [p for p in candidates if p.exists()]
 
 if not existing_candidates:
