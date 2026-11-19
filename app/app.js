@@ -459,10 +459,10 @@ const TRANSLATIONS = {
     role_btn_switch_demo: "🎮 Chuyển sang Dùng Thử",
     role_btn_switch_user: "📍 Chuyển sang Người Dùng Thực",
     role_btn_switch_admin: "👑 Đăng nhập Manager",
-    role_pass_ph: "Nhập mật khẩu Manager (mặc định: admin)",
+    role_pass_ph: "Nhập mật khẩu Quản lý:",
     role_btn_verify: "Xác nhận Manager",
     role_btn_quick_demo: "⚡ Bật Nhanh (Demo 1 chạm)",
-    role_err_pass: "Mật khẩu Manager không chính xác! (Gợi ý: 'admin')",
+    role_err_pass: "Mật khẩu Manager không chính xác!",
     role_toast_manager: "👑 Bạn đã kích hoạt quyền Quản Lý (Manager)!",
     role_toast_demo: "🎮 Bạn đã chuyển sang chế độ Khách Trải Nghiệm (Di chuyển phím W-A-S-D)!",
     role_toast_user: "📍 Bạn đã chuyển sang chế độ Người Dùng Thực Tế (Dùng GPS điện thoại)!",
@@ -492,7 +492,7 @@ const TRANSLATIONS = {
     gate_role_mgr_desc: "Toàn quyền quản trị nội dung CMS, thấy mọi pin trên bản đồ, bộ chỉnh Radar.",
     gate_role_mgr_btn: "👑 Nhập Code & Đăng Nhập Quản Lý",
     gate_role_mgr_btn_active: "✓ Xác Nhận & Vào Quản Lý",
-    gate_role_mgr_code_ph: "Nhập mã code Manager (mặc định: admin)",
+    gate_role_mgr_code_ph: "Nhập mã xác thực Quản lý:",
     gate_role_demo_name: "Khách Trải Nghiệm (Demo User)",
     gate_role_demo_tag: "Vào Chơi Ngay • W-A-S-D",
     gate_role_demo_desc: "Di chuyển tự do bằng phím W-A-S-D hoặc mũi tên, quét Radar mô phỏng, trải nghiệm game.",
@@ -503,7 +503,7 @@ const TRANSLATIONS = {
     gate_role_user_btn: "📍 Cấp Quyền GPS & Vào Chơi ➜",
     gate_gps_requesting: "📡 Đang yêu cầu quyền vị trí GPS từ trình duyệt...",
     gate_gps_denied: "⚠️ Trình duyệt chưa được cấp quyền vị trí hoặc thiết bị không có GPS. Bạn có thể cho phép lại trong cài đặt, hoặc chọn 'Khách Trải Nghiệm' để chơi ngay bằng bàn phím.",
-    gate_code_err: "Mã bảo mật Manager không đúng! (Gợi ý: admin)",
+    gate_code_err: "Mã bảo mật Manager không chính xác!",
     // Snapshots & Checkpoints System
     cms_tab_backups: "💾 Điểm Phục Hồi & Bản Save",
     cms_btn_quick_save: "💾 Tạo Bản Save Ngay",
@@ -972,10 +972,10 @@ const TRANSLATIONS = {
     role_btn_switch_demo: "🎮 Switch to Demo User",
     role_btn_switch_user: "📍 Switch to Field User",
     role_btn_switch_admin: "👑 Activate Manager",
-    role_pass_ph: "Enter Manager passcode (default: admin)",
+    role_pass_ph: "Enter Manager Passcode:",
     role_btn_verify: "Verify Manager",
     role_btn_quick_demo: "⚡ Quick Demo (1-Click)",
-    role_err_pass: "Incorrect Manager passcode! (Hint: 'admin')",
+    role_err_pass: "Incorrect Manager passcode!",
     role_toast_manager: "👑 Switched to Manager role (CMS edit + W-A-S-D movement)!",
     role_toast_demo: "🎮 Switched to Demo User role (W-A-S-D movement enabled, CMS locked)!",
     role_toast_user: "📍 Switched to Field Explorer role (Phone GPS enabled, W-A-S-D locked)!",
@@ -1005,7 +1005,7 @@ const TRANSLATIONS = {
     gate_role_mgr_desc: "Full CMS content management, inspect all map pins, and tune radar parameters.",
     gate_role_mgr_btn: "👑 Enter Code & Login as Manager",
     gate_role_mgr_btn_active: "✓ Verify & Enter as Manager",
-    gate_role_mgr_code_ph: "Enter Manager passcode (default: admin)",
+    gate_role_mgr_code_ph: "Enter Manager Passcode:",
     gate_role_demo_name: "Demo User",
     gate_role_demo_tag: "Play Instantly • W-A-S-D",
     gate_role_demo_desc: "Freely explore the map using W-A-S-D or arrow keys, test radar & unlock history.",
@@ -1016,7 +1016,7 @@ const TRANSLATIONS = {
     gate_role_user_btn: "📍 Grant GPS & Begin Expedition ➜",
     gate_gps_requesting: "📡 Requesting GPS location permission from browser...",
     gate_gps_denied: "⚠️ GPS permission denied or unavailable. Please allow location access or choose 'Demo User' to play with keyboard.",
-    gate_code_err: "Incorrect Manager passcode! (Hint: admin)",
+    gate_code_err: "Incorrect Manager passcode!",
     // Snapshots & Checkpoints System
     cms_tab_backups: "💾 Snapshots & Backups",
     cms_btn_quick_save: "💾 Create Save Point",
@@ -1891,6 +1891,16 @@ function loadState() {
         saveState();
       }
 
+      // One-time auto-clean: prune any unvisited pins outside the radar circle from discovered_pins
+      const RADAR_SYNC_FLAG = "legacy_keepers_radar_sync_v6";
+      if (localStorage.getItem(RADAR_SYNC_FLAG) !== "done") {
+        if (appState.profile) {
+          appState.profile.discovered_pins = [...(appState.profile.checked_in_pins || [])];
+        }
+        localStorage.setItem(RADAR_SYNC_FLAG, "done");
+        saveState();
+      }
+
       // Auto-migrate: Synchronize and enrich badges from INITIAL_DATA
       if (!Array.isArray(appState.badges) || appState.badges.length === 0) {
         appState.badges = JSON.parse(JSON.stringify(INITIAL_DATA.badges));
@@ -2653,6 +2663,11 @@ function applyGateLoginSuccess(name, role, gpsActive = false) {
   appState.profile.name = name;
   currentUserRole = role;
   localStorage.setItem("legacy_keepers_user_role", role);
+  if (role !== "manager") {
+    // Khi người chơi đăng nhập vai trò mới, đặt lại lịch sử phát hiện chỉ giữ pin đã check-in
+    // Các pin ở ngoài vòng quét radar sẽ ẩn hoàn toàn cho đến khi người chơi thực sự di chuyển tới gần
+    appState.profile.discovered_pins = [...(appState.profile.checked_in_pins || [])];
+  }
   saveState();
   updateRoleUI();
   renderProfileStats();
@@ -3097,11 +3112,16 @@ function formatMetersLabel(m) {
 }
 
 function getEffectiveDiscoveryRadius(pin) {
+  // Bán kính phát hiện của radar luôn được đồng bộ tuyệt đối với vòng tròn radar hiển thị trên bản đồ (radarTuning.discoveryRadius)
+  // Đảm bảo không bao giờ có pin nào nằm ngoài vòng radar mà lại hiện ra trên bản đồ khi người chơi chưa di chuyển tới gần!
+  const radarCircleRadius = radarTuning.discoveryRadius || DEFAULT_PLAYER_DISCOVERY_RADIUS;
   if (radarTuning.useCustomOverride) {
-    return radarTuning.discoveryRadius;
+    return radarCircleRadius;
   }
-  const spec = RARITY_SPECS[pin?.rarity] || RARITY_SPECS.common;
-  return pin?.discovery_radius || spec.discoveryRadius || DEFAULT_PLAYER_DISCOVERY_RADIUS;
+  if (pin && typeof pin.discovery_radius === "number" && pin.discovery_radius < radarCircleRadius) {
+    return pin.discovery_radius;
+  }
+  return radarCircleRadius;
 }
 
 function getEffectiveInteractionRadius(pin) {
