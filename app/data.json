@@ -1025,7 +1025,7 @@
       "name": "Khu Di tích Lịch sử Láng Le – Bàu Cò",
       "name_en": "Lang Le – Bau Co Historical Battlefield Site",
       "category": "battlefield",
-      "rarity": "epic",
+      "rarity": "common",
       "lat": 10.7285,
       "lng": 106.5356,
       "discovery_radius": 1500,
@@ -3044,15 +3044,34 @@
     }
   ],
   "profile": {
-    "name": "Người Giữ Gìn Di Sản #001",
+    "name": "long",
     "username": "@heritage_seeker",
     "level": 0,
     "exp": 0,
     "maxExp": 100,
     "km_traveled": 0,
     "checked_in_pins": [],
-    "discovered_figures": [],
+    "discovered_figures": [
+      "fig-tranphu",
+      "fig-haibatrung",
+      "fig-tranquoctuan",
+      "fig-hochiminh",
+      "fig-nguyenvancu",
+      "fig-trinhhoaiduc",
+      "fig-vantiendung",
+      "fig-tranvantra",
+      "fig-trinhcongson",
+      "fig-tranhuutrang"
+    ],
     "check_in_history": {},
-    "logs": []
+    "logs": [],
+    "discovered_pins": [
+      "pin-1794548816329",
+      "pin-1794548888256",
+      "pin-fitomuseum",
+      "pin-caphe-cheo-leo",
+      "pin-hamtranvanlai",
+      "pin-tuongdaithichquangduc"
+    ]
   }
 }

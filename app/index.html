@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Local Leaflet fallback + CDN -->
   <link rel="stylesheet" href="vendor/leaflet.css" />
-  <link rel="stylesheet" href="styles.css?v=20261119_06">
+  <link rel="stylesheet" href="styles.css?v=20261126_01">
 </head>
 <body>
   <!-- Desktop Simulator Control Bar (Active when in Simulator Mode) -->
@@ -150,6 +150,46 @@
           <div class="gps-badge nearest-pin-badge" id="nearest-unscanned-pin-badge">
             <span class="nearest-pin-icon">🎯</span>
             <span><span data-i18n="map_nearest_pin_lbl">Pin gần nhất:</span> <b id="nearest-unscanned-pin-display">--</b></span>
+          </div>
+        </div>
+
+        <!-- Mobile Virtual Movement D-Pad Controller (Chế độ dùng thử / Demo User) -->
+        <div id="mobile-dpad-controller" class="mobile-dpad-controller" aria-label="Bộ điều khiển di chuyển ảo">
+          <!-- Minimized floating pill -->
+          <button type="button" class="dpad-minimized-btn" id="dpad-btn-expand" onclick="toggleDpadMinimize(false)" title="Mở bộ điều khiển di chuyển">
+            <span class="dpad-min-icon">🧭</span>
+            <span class="dpad-min-label" data-i18n="dpad_walk_btn">Di chuyển</span>
+          </button>
+
+          <!-- Full Expanded D-Pad Disc -->
+          <div class="dpad-expanded-box" id="dpad-expanded-box">
+            <div class="dpad-top-bar">
+              <span class="dpad-title-tag">
+                <span class="dpad-dot"></span>
+                <span data-i18n="dpad_title">Di chuyển ảo</span>
+              </span>
+              <button type="button" class="dpad-btn-minimize" onclick="toggleDpadMinimize(true)" title="Thu nhỏ bộ điều khiển">
+                <span>✕</span>
+              </button>
+            </div>
+            <div class="dpad-disc">
+              <button type="button" class="dpad-btn dpad-btn-up" data-dir="up" aria-label="Lên trên / Hướng Bắc" title="Lên trên (Bắc)">
+                <span class="dpad-arrow">▲</span>
+              </button>
+              <button type="button" class="dpad-btn dpad-btn-left" data-dir="left" aria-label="Sang trái / Hướng Tây" title="Sang trái (Tây)">
+                <span class="dpad-arrow">◀</span>
+              </button>
+              <button type="button" class="dpad-btn dpad-btn-center" id="dpad-speed-btn" onclick="cycleDpadSpeed()" aria-label="Đổi tốc độ di chuyển" title="Bấm để đổi tốc độ bước: 1x / 2x / 3x">
+                <span class="dpad-speed-val" id="dpad-speed-val">1x</span>
+                <span class="dpad-speed-lbl" id="dpad-speed-lbl">BƯỚC</span>
+              </button>
+              <button type="button" class="dpad-btn dpad-btn-right" data-dir="right" aria-label="Sang phải / Hướng Đông" title="Sang phải (Đông)">
+                <span class="dpad-arrow">▶</span>
+              </button>
+              <button type="button" class="dpad-btn dpad-btn-down" data-dir="down" aria-label="Xuống dưới / Hướng Nam" title="Xuống dưới (Nam)">
+                <span class="dpad-arrow">▼</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1524,6 +1564,6 @@
 
   <!-- Scripts (Local Leaflet for instant offline loading) -->
   <script src="vendor/leaflet.js"></script>
-  <script src="app.js?v=20261119_06"></script>
+  <script src="app.js?v=20261126_01"></script>
 </body>
 </html>

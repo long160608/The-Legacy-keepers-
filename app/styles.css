@@ -6237,4 +6237,225 @@ body.simulator-mode #welcome-login-modal .welcome-gate-box,
   }
 }
 
+/* ==========================================================================
+   MOBILE VIRTUAL MOVEMENT D-PAD CONTROLLER (DEMO USER / KHÁCH TRẢI NGHIỆM)
+   ========================================================================== */
+.mobile-dpad-controller {
+  position: absolute;
+  bottom: 58px;
+  right: 12px;
+  z-index: 1005;
+  display: none; /* Controlled dynamically by updateMobileDpadVisibility */
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+/* Minimized Floating Button */
+.dpad-minimized-btn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: rgba(38, 22, 13, 0.92);
+  border: 1.5px solid var(--accent-gold, #CEA884);
+  border-radius: 24px;
+  padding: 6px 14px;
+  color: #FBD071;
+  font-size: 0.78rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 10px rgba(206, 168, 132, 0.35);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.dpad-minimized-btn:active {
+  transform: scale(0.92);
+  background: rgba(65, 40, 24, 0.95);
+}
+
+.dpad-min-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.dpad-min-label {
+  letter-spacing: 0.3px;
+}
+
+/* Expanded D-Pad Box */
+.dpad-expanded-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(28, 16, 10, 0.88);
+  border: 1.5px solid var(--accent-gold, #CEA884);
+  border-radius: 18px;
+  padding: 8px 10px 10px 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 12px rgba(206, 168, 132, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.dpad-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 2px 4px 2px;
+}
+
+.dpad-title-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #FBD071;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dpad-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #27AE60;
+  box-shadow: 0 0 6px #2ECC71;
+}
+
+.dpad-btn-minimize {
+  background: transparent;
+  border: none;
+  color: #C2B6A6;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.dpad-btn-minimize:hover,
+.dpad-btn-minimize:active {
+  color: #FFF;
+}
+
+/* Circular D-Pad Disc (3x3 Grid) */
+.dpad-disc {
+  width: 114px;
+  height: 114px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(65, 40, 24, 0.9) 0%, rgba(24, 13, 8, 0.95) 100%);
+  border: 1.5px solid rgba(206, 168, 132, 0.6);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.35);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 3px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.dpad-btn {
+  background: rgba(254, 250, 244, 0.12);
+  border: 1px solid rgba(206, 168, 132, 0.35);
+  color: #FBD071;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.1s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dpad-arrow {
+  font-size: 0.85rem;
+  line-height: 1;
+  color: #FBD071;
+}
+
+.dpad-btn:active,
+.dpad-btn.is-active {
+  background: linear-gradient(135deg, #CEA884 0%, #A87948 100%) !important;
+  border-color: #FBD071 !important;
+  color: #24140A !important;
+  transform: scale(0.92);
+  box-shadow: 0 0 10px rgba(251, 208, 113, 0.8);
+}
+
+.dpad-btn:active .dpad-arrow,
+.dpad-btn.is-active .dpad-arrow {
+  color: #24140A !important;
+}
+
+/* Direction Button Placement in 3x3 Grid */
+.dpad-btn-up {
+  grid-column: 2;
+  grid-row: 1;
+  border-radius: 12px 12px 6px 6px;
+}
+
+.dpad-btn-left {
+  grid-column: 1;
+  grid-row: 2;
+  border-radius: 12px 6px 6px 12px;
+}
+
+.dpad-btn-right {
+  grid-column: 3;
+  grid-row: 2;
+  border-radius: 6px 12px 12px 6px;
+}
+
+.dpad-btn-down {
+  grid-column: 2;
+  grid-row: 3;
+  border-radius: 6px 6px 12px 12px;
+}
+
+/* Center Speed Button */
+.dpad-btn-center {
+  grid-column: 2;
+  grid-row: 2;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(206, 168, 132, 0.35) 0%, rgba(84, 51, 27, 0.6) 100%);
+  border: 1.5px solid #FBD071;
+  box-shadow: 0 0 6px rgba(251, 208, 113, 0.4);
+}
+
+.dpad-speed-val {
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #FFFDF8;
+}
+
+.dpad-speed-lbl {
+  font-size: 0.48rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 1px;
+  color: #FBD071;
+  letter-spacing: 0.3px;
+}
+
+/* Hide on desktop if NOT in simulator mode and screen width > 768px */
+@media (min-width: 769px) {
+  body:not(.simulator-mode) #mobile-dpad-controller {
+    display: none !important;
+  }
+}
+
+
 

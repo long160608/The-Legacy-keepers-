@@ -526,7 +526,16 @@ const TRANSLATIONS = {
     snap_toast_created: "💾 Đã tạo điểm phục hồi thành công!",
     snap_toast_restored: "✓ Đã khôi phục dự án về bản save thành công!",
     snap_empty: "Chưa có bản save nào. Hãy bấm 'Tạo Điểm Phục Hồi Mới' để lưu lại trạng thái dự án hiện tại!",
-    snap_git_guide_title: "🛡️ Hướng Dẫn Tạo Bản Save Mã Nguồn (Tránh Lỗi Phá Hỏng Dự Án)"
+    snap_git_guide_title: "🛡️ Hướng Dẫn Tạo Bản Save Mã Nguồn (Tránh Lỗi Phá Hỏng Dự Án)",
+    dpad_hint: "Di chuyển ảo",
+    dpad_walk_btn: "Di chuyển",
+    dpad_title: "Di chuyển ảo",
+    dpad_speed_toast_1x: "🚶 Tốc độ: 1x (Đi bộ 15m/bước)",
+    dpad_speed_toast_2x: "🏃 Tốc độ: 2x (Chạy 30m/bước)",
+    dpad_speed_toast_3x: "⚡ Tốc độ: 3x (Lướt nhanh 50m/bước)",
+    dpad_speed_lbl_walk: "BƯỚC",
+    dpad_speed_lbl_run: "CHẠY",
+    dpad_speed_lbl_sprint: "LƯỚT"
   },
   en: {
     brand_title: "The Legacy Keepers",
@@ -1043,7 +1052,16 @@ const TRANSLATIONS = {
     snap_toast_created: "💾 Checkpoint created successfully!",
     snap_toast_restored: "✓ Project restored to selected checkpoint successfully!",
     snap_empty: "No snapshots saved yet. Click 'Create New Checkpoint' to save current project state!",
-    snap_git_guide_title: "🛡️ Source Code Backup Guide (Prevent Breaking Project)"
+    snap_git_guide_title: "🛡️ Source Code Backup Guide (Prevent Breaking Project)",
+    dpad_hint: "Virtual Move",
+    dpad_walk_btn: "Move",
+    dpad_title: "Virtual D-Pad",
+    dpad_speed_toast_1x: "🚶 Speed: 1x (Walking 15m/step)",
+    dpad_speed_toast_2x: "🏃 Speed: 2x (Running 30m/step)",
+    dpad_speed_toast_3x: "⚡ Speed: 3x (Sprinting 50m/step)",
+    dpad_speed_lbl_walk: "WALK",
+    dpad_speed_lbl_run: "RUN",
+    dpad_speed_lbl_sprint: "SPRINT"
   }
 };
 
@@ -4710,18 +4728,21 @@ document.addEventListener("DOMContentLoaded", () => {
   initInputSubTabs();
   initLeafletMap();
   initKeyboardMovement();
+  initMobileDpadEvents();
   initFigureStoryRows();
   initBadgeConditionRows();
   setLanguage(currentLang);
   updateRoleUI();
   refreshAllViews();
   initMobileSimulator();
+  updateMobileDpadVisibility();
 
-  // Window resize handler for Leaflet map
+  // Window resize handler for Leaflet map & mobile D-Pad visibility
   window.addEventListener("resize", () => {
     if (map) {
       map.invalidateSize();
     }
+    updateMobileDpadVisibility();
   });
 
   // Đóng modal khi bấm vào nền tối bên ngoài (backdrop overlay)
@@ -4817,6 +4838,9 @@ function switchTab(targetTab) {
     updateRoleUI();
     renderManageTables();
   }
+
+  // Update mobile movement D-Pad visibility on tab change
+  updateMobileDpadVisibility();
 }
 
 function initNavigation() {
@@ -4892,6 +4916,9 @@ function toggleMobileSimulator(forceState) {
       map.invalidateSize();
     }, 280);
   }
+
+  // Update mobile D-Pad visibility when toggling simulator mode
+  updateMobileDpadVisibility();
 }
 
 function toggleDeviceSize() {
@@ -5133,6 +5160,9 @@ function updateRoleUI() {
 
   // 8. Re-render pins on map according to role visibility rules
   renderPinsOnMap();
+
+  // 9. Update mobile movement D-Pad visibility according to active role
+  updateMobileDpadVisibility();
 }
 
 // ==========================================================================
@@ -5444,9 +5474,20 @@ function handleKeyboardMovement(e) {
     return; // Not a movement key
   }
 
-  // 3. Role Guard: If Real User, block movement and show reminder toast to use phone GPS
+  // Prevent arrow keys from scrolling the webpage
+  if (e.key && e.key.startsWith("Arrow")) e.preventDefault();
+
+  // 3. Delegate to unified movement function
+  const stepMultiplier = e.shiftKey ? 2.333 : 1;
+  movePlayerByDirection(deltaLatSign, deltaLngSign, stepMultiplier);
+}
+
+// ==========================================================================
+// UNIFIED PLAYER MOVEMENT LOGIC (SHARED BY WASD KEYBOARD & MOBILE D-PAD)
+// ==========================================================================
+function movePlayerByDirection(deltaLatSign, deltaLngSign, multiplier = 1) {
+  // 1. Role Guard: If Real User GPS mode, block virtual movement and notify
   if (!canMoveWithKeys()) {
-    if (e.key && e.key.startsWith("Arrow")) e.preventDefault();
     const now = Date.now();
     if (now - lastBlockedToastTime > 2500) {
       lastBlockedToastTime = now;
@@ -5455,11 +5496,8 @@ function handleKeyboardMovement(e) {
     return;
   }
 
-  // Prevent arrow keys from scrolling the webpage
-  if (e.key && e.key.startsWith("Arrow")) e.preventDefault();
-
-  // 4. Calculate movement distance (default: 15m per press, 35m if Shift held)
-  const stepMeters = e.shiftKey ? 35 : 15;
+  // 2. Calculate movement distance (default: 15m * multiplier)
+  const stepMeters = 15 * multiplier;
   const metersNorth = deltaLatSign * stepMeters;
   const metersEast = deltaLngSign * stepMeters;
 
@@ -5479,7 +5517,7 @@ function handleKeyboardMovement(e) {
   else if (deltaLatSign < 0) playerHeadingDeg = 180;
   else if (deltaLngSign < 0) playerHeadingDeg = 270;
 
-  // 5. Update marker, core beacon & circles smoothly
+  // 3. Update marker, core beacon & circles smoothly
   if (playerRadarMarker) {
     playerRadarMarker.setLatLng(userCoords);
   } else {
@@ -5517,6 +5555,177 @@ function handleKeyboardMovement(e) {
       isKeyMoving = false;
     });
   }
+}
+
+// ==========================================================================
+// MOBILE VIRTUAL MOVEMENT D-PAD CONTROLLER (DEMO USER / KHÁCH TRẢI NGHIỆM)
+// ==========================================================================
+let dpadSpeedMultiplier = 1; // 1 (15m), 2 (30m), 3.333 (~50m)
+let dpadInterval = null;
+let dpadTimeout = null;
+let activeDpadButton = null;
+let isDpadMinimized = false;
+
+function getDpadDirectionDeltas(dir) {
+  if (dir === "up") return [1, 0];
+  if (dir === "down") return [-1, 0];
+  if (dir === "left") return [0, -1];
+  if (dir === "right") return [0, 1];
+  return [0, 0];
+}
+
+function stepDpad(dir) {
+  const [dLat, dLng] = getDpadDirectionDeltas(dir);
+  if (dLat === 0 && dLng === 0) return;
+  movePlayerByDirection(dLat, dLng, dpadSpeedMultiplier);
+  if (navigator.vibrate) {
+    try { navigator.vibrate(8); } catch(e) {}
+  }
+}
+
+function startDpadMove(btn, dir) {
+  stopDpadMove();
+  activeDpadButton = btn;
+  if (btn) btn.classList.add("is-active");
+
+  stepDpad(dir);
+
+  // Press & hold continuous walking: initial delay 240ms, then step every 110ms
+  dpadTimeout = setTimeout(() => {
+    dpadInterval = setInterval(() => {
+      stepDpad(dir);
+    }, 110);
+  }, 240);
+}
+
+function stopDpadMove() {
+  if (dpadTimeout) {
+    clearTimeout(dpadTimeout);
+    dpadTimeout = null;
+  }
+  if (dpadInterval) {
+    clearInterval(dpadInterval);
+    dpadInterval = null;
+  }
+  if (activeDpadButton) {
+    activeDpadButton.classList.remove("is-active");
+    activeDpadButton = null;
+  }
+}
+
+function cycleDpadSpeed() {
+  if (dpadSpeedMultiplier === 1) {
+    dpadSpeedMultiplier = 2; // 30m
+  } else if (dpadSpeedMultiplier === 2) {
+    dpadSpeedMultiplier = 3.333; // 50m
+  } else {
+    dpadSpeedMultiplier = 1; // 15m
+  }
+
+  const speedValEl = document.getElementById("dpad-speed-val");
+  const speedLblEl = document.getElementById("dpad-speed-lbl");
+
+  if (dpadSpeedMultiplier === 1) {
+    if (speedValEl) speedValEl.innerText = "1x";
+    if (speedLblEl) speedLblEl.innerText = (currentLang === "en") ? "WALK" : "BƯỚC";
+    showToast(t("dpad_speed_toast_1x"));
+  } else if (dpadSpeedMultiplier === 2) {
+    if (speedValEl) speedValEl.innerText = "2x";
+    if (speedLblEl) speedLblEl.innerText = (currentLang === "en") ? "RUN" : "CHẠY";
+    showToast(t("dpad_speed_toast_2x"));
+  } else {
+    if (speedValEl) speedValEl.innerText = "3x";
+    if (speedLblEl) speedLblEl.innerText = (currentLang === "en") ? "SPRINT" : "LƯỚT";
+    showToast(t("dpad_speed_toast_3x"));
+  }
+}
+
+function toggleDpadMinimize(minimize) {
+  isDpadMinimized = !!minimize;
+  const minBtn = document.getElementById("dpad-btn-expand");
+  const expBox = document.getElementById("dpad-expanded-box");
+
+  if (minBtn && expBox) {
+    if (isDpadMinimized) {
+      minBtn.style.display = "flex";
+      expBox.style.display = "none";
+    } else {
+      minBtn.style.display = "none";
+      expBox.style.display = "flex";
+    }
+  }
+  localStorage.setItem("legacy_keepers_dpad_minimized", isDpadMinimized ? "true" : "false");
+}
+
+function updateMobileDpadVisibility() {
+  const dpad = document.getElementById("mobile-dpad-controller");
+  if (!dpad) return;
+
+  // 1. Must be on Map / Radar tab
+  const mapTab = document.getElementById("tab-map");
+  const isMapTab = mapTab && mapTab.classList.contains("active");
+
+  // 2. Must be in a role that allows virtual movement (demo_user or manager)
+  const canMove = canMoveWithKeys();
+
+  // 3. Must be mobile context (screen width <= 768px OR simulator-mode active)
+  const isMobile = window.innerWidth <= 768 || document.body.classList.contains("simulator-mode") || (typeof isSimulatorMode !== "undefined" && isSimulatorMode);
+
+  if (isMapTab && canMove && isMobile) {
+    dpad.style.display = "flex";
+    const savedMin = localStorage.getItem("legacy_keepers_dpad_minimized") === "true";
+    toggleDpadMinimize(savedMin);
+  } else {
+    dpad.style.display = "none";
+    stopDpadMove();
+  }
+}
+
+function initMobileDpadEvents() {
+  const dpad = document.getElementById("mobile-dpad-controller");
+  if (!dpad) return;
+
+  const dirButtons = dpad.querySelectorAll(".dpad-btn[data-dir]");
+  dirButtons.forEach(btn => {
+    const dir = btn.getAttribute("data-dir");
+
+    // Touch events for actual phones
+    btn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      startDpadMove(btn, dir);
+    }, { passive: false });
+
+    btn.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      stopDpadMove();
+    }, { passive: false });
+
+    btn.addEventListener("touchcancel", (e) => {
+      stopDpadMove();
+    });
+
+    // Mouse events for simulator on desktop
+    btn.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      startDpadMove(btn, dir);
+    });
+
+    btn.addEventListener("mouseup", (e) => {
+      stopDpadMove();
+    });
+
+    btn.addEventListener("mouseleave", (e) => {
+      stopDpadMove();
+    });
+  });
+
+  // Global window release guard
+  window.addEventListener("mouseup", stopDpadMove);
+  window.addEventListener("touchend", stopDpadMove);
+  window.addEventListener("touchcancel", stopDpadMove);
 }
 
 function editSelectedPinFromModal() {
