@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Local Leaflet fallback + CDN -->
   <link rel="stylesheet" href="vendor/leaflet.css" />
-  <link rel="stylesheet" href="styles.css?v=20261126_01">
+  <link rel="stylesheet" href="styles.css?v=20261126_02">
 </head>
 <body>
   <!-- Desktop Simulator Control Bar (Active when in Simulator Mode) -->
@@ -161,33 +161,36 @@
             <span class="dpad-min-label" data-i18n="dpad_walk_btn">Di chuyển</span>
           </button>
 
-          <!-- Full Expanded D-Pad Disc -->
+          <!-- Full Expanded D-Pad Disc (Frameless, translucent frosted glass) -->
           <div class="dpad-expanded-box" id="dpad-expanded-box">
-            <div class="dpad-top-bar">
-              <span class="dpad-title-tag">
-                <span class="dpad-dot"></span>
-                <span data-i18n="dpad_title">Di chuyển ảo</span>
-              </span>
-              <button type="button" class="dpad-btn-minimize" onclick="toggleDpadMinimize(true)" title="Thu nhỏ bộ điều khiển">
-                <span>✕</span>
-              </button>
-            </div>
+            <button type="button" class="dpad-btn-minimize" onclick="toggleDpadMinimize(true)" aria-label="Thu nhỏ bộ điều khiển" title="Thu nhỏ">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M2 6h8" />
+              </svg>
+            </button>
             <div class="dpad-disc">
               <button type="button" class="dpad-btn dpad-btn-up" data-dir="up" aria-label="Lên trên / Hướng Bắc" title="Lên trên (Bắc)">
-                <span class="dpad-arrow">▲</span>
+                <svg class="dpad-arrow-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="18 15 12 9 6 15" />
+                </svg>
               </button>
               <button type="button" class="dpad-btn dpad-btn-left" data-dir="left" aria-label="Sang trái / Hướng Tây" title="Sang trái (Tây)">
-                <span class="dpad-arrow">◀</span>
+                <svg class="dpad-arrow-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
               </button>
               <button type="button" class="dpad-btn dpad-btn-center" id="dpad-speed-btn" onclick="cycleDpadSpeed()" aria-label="Đổi tốc độ di chuyển" title="Bấm để đổi tốc độ bước: 1x / 2x / 3x">
                 <span class="dpad-speed-val" id="dpad-speed-val">1x</span>
-                <span class="dpad-speed-lbl" id="dpad-speed-lbl">BƯỚC</span>
               </button>
               <button type="button" class="dpad-btn dpad-btn-right" data-dir="right" aria-label="Sang phải / Hướng Đông" title="Sang phải (Đông)">
-                <span class="dpad-arrow">▶</span>
+                <svg class="dpad-arrow-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
               </button>
               <button type="button" class="dpad-btn dpad-btn-down" data-dir="down" aria-label="Xuống dưới / Hướng Nam" title="Xuống dưới (Nam)">
-                <span class="dpad-arrow">▼</span>
+                <svg class="dpad-arrow-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
               </button>
             </div>
           </div>
@@ -1564,6 +1567,6 @@
 
   <!-- Scripts (Local Leaflet for instant offline loading) -->
   <script src="vendor/leaflet.js"></script>
-  <script src="app.js?v=20261126_01"></script>
+  <script src="app.js?v=20261126_02"></script>
 </body>
 </html>
